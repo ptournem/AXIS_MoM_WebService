@@ -11,6 +11,7 @@ package Dialog;
  */
 public class Comment extends Entity{
    
+    String robin;
     String AuthorName;
     String email;
     String comment;
