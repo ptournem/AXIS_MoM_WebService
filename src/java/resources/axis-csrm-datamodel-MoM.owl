@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY p2 "http://purl.org/dc/elements/1.1/#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY cidoc-crm "http://www.cidoc-crm.org/cidoc-crm/" >
+    <!ENTITY p1 "http://www.cidoc-crm.org/cidoc-crm/#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#" >
+    <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#" >
+    <!ENTITY axis-interopera "http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3#" >
+]>
+
+
+<rdf:RDF xmlns="http://titan.be/axis-csrm/datamodel/ontology/0.3#"
+     xml:base="http://titan.be/axis-csrm/datamodel/ontology/0.3"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:p2="&dc;#"
+     xmlns:p1="&cidoc-crm;#"
+     xmlns:axis-interopera="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:cidoc-crm="http://www.cidoc-crm.org/cidoc-crm/">
+    <owl:Ontology rdf:about="">
+        <dc:contributor rdf:datatype="&xsd;string"
+            >Guillaume Rachez</dc:contributor>
+        <dc:contributor rdf:datatype="&xsd;string">Guy Mar&#233;chal</dc:contributor>
+        <dc:contributor rdf:datatype="&xsd;string">Roger Roberts</dc:contributor>
+        <dc:date rdf:datatype="&xsd;string">2015-11-25</dc:date>
+        <dc:description xml:lang="en"
+            >This ontology defines the main concepts and properties from the AXIS-CSRM 
+    initiative. It introduces the main key concepts Axis Foot Print, Onte, Document, Entity 
+    and their subclasses such as RegOfItem, Concept, Event, Structure, Profile, 
+    LocationOfThing, EmbodimentOfThing. The ontology also 
+    defines key equivalences with CIDOC-CRM model concepts. It also import the 
+    AXIS-CSRM interoperability model.</dc:description>
+        <dc:language xml:lang="en">English</dc:language>
+        <owl:versionIRI rdf:datatype="&xsd;string"></owl:versionIRI>
+        <rdfs:label xml:lang="en"
+            >AXIS-CSRM Data model</rdfs:label>
+        <owl:imports rdf:resource="http://dbpedia.org/ontology/"/>
+        <owl:imports rdf:resource="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3"/>
+        <owl:imports rdf:resource="http://www.cidoc-crm.org/cidoc-crm/"/>
+        <owl:imports rdf:resource="http://purl.org/dc/elements/1.1/"/>
+    </owl:Ontology>
+    <owl:Class rdf:ID="AFP">
+        <dc:description xml:lang="en"
+            >Axis Foot Print is the resource declaring the existence of any resource.</dc:description>
+        <rdfs:label xml:lang="en">AFP</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Agent">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+        <rdfs:label xml:lang="en">Agent</rdfs:label>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="aperture">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#RegOfPhotoItem"/>
+        <rdfs:label xml:lang="en">aperture</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    <owl:Class rdf:ID="ARE">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">ARE</rdfs:label>
+    </owl:Class>
+    <TypeOfThing rdf:ID="ArtefactObject">
+        <rdfs:label xml:lang="en">Artefact object</rdfs:label>
+    </TypeOfThing>
+    <owl:DatatypeProperty rdf:ID="attendance">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#Event"/>
+        <rdfs:label xml:lang="en">attendance</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    <rdf:Description rdf:about="&axis-interopera;ARD">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&axis-interopera;AXE">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&axis-interopera;AXEProfile">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&axis-interopera;IOW">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </rdf:Description>
+    <SemanticModellingTechnology rdf:ID="Axis_Root">
+        <rdfs:label xml:lang="en">AXIS root</rdfs:label>
+    </SemanticModellingTechnology>
+    <owl:Class rdf:ID="CatalogOfItem">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Catalog of item</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="CataloguingTechnology">
+        <rdfs:subClassOf rdf:resource="#SchemeTechnology"/>
+        <rdfs:label xml:lang="en"
+            >Cataloguing technology</rdfs:label>
+    </owl:Class>
+    <rdf:Description rdf:about="&cidoc-crm;E21_Person">
+        <owl:equivalentClass rdf:resource="#RegOfPhysicalPerson"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="&cidoc-crm;E31_Document">
+        <owl:equivalentClass rdf:resource="#Document"/>
+    </rdf:Description>
+    <owl:Class rdf:ID="CMS">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="colorDepth">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#EmbodimentOfGraphicFile"/>
+        <rdfs:label xml:lang="en">color depth</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    <owl:Class rdf:ID="Concept">
+        <rdfs:subClassOf rdf:resource="#Onte"/>
+        <rdfs:label xml:lang="en">Concept</rdfs:label>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="coordinates">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:label xml:lang="en">coordinates</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    <owl:Class rdf:ID="Country">
+        <rdfs:subClassOf rdf:resource="#Place"/>
+        <rdfs:label xml:lang="en">Country</rdfs:label>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="creationDate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#Onte"/>
+        <rdfs:label xml:lang="en">creation date</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
+    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:ID="date">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#Event"/>
+        <rdfs:label xml:lang="en">date</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;date"/>
+    </owl:DatatypeProperty>
+    <owl:FunctionalProperty rdf:ID="declaresTheExistenceOf">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;ObjectProperty"/>
+        <rdfs:domain rdf:resource="#AFP"/>
+        <owl:inverseOf rdf:resource="#isDeclaredBy"/>
+        <rdfs:label xml:lang="en"
+            >declares the existence of</rdfs:label>
+        <rdfs:range rdf:resource="#Onte"/>
+    </owl:FunctionalProperty>
+    <owl:ObjectProperty rdf:ID="displays">
+        <rdfs:domain rdf:resource="#MediaUnifiedZone"/>
+        <owl:inverseOf rdf:resource="#isDisplayedIn"/>
+        <rdfs:label xml:lang="en">displays</rdfs:label>
+        <rdfs:range rdf:resource="#Element"/>
+        <rdfs:subPropertyOf rdf:resource="#tags"/>
+    </owl:ObjectProperty>
+    <owl:Class rdf:ID="Document">
+        <owl:equivalentClass rdf:resource="&cidoc-crm;E31_Document"/>
+        <rdfs:subClassOf rdf:resource="#Onte"/>
+        <rdfs:label xml:lang="en">Document</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="DocumentFragment">
+        <rdfs:subClassOf rdf:resource="#Structure"/>
+        <rdfs:label xml:lang="en"
+            >Document fragment</rdfs:label>
+    </owl:Class>
+    <CataloguingTechnology rdf:ID="DublinCore">
+        <rdfs:label xml:lang="en">Dublin Core</rdfs:label>
+    </CataloguingTechnology>
+    <SemanticModellingTechnology rdf:ID="EBUCore">
+        <rdfs:label xml:lang="en">EBU core</rdfs:label>
+    </SemanticModellingTechnology>
+    <owl:Class rdf:ID="ECMO">
+        <rdfs:subClassOf rdf:resource="#EditorialStructuringObject"/>
+        <rdfs:label xml:lang="en"
+            >Editorial structuring object configuration management</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Edidata">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </owl:Class>
+    <owl:Class rdf:ID="Edito">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </owl:Class>
+    <owl:Class rdf:ID="EditorialStructuringObject">
+        <rdfs:subClassOf rdf:resource="#Structure"/>
+        <rdfs:label xml:lang="en"
+            >Editorial structuring object</rdfs:label>
+    </owl:Class>
+    <CataloguingTechnology rdf:ID="EIDR">
+        <rdfs:label xml:lang="en">EIDR</rdfs:label>
+    </CataloguingTechnology>
+    <owl:Class rdf:ID="Element">
+        <rdfs:subClassOf rdf:resource="#Document"/>
+    </owl:Class>
+    <owl:Class rdf:ID="Embodiment">
+        <rdfs:subClassOf rdf:resource="#Document"/>
+        <rdfs:label xml:lang="en">Embodiment</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="EmbodimentOfAudioFile">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#expresses"/>
+                <owl:allValuesFrom rdf:resource="#RegOfAudioItem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf rdf:resource="#EmbodimentOfFile"/>
+        <rdfs:label xml:lang="en"
+            >Embodiment of audio file</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="EmbodimentOfFile">
+        <rdfs:subClassOf rdf:resource="#Embodiment"/>
+        <rdfs:label xml:lang="en"
+            >Embodiment of file</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="EmbodimentOfGraphicFile">
+        <rdfs:subClassOf rdf:resource="#EmbodimentOfFile"/>
+        <rdfs:label xml:lang="en"
+            >Embodiment of graphic file</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="EmbodimentOfImageFile">
+        <rdfs:subClassOf rdf:resource="#EmbodimentOfGraphicFile"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#expresses"/>
+                <owl:allValuesFrom rdf:resource="#RegOfPhotoItem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en"
+            >Embodiment of image file</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="EmbodimentOfObject">
+        <rdfs:subClassOf rdf:resource="#Embodiment"/>
+    </owl:Class>
+    <owl:Class rdf:ID="EmbodimentOfTextualFile">
+        <rdfs:subClassOf rdf:resource="#EmbodimentOfFile"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#expresses"/>
+                <owl:allValuesFrom rdf:resource="#RegOfTextualItem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en"
+            >Embodiment of textual file</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="EmbodimentOfVideoFile">
+        <rdfs:subClassOf rdf:resource="#EmbodimentOfFile"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#expresses"/>
+                <owl:allValuesFrom rdf:resource="#RegOfVideoItem"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en"
+            >Embodiment of video file</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Entity">
+        <rdfs:subClassOf rdf:resource="#Onte"/>
+        <rdfs:label xml:lang="en">Entity</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="ESOEntity">
+        <rdfs:subClassOf rdf:resource="#EditorialStructuringObject"/>
+        <rdfs:label xml:lang="en"
+            >Editorial structuring object entity</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="ESOStructureInner">
+        <rdfs:subClassOf rdf:resource="#EditorialStructuringObject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#uses"/>
+                <owl:allValuesFrom rdf:resource="#DocumentFragment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en"
+            >Editorial structuring object inner</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="ESOStructureOuter">
+        <rdfs:subClassOf rdf:resource="#EditorialStructuringObject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#uses"/>
+                <owl:allValuesFrom rdf:resource="#ESOEntity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en"
+            >Editorial structuring object outer</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Event">
+        <rdfs:subClassOf rdf:resource="#TemporalConcept"/>
+        <rdfs:label xml:lang="en"
+            >Registration of Event</rdfs:label>
+    </owl:Class>
+    <owl:ObjectProperty rdf:ID="expresses">
+        <rdfs:domain rdf:resource="#Embodiment"/>
+        <owl:inverseOf rdf:resource="#hasExpression"/>
+        <rdfs:label xml:lang="en">expresses</rdfs:label>
+        <rdfs:range rdf:resource="#RegOfItem"/>
+    </owl:ObjectProperty>
+    <owl:Class rdf:ID="Expression">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="fileName">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#EmbodimentOfFile"/>
+        <rdfs:label xml:lang="en">file name</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:ID="fileSize">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#EmbodimentOfFile"/>
+        <rdfs:label xml:lang="en">file size</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    <owl:Class rdf:ID="FinaleStateMachine">
+        <rdfs:subClassOf rdf:resource="#StructuredPrescriptiveDocument"/>
+        <rdfs:label xml:lang="en"
+            >Finale state machine</rdfs:label>
+    </owl:Class>
+    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/homepage"/>
+    <owl:DatatypeProperty rdf:ID="focalDepth">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#RegOfPhotoItem"/>
+        <rdfs:label xml:lang="en">focal depth</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    <SemanticModellingTechnology rdf:ID="Gate">
+        <rdfs:label xml:lang="en">Gate</rdfs:label>
+    </SemanticModellingTechnology>
+    <SemanticModellingTechnology rdf:ID="Geonames">
+        <rdfs:label xml:lang="en">Geonames</rdfs:label>
+    </SemanticModellingTechnology>
+    <owl:Class rdf:ID="GlobalModellingTechnology">
+        <rdfs:subClassOf rdf:resource="#ModellingTechnology"/>
+        <rdfs:label xml:lang="en"
+            >Global modelling technology</rdfs:label>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="graphicHeightResolution">
+        <rdfs:domain rdf:resource="#EmbodimentOfGraphicFile"/>
+        <rdfs:label xml:lang="en"
+            >graphic height resolution</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:ID="graphicPixelsHeight">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#EmbodimentOfGraphicFile"/>
+        <rdfs:label xml:lang="en"
+            >graphic pixels height</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:ID="graphicPixelsWidth">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#EmbodimentOfGraphicFile"/>
+        <rdfs:label xml:lang="en"
+            >graphic pixels width</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    <owl:DatatypeProperty rdf:ID="graphicWidthResolution">
+        <rdfs:domain rdf:resource="#EmbodimentOfGraphicFile"/>
+        <rdfs:label xml:lang="en"
+            >graphic width resolution</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    <owl:ObjectProperty rdf:ID="hasExpression">
+        <rdfs:domain rdf:resource="#RegOfItem"/>
+        <owl:inverseOf rdf:resource="#expresses"/>
+        <rdfs:label xml:lang="en">has expression</rdfs:label>
+        <rdfs:range rdf:resource="#Embodiment"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasFileFormat">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#EmbodimentOfFile"/>
+        <rdfs:label xml:lang="en">has file format</rdfs:label>
+        <rdfs:range rdf:resource="#GlobalModellingTechnology"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasLocation">
+        <rdfs:domain rdf:resource="#Embodiment"/>
+        <owl:inverseOf rdf:resource="#locates"/>
+        <rdfs:label xml:lang="en">has location</rdfs:label>
+        <rdfs:range rdf:resource="#Location"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasParticipant">
+        <rdfs:domain rdf:resource="#RegOfEvent"/>
+        <owl:inverseOf rdf:resource="#participatesInEvent"/>
+        <rdfs:label xml:lang="en">has participant</rdfs:label>
+        <rdfs:range rdf:resource="#RegOfAgent"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasRepresentation">
+        <rdfs:domain rdf:resource="#Concept"/>
+        <owl:inverseOf rdf:resource="#isARepresentationOf"/>
+        <rdfs:label xml:lang="en"
+            >has representation</rdfs:label>
+        <rdfs:range rdf:resource="#Document"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasResponsible">
+        <rdfs:domain rdf:resource="#ARE"/>
+        <owl:inverseOf rdf:resource="#isResponsibleOf"/>
+        <rdfs:label xml:lang="en">has responsible</rdfs:label>
+        <rdfs:range rdf:resource="#RegOfAgent"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasSource">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#AFP"/>
+        <rdfs:label xml:lang="en">has source</rdfs:label>
+        <rdfs:range rdf:resource="&axis-interopera;ARD"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="hasStructuredDescription">
+        <rdfs:domain rdf:resource="#RegOfItem"/>
+        <rdfs:label xml:lang="en"
+            >has structured textual description</rdfs:label>
+        <rdfs:range rdf:resource="#StructuredDocument"/>
+    </owl:ObjectProperty>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Activity"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Actor"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Company"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Department"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Event"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Genre"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Language"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Name"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Person"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Place"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Publisher"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/School"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Software"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Type"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/creator"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/description"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/hasVersion"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/issued"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/modified"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/publisher"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/source"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/title"/>
+    <rdf:Description rdf:about="http://purl.org/vocommons/voaf#Vocabulary"/>
+    <owl:DatatypeProperty rdf:ID="hyperlink">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:label xml:lang="en">hyperlink</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    <owl:Class rdf:ID="IdentificationTechnology">
+        <rdfs:subClassOf rdf:resource="#SchemeTechnology"/>
+        <rdfs:label xml:lang="en"
+            >identification technology</rdfs:label>
+    </owl:Class>
+    <TypeOfThing rdf:ID="IntangibleObject">
+        <rdfs:label xml:lang="en"
+            >Intangible object</rdfs:label>
+    </TypeOfThing>
+    <owl:ObjectProperty rdf:ID="isAbout">
+        <rdfs:domain rdf:resource="#RegOfEvent"/>
+        <owl:inverseOf rdf:resource="#isInEvent"/>
+        <rdfs:label xml:lang="en"
+            >intangible object</rdfs:label>
+        <rdfs:range rdf:resource="#Element"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isAComponentOf">
+        <rdfs:domain rdf:resource="#RegOfEvent"/>
+        <owl:inverseOf rdf:resource="#isComposedOf"/>
+        <rdfs:label xml:lang="en"
+            >is a component of</rdfs:label>
+        <rdfs:range rdf:resource="#RegOfEvent"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isARepresentationOf">
+        <rdfs:domain rdf:resource="#Document"/>
+        <owl:inverseOf rdf:resource="#hasRepresentation"/>
+        <rdfs:label xml:lang="en"
+            >is a representation of</rdfs:label>
+        <rdfs:range rdf:resource="#Concept"/>
+    </owl:ObjectProperty>
+    <IdentificationTechnology rdf:ID="ISB">
+        <rdfs:label xml:lang="en">ISB</rdfs:label>
+    </IdentificationTechnology>
+    <owl:ObjectProperty rdf:ID="isCataloguedAs">
+        <rdfs:domain rdf:resource="#AFP"/>
+        <rdfs:label xml:lang="en"
+            >is catalogued as</rdfs:label>
+        <rdfs:range rdf:resource="#CataloguingTechnology"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isComposedOf">
+        <rdfs:domain rdf:resource="#RegOfEvent"/>
+        <owl:inverseOf rdf:resource="#isAComponentOf"/>
+        <rdfs:label xml:lang="en">is composed of</rdfs:label>
+        <rdfs:range rdf:resource="#RegOfEvent"/>
+    </owl:ObjectProperty>
+    <owl:InverseFunctionalProperty rdf:ID="isDeclaredBy">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;ObjectProperty"/>
+        <rdfs:domain rdf:resource="#Onte"/>
+        <owl:inverseOf rdf:resource="#declaresTheExistenceOf"/>
+        <rdfs:label xml:lang="en">is declared by</rdfs:label>
+        <rdfs:range rdf:resource="#AFP"/>
+    </owl:InverseFunctionalProperty>
+    <owl:ObjectProperty rdf:ID="isDefinedByStructure">
+        <rdfs:domain rdf:resource="#StructuredDocument"/>
+        <rdfs:label xml:lang="en"
+            >is defined by structure</rdfs:label>
+        <rdfs:range rdf:resource="#Structure"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isDisplayedIn">
+        <rdfs:domain rdf:resource="#Element"/>
+        <owl:inverseOf rdf:resource="#displays"/>
+        <rdfs:label xml:lang="en">is displayed in</rdfs:label>
+        <rdfs:range rdf:resource="#MediaUnifiedZone"/>
+        <rdfs:subPropertyOf rdf:resource="#isTaggedBy"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isIdentifiedBy">
+        <rdfs:domain rdf:resource="#AFP"/>
+        <rdfs:label xml:lang="en"
+            >is identified by</rdfs:label>
+        <rdfs:range rdf:resource="#IdentificationTechnology"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isInEvent">
+        <rdfs:domain rdf:resource="#Element"/>
+        <owl:inverseOf rdf:resource="#isAbout"/>
+        <rdfs:label xml:lang="en">is in event</rdfs:label>
+        <rdfs:range rdf:resource="#RegOfEvent"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isLabelledBy">
+        <rdfs:domain rdf:resource="#AFP"/>
+        <rdfs:label xml:lang="en">is labelled by</rdfs:label>
+        <rdfs:range rdf:resource="#LabellingTechnology"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isMentionedIn">
+        <rdfs:domain rdf:resource="#Element"/>
+        <owl:inverseOf rdf:resource="#mentions"/>
+        <rdfs:label xml:lang="en"
+            >is mentionned in</rdfs:label>
+        <rdfs:range rdf:resource="#Document"/>
+        <rdfs:subPropertyOf rdf:resource="#isTaggedBy"/>
+    </owl:ObjectProperty>
+    <owl:DatatypeProperty rdf:ID="ISOspeed">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#RegOfPhotoItem"/>
+        <rdfs:label xml:lang="en">ISO speed</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    <owl:ObjectProperty rdf:ID="isRepresentedBy">
+        <rdfs:domain rdf:resource="#AFP"/>
+        <rdfs:label xml:lang="en"
+            >is represented by</rdfs:label>
+        <rdfs:range rdf:resource="#ModellingTechnology"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isResponsibleOf">
+        <rdfs:domain rdf:resource="#RegOfAgent"/>
+        <owl:inverseOf rdf:resource="#hasResponsible"/>
+        <rdfs:range rdf:resource="#ARE"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isStructuredBy">
+        <rdfs:domain rdf:resource="#StructuredDocument"/>
+        <rdfs:label xml:lang="en"
+            >is structured by</rdfs:label>
+        <rdfs:range rdf:resource="#Structure"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isTaggedBy">
+        <rdfs:domain rdf:resource="#Element"/>
+        <owl:inverseOf rdf:resource="#tags"/>
+        <rdfs:label xml:lang="en">is tagged by</rdfs:label>
+        <rdfs:range rdf:resource="#DocumentFragment"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="isThePlaceOfEvent">
+        <rdfs:domain rdf:resource="#RegOfPlace"/>
+        <owl:inverseOf rdf:resource="#takesPlaceIn"/>
+        <rdfs:label xml:lang="en"
+            >is the place of event</rdfs:label>
+        <rdfs:range rdf:resource="#RegOfEvent"/>
+    </owl:ObjectProperty>
+    <owl:Class rdf:ID="Item">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Item</rdfs:label>
+    </owl:Class>
+    <TypeOfThing rdf:ID="ITGlobal">
+        <rdfs:label xml:lang="en">IT global</rdfs:label>
+    </TypeOfThing>
+    <TypeOfThing rdf:ID="ITSemanticStructured">
+        <rdfs:label xml:lang="en"
+            >IT semantic structured</rdfs:label>
+    </TypeOfThing>
+    <GlobalModellingTechnology rdf:ID="JPEG">
+        <rdfs:label xml:lang="en">JPEG</rdfs:label>
+    </GlobalModellingTechnology>
+    <owl:Class rdf:ID="KnowledgeBase">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Knowledge base</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="LabellingTechnology">
+        <rdfs:subClassOf rdf:resource="#SchemeTechnology"/>
+        <rdfs:label xml:lang="en"
+            >Labelling Technology</rdfs:label>
+    </owl:Class>
+    <owl:ObjectProperty rdf:ID="locates">
+        <rdfs:domain rdf:resource="#Location"/>
+        <owl:inverseOf rdf:resource="#hasLocation"/>
+        <rdfs:label xml:lang="en">locates</rdfs:label>
+        <rdfs:range rdf:resource="#Embodiment"/>
+    </owl:ObjectProperty>
+    <owl:Class rdf:ID="Location">
+        <rdfs:subClassOf rdf:resource="#Document"/>
+        <rdfs:label xml:lang="en">Location</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Machine">
+        <rdfs:subClassOf rdf:resource="#Agent"/>
+        <rdfs:label xml:lang="en">Machine</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Manifestation">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </owl:Class>
+    <owl:Class rdf:ID="MediaFragment">
+        <rdfs:subClassOf rdf:resource="#DocumentFragment"/>
+        <rdfs:label xml:lang="en">Media fragment</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="MediaUnifiedPoint">
+        <rdfs:subClassOf rdf:resource="#MediaFragment"/>
+        <rdfs:label xml:lang="en"
+            >Media unified point</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="MediaUnifiedSegment">
+        <rdfs:subClassOf rdf:resource="#MediaFragment"/>
+        <rdfs:label xml:lang="en"
+            >Media unified segment</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="MediaUnifiedSegmentEnd">
+        <rdfs:subClassOf rdf:resource="#MediaFragment"/>
+        <rdfs:label xml:lang="en"
+            >Media unified segment end</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="MediaUnifiedSegmentStart">
+        <rdfs:subClassOf rdf:resource="#MediaFragment"/>
+        <rdfs:label xml:lang="en"
+            >Media unified segment start</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="MediaUnifiedZone">
+        <rdfs:subClassOf rdf:resource="#MediaFragment"/>
+        <rdfs:label xml:lang="en"
+            >Media unified zone</rdfs:label>
+    </owl:Class>
+    <owl:ObjectProperty rdf:ID="mentions">
+        <rdfs:domain rdf:resource="#Document"/>
+        <owl:inverseOf rdf:resource="#isMentionedIn"/>
+        <rdfs:label xml:lang="en">mentions</rdfs:label>
+        <rdfs:range rdf:resource="#Element"/>
+        <rdfs:subPropertyOf rdf:resource="#tags"/>
+    </owl:ObjectProperty>
+    <owl:Class rdf:ID="ModellingTechnology">
+        <rdfs:subClassOf rdf:resource="#SchemeTechnology"/>
+        <rdfs:label xml:lang="en"
+            >modelling technology</rdfs:label>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="modelName">
+        <rdfs:label xml:lang="en">model name</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    <owl:Class rdf:ID="ModelOfItem">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Model of item</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Moment">
+        <rdfs:subClassOf rdf:resource="#TemporalConcept"/>
+        <rdfs:label xml:lang="en">Moment</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Monument">
+        <rdfs:subClassOf rdf:resource="#Place"/>
+        <rdfs:label xml:lang="en">Monument</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="MoralPerson">
+        <rdfs:subClassOf rdf:resource="#Agent"/>
+        <rdfs:label xml:lang="en">Moral person</rdfs:label>
+    </owl:Class>
+    <GlobalModellingTechnology rdf:ID="MP3">
+        <rdfs:label xml:lang="en">MP3</rdfs:label>
+    </GlobalModellingTechnology>
+    <TypeOfThing rdf:ID="NaturalObject">
+        <rdfs:label xml:lang="en">Natural object</rdfs:label>
+    </TypeOfThing>
+    <owl:ObjectProperty rdf:ID="next">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#DocumentFragment"/>
+        <rdfs:label xml:lang="en">next</rdfs:label>
+        <rdfs:range rdf:resource="#DocumentFragment"/>
+    </owl:ObjectProperty>
+    <TypeOfThing rdf:ID="NonStructuredModellingTechnology">
+        <rdfs:label xml:lang="en"
+            >Non structured modelling technology</rdfs:label>
+    </TypeOfThing>
+    <rdf:Description rdf:about="http://creativecommons.org/ns#license"/>
+    <rdf:Description rdf:about="http://purl.org/vocab/vann/preferredNamespacePrefix"/>
+    <rdf:Description rdf:about="http://purl.org/vocab/vann/preferredNamespaceUri"/>
+    <rdf:Description rdf:about="http://open.vocab.org/terms/defines"/>
+    <rdf:Description rdf:about="http://open.vocab.org/terms/describes"/>
+    <owl:Class rdf:ID="Onte">
+        <rdfs:label xml:lang="en">Onte</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Ontology">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Ontology</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="OperatingBase">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Operating base</rdfs:label>
+    </owl:Class>
+    <rdf:Description rdf:about="&owl;versionIRI"/>
+    <owl:ObjectProperty rdf:ID="owns">
+        <rdfs:domain rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">owns</rdfs:label>
+        <rdfs:range rdf:resource="#Document"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="participatesInEvent">
+        <rdfs:domain rdf:resource="#RegOfAgent"/>
+        <owl:inverseOf rdf:resource="#hasParticipant"/>
+        <rdfs:label xml:lang="en"
+            >participates in event</rdfs:label>
+        <rdfs:range rdf:resource="#RegOfEvent"/>
+    </owl:ObjectProperty>
+    <LabellingTechnology rdf:ID="PDF417">
+        <rdfs:label xml:lang="en">PDF-417</rdfs:label>
+    </LabellingTechnology>
+    <owl:Class rdf:ID="Period">
+        <rdfs:subClassOf rdf:resource="#TemporalConcept"/>
+        <rdfs:label xml:lang="en">Period</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="PhysicalObject">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+        <rdfs:label xml:lang="en">Physical object</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="PhysicalPerson">
+        <rdfs:subClassOf rdf:resource="#Agent"/>
+        <rdfs:label xml:lang="en">Physical person</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Place">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+        <rdfs:label xml:lang="en">Place</rdfs:label>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="position">
+        <rdfs:domain rdf:resource="#MediaFragment"/>
+        <rdfs:label xml:lang="en">position</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    <owl:Class rdf:ID="Profile">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Profile</rdfs:label>
+    </owl:Class>
+    <LabellingTechnology rdf:ID="QRCode">
+        <rdfs:label xml:lang="en">QR code</rdfs:label>
+    </LabellingTechnology>
+    <owl:Class rdf:ID="Register">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Register</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfAgent">
+        <rdfs:subClassOf rdf:resource="#Element"/>
+        <rdfs:label xml:lang="en"
+            >Registration of agent</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfAudioItem">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#hasExpression"/>
+                <owl:allValuesFrom rdf:resource="#EmbodimentOfAudioFile"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf rdf:resource="#RegOfInformationItem"/>
+        <rdfs:label xml:lang="en"
+            >Reg of audio item</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfCountry">
+        <rdfs:subClassOf rdf:resource="#RegOfPlace"/>
+        <rdfs:label xml:lang="en"
+            >Registration of country</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfEvent">
+        <owl:equivalentClass rdf:resource="&cidoc-crm;E5_Event"/>
+        <owl:equivalentClass rdf:resource="http://dbpedia.org/ontology/Event"/>
+        <rdfs:subClassOf rdf:resource="#Element"/>
+        <rdfs:label xml:lang="en"
+            >Registration of Event</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfInformationItem">
+        <rdfs:subClassOf rdf:resource="#RegOfItem"/>
+        <dc:description xml:lang="en"
+            >Registration of an Information Item</dc:description>
+        <rdfs:label xml:lang="en"
+            >Registration of IT-Item</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfItem">
+        <rdfs:subClassOf rdf:resource="#Document"/>
+        <rdfs:label xml:lang="en"
+            >Registration of item</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfMonument">
+        <rdfs:subClassOf rdf:resource="#RegOfPlace"/>
+        <rdfs:label xml:lang="en"
+            >Registration of monument</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfMoralPerson">
+        <rdfs:subClassOf rdf:resource="#RegOfAgent"/>
+        <rdfs:label xml:lang="en"
+            >Registration of moral person</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfObjectItem">
+        <rdfs:subClassOf rdf:resource="#RegOfItem"/>
+        <dc:description xml:lang="en"
+            >Registration of a physical object.</dc:description>
+        <rdfs:label xml:lang="en"
+            >Registration of O-Item</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfPhotoItem">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#hasExpression"/>
+                <owl:allValuesFrom rdf:resource="#EmbodimentOfImageFile"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf rdf:resource="#RegOfInformationItem"/>
+        <rdfs:label xml:lang="en"
+            >Reg of photo item</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfPhysicalPerson">
+        <owl:equivalentClass rdf:resource="&cidoc-crm;E21_Person"/>
+        <owl:equivalentClass rdf:resource="http://dbpedia.org/ontology/Person"/>
+        <rdfs:subClassOf rdf:resource="#RegOfAgent"/>
+        <rdfs:label xml:lang="en"
+            >Reg of Physical person</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfPlace">
+        <owl:equivalentClass rdf:resource="&cidoc-crm;E53_Place"/>
+        <owl:equivalentClass rdf:resource="http://dbpedia.org/ontology/Place"/>
+        <rdfs:subClassOf rdf:resource="#Element"/>
+        <rdfs:label xml:lang="en"
+            >Registration of place</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfSettlement">
+        <rdfs:subClassOf rdf:resource="#RegOfPlace"/>
+        <rdfs:label xml:lang="en"
+            >Registration of settlement</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfTextualItem">
+        <rdfs:subClassOf rdf:resource="#RegOfInformationItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#hasExpression"/>
+                <owl:allValuesFrom rdf:resource="#EmbodimentOfTextualFile"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en"
+            >Reg of textual item</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="RegOfVideoItem">
+        <rdfs:subClassOf rdf:resource="#RegOfInformationItem"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="#hasExpression"/>
+                <owl:allValuesFrom rdf:resource="#EmbodimentOfVideoFile"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label xml:lang="en"
+            >Reg of video item</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="ResolvingTechnology">
+        <rdfs:subClassOf rdf:resource="#SchemeTechnology"/>
+        <rdfs:label xml:lang="en"
+            >Resolving technology</rdfs:label>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="resourceRootUri">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#ARE"/>
+        <rdfs:label xml:lang="en"
+            >resource root uri</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    <owl:Class rdf:ID="Rights">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </owl:Class>
+    <owl:Class rdf:ID="Role">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+        <rdfs:label xml:lang="en">Role</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="SchemeTechnology">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en"
+            >Scheme technology</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="SemanticModellingTechnology">
+        <rdfs:subClassOf rdf:resource="#ModellingTechnology"/>
+        <rdfs:label xml:lang="en"
+            >Semantic modelling technology</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Sentence">
+        <rdfs:subClassOf rdf:resource="#DocumentFragment"/>
+        <rdfs:label xml:lang="en">Sentence</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="Settlement">
+        <rdfs:subClassOf rdf:resource="#Place"/>
+        <rdfs:label xml:lang="en">Settlement</rdfs:label>
+    </owl:Class>
+    <owl:DatatypeProperty rdf:ID="shutterSpeed">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#RegOfPhotoItem"/>
+        <rdfs:label xml:lang="en">shutter speed</rdfs:label>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#note"/>
+    <owl:ObjectProperty rdf:ID="starts">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:domain rdf:resource="#ESOStructureInner"/>
+        <rdfs:label xml:lang="en">starts</rdfs:label>
+        <rdfs:range rdf:resource="#DocumentFragment"/>
+    </owl:ObjectProperty>
+    <owl:Class rdf:ID="Structure">
+        <rdfs:subClassOf rdf:resource="#Document"/>
+        <rdfs:label xml:lang="en">Structure</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="StructuredDocument">
+        <rdfs:subClassOf rdf:resource="#Document"/>
+        <rdfs:label xml:lang="en"
+            >Structured document</rdfs:label>
+    </owl:Class>
+    <TypeOfThing rdf:ID="StructuredModelingTechnology">
+        <rdfs:label rdf:datatype="&xsd;string"
+            >Structured modeling technology</rdfs:label>
+    </TypeOfThing>
+    <owl:Class rdf:ID="StructuredPrescriptiveDocument">
+        <rdfs:subClassOf rdf:resource="#StructuredDocument"/>
+        <rdfs:label xml:lang="en"
+            >Structured prescriptive document</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="StructuredStaticDocument">
+        <rdfs:subClassOf rdf:resource="#StructuredDocument"/>
+        <rdfs:label xml:lang="en"
+            >Structured static document</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="StructuredTextualDocument">
+        <rdfs:subClassOf rdf:resource="#StructuredStaticDocument"/>
+        <rdfs:label xml:lang="en"
+            >Structured Textual document</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="SyncTag">
+        <rdfs:subClassOf rdf:resource="#Structure"/>
+        <rdfs:label xml:lang="en"
+            >Synchronisation tag</rdfs:label>
+    </owl:Class>
+    <owl:ObjectProperty rdf:ID="tags">
+        <rdfs:domain rdf:resource="#DocumentFragment"/>
+        <owl:inverseOf rdf:resource="#isTaggedBy"/>
+        <rdfs:label xml:lang="en">tags</rdfs:label>
+        <rdfs:range rdf:resource="#Element"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="takesPlaceIn">
+        <rdfs:domain rdf:resource="#RegOfEvent"/>
+        <owl:inverseOf rdf:resource="#isThePlaceOfEvent"/>
+        <rdfs:label xml:lang="en">takes place in</rdfs:label>
+        <rdfs:range rdf:resource="#RegOfPlace"/>
+    </owl:ObjectProperty>
+    <owl:Class rdf:ID="Taxonomy">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Taxonomy</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="TemporalConcept">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </owl:Class>
+    <owl:Class rdf:ID="Thema">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+    </owl:Class>
+    <owl:Class rdf:ID="Thesaurus">
+        <rdfs:subClassOf rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">Thesaurus</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="TrackMediaFragment">
+        <rdfs:subClassOf rdf:resource="#MediaFragment"/>
+        <rdfs:label xml:lang="en"
+            >Track media fragment</rdfs:label>
+    </owl:Class>
+    <owl:Class rdf:ID="TypeOfThing">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+        <rdfs:label xml:lang="en">Type of thing</rdfs:label>
+    </owl:Class>
+    <owl:ObjectProperty rdf:ID="typeOfThing">
+        <rdfs:domain rdf:resource="#AFP"/>
+        <rdfs:label xml:lang="en">type of thing</rdfs:label>
+        <rdfs:range rdf:resource="#TypeOfThing"/>
+    </owl:ObjectProperty>
+    <IdentificationTechnology rdf:ID="UMID">
+        <rdfs:label xml:lang="en">UMID</rdfs:label>
+    </IdentificationTechnology>
+    <CataloguingTechnology rdf:ID="URN">
+        <rdfs:label xml:lang="en">URN</rdfs:label>
+    </CataloguingTechnology>
+    <owl:ObjectProperty rdf:ID="uses">
+        <rdfs:domain rdf:resource="#Entity"/>
+        <rdfs:label xml:lang="en">uses</rdfs:label>
+        <rdfs:range rdf:resource="#Onte"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="usesIdentificationSystem">
+        <rdfs:domain rdf:resource="#ARE"/>
+        <rdfs:label xml:lang="en"
+            >uses identification system</rdfs:label>
+        <rdfs:range rdf:resource="#IdentificationTechnology"/>
+    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:ID="usesResolver">
+        <rdfs:domain rdf:resource="#AFP"/>
+        <rdfs:label xml:lang="en">uses resolver</rdfs:label>
+        <rdfs:range rdf:resource="#ResolvingTechnology"/>
+    </owl:ObjectProperty>
+    <IdentificationTechnology rdf:ID="UUID">
+        <rdfs:label xml:lang="en">UUID</rdfs:label>
+    </IdentificationTechnology>
+    <rdf:Description rdf:about="http://www.w3.org/2007/05/powder-s#describedby"/>
+    <owl:Class rdf:ID="Work">
+        <rdfs:subClassOf rdf:resource="#Concept"/>
+        <rdfs:label xml:lang="en">Work</rdfs:label>
+    </owl:Class>
+</rdf:RDF>

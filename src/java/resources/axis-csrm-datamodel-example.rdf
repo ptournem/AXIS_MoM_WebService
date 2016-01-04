@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#" >
+    <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#" >
+    <!ENTITY axis-datamodel "http://titan.be/axis-csrm/datamodel/ontology/0.3#" >
+    <!ENTITY axis-functional "http://titan.be/axis-csrm/functionalmodel/ontology/0.3#" >
+    <!ENTITY axis-interop "http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.1#" >
+]>
+
+
+<rdf:RDF xmlns="http://titan.be/axis-poc2015/"
+     xml:base="http://titan.be/axis-poc2015/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+     xmlns:axis-functional="http://titan.be/axis-csrm/functionalmodel/ontology/0.3#"
+     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+     xmlns:axis-datamodel="http://titan.be/axis-csrm/datamodel/ontology/0.3#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:axis-interop="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.1#">
+    <owl:Ontology rdf:about="">
+        <owl:imports rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3"/>
+        <owl:imports rdf:resource="http://titan.be/axis-csrm/functionalmodel/ontology/0.3"/>
+    </owl:Ontology>
+    <axis-datamodel:SyncTag rdf:about="a9452408-1f9d-48b5-8539-694f14e7975f">
+        <axis-datamodel:isTaggedBy rdf:resource="b77d5b45-9818-42ee-a6a3-07dba4df645e"/>
+        <axis-datamodel:isTaggedBy rdf:resource="d7928598-9fb8-4f8c-86ea-bc5def526cbd"/>
+        <rdfs:label xml:lang="en"
+            >Sync tag for audio MLK speech - segment 1</rdfs:label>
+    </axis-datamodel:SyncTag>
+    <axis-datamodel:ARE rdf:about="AXIS_CSRM_POC2015">
+        <axis-datamodel:creationDate rdf:datatype="&xsd;dateTime"
+            >2015-11-04T16:45:00</axis-datamodel:creationDate>
+        <axis-datamodel:resourceRootUri rdf:datatype="&xsd;string"
+            >http://titan.be/axis-poc2015/</axis-datamodel:resourceRootUri>
+        <axis-datamodel:uses rdf:resource="Profile_AXIS_CSRM"/>
+        <axis-datamodel:usesIdentificationSystem rdf:resource="&axis-datamodel;UUID"/>
+        <rdfs:label xml:lang="fr"
+            >POC d&apos;AXIS-CSRM 2015</rdfs:label>
+    </axis-datamodel:ARE>
+    <axis-datamodel:Taxonomy rdf:about="AXIS_CSRM_Taxonomy">
+        <axis-datamodel:isDeclaredBy rdf:resource="d08d89d1-4765-4a17-b4b6-7bf3c6e8c32c"/>
+        <axis-datamodel:uses rdf:resource="Thesaurus_MoralPersons"/>
+        <axis-datamodel:uses rdf:resource="Thesaurus_RegOfPhysicalPersons"/>
+        <axis-datamodel:uses rdf:resource="Thesaurus_RegOfPlaces"/>
+        <rdfs:label xml:lang="fr"
+            >Taxonomie - AXIS-CSRM POC 2015</rdfs:label>
+    </axis-datamodel:Taxonomy>
+    <axis-datamodel:ESOStructureInner rdf:about="b1c2d8d2-8da1-413b-8975-b809c6b96108">
+        <axis-datamodel:starts rdf:resource="d7928598-9fb8-4f8c-86ea-bc5def526cbd"/>
+        <axis-datamodel:uses rdf:resource="d7928598-9fb8-4f8c-86ea-bc5def526cbd"/>
+        <axis-datamodel:uses rdf:resource="82bebc09-2fc6-4696-8183-bba6ae861c77"/>
+        <rdfs:label xml:lang="en"
+            >Inner Structure of Martin Luther King speech</rdfs:label>
+    </axis-datamodel:ESOStructureInner>
+    <axis-datamodel:RegOfPhysicalPerson rdf:about="b22ec6b2-22e0-4614-9f18-eb17da664c2a">
+        <axis-datamodel:isDeclaredBy rdf:resource="72f45ce6-46ae-411f-9e8d-bf108f1a1b52"/>
+        <axis-datamodel:participatesInEvent rdf:resource="12e9c16f-953a-417d-b4e2-f2bdf1ddab81"/>
+        <axis-functional:performs rdf:resource="ee235070-11c1-40df-a975-68b830deabd5"/>
+        <owl:sameAs rdf:resource="http://dbpedia.org/resource/Martin_Luther_King,_Jr."/>
+        <rdfs:label xml:lang="en"
+            >Martin Luther King</rdfs:label>
+    </axis-datamodel:RegOfPhysicalPerson>
+    <axis-datamodel:MediaUnifiedSegment rdf:about="b77d5b45-9818-42ee-a6a3-07dba4df645e">
+        <axis-datamodel:position rdf:datatype="&xsd;string">00:00 - 02:24</axis-datamodel:position>
+        <axis-datamodel:tags rdf:resource="a9452408-1f9d-48b5-8539-694f14e7975f"/>
+        <rdfs:label xml:lang="en"
+            >Audio MLK speech - segment 1</rdfs:label>
+    </axis-datamodel:MediaUnifiedSegment>
+    <axis-datamodel:EmbodimentOfAudioFile rdf:about="be6aa613-0f6c-4dcd-b87a-e0d42b7ac38b">
+        <axis-datamodel:expresses rdf:resource="8b281ed7-1514-4f29-842c-3a81a3dfd722"/>
+        <axis-datamodel:fileName rdf:datatype="&xsd;string">MLK_speech.bwf</axis-datamodel:fileName>
+        <rdfs:label xml:lang="en"
+            >BWF version of Martin Luther King audio speech</rdfs:label>
+    </axis-datamodel:EmbodimentOfAudioFile>
+    <axis-datamodel:AFP rdf:about="d08d89d1-4765-4a17-b4b6-7bf3c6e8c32c">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="AXIS_CSRM_Taxonomy"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:Location rdf:about="d66dfc4b-fb7a-4510-8d38-a508921b67f1">
+        <axis-datamodel:locates rdf:resource="f836ab44-273d-44bd-a442-35e048000e7a"/>
+    </axis-datamodel:Location>
+    <axis-datamodel:AFP rdf:about="d7795b60-ec1e-44f5-b6b9-718d38d9af42">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="4411063a-fc18-4b53-b19f-06de05028a1d"/>
+        <axis-datamodel:isIdentifiedBy rdf:resource="&axis-datamodel;UUID"/>
+        <axis-datamodel:isRepresentedBy rdf:resource="&axis-datamodel;Axis_Root"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:Sentence rdf:about="d7928598-9fb8-4f8c-86ea-bc5def526cbd">
+        <axis-datamodel:next rdf:resource="82bebc09-2fc6-4696-8183-bba6ae861c77"/>
+        <axis-datamodel:tags rdf:resource="a9452408-1f9d-48b5-8539-694f14e7975f"/>
+        <axis-datamodel:tags rdf:resource="9cb8a307-1614-43cf-a6c6-fc2f0348f1f6"/>
+        <rdfs:label xml:lang="en"
+            >I am happy to join with you today in what will go down in history as the greatest demonstration for freedom in the history of our nation.</rdfs:label>
+    </axis-datamodel:Sentence>
+    <axis-datamodel:Ontology rdf:about="DataModel_Ontology">
+        <rdfs:label xml:lang="fr"
+            >Ontologie AXIS-CSRM Data model</rdfs:label>
+    </axis-datamodel:Ontology>
+    <axis-functional:Speaking rdf:about="ee235070-11c1-40df-a975-68b830deabd5">
+        <axis-datamodel:isAComponentOf rdf:resource="12e9c16f-953a-417d-b4e2-f2bdf1ddab81"/>
+        <axis-datamodel:isARepresentationOf rdf:resource="Event_Martin_Luther_King_speaking_at_Lincoln_Memorial"/>
+        <axis-datamodel:isDeclaredBy rdf:resource="6da5a857-9b4a-4810-a885-a1f48c4225f6"/>
+        <axis-functional:isPerformedBy rdf:resource="b22ec6b2-22e0-4614-9f18-eb17da664c2a"/>
+        <owl:sameAs rdf:resource="http://dbpedia.org/resource/I_Have_a_Dream"/>
+        <rdfs:label xml:lang="en"
+            >Martin Luther King speaking at Lincoln Memorial</rdfs:label>
+    </axis-functional:Speaking>
+    <axis-datamodel:Entity rdf:about="Entity_ReactionsToMLKSpeech">
+        <rdfs:label xml:lang="en"
+            >Reactions to MLK speech</rdfs:label>
+    </axis-datamodel:Entity>
+    <axis-datamodel:Entity rdf:about="Entity_TheMarchForJobsAndFreedom">
+        <axis-datamodel:uses rdf:resource="ee235070-11c1-40df-a975-68b830deabd5"/>
+        <axis-datamodel:uses rdf:resource="Entity_ReactionsToMLKSpeech"/>
+        <axis-datamodel:uses rdf:resource="12e9c16f-953a-417d-b4e2-f2bdf1ddab81"/>
+        <rdfs:label xml:lang="en"
+            >The March for Jobs and Freedom entity</rdfs:label>
+    </axis-datamodel:Entity>
+    <axis-datamodel:Entity rdf:about="Entity_TheMuseumObjects">
+        <rdfs:label xml:lang="en"
+            >The museum objects</rdfs:label>
+    </axis-datamodel:Entity>
+    <axis-datamodel:Event rdf:about="Event_March_on_Washington_for_freedom_and_jobs">
+        <axis-datamodel:hasRepresentation rdf:resource="12e9c16f-953a-417d-b4e2-f2bdf1ddab81"/>
+        <axis-datamodel:hasRepresentation rdf:resource="4411063a-fc18-4b53-b19f-06de05028a1d"/>
+    </axis-datamodel:Event>
+    <axis-datamodel:Event rdf:about="Event_Martin_Luther_King_speaking_at_Lincoln_Memorial">
+        <axis-datamodel:hasRepresentation rdf:resource="ee235070-11c1-40df-a975-68b830deabd5"/>
+		<axis-datamodel:hasRepresentation rdf:resource="29729f91-1fc7-4a6e-8bdb-938f6bb2fb88"/>
+        <axis-datamodel:hasRepresentation rdf:resource="4411063a-fc18-4b53-b19f-06de05028a1d"/>
+        <axis-datamodel:hasRepresentation rdf:resource="7f8e2e23-bfc4-4b0d-bbc2-888e2195be2b"/>
+        <axis-datamodel:hasRepresentation rdf:resource="8b281ed7-1514-4f29-842c-3a81a3dfd722"/>
+    </axis-datamodel:Event>
+    <axis-datamodel:EmbodimentOfImageFile rdf:about="f836ab44-273d-44bd-a442-35e048000e7a">
+        <axis-datamodel:colorDepth rdf:datatype="&xsd;int">24</axis-datamodel:colorDepth>
+        <axis-datamodel:expresses rdf:resource="4411063a-fc18-4b53-b19f-06de05028a1d"/>
+        <axis-datamodel:fileName rdf:datatype="&xsd;string">photo_MLK.jpg</axis-datamodel:fileName>
+        <axis-datamodel:fileSize rdf:datatype="&xsd;float">1000.0</axis-datamodel:fileSize>
+        <axis-datamodel:graphicPixelsHeight rdf:datatype="&xsd;int">720</axis-datamodel:graphicPixelsHeight>
+        <axis-datamodel:graphicPixelsWidth rdf:datatype="&xsd;int">1280</axis-datamodel:graphicPixelsWidth>
+        <axis-datamodel:hasLocation rdf:resource="d66dfc4b-fb7a-4510-8d38-a508921b67f1"/>
+        <axis-datamodel:isDeclaredBy rdf:resource="6c5553a6-6c10-4247-ac04-146b69988c9c"/>
+    </axis-datamodel:EmbodimentOfImageFile>
+    <rdf:Description rdf:about="http://xmlns.com/foaf/0.1/homepage"/>
+    <axis-datamodel:Ontology rdf:about="FunctionalModel_Ontology">
+        <rdfs:label xml:lang="fr"
+            >Ontologie AXIS-CSRM Functional model</rdfs:label>
+    </axis-datamodel:Ontology>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Activity"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Actor"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Company"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Department"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Event"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Genre"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Language"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Name"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Person"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Place"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Publisher"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/School"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Software"/>
+    <rdf:Description rdf:about="http://dbpedia.org/ontology/Type"/>
+    <rdf:Description rdf:about="http://dbpedia.org/resource/I_Have_a_Dream"/>
+    <rdf:Description rdf:about="http://dbpedia.org/resource/March_on_Washington_for_Jobs_and_Freedom"/>
+    <rdf:Description rdf:about="http://dbpedia.org/resource/Martin_Luther_King,_Jr."/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/creator"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/description"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/hasVersion"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/issued"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/modified"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/publisher"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/source"/>
+    <rdf:Description rdf:about="http://purl.org/dc/terms/title"/>
+    <rdf:Description rdf:about="http://purl.org/vocommons/voaf#Vocabulary"/>
+    <axis-datamodel:AFP rdf:about="02cf285f-5f7b-4d0d-82b1-47239403ebaa">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="2d8d0429-20e0-4dd3-baf5-30647a66012d"/>
+        <axis-datamodel:hasSource rdf:resource="31e343bb-30b7-4d96-8770-a21d801a9f56"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:RegOfEvent rdf:about="12e9c16f-953a-417d-b4e2-f2bdf1ddab81">
+        <axis-datamodel:attendance rdf:datatype="&xsd;int">250000</axis-datamodel:attendance>
+        <axis-datamodel:date rdf:datatype="&xsd;date">1963-08-28</axis-datamodel:date>
+        <axis-datamodel:hasParticipant rdf:resource="b22ec6b2-22e0-4614-9f18-eb17da664c2a"/>
+        <axis-datamodel:hasStructuredDescription rdf:resource="29729f91-1fc7-4a6e-8bdb-938f6bb2fb88"/>
+        <axis-datamodel:isAbout rdf:resource="9cb8a307-1614-43cf-a6c6-fc2f0348f1f6"/>
+        <axis-datamodel:isARepresentationOf rdf:resource="Event_March_on_Washington_for_freedom_and_jobs"/>
+        <axis-datamodel:isComposedOf rdf:resource="ee235070-11c1-40df-a975-68b830deabd5"/>
+        <axis-datamodel:isDeclaredBy rdf:resource="4b90a9aa-32ff-4834-bf72-8cb085b87c14"/>
+        <axis-datamodel:takesPlaceIn rdf:resource="2d8d0429-20e0-4dd3-baf5-30647a66012d"/>
+        <owl:sameAs rdf:resource="http://dbpedia.org/resource/March_on_Washington_for_Jobs_and_Freedom"/>
+        <rdfs:label xml:lang="en"
+            >March on Washington for freedom and jobs</rdfs:label>
+    </axis-datamodel:RegOfEvent>
+    <axis-datamodel:Settlement rdf:about="2234fc99-6a7a-4447-8125-28e5e9c232cc">
+        <axis-datamodel:isDeclaredBy rdf:resource="711d31b3-bdbf-4c72-b5b7-53cb9c761716"/>
+        <rdfs:label xml:lang="en">Washington DC</rdfs:label>
+    </axis-datamodel:Settlement>
+    <axis-datamodel:EmbodimentOfTextualFile rdf:about="274d82d2-e32b-47bd-b07b-656c584b675d">
+        <axis-datamodel:expresses rdf:resource="7f8e2e23-bfc4-4b0d-bbc2-888e2195be2b"/>
+        <axis-datamodel:fileName rdf:datatype="&xsd;string"
+            >MLK_speech_text_facsimile.pdf</axis-datamodel:fileName>
+        <rdfs:label xml:lang="en"
+            >Facsimile of Martin Luther King speech in PDF</rdfs:label>
+    </axis-datamodel:EmbodimentOfTextualFile>
+    <axis-datamodel:StructuredTextualDocument rdf:about="29729f91-1fc7-4a6e-8bdb-938f6bb2fb88">
+        <axis-datamodel:isARepresentationOf rdf:resource="ee235070-11c1-40df-a975-68b830deabd5"/>
+        <axis-datamodel:isStructuredBy rdf:resource="b1c2d8d2-8da1-413b-8975-b809c6b96108"/>
+        <rdfs:label xml:lang="en"
+            >GATE representation of Martin Luther King speech</rdfs:label>
+    </axis-datamodel:StructuredTextualDocument>
+    <axis-datamodel:ESOStructureInner rdf:about="29949f95-b9c8-44ea-9b20-9a4e34f3aa23">
+        <axis-datamodel:uses rdf:resource="b77d5b45-9818-42ee-a6a3-07dba4df645e"/>
+        <rdfs:label xml:lang="en"
+            >Audio structure of MLK speech</rdfs:label>
+    </axis-datamodel:ESOStructureInner>
+    <axis-datamodel:Monument rdf:about="2d8d0429-20e0-4dd3-baf5-30647a66012d">
+        <axis-datamodel:isDeclaredBy rdf:resource="02cf285f-5f7b-4d0d-82b1-47239403ebaa"/>
+        <axis-datamodel:isThePlaceOfEvent rdf:resource="12e9c16f-953a-417d-b4e2-f2bdf1ddab81"/>
+        <rdfs:label xml:lang="en"
+            >Lincoln Memorial</rdfs:label>
+    </axis-datamodel:Monument>
+    <axis-interop:ClientARD rdf:about="31e343bb-30b7-4d96-8770-a21d801a9f56">
+        <rdfs:label rdf:datatype="&xsd;string"
+            >Titemaison Production</rdfs:label>
+    </axis-interop:ClientARD>
+    <axis-datamodel:RegOfPhotoItem rdf:about="4411063a-fc18-4b53-b19f-06de05028a1d">
+        <axis-datamodel:aperture rdf:datatype="&xsd;float">3.2</axis-datamodel:aperture>
+        <axis-datamodel:focalDepth rdf:datatype="&xsd;int">5</axis-datamodel:focalDepth>
+        <axis-datamodel:hasExpression rdf:resource="f836ab44-273d-44bd-a442-35e048000e7a"/>
+        <axis-datamodel:isARepresentationOf rdf:resource="ee235070-11c1-40df-a975-68b830deabd5"/>
+        <axis-datamodel:isARepresentationOf rdf:resource="Event_March_on_Washington_for_freedom_and_jobs"/>
+        <axis-datamodel:isARepresentationOf rdf:resource="12e9c16f-953a-417d-b4e2-f2bdf1ddab81"/>
+        <axis-datamodel:isDeclaredBy rdf:resource="d7795b60-ec1e-44f5-b6b9-718d38d9af42"/>
+        <axis-datamodel:ISOspeed rdf:datatype="&xsd;int">640</axis-datamodel:ISOspeed>
+        <axis-datamodel:shutterSpeed rdf:datatype="&xsd;float">0.02</axis-datamodel:shutterSpeed>
+        <rdfs:label xml:lang="en"
+            >Photo of Martin Luther King during his I have a dream speech</rdfs:label>
+    </axis-datamodel:RegOfPhotoItem>
+    <axis-datamodel:AFP rdf:about="4b90a9aa-32ff-4834-bf72-8cb085b87c14">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="12e9c16f-953a-417d-b4e2-f2bdf1ddab81"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:AFP rdf:about="5c555612-ab04-486f-9b1e-b58046d5a802">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="9cb8a307-1614-43cf-a6c6-fc2f0348f1f6"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:EmbodimentOfTextualFile rdf:about="5e622127-4588-4433-b183-77c5579f79ee">
+        <axis-datamodel:expresses rdf:resource="7f8e2e23-bfc4-4b0d-bbc2-888e2195be2b"/>
+        <axis-datamodel:fileName rdf:datatype="&xsd;string"
+            >MLK_speech_text_transcription.pdf</axis-datamodel:fileName>
+        <rdfs:label xml:lang="en"
+            >Transcription of the Martin Luther King speech in english</rdfs:label>
+    </axis-datamodel:EmbodimentOfTextualFile>
+    <axis-datamodel:EmbodimentOfTextualFile rdf:about="5e990b28-2937-48c5-9a89-f5184e082668">
+        <axis-datamodel:expresses rdf:resource="7f8e2e23-bfc4-4b0d-bbc2-888e2195be2b"/>
+        <axis-datamodel:fileName rdf:datatype="&xsd;string"
+            >MLK_speech_transcription_french.pdf</axis-datamodel:fileName>
+        <rdfs:label xml:lang="en"
+            >French version of the transcription of Martin Luther King speech</rdfs:label>
+    </axis-datamodel:EmbodimentOfTextualFile>
+    <axis-datamodel:StructuredDocument rdf:about="6130cf87-4e78-4df6-bc8f-85df2fa99a03">
+        <axis-datamodel:isDefinedByStructure rdf:resource="29949f95-b9c8-44ea-9b20-9a4e34f3aa23"/>
+        <rdfs:label xml:lang="en"
+            >Audio structure of MLK speech</rdfs:label>
+    </axis-datamodel:StructuredDocument>
+    <axis-datamodel:AFP rdf:about="641c80c5-6c17-40a1-b41f-473e7f4e82a7">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="854d2d73-9576-42a1-9c01-e5f5ed2443ae"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:AFP rdf:about="6c5553a6-6c10-4247-ac04-146b69988c9c">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="f836ab44-273d-44bd-a442-35e048000e7a"/>
+        <axis-datamodel:isIdentifiedBy rdf:resource="&axis-datamodel;UUID"/>
+        <axis-datamodel:isRepresentedBy rdf:resource="&axis-datamodel;JPEG"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:AFP rdf:about="6da5a857-9b4a-4810-a885-a1f48c4225f6">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="ee235070-11c1-40df-a975-68b830deabd5"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:AFP rdf:about="711d31b3-bdbf-4c72-b5b7-53cb9c761716">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="2234fc99-6a7a-4447-8125-28e5e9c232cc"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:AFP rdf:about="72f45ce6-46ae-411f-9e8d-bf108f1a1b52">
+        <axis-datamodel:declaresTheExistenceOf rdf:resource="b22ec6b2-22e0-4614-9f18-eb17da664c2a"/>
+    </axis-datamodel:AFP>
+    <axis-datamodel:RegOfTextualItem rdf:about="7f8e2e23-bfc4-4b0d-bbc2-888e2195be2b">
+        <axis-datamodel:hasExpression rdf:resource="274d82d2-e32b-47bd-b07b-656c584b675d"/>
+        <axis-datamodel:hasExpression rdf:resource="5e622127-4588-4433-b183-77c5579f79ee"/>
+        <axis-datamodel:hasExpression rdf:resource="5e990b28-2937-48c5-9a89-f5184e082668"/>
+        <axis-datamodel:isARepresentationOf rdf:resource="ee235070-11c1-40df-a975-68b830deabd5"/>
+        <rdfs:label xml:lang="en"
+            >Textual speech read by Martin Luther King</rdfs:label>
+    </axis-datamodel:RegOfTextualItem>
+    <axis-datamodel:Sentence rdf:about="82bebc09-2fc6-4696-8183-bba6ae861c77">
+        <rdfs:label xml:lang="en"
+            >Five score years ago, a great American, in whose symbolic shadow we stand today, signed the Emancipation Proclamation.</rdfs:label>
+    </axis-datamodel:Sentence>
+    <axis-datamodel:RegOfPhysicalPerson rdf:about="854d2d73-9576-42a1-9c01-e5f5ed2443ae">
+        <axis-datamodel:isDeclaredBy rdf:resource="641c80c5-6c17-40a1-b41f-473e7f4e82a7"/>
+        <rdfs:label xml:lang="en">Abraham Lincoln</rdfs:label>
+    </axis-datamodel:RegOfPhysicalPerson>
+    <axis-datamodel:RegOfAudioItem rdf:about="8b281ed7-1514-4f29-842c-3a81a3dfd722">
+        <axis-datamodel:hasExpression rdf:resource="be6aa613-0f6c-4dcd-b87a-e0d42b7ac38b"/>
+        <axis-datamodel:hasExpression rdf:resource="9b20aada-1557-4704-9c6a-96785ed8a2be"/>
+        <axis-datamodel:hasStructuredDescription rdf:resource="6130cf87-4e78-4df6-bc8f-85df2fa99a03"/>
+        <axis-datamodel:isARepresentationOf rdf:resource="ee235070-11c1-40df-a975-68b830deabd5"/>
+        <rdfs:label xml:lang="en"
+            >Audio recording of Martin Luther King speech I have a dream</rdfs:label>
+    </axis-datamodel:RegOfAudioItem>
+    <axis-datamodel:RegOfMoralPerson rdf:about="924c9c60-22b7-4597-b8a6-fc6171bc2f01">
+        <rdfs:label xml:lang="en">TITAN</rdfs:label>
+    </axis-datamodel:RegOfMoralPerson>
+    <axis-datamodel:EmbodimentOfAudioFile rdf:about="9b20aada-1557-4704-9c6a-96785ed8a2be">
+        <axis-datamodel:expresses rdf:resource="8b281ed7-1514-4f29-842c-3a81a3dfd722"/>
+        <axis-datamodel:fileName rdf:datatype="&xsd;string">MLK_speech.mp3</axis-datamodel:fileName>
+        <rdfs:label xml:lang="en"
+            >MP3 version of Martin Luther King audio speech</rdfs:label>
+    </axis-datamodel:EmbodimentOfAudioFile>
+    <axis-datamodel:Concept rdf:about="9cb8a307-1614-43cf-a6c6-fc2f0348f1f6">
+        <axis-datamodel:isDeclaredBy rdf:resource="5c555612-ab04-486f-9b1e-b58046d5a802"/>
+        <axis-datamodel:isInEvent rdf:resource="12e9c16f-953a-417d-b4e2-f2bdf1ddab81"/>
+        <axis-datamodel:isTaggedBy rdf:resource="d7928598-9fb8-4f8c-86ea-bc5def526cbd"/>
+        <rdfs:label xml:lang="en"
+            >Freedom and jobs</rdfs:label>
+    </axis-datamodel:Concept>
+    <axis-datamodel:Ontology rdf:about="InteroperabilityModel_Ontology">
+        <rdfs:label xml:lang="fr"
+            >Ontologie AXIS-CSRM Interoperability model</rdfs:label>
+    </axis-datamodel:Ontology>
+    <axis-datamodel:KnowledgeBase rdf:about="KnowledgeBase_AXIS_CSRM">
+        <axis-datamodel:uses rdf:resource="AXIS_CSRM_Taxonomy"/>
+        <axis-datamodel:uses rdf:resource="DataModel_Ontology"/>
+        <axis-datamodel:uses rdf:resource="FunctionalModel_Ontology"/>
+        <axis-datamodel:uses rdf:resource="InteroperabilityModel_Ontology"/>
+        <axis-datamodel:uses rdf:resource="Thesaurus_MoralPersons"/>
+        <axis-datamodel:uses rdf:resource="Thesaurus_RegOfPhysicalPersons"/>
+        <axis-datamodel:uses rdf:resource="Thesaurus_RegOfPlaces"/>
+        <rdfs:label xml:lang="fr">AXIS CSRM KB</rdfs:label>
+    </axis-datamodel:KnowledgeBase>
+    <axis-datamodel:MediaUnifiedSegment rdf:about="MediaUnifiedSegment_2"/>
+    <rdf:Description rdf:about="http://creativecommons.org/ns#license"/>
+    <rdf:Description rdf:about="http://purl.org/vocab/vann/preferredNamespacePrefix"/>
+    <rdf:Description rdf:about="http://purl.org/vocab/vann/preferredNamespaceUri"/>
+    <rdf:Description rdf:about="http://open.vocab.org/terms/defines"/>
+    <rdf:Description rdf:about="http://open.vocab.org/terms/describes"/>
+    <axis-datamodel:OperatingBase rdf:about="OperatingBase_AXIS_CSRM">
+        <axis-datamodel:uses rdf:resource="Entity_TheMarchForJobsAndFreedom"/>
+        <axis-datamodel:uses rdf:resource="Entity_TheMuseumObjects"/>
+        <rdfs:label xml:lang="fr"
+            >Base op&#233;rationnelle AXIS-CSRM</rdfs:label>
+    </axis-datamodel:OperatingBase>
+    <rdf:Description rdf:about="&owl;versionIRI"/>
+    <axis-datamodel:Profile rdf:about="Profile_AXIS_CSRM">
+        <axis-datamodel:uses rdf:resource="KnowledgeBase_AXIS_CSRM"/>
+        <axis-datamodel:uses rdf:resource="OperatingBase_AXIS_CSRM"/>
+    </axis-datamodel:Profile>
+    <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#note"/>
+    <axis-datamodel:Thesaurus rdf:about="Thesaurus_MoralPersons">
+        <axis-datamodel:uses rdf:resource="924c9c60-22b7-4597-b8a6-fc6171bc2f01"/>
+        <rdfs:label xml:lang="fr"
+            >Thesaurus AXIS-CSRM POC 2015 - Personnes morales</rdfs:label>
+    </axis-datamodel:Thesaurus>
+    <axis-datamodel:Thesaurus rdf:about="Thesaurus_RegOfPhysicalPersons">
+        <axis-datamodel:uses rdf:resource="b22ec6b2-22e0-4614-9f18-eb17da664c2a"/>
+        <axis-datamodel:uses rdf:resource="854d2d73-9576-42a1-9c01-e5f5ed2443ae"/>
+        <rdfs:label xml:lang="fr"
+            >Thesaurus AXIS-CSRM POC 2015 - Personnes physiques</rdfs:label>
+    </axis-datamodel:Thesaurus>
+    <axis-datamodel:Thesaurus rdf:about="Thesaurus_RegOfPlaces">
+        <axis-datamodel:uses rdf:resource="2234fc99-6a7a-4447-8125-28e5e9c232cc"/>
+        <axis-datamodel:uses rdf:resource="2d8d0429-20e0-4dd3-baf5-30647a66012d"/>
+        <rdfs:label xml:lang="fr"
+            >Thesaurus AXIS-CSRM POC 2015 - Lieux</rdfs:label>
+    </axis-datamodel:Thesaurus>
+    <rdf:Description rdf:about="http://www.w3.org/2007/05/powder-s#describedby"/>
+</rdf:RDF>

@@ -1,0 +1,2244 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.owl-ontologies.com/Ontology1364995044.owl#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://www.owl-ontologies.com/Ontology1364995044.owl">
+  <owl:Ontology rdf:about=""/>
+  <rdfs:Class rdf:ID="Concept_produit">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:ID="Produit"/>
+    </rdfs:subClassOf>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="Element">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:about="#Produit"/>
+    </rdfs:subClassOf>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="Categorie">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:about="#Produit"/>
+    </rdfs:subClassOf>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="fonction_technique">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:ID="Fonction"/>
+    </rdfs:subClassOf>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="Projet">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:ID="Processus_de_conception"/>
+    </rdfs:subClassOf>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="fonction_contrainte">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:about="#Fonction"/>
+    </rdfs:subClassOf>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="#Fonction">
+    <rdfs:subClassOf rdf:resource="#Concept_produit"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="Role">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:ID="Activite"/>
+    </rdfs:subClassOf>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="fonction_principale">
+    <rdfs:subClassOf rdf:resource="#Fonction"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="Parametre_technique">
+    <rdfs:subClassOf rdf:resource="#Element"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="#Activite">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:ID="Phase"/>
+    </rdfs:subClassOf>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="deux_roue">
+    <rdfs:subClassOf rdf:resource="#Categorie"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="quatre_roue">
+    <rdfs:subClassOf rdf:resource="#Categorie"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:ID="Besoin">
+    <rdfs:subClassOf>
+      <rdfs:Class rdf:about="#Produit"/>
+    </rdfs:subClassOf>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="#Phase">
+    <rdfs:subClassOf rdf:resource="#Processus_de_conception"/>
+  </rdfs:Class>
+  <rdfs:Class rdf:about="#Produit">
+    <rdfs:subClassOf rdf:resource="#Processus_de_conception"/>
+  </rdfs:Class>
+  <owl:ObjectProperty rdf:ID="repondreA">
+    <rdfs:domain rdf:resource="#Produit"/>
+    <rdfs:range rdf:resource="#Besoin"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="ArepondePar"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="FonctionDe">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="AvoirFonction"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="#Concept_produit"/>
+    <rdfs:domain rdf:resource="#Fonction"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="ProduitConcept">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="ConceptDe"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="#Concept_produit"/>
+    <rdfs:domain rdf:resource="#Produit"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="ComposeOf">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="estcomposede"/>
+    </owl:inverseOf>
+    <rdfs:domain rdf:resource="#Phase"/>
+    <rdfs:range rdf:resource="#Projet"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#ConceptDe">
+    <rdfs:range rdf:resource="#Produit"/>
+    <owl:inverseOf rdf:resource="#ProduitConcept"/>
+    <rdfs:domain rdf:resource="#Concept_produit"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#AvoirFonction">
+    <rdfs:domain rdf:resource="#Concept_produit"/>
+    <owl:inverseOf rdf:resource="#FonctionDe"/>
+    <rdfs:range rdf:resource="#Fonction"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="possederdes">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="CategorieOf"/>
+    </owl:inverseOf>
+    <rdfs:domain rdf:resource="#Produit"/>
+    <rdfs:range rdf:resource="#Categorie"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="ComposeLa">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="comporter"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="#Phase"/>
+    <rdfs:domain rdf:resource="#Activite"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="FctprinDe">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="AvoirFctPrincipale"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="#Fonction"/>
+    <rdfs:domain rdf:resource="#fonction_principale"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="AElementtechnique">
+    <rdfs:domain rdf:resource="#Element"/>
+    <rdfs:range rdf:resource="#Parametre_technique"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="ParametreDe"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="elementde">
+    <rdfs:range rdf:resource="#Produit"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="Aelement"/>
+    </owl:inverseOf>
+    <rdfs:domain rdf:resource="#Element"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#AvoirFctPrincipale">
+    <rdfs:domain rdf:resource="#Fonction"/>
+    <rdfs:range rdf:resource="#fonction_principale"/>
+    <owl:inverseOf rdf:resource="#FctprinDe"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#estcomposede">
+    <rdfs:range rdf:resource="#Phase"/>
+    <rdfs:domain rdf:resource="#Projet"/>
+    <owl:inverseOf rdf:resource="#ComposeOf"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="FctTechDe">
+    <rdfs:domain rdf:resource="#fonction_technique"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="AvoirFctTech"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="#Fonction"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="estpour">
+    <rdfs:domain rdf:resource="#Projet"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="EstUn"/>
+    </owl:inverseOf>
+    <rdfs:range rdf:resource="#Produit"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#comporter">
+    <owl:inverseOf rdf:resource="#ComposeLa"/>
+    <rdfs:range rdf:resource="#Activite"/>
+    <rdfs:domain rdf:resource="#Phase"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#Aelement">
+    <rdfs:domain rdf:resource="#Produit"/>
+    <rdfs:range rdf:resource="#Element"/>
+    <owl:inverseOf rdf:resource="#elementde"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="FctContDe">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="AvoirFctContr"/>
+    </owl:inverseOf>
+    <rdfs:domain rdf:resource="#fonction_contrainte"/>
+    <rdfs:range rdf:resource="#Fonction"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="estdetype">
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdfs:Class rdf:about="#quatre_roue"/>
+          <rdfs:Class rdf:about="#deux_roue"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+    <rdfs:domain rdf:resource="#Categorie"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="rolede">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="avoirrole"/>
+    </owl:inverseOf>
+    <rdfs:domain rdf:resource="#Role"/>
+    <rdfs:range rdf:resource="#Activite"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="realise">
+    <rdfs:domain rdf:resource="#Projet"/>
+    <rdfs:range rdf:resource="#Produit"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#ArepondePar">
+    <rdfs:range rdf:resource="#Produit"/>
+    <rdfs:domain rdf:resource="#Besoin"/>
+    <owl:inverseOf rdf:resource="#repondreA"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#ParametreDe">
+    <rdfs:domain rdf:resource="#Parametre_technique"/>
+    <rdfs:range rdf:resource="#Element"/>
+    <owl:inverseOf rdf:resource="#AElementtechnique"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#CategorieOf">
+    <rdfs:range rdf:resource="#Produit"/>
+    <rdfs:domain rdf:resource="#Categorie"/>
+    <owl:inverseOf rdf:resource="#possederdes"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#AvoirFctContr">
+    <rdfs:range rdf:resource="#fonction_contrainte"/>
+    <owl:inverseOf rdf:resource="#FctContDe"/>
+    <rdfs:domain rdf:resource="#Fonction"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#avoirrole">
+    <rdfs:range rdf:resource="#Role"/>
+    <rdfs:domain rdf:resource="#Activite"/>
+    <owl:inverseOf rdf:resource="#rolede"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#EstUn">
+    <rdfs:range rdf:resource="#Projet"/>
+    <owl:inverseOf rdf:resource="#estpour"/>
+    <rdfs:domain rdf:resource="#Produit"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#AvoirFctTech">
+    <rdfs:range rdf:resource="#fonction_technique"/>
+    <owl:inverseOf rdf:resource="#FctTechDe"/>
+    <rdfs:domain rdf:resource="#Fonction"/>
+  </owl:ObjectProperty>
+  <owl:DatatypeProperty rdf:ID="hascountry">
+    <rdfs:domain rdf:resource="#Projet"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hascoutelement">
+    <rdfs:domain rdf:resource="#Element"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasactivite">
+    <rdfs:domain rdf:resource="#Role"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnameparametretechnique">
+    <rdfs:domain rdf:resource="#Parametre_technique"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="AttenduActivite">
+    <rdfs:domain rdf:resource="#Activite"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnameactivite">
+    <rdfs:domain rdf:resource="#Activite"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnamefonctiontechnique">
+    <rdfs:domain rdf:resource="#fonction_technique"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="aroues">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdfs:Class rdf:about="#quatre_roue"/>
+          <rdfs:Class rdf:about="#deux_roue"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnamecategory">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdfs:Class rdf:about="#Produit"/>
+          <rdfs:Class rdf:about="#Projet"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnamerole">
+    <rdfs:domain rdf:resource="#Role"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnameProject">
+    <rdfs:domain rdf:resource="#Projet"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="products">
+    <rdfs:domain rdf:resource="#Projet"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnamefonctionprincipale">
+    <rdfs:domain rdf:resource="#fonction_principale"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnameproduct">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdfs:Class rdf:about="#Produit"/>
+          <rdfs:Class rdf:about="#Projet"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnamecategorie">
+    <rdfs:domain rdf:resource="#Categorie"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="Activitepour">
+    <rdfs:domain rdf:resource="#Activite"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnamephase">
+    <rdfs:domain rdf:resource="#Phase"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasdate">
+    <rdfs:domain rdf:resource="#Projet"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="cost">
+    <rdfs:domain rdf:resource="#Projet"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnameelement">
+    <rdfs:domain rdf:resource="#Element"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="acout">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdfs:Class rdf:about="#quatre_roue"/>
+          <rdfs:Class rdf:about="#deux_roue"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnamebesoin">
+    <rdfs:domain rdf:resource="#Besoin"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="A_categorie">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdfs:Class rdf:about="#quatre_roue"/>
+          <rdfs:Class rdf:about="#deux_roue"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="SavoirDeActivite">
+    <rdfs:domain rdf:resource="#Activite"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnameconceptproduit">
+    <rdfs:domain rdf:resource="#Concept_produit"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasnamefonctioncontrainte">
+    <rdfs:domain rdf:resource="#fonction_contrainte"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="PramTechde"/>
+  <Role rdf:ID="Role_3"/>
+  <Processus_de_conception rdf:ID="Processus_de_conception_voiture"/>
+  <Processus_de_conception rdf:ID="Processus_de_conception_velo"/>
+  <Parametre_technique rdf:ID="liste_param_charger_GPS">
+    <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Voiture</hasnameproduct>
+    <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ChargeurGPS</hasnameelement>
+    <ProduitConcept>
+      <Concept_produit rdf:ID="Concept_produit_voiture">
+        <ConceptDe>
+          <Parametre_technique rdf:ID="liste_param_chargeur">
+            <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+            <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Chargeur</hasnameelement>
+            <ParametreDe>
+              <Element rdf:ID="Chargeur">
+                <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Chargeur</hasnameelement>
+                <elementde>
+                  <Produit rdf:ID="Audi">
+                    <Aelement>
+                      <Element rdf:ID="Pneu">
+                        <hascoutelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >15</hascoutelement>
+                        <elementde>
+                          <Produit rdf:ID="Ferrari">
+                            <Aelement>
+                              <Element rdf:ID="Roue">
+                                <elementde>
+                                  <Produit rdf:ID="Honda">
+                                    <Aelement>
+                                      <Element rdf:ID="Moteur">
+                                        <elementde>
+                                          <fonction_principale rdf:ID="fonction_principale_voiture">
+                                            <Aelement>
+                                              <Element rdf:ID="Batterie">
+                                                <elementde>
+                                                  <Produit rdf:ID="Citroen">
+                                                    <Aelement>
+                                                      <Element rdf:ID="Cadre">
+                                                        <elementde rdf:resource="#Ferrari"/>
+                                                        <hasnameproduct
+                                                         rdf:datatype=
+                                                        "http://www.w3.org/2001/XMLSchema#string"
+                                                        >Voiture</hasnameproduct>
+                                                        <elementde>
+                                                          <fonction_technique rdf:ID="fonction_technique_voiture">
+                                                            <hasnamefonctiontechnique
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >fonction technique 1</hasnamefonctiontechnique>
+                                                            <Aelement rdf:resource="#Moteur"/>
+                                                            <AvoirFctTech rdf:resource="#fonction_technique_voiture"/>
+                                                            <FctTechDe>
+                                                              <Fonction rdf:ID="liste_fonction_voiture">
+    <AvoirFctTech rdf:resource="#fonction_technique_voiture"/>
+    <AvoirFctContr>
+      <fonction_contrainte rdf:ID="fonction_contrainte_voiture">
+        <hasnamefonctioncontrainte rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Permettre a l'utilisateur de s'orienter en milieu urbain  // Etre esthetique   // Permettre au cycliste d avoir une assistance electrique</hasnamefonctioncontrainte>
+        <FctContDe rdf:resource="#fonction_technique_voiture"/>
+        <FctContDe rdf:resource="#fonction_contrainte_voiture"/>
+        <AvoirFctTech rdf:resource="#fonction_technique_voiture"/>
+        <Aelement rdf:resource="#Chargeur"/>
+        <FctContDe rdf:resource="#liste_fonction_voiture"/>
+        <Aelement rdf:resource="#Moteur"/>
+        <AvoirFctPrincipale rdf:resource="#fonction_principale_voiture"/>
+        <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Voiture</hasnamecategory>
+        <Aelement rdf:resource="#Cadre"/>
+        <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >3300DT</cost>
+        <Aelement rdf:resource="#Roue"/>
+        <Aelement>
+          <Element rdf:ID="GPS">
+            <elementde rdf:resource="#fonction_technique_voiture"/>
+            <hascoutelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >300</hascoutelement>
+            <elementde rdf:resource="#fonction_contrainte_voiture"/>
+            <elementde>
+              <quatre_roue rdf:ID="Voiture_">
+                <Aelement rdf:resource="#Chargeur"/>
+                <Aelement>
+                  <Element rdf:ID="Chargeur_GPS">
+                    <elementde rdf:resource="#fonction_contrainte_voiture"/>
+                    <elementde rdf:resource="#fonction_technique_voiture"/>
+                    <AElementtechnique rdf:resource="#liste_param_charger_GPS"/>
+                    <elementde rdf:resource="#Honda"/>
+                    <elementde rdf:resource="#liste_param_charger_GPS"/>
+                    <elementde rdf:resource="#Voiture_"/>
+                    <elementde>
+                      <Besoin rdf:ID="besoin_tech_voiture_bmw">
+                        <Aelement rdf:resource="#Roue"/>
+                        <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                        <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >quatre roue</hasnamecategory>
+                        <ArepondePar rdf:resource="#Ferrari"/>
+                        <hasnamebesoin rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >B1 :Temps de maintenance maxi=30 min   // B10 Standardisation=80%   //  B2 : Hygrometrie=0-100%  // B3 : Capacite batterie = 8A/h  // B4 : Charge batterie sur secteur 230V-16A  // B5 : Masse VAE + Utilisateur=150Kg maxi  //  B6 : Puissance electrique maxi=250W  //  B7 :Conforme decret N95-937 d'Aout 1995  //  B8 : Autonomie mini=75 Km  // B9 :Conforme NF R30-020</hasnamebesoin>
+                        <Aelement rdf:resource="#GPS"/>
+                        <ArepondePar rdf:resource="#Audi"/>
+                        <Aelement rdf:resource="#Chargeur_GPS"/>
+                        <Aelement rdf:resource="#Chargeur"/>
+                        <ArepondePar>
+                          <Parametre_technique rdf:ID="liste_param_batterie">
+                            <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >Batterie</hasnameelement>
+                            <ParametreDe rdf:resource="#Batterie"/>
+                            <elementde rdf:resource="#Citroen"/>
+                            <elementde rdf:resource="#Ferrari"/>
+                            <elementde rdf:resource="#Honda"/>
+                            <elementde>
+                              <Produit rdf:ID="velo">
+                                <repondreA>
+                                  <Besoin rdf:ID="besoin_accessoire_velo">
+                                    <ArepondePar rdf:resource="#velo"/>
+                                    <ArepondePar rdf:resource="#besoin_accessoire_velo"/>
+                                    <hasnamebesoin rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Besoin acessoire velo 2</hasnamebesoin>
+                                    <hasnameproduct rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Velo</hasnameproduct>
+                                    <hasnamebesoin rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Besoin accessoire velo 1</hasnamebesoin>
+                                    <possederdes>
+                                      <deux_roue rdf:ID="Velo_">
+                                        <CategorieOf>
+                                          <fonction_technique rdf:ID="fonction_technique_cadre_velo">
+                                            <Aelement rdf:resource="#Pneu"/>
+                                            <AvoirFctTech rdf:resource="#fonction_technique_cadre_velo"/>
+                                            <FctTechDe>
+                                              <fonction_contrainte rdf:ID="fonction_contrainte_cadre_velo">
+                                                <AvoirFctPrincipale>
+                                                  <fonction_principale rdf:ID="fonction_principale_cadre_velo">
+                                                    <AvoirFctTech rdf:resource="#fonction_technique_cadre_velo"/>
+                                                    <Aelement>
+                                                      <Element rdf:ID="Pédalier">
+                                                        <hascoutelement
+                                                         rdf:datatype=
+                                                        "http://www.w3.org/2001/XMLSchema#string"
+                                                        >36</hascoutelement>
+                                                        <elementde rdf:resource="#Velo_"/>
+                                                        <elementde rdf:resource="#fonction_technique_cadre_velo"/>
+                                                        <elementde rdf:resource="#fonction_principale_cadre_velo"/>
+                                                        <elementde>
+                                                          <Parametre_technique rdf:ID="liste_param_pedalier">
+                                                            <hasnameelement
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Pédalier</hasnameelement>
+                                                            <hasnameparametretechnique
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Param tech 1 pedalier // param tech 2 pedalier // param tech 3pedalier</hasnameparametretechnique>
+                                                            <Aelement rdf:resource="#Pédalier"/>
+                                                            <hasnameproduct
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Velo</hasnameproduct>
+                                                            <ParametreDe rdf:resource="#Pédalier"/>
+                                                          </Parametre_technique>
+                                                        </elementde>
+                                                        <hasnameelement
+                                                         rdf:datatype=
+                                                        "http://www.w3.org/2001/XMLSchema#string"
+                                                        >Pédalier</hasnameelement>
+                                                        <elementde rdf:resource="#fonction_contrainte_cadre_velo"/>
+                                                        <AElementtechnique rdf:resource="#liste_param_pedalier"/>
+                                                        <elementde>
+                                                          <Besoin rdf:ID="besoin_primordiale_velo">
+                                                            <Aelement>
+                                                              <Element rdf:ID="Selle">
+    <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Velo</hasnameproduct>
+    <AElementtechnique>
+      <Parametre_technique rdf:ID="liste_param_selle">
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >La hauteur de selle (Hs) correspond à la distance séparant l'axe du pédalier au creux de la selle (point d'assise) et elle se calcule de la façon suivante :  Hs = (((0.883 x E) + (1,11 - C/J) x 50) - (I - 17) // La modification de la hauteur de selle doit se faire progressivement, 2mm par 2mm et non brutalement afin que le corps s'adapte à la nouvelle hauteur de selle.</hasnameparametretechnique>
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >La cote Rs se mesure entre la verticale passant par l'axe du pédalier et le bec de selle0  // Le fabriquant "Italia" est le constructeur de selle le plus performant </hasnameparametretechnique>
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >La position de la selle fixées sur le cintre avec un angle vers le haut compris entre 15° et 30° au maximum</hasnameparametretechnique>
+        <Aelement rdf:resource="#Selle"/>
+        <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Selle</hasnameelement>
+        <ParametreDe rdf:resource="#Selle"/>
+        <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</hasnameproduct>
+      </Parametre_technique>
+    </AElementtechnique>
+    <elementde rdf:resource="#fonction_contrainte_cadre_velo"/>
+    <elementde rdf:resource="#fonction_principale_cadre_velo"/>
+    <elementde rdf:resource="#liste_param_selle"/>
+    <elementde rdf:resource="#Velo_"/>
+    <elementde rdf:resource="#besoin_primordiale_velo"/>
+    <elementde rdf:resource="#velo"/>
+    <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Selle</hasnameelement>
+    <elementde rdf:resource="#fonction_technique_cadre_velo"/>
+    <hascoutelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >30</hascoutelement>                                      </Element>
+                                                            </Aelement>
+                                                            <Aelement>
+                                                              <Element rdf:ID="Derailleur_Arriere">
+    <elementde rdf:resource="#fonction_contrainte_cadre_velo"/>
+    <elementde rdf:resource="#velo"/>
+    <elementde rdf:resource="#Velo_"/>
+    <elementde rdf:resource="#fonction_principale_cadre_velo"/>
+    <AElementtechnique>
+      <Parametre_technique rdf:ID="liste_param_derailleur_arriere">
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Le réglage du SIS est  le réglage final du dérailleur</hasnameparametretechnique>
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Tournez la manivelle en arrière // Le serrage du câble est compris entre 5 à 7 Nm.</hasnameparametretechnique>
+        <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >DerailleurArriere</hasnameelement>
+        <ParametreDe rdf:resource="#Derailleur_Arriere"/>
+        <Aelement rdf:resource="#Derailleur_Arriere"/>
+        <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</hasnameproduct>
+      </Parametre_technique>
+    </AElementtechnique>
+    <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Velo</hasnameproduct>
+    <elementde rdf:resource="#besoin_primordiale_velo"/>
+    <hascoutelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >19</hascoutelement>
+    <elementde rdf:resource="#liste_param_derailleur_arriere"/>
+    <elementde rdf:resource="#fonction_technique_cadre_velo"/>
+    <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >DrailleurArriere</hasnameelement>                        </Element>
+                                                            </Aelement>
+                                                            <Aelement rdf:resource="#Roue"/>
+                                                            <Aelement rdf:resource="#Cadre"/>
+                                                            <hasnamecategory
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >deux roue</hasnamecategory>
+                                                            <Aelement rdf:resource="#Pneu"/>
+                                                            <possederdes rdf:resource="#Velo_"/>
+                                                            <ArepondePar rdf:resource="#velo"/>
+                                                            <hasnamebesoin
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Besoin velo 2</hasnamebesoin>
+                                                            <hasnamebesoin
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Bes 1</hasnamebesoin>
+                                                            <ArepondePar>
+                                                              <Concept_produit rdf:ID="Concept_cadre_velo">
+    <ConceptDe rdf:resource="#besoin_primordiale_velo"/>
+    <AvoirFonction rdf:resource="#fonction_contrainte_cadre_velo"/>
+    <AvoirFonction rdf:resource="#fonction_principale_cadre_velo"/>
+    <ConceptDe rdf:resource="#Concept_cadre_velo"/>
+    <ProduitConcept rdf:resource="#Concept_cadre_velo"/>
+    <AvoirFonction rdf:resource="#fonction_technique_cadre_velo"/>
+    <repondreA rdf:resource="#besoin_primordiale_velo"/>
+    <ConceptDe rdf:resource="#Velo_"/>
+    <ConceptDe rdf:resource="#velo"/>
+    <ConceptDe rdf:resource="#besoin_accessoire_velo"/>
+    <hasnameconceptproduit rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Cadre</hasnameconceptproduit>
+    <ConceptDe>
+      <Parametre_technique rdf:ID="iste_param_Cadre_velo">
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >param 5</hasnameparametretechnique>
+        <Aelement rdf:resource="#Cadre"/>
+        <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >30dt</cost>
+        <AElementtechnique rdf:resource="#iste_param_Cadre_velo"/>
+        <possederdes rdf:resource="#Velo_"/>
+        <ProduitConcept rdf:resource="#Concept_cadre_velo"/>
+        <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Cadre</hasnameelement>
+        <ParametreDe rdf:resource="#iste_param_Cadre_velo"/>
+        <elementde rdf:resource="#velo"/>
+        <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</hasnameproduct>
+        <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >CadreVelo</hasnamecategory>
+      </Parametre_technique>
+    </ConceptDe>                                              </Concept_produit>
+                                                            </ArepondePar>
+                                                            <Aelement>
+                                                              <Element rdf:ID="Chaîne">
+    <elementde rdf:resource="#fonction_principale_cadre_velo"/>
+    <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Chaine</hasnameelement>
+    <AElementtechnique>
+      <Parametre_technique rdf:ID="liste_param_chaine">
+        <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Chaine</hasnameelement>
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >12 pouces 1/16 306.3875 30.63875 Etirement 0.5%</hasnameparametretechnique>
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >CHaine :1 pouce 25.4000 2.54000 Unitée</hasnameparametretechnique>
+        <ParametreDe rdf:resource="#Chaîne"/>
+        <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</hasnameproduct>
+        <Aelement rdf:resource="#Chaîne"/>
+      </Parametre_technique>
+    </AElementtechnique>
+    <elementde rdf:resource="#fonction_technique_cadre_velo"/>
+    <elementde rdf:resource="#besoin_primordiale_velo"/>
+    <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Velo</hasnameproduct>
+    <elementde rdf:resource="#liste_param_chaine"/>
+    <elementde rdf:resource="#velo"/>
+    <elementde rdf:resource="#fonction_contrainte_cadre_velo"/>
+    <elementde rdf:resource="#Velo_"/>
+    <hascoutelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >10</hascoutelement>                                      </Element>
+                                                            </Aelement>
+                                                            <EstUn>
+                                                              <Projet rdf:ID="Projet_velo">
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2012</hasdate>
+    <realise rdf:resource="#velo"/>
+    <estcomposede>
+      <Phase rdf:ID="Etude_de_faisabilite">
+        <ComposeOf>
+          <Projet rdf:ID="Projet_voiture_ferrari">
+            <products rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Ferrari</products>
+            <estcomposede>
+              <Phase rdf:ID="Etude_détaillee">
+                <ComposeOf>
+                  <Projet rdf:ID="Projet_voiture_bmw">
+                    <estcomposede>
+                      <Phase rdf:ID="Industrialisation">
+                        <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                        <ComposeOf rdf:resource="#Projet_velo"/>
+                        <comporter>
+                          <Activite rdf:ID="Qualifier_le_produit_en_interne">
+                            <ComposeOf>
+                              <Projet rdf:ID="Projet_voiture_Honda">
+                                <estcomposede>
+                                  <Activite rdf:ID="Finaliser_le_plan_de_validation">
+                                    <hasnamephase rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Etude détaillee</hasnamephase>
+                                    <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+                                    <ComposeOf rdf:resource="#Projet_velo"/>
+                                    <ComposeOf>
+                                      <Projet rdf:ID="Projet_voiture_ford">
+                                        <estpour>
+                                          <Produit rdf:ID="Ford">
+                                            <hasnamecategory rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >quatre roue</hasnamecategory>
+                                            <Aelement rdf:resource="#GPS"/>
+                                            <Aelement rdf:resource="#Pneu"/>
+                                            <Aelement rdf:resource="#Moteur"/>
+                                            <Aelement rdf:resource="#Cadre"/>
+                                            <hasnameproduct rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Ford</hasnameproduct>
+                                            <repondreA rdf:resource="#besoin_tech_voiture_bmw"/>
+                                            <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                                            <Aelement rdf:resource="#liste_param_batterie"/>
+                                            <Aelement>
+                                              <Parametre_technique rdf:ID="liste_param_GPS">
+                                                <possederdes rdf:resource="#Voiture_"/>
+                                                <elementde rdf:resource="#Ford"/>
+                                                <elementde rdf:resource="#Honda"/>
+                                                <ParametreDe rdf:resource="#GPS"/>
+                                                <elementde rdf:resource="#Citroen"/>
+                                                <elementde rdf:resource="#Audi"/>
+                                                <elementde rdf:resource="#Ferrari"/>
+                                                <hasnameelement
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >GPS</hasnameelement>
+                                                <elementde rdf:resource="#velo"/>
+                                                <Aelement rdf:resource="#GPS"/>
+                                                <hasnameparametretechnique
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Param tech de GPS</hasnameparametretechnique>
+                                                <hasnameproduct
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Voiture</hasnameproduct>
+                                                <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                                              </Parametre_technique>
+                                            </Aelement>
+                                            <EstUn rdf:resource="#Projet_voiture_ford"/>
+                                            <repondreA>
+                                              <Besoin rdf:ID="besoin_concept_voiture_bmw">
+                                                <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                                                <hasnameproduct
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Voiture</hasnameproduct>
+                                                <EstUn rdf:resource="#Projet_voiture_bmw"/>
+                                                <ArepondePar rdf:resource="#Ferrari"/>
+                                                <ArepondePar rdf:resource="#Ford"/>
+                                                <possederdes rdf:resource="#Voiture_"/>
+                                                <ArepondePar rdf:resource="#Citroen"/>
+                                                <ArepondePar rdf:resource="#Honda"/>
+                                                <ArepondePar rdf:resource="#Audi"/>
+                                                <ArepondePar rdf:resource="#besoin_concept_voiture_bmw"/>
+                                                <hasnamecategory
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >qutre roue</hasnamecategory>
+                                                <hasnamebesoin
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >châssis tubulaire / panneaux aluminium rivetés carrosserie fibre de verre + aileron carbone poids total : 600kgs boîte de vitesse SADEV SL90 6 rapports (5 utilisés réglementation oblige) moteur   6 cyl. 3 litres - 400 ch. DIN</hasnamebesoin>
+                                                <repondreA rdf:resource="#besoin_concept_voiture_bmw"/>
+                                              </Besoin>
+                                            </repondreA>
+                                            <possederdes rdf:resource="#Voiture_"/>
+                                            <Aelement rdf:resource="#Chargeur"/>
+                                            <Aelement rdf:resource="#Roue"/>
+                                            <Aelement rdf:resource="#Chargeur_GPS"/>
+                                            <Aelement rdf:resource="#Batterie"/>
+                                            <cost rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >90666</cost>
+                                          </Produit>
+                                        </estpour>
+                                        <hascountry rdf:datatype=
+                                        "http://www.w3.org/2001/XMLSchema#string"
+                                        >France</hascountry>
+                                        <estcomposede>
+                                          <Activite rdf:ID="rediger_cahier_des_charges_fonctionnel">
+                                            <ComposeOf>
+                                              <Projet rdf:ID="Projet_voiture_citroen">
+                                                <hasnameProject
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Voiture</hasnameProject>
+                                                <estcomposede>
+                                                  <Activite rdf:ID="rediger_le_cahier_des_charges_préliminaires">
+                                                    <ComposeLa rdf:resource="#Etude_de_faisabilite"/>
+                                                    <Activitepour
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >Velo</Activitepour>
+                                                    <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                                                    <hasnameactivite
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >Cahier des charges préliminaire</hasnameactivite>
+                                                    <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+                                                    <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+                                                    <comporter>
+                                                      <Role rdf:ID="Role_technique">
+                                                        <rolede>
+                                                          <Activite rdf:ID="Analyser_le_besoin">
+                                                            <Activitepour
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Voiture</Activitepour>
+                                                            <AttenduActivite
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Schémas des fonctionnalités,      //  Volume estimé ....    // Fourchette de prix fixée</AttenduActivite>
+                                                            <comporter rdf:resource="#Role_technique"/>
+                                                            <SavoirDeActivite
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Prix du produit souhaité  89000  // Prix des produits internes 40000     // Volume estimé .... etc     // Besoins clients souhaités .. etc</SavoirDeActivite>
+                                                            <hasnamephase
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Etude de faisabilite</hasnamephase>
+                                                            <avoirrole rdf:resource="#Role_technique"/>
+                                                            <avoirrole>
+                                                              <Role rdf:ID="Role_Coneption">
+    <hasnamerole rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Concepteur</hasnamerole>
+    <ComposeLa rdf:resource="#rediger_cahier_des_charges_fonctionnel"/>
+    <ComposeLa>
+      <Activite rdf:ID="Realisé_les_concepts">
+        <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Realisé les concepts</hasnameactivite>
+        <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+        <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >spécification géométrique des concepts</AttenduActivite>
+        <comporter rdf:resource="#Role_Coneption"/>
+        <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+        <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Descriptuon des alternativesretenues  -Description des fonctiosn et contraintes de produits</SavoirDeActivite>
+        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Voiture</Activitepour>
+        <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+        <ComposeOf>
+          <Projet rdf:ID="Projet_voiture_audi">
+            <estcomposede>
+              <Activite rdf:ID="realisé_l_nalyse_fonctionnelle">
+                <comporter rdf:resource="#Role_technique"/>
+                <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+                <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Velo</Activitepour>
+                <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+                <ComposeLa>
+                  <Phase rdf:ID="Etude_préliminaire">
+                    <comporter>
+                      <Activite rdf:ID="Analyser_la_concurrence">
+                        <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Présenté les concepts</hasnameactivite>
+                        <avoirrole rdf:resource="#Role_Coneption"/>
+                        <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                        <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+                        <ComposeOf rdf:resource="#Projet_voiture_audi"/>
+                        <comporter rdf:resource="#Role_Coneption"/>
+                        <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >-Positionnement des produits internes par rapport à la concurrence -Comparatif des produits similaires</AttenduActivite>
+                        <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+                        <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Voiture</Activitepour>
+                        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Etude préliminaire</hasnamephase>
+                        <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+                        <ComposeOf rdf:resource="#Projet_velo"/>
+                        <ComposeLa rdf:resource="#Etude_préliminaire"/>
+                        <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >-Prix des produits similaires concurrents -Fonctionnalités des produits concurrents -Avantages des produits -Inconvénients des produits</SavoirDeActivite>
+                      </Activite>
+                    </comporter>
+                    <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+                    <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+                    <comporter rdf:resource="#realisé_l_nalyse_fonctionnelle"/>
+                    <comporter rdf:resource="#Realisé_les_concepts"/>
+                    <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                    <comporter rdf:resource="#rediger_cahier_des_charges_fonctionnel"/>
+                    <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >Phase préliminaire</hasnamephase>
+                    <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                    <ComposeOf rdf:resource="#Projet_velo"/>
+                    <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+                    <comporter>
+                      <Activite rdf:ID="realisé_l_analyse_de_valeur">
+                        <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >-Description fonctionnelle du produit</SavoirDeActivite>
+                        <avoirrole rdf:resource="#Role_technique"/>
+                        <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >realise l'analyse de valeur</hasnameactivite>
+                        <ComposeLa rdf:resource="#Etude_préliminaire"/>
+                        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Etude préliminaire</hasnamephase>
+                        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Velo</Activitepour>
+                        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Voiture</Activitepour>
+                        <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >-Analyse des coûts par rapport aux fonctions -Evaluation des différentes alternatives -Descriptions des alternatives retenues</AttenduActivite>
+                      </Activite>
+                    </comporter>
+                    <comporter>
+                      <Activite rdf:ID="Analyser_la_concurrence_v">
+                        <ComposeLa rdf:resource="#Etude_préliminaire"/>
+                        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Velo</Activitepour>
+                        <avoirrole rdf:resource="#Role_Coneption"/>
+                        <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >-Prix des produits similaires concurrents -Fonctionnalités des produits concurrents -Avantages des produits -Inconvénients des produits</SavoirDeActivite>
+                        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Etude préliminaire</hasnamephase>
+                        <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Présenté les concepts</hasnameactivite>
+                        <comporter rdf:resource="#Role_Coneption"/>
+                        <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >-Positionnement des produits internes par rapport à la concurrence -Comparatif des produits similaires</AttenduActivite>
+                      </Activite>
+                    </comporter>
+                    <comporter rdf:resource="#Role_technique"/>
+                  </Phase>
+                </ComposeLa>
+                <ComposeOf rdf:resource="#Projet_voiture_audi"/>
+                <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+                <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >-Caractéristique du besoin -Profil de vie du produit</SavoirDeActivite>
+                <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                <ComposeOf rdf:resource="#Projet_velo"/>
+                <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Etude préliminaire</hasnamephase>
+                <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >-Fonctions du produit -Hiérarchie des fonctions -Caractérisation des fonctions</AttenduActivite>
+                <avoirrole rdf:resource="#Role_technique"/>
+                <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Voiture</Activitepour>
+                <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >realise l'analyse fonctionnele</hasnameactivite>
+              </Activite>
+            </estcomposede>
+            <estcomposede rdf:resource="#Analyser_la_concurrence"/>
+            <estcomposede rdf:resource="#Realisé_les_concepts"/>
+            <realise rdf:resource="#Audi"/>
+            <estcomposede rdf:resource="#Qualifier_le_produit_en_interne"/>
+            <hasnameProject rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Voiture</hasnameProject>
+            <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Audi</hasnameproduct>
+            <estcomposede rdf:resource="#rediger_le_cahier_des_charges_préliminaires"/>
+            <estpour rdf:resource="#Voiture_"/>
+            <products rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Voiture</products>
+            <estpour rdf:resource="#Audi"/>
+            <estcomposede rdf:resource="#Finaliser_le_plan_de_validation"/>
+            <hascountry rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Germany</hascountry>
+            <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Voiture</hasnamecategory>
+            <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >2010</hasdate>
+            <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >63008</cost>
+            <estcomposede>
+              <Activite rdf:ID="realisé_a_cotation_fonctionnelle">
+                <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >-Cotes réelles obtenues -Cotes initiales relatives au concept</SavoirDeActivite>
+                <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+                <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >-Cotes définitives du produit</AttenduActivite>
+                <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Etude détaillee</hasnamephase>
+                <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Voiture</Activitepour>
+                <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+                <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                <ComposeOf rdf:resource="#Projet_voiture_audi"/>
+                <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Velo</Activitepour>
+                <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+                <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                <avoirrole rdf:resource="#Role_technique"/>
+                <ComposeOf rdf:resource="#Projet_velo"/>
+                <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >realise la cotation fonctionnelle</hasnameactivite>
+                <ComposeLa rdf:resource="#Etude_détaillee"/>
+                <comporter rdf:resource="#Role_technique"/>
+              </Activite>
+            </estcomposede>
+            <estcomposede rdf:resource="#rediger_cahier_des_charges_fonctionnel"/>
+          </Projet>
+        </ComposeOf>
+        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</Activitepour>
+        <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+        <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Maquette numérique du produit</AttenduActivite>
+        <ComposeOf rdf:resource="#Projet_velo"/>
+        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Etude préliminaire</hasnamephase>
+        <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+        <avoirrole rdf:resource="#Role_Coneption"/>
+        <ComposeLa rdf:resource="#Etude_préliminaire"/>
+      </Activite>
+    </ComposeLa>
+    <rolede rdf:resource="#Analyser_le_besoin"/>
+    <rolede rdf:resource="#Analyser_la_concurrence_v"/>
+    <rolede>
+      <Activite rdf:ID="Fabriquer_v">
+        <ComposeLa rdf:resource="#Industrialisation"/>
+        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</Activitepour>
+        <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >-Caractéristiques (dimensionnement, poids, géométrie…) des échantillons d’industrialisation</AttenduActivite>
+        <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Fabriquer les échantillons d’industrialisation</hasnameactivite>
+        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >industrialisation</hasnamephase>
+        <avoirrole rdf:resource="#Role_Coneption"/>
+        <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >-Plans du produit -Description du processus de production incluant les risques de défaillances</SavoirDeActivite>
+      </Activite>
+    </rolede>
+    <ComposeLa rdf:resource="#Analyser_la_concurrence_v"/>
+    <rolede>
+      <Activite rdf:ID="Fabriquer">
+        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Voiture</Activitepour>
+        <avoirrole rdf:resource="#Role_Coneption"/>
+        <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >-Caractéristiques (dimensionnement, poids, géométrie…) des échantillons d’industrialisation</AttenduActivite>
+        <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >-Plans du produit -Description du processus de production incluant les risques de défaillances</SavoirDeActivite>
+        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >industrialisation</hasnamephase>
+        <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Fabriquer les échantillons d’industrialisation</hasnameactivite>
+        <ComposeLa rdf:resource="#Industrialisation"/>
+      </Activite>
+    </rolede>
+    <rolede>
+      <Activite rdf:ID="constituer_lequide_de_projet">
+        <ComposeLa rdf:resource="#Etude_de_faisabilite"/>
+        <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >-Ressources humaines disponibles, -Compétences présentes dans l’entreprise</SavoirDeActivite>
+        <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Constituer l'equide de projet</hasnameactivite>
+        <avoirrole rdf:resource="#Role_technique"/>
+        <avoirrole rdf:resource="#Role_Coneption"/>
+        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</Activitepour>
+        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Etude de faisabilite</hasnamephase>
+        <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >-Liste des acteurs métier du projet -Liste des compétences utilisées</AttenduActivite>
+        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Voiture</Activitepour>
+      </Activite>
+    </rolede>
+    <rolede>
+      <Activite rdf:ID="Analyser_le_besoin_v">
+        <ComposeLa rdf:resource="#Etude_de_faisabilite"/>
+        <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Schémas des fonctionnalités,      //  Volume estimé ....    // Fourchette de prix fixée</AttenduActivite>
+        <avoirrole rdf:resource="#Role_technique"/>
+        <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Prix des produits internes 100    // Volume estimé .... etc     // Besoins clients souhaités .. etc</SavoirDeActivite>
+        <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Analyse de besoin</hasnameactivite>
+        <avoirrole rdf:resource="#Role_Coneption"/>
+        <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</Activitepour>
+        <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Prix du produit souhaité  90 </SavoirDeActivite>
+        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Etude de faisabilite</hasnamephase>
+      </Activite>
+    </rolede>
+    <ComposeLa rdf:resource="#Qualifier_le_produit_en_interne"/>
+    <ComposeLa rdf:resource="#Analyser_la_concurrence"/>      </Role>
+                                                            </avoirrole>
+                                                            <hasnameactivite
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Analyse de besoin</hasnameactivite>
+                                                            <ComposeLa rdf:resource="#Etude_de_faisabilite"/>
+                                                          </Activite>
+                                                        </rolede>
+                                                        <ComposeLa rdf:resource="#Etude_préliminaire"/>
+                                                        <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                                                        <ComposeLa rdf:resource="#Etude_détaillee"/>
+                                                        <rolede rdf:resource="#Analyser_le_besoin_v"/>
+                                                        <ComposeLa rdf:resource="#realisé_l_nalyse_fonctionnelle"/>
+                                                        <ComposeLa rdf:resource="#realisé_a_cotation_fonctionnelle"/>
+                                                        <ComposeLa rdf:resource="#Qualifier_le_produit_en_interne"/>
+                                                        <rolede rdf:resource="#constituer_lequide_de_projet"/>
+                                                        <ComposeLa rdf:resource="#Finaliser_le_plan_de_validation"/>
+                                                        <ComposeLa rdf:resource="#rediger_cahier_des_charges_fonctionnel"/>
+                                                        <hasnamerole
+                                                         rdf:datatype=
+                                                        "http://www.w3.org/2001/XMLSchema#string"
+                                                        >Technicien</hasnamerole>
+                                                        <ComposeOf rdf:resource="#Projet_velo"/>
+                                                        <ComposeLa rdf:resource="#rediger_le_cahier_des_charges_préliminaires"/>
+                                                        <ComposeLa rdf:resource="#Analyser_le_besoin"/>
+                                                      </Role>
+                                                    </comporter>
+                                                    <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                                                    <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+                                                    <SavoirDeActivite
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >-Schémas des fonctionnalités, -Volume estimé -Fourchette de prix fixée</SavoirDeActivite>
+                                                    <ComposeOf rdf:resource="#Projet_voiture_audi"/>
+                                                    <Activitepour
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >Voiture</Activitepour>
+                                                    <ComposeOf rdf:resource="#Projet_velo"/>
+                                                    <avoirrole rdf:resource="#Role_Coneption"/>
+                                                    <hasnamephase
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >Etude de faisabilite</hasnamephase>
+                                                    <AttenduActivite
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >-Fonctions du produit -Volume estimé</AttenduActivite>
+                                                  </Activite>
+                                                </estcomposede>
+                                                <realise rdf:resource="#Citroen"/>
+                                                <estcomposede rdf:resource="#Analyser_la_concurrence"/>
+                                                <estpour rdf:resource="#Citroen"/>
+                                                <estcomposede rdf:resource="#Finaliser_le_plan_de_validation"/>
+                                                <hasnamecategory
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >quatre roue</hasnamecategory>
+                                                <estcomposede rdf:resource="#Etude_de_faisabilite"/>
+                                                <estcomposede rdf:resource="#Etude_détaillee"/>
+                                                <cost rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >56913</cost>
+                                                <estcomposede rdf:resource="#realisé_l_nalyse_fonctionnelle"/>
+                                                <estcomposede rdf:resource="#Qualifier_le_produit_en_interne"/>
+                                                <estcomposede rdf:resource="#Realisé_les_concepts"/>
+                                                <estcomposede rdf:resource="#Industrialisation"/>
+                                                <estcomposede rdf:resource="#Etude_préliminaire"/>
+                                                <estcomposede rdf:resource="#realisé_a_cotation_fonctionnelle"/>
+                                                <hasdate rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >2006</hasdate>
+                                                <products rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Citroen</products>
+                                                <hascountry rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >France</hascountry>
+                                                <hasnameproduct
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Citroen</hasnameproduct>
+                                                <estcomposede rdf:resource="#rediger_cahier_des_charges_fonctionnel"/>
+                                                <estpour rdf:resource="#Voiture_"/>
+                                              </Projet>
+                                            </ComposeOf>
+                                            <comporter rdf:resource="#Role_Coneption"/>
+                                            <hasnameactivite rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Cahier des charges fonctionnel</hasnameactivite>
+                                            <ComposeOf rdf:resource="#Projet_voiture_audi"/>
+                                            <Activitepour rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Velo</Activitepour>
+                                            <SavoirDeActivite
+                                             rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                            >Profil de vie du produit</SavoirDeActivite>
+                                            <Activitepour rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Voiture</Activitepour>
+                                            <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+                                            <hasnamephase rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Etude préliminaire</hasnamephase>
+                                            <ComposeLa rdf:resource="#Etude_préliminaire"/>
+                                            <AttenduActivite rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >-Fonctions du produit </AttenduActivite>
+                                            <avoirrole rdf:resource="#Role_technique"/>
+                                            <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                                            <ComposeOf rdf:resource="#Projet_velo"/>
+                                            <comporter rdf:resource="#Role_technique"/>
+                                            <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+                                            <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                                          </Activite>
+                                        </estcomposede>
+                                        <hasnameproduct rdf:datatype=
+                                        "http://www.w3.org/2001/XMLSchema#string"
+                                        >quatre roue</hasnameproduct>
+                                        <hasdate rdf:datatype=
+                                        "http://www.w3.org/2001/XMLSchema#string"
+                                        >2009</hasdate>
+                                        <estcomposede rdf:resource="#Industrialisation"/>
+                                        <estcomposede rdf:resource="#Etude_de_faisabilite"/>
+                                        <estcomposede rdf:resource="#Realisé_les_concepts"/>
+                                        <estcomposede rdf:resource="#Finaliser_le_plan_de_validation"/>
+                                        <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                        >43000</cost>
+                                        <estcomposede rdf:resource="#Analyser_la_concurrence"/>
+                                        <hasnamecategory rdf:datatype=
+                                        "http://www.w3.org/2001/XMLSchema#string"
+                                        >quatre roue</hasnamecategory>
+                                        <products rdf:datatype=
+                                        "http://www.w3.org/2001/XMLSchema#string"
+                                        >Ford</products>
+                                        <estcomposede rdf:resource="#realisé_l_nalyse_fonctionnelle"/>
+                                        <estcomposede rdf:resource="#Qualifier_le_produit_en_interne"/>
+                                        <estpour rdf:resource="#Voiture_"/>
+                                        <hasnameProject rdf:datatype=
+                                        "http://www.w3.org/2001/XMLSchema#string"
+                                        >Voiture</hasnameProject>
+                                        <estcomposede rdf:resource="#rediger_le_cahier_des_charges_préliminaires"/>
+                                        <estcomposede rdf:resource="#realisé_a_cotation_fonctionnelle"/>
+                                        <realise rdf:resource="#Ford"/>
+                                        <estcomposede rdf:resource="#Etude_détaillee"/>
+                                        <estcomposede rdf:resource="#Etude_préliminaire"/>
+                                      </Projet>
+                                    </ComposeOf>
+                                    <avoirrole rdf:resource="#Role_Coneption"/>
+                                    <ComposeOf rdf:resource="#Projet_voiture_audi"/>
+                                    <Activitepour rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Velo</Activitepour>
+                                    <ComposeLa rdf:resource="#Etude_détaillee"/>
+                                    <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+                                    <AttenduActivite rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >-tests de validation du produit</AttenduActivite>
+                                    <Activitepour rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Voiture</Activitepour>
+                                    <SavoirDeActivite rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >-Spécification du concept -Contraintes du produit -Normes en vigueur -Procédés et moyen de tests</SavoirDeActivite>
+                                    <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                                    <comporter rdf:resource="#Role_technique"/>
+                                    <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                                    <avoirrole rdf:resource="#Role_technique"/>
+                                    <hasnameactivite rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Test et validation</hasnameactivite>
+                                  </Activite>
+                                </estcomposede>
+                                <estcomposede rdf:resource="#Realisé_les_concepts"/>
+                                <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                >70000</cost>
+                                <estcomposede rdf:resource="#rediger_cahier_des_charges_fonctionnel"/>
+                                <estpour rdf:resource="#Voiture_"/>
+                                <hasnameproduct rdf:datatype=
+                                "http://www.w3.org/2001/XMLSchema#string"
+                                >Honda</hasnameproduct>
+                                <estcomposede rdf:resource="#realisé_l_nalyse_fonctionnelle"/>
+                                <products rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                >Honda</products>
+                                <hascountry rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                >Germany</hascountry>
+                                <estcomposede rdf:resource="#realisé_a_cotation_fonctionnelle"/>
+                                <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                >2006</hasdate>
+                                <hasnamecategory rdf:datatype=
+                                "http://www.w3.org/2001/XMLSchema#string"
+                                >quatre roue</hasnamecategory>
+                                <estcomposede rdf:resource="#Analyser_la_concurrence"/>
+                                <estcomposede rdf:resource="#rediger_le_cahier_des_charges_préliminaires"/>
+                                <estcomposede rdf:resource="#Industrialisation"/>
+                                <realise rdf:resource="#Honda"/>
+                                <estcomposede rdf:resource="#Etude_préliminaire"/>
+                                <estpour rdf:resource="#Honda"/>
+                                <hasnameProject rdf:datatype=
+                                "http://www.w3.org/2001/XMLSchema#string"
+                                >Voiture</hasnameProject>
+                                <estcomposede rdf:resource="#Etude_de_faisabilite"/>
+                                <estcomposede rdf:resource="#Qualifier_le_produit_en_interne"/>
+                                <estcomposede rdf:resource="#Etude_détaillee"/>
+                              </Projet>
+                            </ComposeOf>
+                            <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                            <avoirrole rdf:resource="#Role_technique"/>
+                            <AttenduActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >-Résultat de la qualification interne du produit</AttenduActivite>
+                            <comporter rdf:resource="#Role_technique"/>
+                            <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >Velo</Activitepour>
+                            <ComposeLa rdf:resource="#Industrialisation"/>
+                            <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+                            <comporter rdf:resource="#Role_Coneption"/>
+                            <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                            <ComposeOf rdf:resource="#Projet_velo"/>
+                            <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >Industrialisation</hasnamephase>
+                            <Activitepour rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >Voiture</Activitepour>
+                            <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+                            <hasnameactivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >Qualifier le rpoduit en interne</hasnameactivite>
+                            <SavoirDeActivite rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >-Caractéristiques des échantillons d’industrialisation</SavoirDeActivite>
+                            <ComposeOf rdf:resource="#Projet_voiture_audi"/>
+                          </Activite>
+                        </comporter>
+                        <comporter rdf:resource="#Fabriquer_v"/>
+                        <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+                        <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+                        <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+                        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Phase d'industrialisation</hasnamephase>
+                        <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+                        <comporter rdf:resource="#Fabriquer"/>
+                      </Phase>
+                    </estcomposede>
+                    <estpour rdf:resource="#besoin_tech_voiture_bmw"/>
+                    <estcomposede rdf:resource="#Etude_de_faisabilite"/>
+                    <hascountry rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >France</hascountry>
+                    <estcomposede rdf:resource="#realisé_a_cotation_fonctionnelle"/>
+                    <hasnameProject rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >Voiture</hasnameProject>
+                    <estcomposede rdf:resource="#Qualifier_le_produit_en_interne"/>
+                    <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >45006</cost>
+                    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >2006</hasdate>
+                    <estcomposede rdf:resource="#realisé_l_nalyse_fonctionnelle"/>
+                    <estcomposede rdf:resource="#Etude_détaillee"/>
+                    <estcomposede rdf:resource="#rediger_le_cahier_des_charges_préliminaires"/>
+                    <hascountry rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >Tunisie</hascountry>
+                    <estcomposede rdf:resource="#Etude_préliminaire"/>
+                    <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >BMW</hasnameproduct>
+                    <estcomposede rdf:resource="#Realisé_les_concepts"/>
+                    <estpour rdf:resource="#Voiture_"/>
+                    <products rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >Voiture</products>
+                    <realise>
+                      <Produit rdf:ID="BMW">
+                        <possederdes rdf:resource="#Voiture_"/>
+                        <Aelement rdf:resource="#Chargeur_GPS"/>
+                        <Aelement rdf:resource="#Batterie"/>
+                        <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                        <Aelement rdf:resource="#GPS"/>
+                        <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >quatre roue</hasnamecategory>
+                        <EstUn rdf:resource="#Projet_voiture_bmw"/>
+                        <repondreA rdf:resource="#besoin_tech_voiture_bmw"/>
+                        <Aelement rdf:resource="#Roue"/>
+                        <Aelement rdf:resource="#Moteur"/>
+                        <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >BMW</hasnameproduct>
+                        <Aelement rdf:resource="#Cadre"/>
+                        <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >1500</cost>
+                        <Aelement rdf:resource="#Chargeur"/>
+                      </Produit>
+                    </realise>
+                    <estcomposede rdf:resource="#Role_technique"/>
+                    <estpour rdf:resource="#besoin_concept_voiture_bmw"/>
+                    <estpour rdf:resource="#liste_param_batterie"/>
+                    <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >Voiture</hasnamecategory>
+                    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >2009</hasdate>
+                    <estcomposede rdf:resource="#Finaliser_le_plan_de_validation"/>
+                    <estcomposede rdf:resource="#Analyser_la_concurrence"/>
+                    <estpour rdf:resource="#BMW"/>
+                    <estcomposede rdf:resource="#rediger_cahier_des_charges_fonctionnel"/>
+                  </Projet>
+                </ComposeOf>
+                <ComposeOf rdf:resource="#Projet_voiture_ferrari"/>
+                <comporter rdf:resource="#realisé_a_cotation_fonctionnelle"/>
+                <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Phas d'étude détaillee</hasnamephase>
+                <comporter rdf:resource="#Role_technique"/>
+                <comporter rdf:resource="#Finaliser_le_plan_de_validation"/>
+                <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+                <ComposeOf rdf:resource="#Projet_velo"/>
+                <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+                <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+              </Phase>
+            </estcomposede>
+            <estcomposede rdf:resource="#rediger_cahier_des_charges_fonctionnel"/>
+            <estcomposede rdf:resource="#Finaliser_le_plan_de_validation"/>
+            <estcomposede rdf:resource="#Analyser_la_concurrence"/>
+            <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >quatre roue</hasnamecategory>
+            <estcomposede rdf:resource="#rediger_le_cahier_des_charges_préliminaires"/>
+            <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >99000</cost>
+            <estcomposede rdf:resource="#Industrialisation"/>
+            <estcomposede rdf:resource="#realisé_a_cotation_fonctionnelle"/>
+            <estcomposede rdf:resource="#realisé_l_nalyse_fonctionnelle"/>
+            <hascountry rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >France</hascountry>
+            <estcomposede rdf:resource="#Qualifier_le_produit_en_interne"/>
+            <hasnameProject rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Voiture</hasnameProject>
+            <estcomposede rdf:resource="#Etude_de_faisabilite"/>
+            <estpour rdf:resource="#Ferrari"/>
+            <estcomposede rdf:resource="#Realisé_les_concepts"/>
+            <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Ferrari</hasnameproduct>
+            <estpour rdf:resource="#Voiture_"/>
+            <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >2012</hasdate>
+            <estcomposede rdf:resource="#Etude_préliminaire"/>
+            <realise rdf:resource="#Ferrari"/>
+          </Projet>
+        </ComposeOf>
+        <ComposeOf rdf:resource="#Projet_voiture_citroen"/>
+        <ComposeOf rdf:resource="#Projet_velo"/>
+        <ComposeOf rdf:resource="#Projet_voiture_ford"/>
+        <comporter rdf:resource="#Analyser_le_besoin"/>
+        <ComposeOf rdf:resource="#Projet_voiture_bmw"/>
+        <comporter rdf:resource="#constituer_lequide_de_projet"/>
+        <comporter rdf:resource="#rediger_le_cahier_des_charges_préliminaires"/>
+        <hasnamephase rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Phase de Faisabilite</hasnamephase>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >L'etude de faisabilite dans la gestion de projets est une etude qui tend a 
+    prouver que le projet est techniquement faisable et economiquement 
+    rentable.</rdfs:comment>
+        <comporter rdf:resource="#Analyser_le_besoin_v"/>
+        <ComposeOf rdf:resource="#Projet_voiture_Honda"/>
+      </Phase>
+    </estcomposede>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2009</hasdate>
+    <estcomposede rdf:resource="#Role_technique"/>
+    <estpour rdf:resource="#velo"/>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2002</hasdate>
+    <estcomposede rdf:resource="#Finaliser_le_plan_de_validation"/>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2003</hasdate>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2006</hasdate>
+    <products rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Velo</products>
+    <hascountry rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >USA</hascountry>
+    <estpour rdf:resource="#besoin_primordiale_velo"/>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2010</hasdate>
+    <estcomposede rdf:resource="#realisé_a_cotation_fonctionnelle"/>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2013</hasdate>
+    <estcomposede rdf:resource="#Analyser_la_concurrence"/>
+    <estcomposede rdf:resource="#Etude_détaillee"/>
+    <estpour rdf:resource="#besoin_accessoire_velo"/>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2000</hasdate>
+    <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Velo</hasnameproduct>
+    <estpour rdf:resource="#Velo_"/>
+    <hasnameProject rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Velo</hasnameProject>
+    <estcomposede rdf:resource="#realisé_l_nalyse_fonctionnelle"/>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2004</hasdate>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2007</hasdate>
+    <estcomposede rdf:resource="#Industrialisation"/>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2011</hasdate>
+    <estcomposede rdf:resource="#rediger_le_cahier_des_charges_préliminaires"/>
+    <estcomposede rdf:resource="#Qualifier_le_produit_en_interne"/>
+    <hascountry rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Tunisie</hascountry>
+    <estcomposede rdf:resource="#Etude_préliminaire"/>
+    <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Velo</hasnamecategory>
+    <estcomposede rdf:resource="#Realisé_les_concepts"/>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2001</hasdate>
+    <hascountry rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >France</hascountry>
+    <hascountry rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Germany</hascountry>
+    <estpour>
+      <Parametre_technique rdf:ID="liste_param_fourche">
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Param tech Fourche</hasnameparametretechnique>
+        <EstUn rdf:resource="#Projet_velo"/>
+        <elementde rdf:resource="#velo"/>
+        <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</hasnameproduct>
+        <ParametreDe>
+          <Element rdf:ID="Fourche">
+            <elementde rdf:resource="#fonction_technique_cadre_velo"/>
+            <elementde rdf:resource="#liste_param_fourche"/>
+            <elementde rdf:resource="#Velo_"/>
+            <elementde rdf:resource="#besoin_primordiale_velo"/>
+            <hascoutelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >90</hascoutelement>
+            <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Fourche</hasnameelement>
+            <elementde rdf:resource="#velo"/>
+            <AElementtechnique rdf:resource="#liste_param_fourche"/>
+            <elementde rdf:resource="#fonction_principale_cadre_velo"/>
+            <elementde rdf:resource="#fonction_contrainte_cadre_velo"/>
+          </Element>
+        </ParametreDe>
+        <possederdes rdf:resource="#Velo_"/>
+        <Aelement rdf:resource="#Fourche"/>
+        <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Fourche</hasnameelement>
+      </Parametre_technique>
+    </estpour>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2005</hasdate>
+    <estcomposede rdf:resource="#rediger_cahier_des_charges_fonctionnel"/>
+    <hasdate rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2008</hasdate>                                           </Projet>
+                                                            </EstUn>
+                                                            <repondreA rdf:resource="#besoin_primordiale_velo"/>
+                                                            <hasnamebesoin
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Besoin Velo 3</hasnamebesoin>
+                                                            <Aelement rdf:resource="#Pédalier"/>
+                                                            <ProduitConcept rdf:resource="#Concept_cadre_velo"/>
+                                                            <Aelement>
+                                                              <Element rdf:ID="Jante">
+    <elementde>
+      <Parametre_technique rdf:ID="liste_param_jante">
+        <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Jante</hasnameelement>
+        <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Velo</hasnameproduct>
+        <ParametreDe rdf:resource="#Jante"/>
+        <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Param tech jante  // </hasnameparametretechnique>
+        <Aelement rdf:resource="#Jante"/>
+      </Parametre_technique>
+    </elementde>
+    <elementde rdf:resource="#fonction_contrainte_cadre_velo"/>
+    <elementde rdf:resource="#besoin_primordiale_velo"/>
+    <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Jante</hasnameelement>
+    <hascoutelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >13</hascoutelement>
+    <AElementtechnique rdf:resource="#liste_param_jante"/>    </Element>
+                                                            </Aelement>
+                                                            <hasnameproduct
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Velo</hasnameproduct>
+                                                            <ArepondePar rdf:resource="#besoin_primordiale_velo"/>
+                                                            <Aelement rdf:resource="#Fourche"/>
+                                                          </Besoin>
+                                                        </elementde>
+                                                      </Element>
+                                                    </Aelement>
+                                                    <Aelement rdf:resource="#Fourche"/>
+                                                    <hasnameconceptproduit
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >Oui concept</hasnameconceptproduit>
+                                                    <Aelement rdf:resource="#Roue"/>
+                                                    <cost rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    ></cost>
+                                                    <FctprinDe rdf:resource="#fonction_technique_cadre_velo"/>
+                                                    <Aelement rdf:resource="#Cadre"/>
+                                                    <FonctionDe rdf:resource="#Concept_cadre_velo"/>
+                                                    <FctprinDe rdf:resource="#fonction_contrainte_cadre_velo"/>
+                                                    <AvoirFctPrincipale rdf:resource="#fonction_principale_cadre_velo"/>
+                                                    <FctprinDe rdf:resource="#fonction_principale_cadre_velo"/>
+                                                    <AvoirFctContr rdf:resource="#fonction_contrainte_cadre_velo"/>
+                                                    <Aelement rdf:resource="#Selle"/>
+                                                    <Aelement rdf:resource="#Chaîne"/>
+                                                    <Aelement rdf:resource="#Pneu"/>
+                                                    <hasnamecategory
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >Velo</hasnamecategory>
+                                                    <possederdes rdf:resource="#Velo_"/>
+                                                    <Aelement rdf:resource="#Derailleur_Arriere"/>
+                                                    <hasnamefonctionprincipale
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >fct princip 1 // fct princip 2 // fct princip  3</hasnamefonctionprincipale>
+                                                  </fonction_principale>
+                                                </AvoirFctPrincipale>
+                                                <Aelement rdf:resource="#Roue"/>
+                                                <Aelement rdf:resource="#Pneu"/>
+                                                <FctContDe>
+                                                  <Fonction rdf:ID="liste_fonction_velo">
+                                                    <hasnameconceptproduit
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >dfhdgjdfhjgh</hasnameconceptproduit>
+                                                    <AvoirFctContr rdf:resource="#fonction_contrainte_cadre_velo"/>
+                                                  </Fonction>
+                                                </FctContDe>
+                                                <Aelement rdf:resource="#Fourche"/>
+                                                <hasnameconceptproduit
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Cadre</hasnameconceptproduit>
+                                                <FctContDe rdf:resource="#fonction_principale_cadre_velo"/>
+                                                <Aelement rdf:resource="#Cadre"/>
+                                                <hasnamefonctioncontrainte
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Fct Cntrainte  3  //Fct Contrainte 2 //  Fct contaitre 1</hasnamefonctioncontrainte>
+                                                <AvoirFctContr rdf:resource="#fonction_contrainte_cadre_velo"/>
+                                                <Aelement rdf:resource="#Pédalier"/>
+                                                <Aelement rdf:resource="#Derailleur_Arriere"/>
+                                                <Aelement rdf:resource="#Jante"/>
+                                                <FonctionDe rdf:resource="#Concept_cadre_velo"/>
+                                                <FctContDe rdf:resource="#fonction_contrainte_cadre_velo"/>
+                                                <cost rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >150dt</cost>
+                                                <possederdes rdf:resource="#Velo_"/>
+                                                <Aelement rdf:resource="#Selle"/>
+                                                <Aelement rdf:resource="#Chaîne"/>
+                                                <AvoirFctTech rdf:resource="#fonction_technique_cadre_velo"/>
+                                                <hasnamecategory
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Velo</hasnamecategory>
+                                              </fonction_contrainte>
+                                            </FctTechDe>
+                                            <hasnamecategory rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Velo</hasnamecategory>
+                                            <FctTechDe rdf:resource="#fonction_principale_cadre_velo"/>
+                                            <AvoirFctPrincipale rdf:resource="#fonction_principale_cadre_velo"/>
+                                            <possederdes rdf:resource="#Velo_"/>
+                                            <Aelement rdf:resource="#Derailleur_Arriere"/>
+                                            <Aelement rdf:resource="#Roue"/>
+                                            <cost rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >150dt</cost>
+                                            <Aelement rdf:resource="#Fourche"/>
+                                            <Aelement rdf:resource="#Pédalier"/>
+                                            <Aelement rdf:resource="#Cadre"/>
+                                            <hasnamefonctiontechnique
+                                             rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                            >fct tech é // fct techn 4  /: fct tech 1</hasnamefonctiontechnique>
+                                            <FonctionDe rdf:resource="#Concept_cadre_velo"/>
+                                            <Aelement rdf:resource="#Chaîne"/>
+                                            <FctTechDe rdf:resource="#fonction_technique_cadre_velo"/>
+                                            <hasnameconceptproduit
+                                             rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                            >voiture 2</hasnameconceptproduit>
+                                            <Aelement rdf:resource="#Selle"/>
+                                          </fonction_technique>
+                                        </CategorieOf>
+                                        <CategorieOf rdf:resource="#fonction_principale_cadre_velo"/>
+                                        <CategorieOf rdf:resource="#besoin_accessoire_velo"/>
+                                        <CategorieOf rdf:resource="#velo"/>
+                                        <CategorieOf rdf:resource="#fonction_contrainte_cadre_velo"/>
+                                        <CategorieOf>
+                                          <Parametre_technique rdf:ID="liste_param_pneu">
+                                            <possederdes rdf:resource="#Velo_"/>
+                                            <hasnameproduct rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Voiture</hasnameproduct>
+                                            <possederdes rdf:resource="#Voiture_"/>
+                                            <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                                            <hasnameparametretechnique
+                                             rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                            >Param tech pneu</hasnameparametretechnique>
+                                            <hasnameproduct rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Velo</hasnameproduct>
+                                            <hasnameelement rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Pneu</hasnameelement>
+                                            <ParametreDe rdf:resource="#Pneu"/>
+                                            <Aelement rdf:resource="#Pneu"/>
+                                          </Parametre_technique>
+                                        </CategorieOf>
+                                        <Aelement rdf:resource="#Pneu"/>
+                                        <CategorieOf rdf:resource="#besoin_primordiale_velo"/>
+                                        <Aelement rdf:resource="#Fourche"/>
+                                        <Aelement rdf:resource="#Selle"/>
+                                        <Aelement rdf:resource="#Roue"/>
+                                        <Aelement rdf:resource="#Cadre"/>
+                                        <CategorieOf rdf:resource="#iste_param_Cadre_velo"/>
+                                        <EstUn rdf:resource="#Projet_velo"/>
+                                        <estdetype rdf:resource="#Velo_"/>
+                                        <CategorieOf rdf:resource="#liste_param_fourche"/>
+                                        <Aelement rdf:resource="#Chaîne"/>
+                                        <Aelement rdf:resource="#Pédalier"/>
+                                        <ProduitConcept rdf:resource="#Concept_cadre_velo"/>
+                                        <Aelement rdf:resource="#Derailleur_Arriere"/>
+                                      </deux_roue>
+                                    </possederdes>
+                                    <EstUn rdf:resource="#Projet_velo"/>
+                                    <ProduitConcept rdf:resource="#Concept_cadre_velo"/>
+                                    <hasnamecategory rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >deux roue</hasnamecategory>
+                                    <repondreA rdf:resource="#besoin_accessoire_velo"/>
+                                    <hasnamebesoin rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >besoin accessoire velo 3</hasnamebesoin>
+                                  </Besoin>
+                                </repondreA>
+                                <Aelement rdf:resource="#liste_param_batterie"/>
+                                <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                >800</cost>
+                                <Aelement rdf:resource="#Cadre"/>
+                                <Aelement rdf:resource="#Selle"/>
+                                <possederdes rdf:resource="#Velo_"/>
+                                <Aelement rdf:resource="#Fourche"/>
+                                <EstUn rdf:resource="#Projet_velo"/>
+                                <Aelement rdf:resource="#Chaîne"/>
+                                <hasnameproduct rdf:datatype=
+                                "http://www.w3.org/2001/XMLSchema#string"
+                                >Velo</hasnameproduct>
+                                <ProduitConcept rdf:resource="#Concept_cadre_velo"/>
+                                <Aelement rdf:resource="#iste_param_Cadre_velo"/>
+                                <Aelement rdf:resource="#Derailleur_Arriere"/>
+                                <Aelement rdf:resource="#liste_param_fourche"/>
+                                <Aelement rdf:resource="#liste_param_GPS"/>
+                                <hasnamecategory rdf:datatype=
+                                "http://www.w3.org/2001/XMLSchema#string"
+                                >deux roue</hasnamecategory>
+                                <repondreA rdf:resource="#besoin_primordiale_velo"/>
+                              </Produit>
+                            </elementde>
+                            <hasnameparametretechnique rdf:datatype=
+                            "http://www.w3.org/2001/XMLSchema#string"
+                            >Batterie : Tension 36 V  // Courant de fonctionnement= 7 a 12 A  // Decharge normale = 8A  //  Masse = 5Kg </hasnameparametretechnique>
+                            <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >Voiture</hasnameproduct>
+                            <EstUn rdf:resource="#Projet_voiture_bmw"/>
+                            <possederdes rdf:resource="#Voiture_"/>
+                            <hasnameparametretechnique rdf:datatype=
+                            "http://www.w3.org/2001/XMLSchema#string"
+                            >Batterie : Decharge courant maxi= 20A</hasnameparametretechnique>
+                            <elementde rdf:resource="#Audi"/>
+                            <repondreA rdf:resource="#besoin_tech_voiture_bmw"/>
+                            <elementde rdf:resource="#Ford"/>
+                            <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >1000</cost>
+                            <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                          </Parametre_technique>
+                        </ArepondePar>
+                        <ArepondePar rdf:resource="#BMW"/>
+                        <ArepondePar rdf:resource="#besoin_tech_voiture_bmw"/>
+                        <repondreA rdf:resource="#besoin_tech_voiture_bmw"/>
+                        <ArepondePar rdf:resource="#Citroen"/>
+                        <ArepondePar rdf:resource="#Honda"/>
+                        <EstUn rdf:resource="#Projet_voiture_bmw"/>
+                        <possederdes rdf:resource="#Voiture_"/>
+                        <ArepondePar rdf:resource="#Ford"/>
+                        <Aelement rdf:resource="#Batterie"/>
+                        <Aelement rdf:resource="#Moteur"/>
+                        <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Voiture</hasnameproduct>
+                        <Aelement rdf:resource="#Cadre"/>
+                      </Besoin>
+                    </elementde>
+                    <elementde rdf:resource="#Ford"/>
+                    <hascoutelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >220</hascoutelement>
+                    <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >Voiture</hasnameproduct>
+                    <elementde rdf:resource="#Citroen"/>
+                    <elementde rdf:resource="#Audi"/>
+                    <elementde rdf:resource="#BMW"/>
+                    <elementde rdf:resource="#fonction_principale_voiture"/>
+                    <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >ChargeurGPS</hasnameelement>
+                    <elementde rdf:resource="#Ferrari"/>
+                  </Element>
+                </Aelement>
+                <EstUn rdf:resource="#Projet_voiture_Honda"/>
+                <EstUn rdf:resource="#Projet_voiture_audi"/>
+                <CategorieOf rdf:resource="#Ferrari"/>
+                <CategorieOf rdf:resource="#besoin_concept_voiture_bmw"/>
+                <EstUn rdf:resource="#Projet_voiture_bmw"/>
+                <Aelement rdf:resource="#Moteur"/>
+                <Aelement rdf:resource="#GPS"/>
+                <CategorieOf rdf:resource="#Honda"/>
+                <EstUn rdf:resource="#Projet_voiture_ferrari"/>
+                <CategorieOf rdf:resource="#besoin_tech_voiture_bmw"/>
+                <CategorieOf rdf:resource="#BMW"/>
+                <Aelement rdf:resource="#Roue"/>
+                <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                ></cost>
+                <CategorieOf rdf:resource="#liste_param_batterie"/>
+                <Aelement rdf:resource="#Cadre"/>
+                <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Voiture</hasnameproduct>
+                <EstUn rdf:resource="#Projet_voiture_citroen"/>
+                <CategorieOf rdf:resource="#Citroen"/>
+                <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                <estdetype rdf:resource="#Voiture_"/>
+                <CategorieOf rdf:resource="#liste_param_pneu"/>
+                <CategorieOf rdf:resource="#Audi"/>
+                <CategorieOf rdf:resource="#liste_param_GPS"/>
+                <CategorieOf rdf:resource="#Ford"/>
+                <Aelement rdf:resource="#Batterie"/>
+                <EstUn rdf:resource="#Projet_voiture_ford"/>
+                <CategorieOf rdf:resource="#liste_param_chargeur"/>
+              </quatre_roue>
+            </elementde>
+            <elementde rdf:resource="#besoin_tech_voiture_bmw"/>
+            <elementde rdf:resource="#Honda"/>
+            <elementde rdf:resource="#Citroen"/>
+            <elementde rdf:resource="#Audi"/>
+            <elementde rdf:resource="#Ford"/>
+            <elementde rdf:resource="#BMW"/>
+            <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >GPS</hasnameelement>
+            <AElementtechnique rdf:resource="#liste_param_GPS"/>
+            <elementde rdf:resource="#liste_param_GPS"/>
+            <elementde rdf:resource="#fonction_principale_voiture"/>
+            <elementde rdf:resource="#Ferrari"/>
+          </Element>
+        </Aelement>
+        <AvoirFctContr rdf:resource="#fonction_contrainte_voiture"/>
+        <Aelement rdf:resource="#Chargeur_GPS"/>
+        <hasnamefonctioncontrainte rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Indiquer a l'utilisateur le risque d'une panne </hasnamefonctioncontrainte>
+        <FonctionDe rdf:resource="#Concept_produit_voiture"/>
+        <hasnameconceptproduit rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Concept </hasnameconceptproduit>
+        <Aelement rdf:resource="#Batterie"/>
+      </fonction_contrainte>
+    </AvoirFctContr>
+    <AvoirFctPrincipale rdf:resource="#fonction_principale_voiture"/>
+    <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    ></hasnameproduct>                                        </Fonction>
+                                                            </FctTechDe>
+                                                            <FctTechDe rdf:resource="#fonction_principale_voiture"/>
+                                                            <Aelement rdf:resource="#Cadre"/>
+                                                            <AvoirFctPrincipale rdf:resource="#fonction_principale_voiture"/>
+                                                            <Aelement rdf:resource="#Batterie"/>
+                                                            <FctTechDe rdf:resource="#fonction_contrainte_voiture"/>
+                                                            <hasnameconceptproduit
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >ConceptVoiture 3</hasnameconceptproduit>
+                                                            <cost
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >3800dt</cost>
+                                                            <Aelement rdf:resource="#Chargeur"/>
+                                                            <FctTechDe rdf:resource="#fonction_technique_voiture"/>
+                                                            <AvoirFctContr rdf:resource="#fonction_contrainte_voiture"/>
+                                                            <Aelement rdf:resource="#Chargeur_GPS"/>
+                                                            <Aelement rdf:resource="#GPS"/>
+                                                            <hasnamecategory
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            ></hasnamecategory>
+                                                            <FonctionDe rdf:resource="#Concept_produit_voiture"/>
+                                                            <Aelement rdf:resource="#Roue"/>
+                                                          </fonction_technique>
+                                                        </elementde>
+                                                        <elementde rdf:resource="#fonction_principale_voiture"/>
+                                                        <elementde rdf:resource="#Velo_"/>
+                                                        <hascoutelement
+                                                         rdf:datatype=
+                                                        "http://www.w3.org/2001/XMLSchema#string"
+                                                        >150</hascoutelement>
+                                                        <elementde rdf:resource="#Voiture_"/>
+                                                        <elementde rdf:resource="#Audi"/>
+                                                        <elementde rdf:resource="#besoin_tech_voiture_bmw"/>
+                                                        <elementde>
+                                                          <Parametre_technique rdf:ID="liste_param_Cadre_voiture">
+                                                            <hasnamecategory
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >CadreVoiture</hasnamecategory>
+                                                            <hasnameproduct
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Voiture</hasnameproduct>
+                                                            <hasnameparametretechnique
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >cadre param techni 2 // Cadre param techni 1 </hasnameparametretechnique>
+                                                            <ParametreDe rdf:resource="#Cadre"/>
+                                                            <hasnameelement
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >Cadre</hasnameelement>
+                                                            <AElementtechnique rdf:resource="#liste_param_Cadre_voiture"/>
+                                                            <Aelement rdf:resource="#Cadre"/>
+                                                            <cost
+                                                             rdf:datatype=
+                                                            "http://www.w3.org/2001/XMLSchema#string"
+                                                            >150dt</cost>
+                                                            <ParametreDe rdf:resource="#liste_param_Cadre_voiture"/>
+                                                            <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                                                          </Parametre_technique>
+                                                        </elementde>
+                                                        <AElementtechnique rdf:resource="#liste_param_Cadre_voiture"/>
+                                                        <elementde rdf:resource="#Honda"/>
+                                                        <hasnameelement
+                                                         rdf:datatype=
+                                                        "http://www.w3.org/2001/XMLSchema#string"
+                                                        >Cadre</hasnameelement>
+                                                        <elementde rdf:resource="#Citroen"/>
+                                                        <elementde rdf:resource="#BMW"/>
+                                                        <elementde rdf:resource="#besoin_primordiale_velo"/>
+                                                        <elementde rdf:resource="#iste_param_Cadre_velo"/>
+                                                        <elementde rdf:resource="#velo"/>
+                                                        <elementde rdf:resource="#fonction_technique_cadre_velo"/>
+                                                        <elementde rdf:resource="#fonction_contrainte_voiture"/>
+                                                        <elementde rdf:resource="#fonction_principale_cadre_velo"/>
+                                                        <elementde rdf:resource="#fonction_contrainte_cadre_velo"/>
+                                                        <hasnameproduct
+                                                         rdf:datatype=
+                                                        "http://www.w3.org/2001/XMLSchema#string"
+                                                        >Velo</hasnameproduct>
+                                                        <elementde rdf:resource="#Ford"/>
+                                                      </Element>
+                                                    </Aelement>
+                                                    <Aelement rdf:resource="#Moteur"/>
+                                                    <Aelement rdf:resource="#liste_param_batterie"/>
+                                                    <possederdes rdf:resource="#Voiture_"/>
+                                                    <Aelement rdf:resource="#Batterie"/>
+                                                    <EstUn rdf:resource="#Projet_voiture_citroen"/>
+                                                    <Aelement rdf:resource="#Pneu"/>
+                                                    <Aelement rdf:resource="#Roue"/>
+                                                    <hasnameproduct
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >Citroen</hasnameproduct>
+                                                    <repondreA rdf:resource="#besoin_tech_voiture_bmw"/>
+                                                    <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                                                    <Aelement rdf:resource="#Chargeur_GPS"/>
+                                                    <cost rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >90000</cost>
+                                                    <repondreA rdf:resource="#besoin_concept_voiture_bmw"/>
+                                                    <Aelement rdf:resource="#Chargeur"/>
+                                                    <Aelement rdf:resource="#liste_param_GPS"/>
+                                                    <hasnamecategory
+                                                     rdf:datatype=
+                                                    "http://www.w3.org/2001/XMLSchema#string"
+                                                    >quatre roue</hasnamecategory>
+                                                    <Aelement rdf:resource="#GPS"/>
+                                                  </Produit>
+                                                </elementde>
+                                                <elementde rdf:resource="#Audi"/>
+                                                <hasnameproduct
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Voiture</hasnameproduct>
+                                                <AElementtechnique rdf:resource="#liste_param_batterie"/>
+                                                <elementde rdf:resource="#Honda"/>
+                                                <elementde rdf:resource="#Ford"/>
+                                                <elementde rdf:resource="#fonction_contrainte_voiture"/>
+                                                <elementde rdf:resource="#Voiture_"/>
+                                                <elementde rdf:resource="#fonction_principale_voiture"/>
+                                                <hascoutelement
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >80</hascoutelement>
+                                                <elementde rdf:resource="#besoin_tech_voiture_bmw"/>
+                                                <elementde rdf:resource="#Ferrari"/>
+                                                <hasnameelement
+                                                 rdf:datatype=
+                                                "http://www.w3.org/2001/XMLSchema#string"
+                                                >Batterie</hasnameelement>
+                                                <elementde rdf:resource="#BMW"/>
+                                                <elementde rdf:resource="#fonction_technique_voiture"/>
+                                              </Element>
+                                            </Aelement>
+                                            <Aelement rdf:resource="#GPS"/>
+                                            <cost rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >3800dt</cost>
+                                            <hasnamefonctionprincipale
+                                             rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                            >Permettre a l'utilisateur de se deplacer sur la route</hasnamefonctionprincipale>
+                                            <FctprinDe rdf:resource="#fonction_technique_voiture"/>
+                                            <FonctionDe rdf:resource="#Concept_produit_voiture"/>
+                                            <Aelement rdf:resource="#Chargeur"/>
+                                            <Aelement rdf:resource="#Cadre"/>
+                                            <FctprinDe rdf:resource="#fonction_contrainte_voiture"/>
+                                            <AvoirFctTech rdf:resource="#fonction_technique_voiture"/>
+                                            <Aelement rdf:resource="#Roue"/>
+                                            <hasnamecategory rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            ></hasnamecategory>
+                                            <Aelement rdf:resource="#Chargeur_GPS"/>
+                                            <FctprinDe rdf:resource="#fonction_principale_voiture"/>
+                                            <Aelement rdf:resource="#Moteur"/>
+                                            <hasnamefonctionprincipale
+                                             rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                            >Respecter les normes et reglementations en vigueur</hasnamefonctionprincipale>
+                                            <AvoirFctPrincipale rdf:resource="#fonction_principale_voiture"/>
+                                            <hasnameconceptproduit
+                                             rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                            >Pourvoiture</hasnameconceptproduit>
+                                            <FctprinDe rdf:resource="#liste_fonction_voiture"/>
+                                          </fonction_principale>
+                                        </elementde>
+                                        <elementde>
+                                          <Parametre_technique rdf:ID="liste_param_moteur">
+                                            <hasnameparametretechnique
+                                             rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                            >Param tech 1 moteur //Param tech 2 moteur //Param tech 3 moteur //Param tech 4 moteur //Param tech  5 moteur //</hasnameparametretechnique>
+                                            <Aelement rdf:resource="#Moteur"/>
+                                            <hasnameproduct rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Voiture</hasnameproduct>
+                                            <hasnameelement rdf:datatype=
+                                            "http://www.w3.org/2001/XMLSchema#string"
+                                            >Moteur</hasnameelement>
+                                            <ParametreDe rdf:resource="#Moteur"/>
+                                          </Parametre_technique>
+                                        </elementde>
+                                        <elementde rdf:resource="#Audi"/>
+                                        <hascoutelement rdf:datatype=
+                                        "http://www.w3.org/2001/XMLSchema#string"
+                                        >1900</hascoutelement>
+                                        <AElementtechnique rdf:resource="#liste_param_moteur"/>
+                                        <elementde rdf:resource="#BMW"/>
+                                        <elementde rdf:resource="#Voiture_"/>
+                                        <elementde rdf:resource="#Citroen"/>
+                                        <elementde rdf:resource="#Honda"/>
+                                        <elementde rdf:resource="#Ferrari"/>
+                                        <elementde rdf:resource="#fonction_technique_voiture"/>
+                                        <elementde rdf:resource="#besoin_tech_voiture_bmw"/>
+                                        <hasnameelement rdf:datatype=
+                                        "http://www.w3.org/2001/XMLSchema#string"
+                                        >Moteur</hasnameelement>
+                                        <elementde rdf:resource="#fonction_contrainte_voiture"/>
+                                        <elementde rdf:resource="#Ford"/>
+                                      </Element>
+                                    </Aelement>
+                                    <hasnameproduct rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Honda</hasnameproduct>
+                                    <Aelement rdf:resource="#Batterie"/>
+                                    <repondreA rdf:resource="#besoin_concept_voiture_bmw"/>
+                                    <possederdes rdf:resource="#Voiture_"/>
+                                    <Aelement rdf:resource="#liste_param_GPS"/>
+                                    <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                                    <Aelement rdf:resource="#Cadre"/>
+                                    <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                    >54321</cost>
+                                    <Aelement rdf:resource="#Roue"/>
+                                    <repondreA rdf:resource="#besoin_tech_voiture_bmw"/>
+                                    <Aelement rdf:resource="#GPS"/>
+                                    <hasnamecategory rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >quatre roue</hasnamecategory>
+                                    <Aelement rdf:resource="#liste_param_batterie"/>
+                                    <Aelement rdf:resource="#Chargeur"/>
+                                    <EstUn rdf:resource="#Projet_voiture_Honda"/>
+                                    <Aelement rdf:resource="#Chargeur_GPS"/>
+                                    <Aelement rdf:resource="#Pneu"/>
+                                  </Produit>
+                                </elementde>
+                                <elementde rdf:resource="#fonction_principale_voiture"/>
+                                <elementde rdf:resource="#Citroen"/>
+                                <elementde rdf:resource="#Velo_"/>
+                                <elementde rdf:resource="#fonction_contrainte_voiture"/>
+                                <elementde rdf:resource="#fonction_contrainte_cadre_velo"/>
+                                <elementde rdf:resource="#fonction_technique_voiture"/>
+                                <elementde rdf:resource="#Ford"/>
+                                <elementde rdf:resource="#Voiture_"/>
+                                <elementde rdf:resource="#fonction_principale_cadre_velo"/>
+                                <elementde rdf:resource="#besoin_primordiale_velo"/>
+                                <elementde rdf:resource="#fonction_technique_cadre_velo"/>
+                                <elementde rdf:resource="#Audi"/>
+                                <elementde>
+                                  <Parametre_technique rdf:ID="liste_param_roue">
+                                    <hasnameproduct rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Velo</hasnameproduct>
+                                    <hasnameproduct rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Voiture</hasnameproduct>
+                                    <hasnameparametretechnique
+                                     rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                                    >Param tech roue</hasnameparametretechnique>
+                                    <hasnameelement rdf:datatype=
+                                    "http://www.w3.org/2001/XMLSchema#string"
+                                    >Roue</hasnameelement>
+                                    <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                                    <Aelement rdf:resource="#Roue"/>
+                                  </Parametre_technique>
+                                </elementde>
+                                <hascoutelement rdf:datatype=
+                                "http://www.w3.org/2001/XMLSchema#string"
+                                >200</hascoutelement>
+                                <elementde rdf:resource="#besoin_tech_voiture_bmw"/>
+                                <elementde rdf:resource="#Ferrari"/>
+                                <hasnameelement rdf:datatype=
+                                "http://www.w3.org/2001/XMLSchema#string"
+                                >Roue</hasnameelement>
+                                <elementde rdf:resource="#BMW"/>
+                              </Element>
+                            </Aelement>
+                            <Aelement rdf:resource="#Chargeur_GPS"/>
+                            <repondreA rdf:resource="#besoin_tech_voiture_bmw"/>
+                            <Aelement rdf:resource="#liste_param_GPS"/>
+                            <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >Ferrari</hasnameproduct>
+                            <Aelement rdf:resource="#GPS"/>
+                            <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                            <Aelement rdf:resource="#liste_param_batterie"/>
+                            <EstUn rdf:resource="#Projet_voiture_ferrari"/>
+                            <Aelement rdf:resource="#Cadre"/>
+                            <possederdes rdf:resource="#Voiture_"/>
+                            <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >60000</cost>
+                            <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                            >quatre roue</hasnamecategory>
+                            <repondreA rdf:resource="#besoin_concept_voiture_bmw"/>
+                            <Aelement rdf:resource="#Moteur"/>
+                            <Aelement rdf:resource="#Batterie"/>
+                            <Aelement rdf:resource="#Pneu"/>
+                          </Produit>
+                        </elementde>
+                        <elementde rdf:resource="#Honda"/>
+                        <elementde rdf:resource="#Ford"/>
+                        <elementde rdf:resource="#fonction_principale_cadre_velo"/>
+                        <elementde rdf:resource="#Citroen"/>
+                        <elementde rdf:resource="#fonction_technique_cadre_velo"/>
+                        <elementde rdf:resource="#fonction_contrainte_cadre_velo"/>
+                        <elementde rdf:resource="#liste_param_pneu"/>
+                        <elementde rdf:resource="#besoin_primordiale_velo"/>
+                        <AElementtechnique rdf:resource="#liste_param_pneu"/>
+                        <elementde rdf:resource="#Velo_"/>
+                        <hasnameelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                        >Pneu</hasnameelement>
+                        <elementde rdf:resource="#Audi"/>
+                      </Element>
+                    </Aelement>
+                    <Aelement rdf:resource="#Moteur"/>
+                    <Aelement rdf:resource="#Chargeur"/>
+                    <Aelement rdf:resource="#Cadre"/>
+                    <Aelement rdf:resource="#Batterie"/>
+                    <hasnamecategory rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >quatre roue</hasnamecategory>
+                    <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+                    <Aelement rdf:resource="#Chargeur_GPS"/>
+                    <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >Audi</hasnameproduct>
+                    <Aelement rdf:resource="#GPS"/>
+                    <Aelement rdf:resource="#liste_param_GPS"/>
+                    <possederdes rdf:resource="#Voiture_"/>
+                    <Aelement rdf:resource="#liste_param_batterie"/>
+                    <repondreA rdf:resource="#besoin_tech_voiture_bmw"/>
+                    <cost rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                    >90000</cost>
+                    <Aelement rdf:resource="#Roue"/>
+                    <repondreA rdf:resource="#besoin_concept_voiture_bmw"/>
+                    <EstUn rdf:resource="#Projet_voiture_audi"/>
+                  </Produit>
+                </elementde>
+                <elementde rdf:resource="#besoin_tech_voiture_bmw"/>
+                <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >Voiture</hasnameproduct>
+                <AElementtechnique rdf:resource="#liste_param_chargeur"/>
+                <elementde rdf:resource="#Ford"/>
+                <elementde rdf:resource="#liste_param_chargeur"/>
+                <elementde rdf:resource="#Honda"/>
+                <elementde rdf:resource="#fonction_contrainte_voiture"/>
+                <elementde rdf:resource="#BMW"/>
+                <elementde rdf:resource="#fonction_technique_voiture"/>
+                <elementde rdf:resource="#Citroen"/>
+                <elementde rdf:resource="#Voiture_"/>
+                <hascoutelement rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+                >160</hascoutelement>
+                <elementde rdf:resource="#fonction_principale_voiture"/>
+              </Element>
+            </ParametreDe>
+            <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Voiture</hasnameproduct>
+            <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+            >Parma tech Charger</hasnameparametretechnique>
+            <Aelement rdf:resource="#Chargeur"/>
+            <possederdes rdf:resource="#Voiture_"/>
+          </Parametre_technique>
+        </ConceptDe>
+        <AvoirFonction rdf:resource="#fonction_contrainte_voiture"/>
+        <ConceptDe rdf:resource="#Citroen"/>
+        <ConceptDe rdf:resource="#Ferrari"/>
+        <ConceptDe rdf:resource="#Audi"/>
+        <ConceptDe rdf:resource="#liste_param_charger_GPS"/>
+        <ConceptDe rdf:resource="#liste_param_GPS"/>
+        <ConceptDe rdf:resource="#liste_param_batterie"/>
+        <ConceptDe rdf:resource="#liste_param_Cadre_voiture"/>
+        <ConceptDe rdf:resource="#Honda"/>
+        <ConceptDe rdf:resource="#besoin_concept_voiture_bmw"/>
+        <ProduitConcept rdf:resource="#Concept_produit_voiture"/>
+        <ConceptDe rdf:resource="#Concept_produit_voiture"/>
+        <ConceptDe rdf:resource="#besoin_tech_voiture_bmw"/>
+        <ConceptDe rdf:resource="#liste_param_roue"/>
+        <hasnameconceptproduit rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Voiture</hasnameconceptproduit>
+        <ConceptDe rdf:resource="#BMW"/>
+        <ConceptDe rdf:resource="#liste_param_pneu"/>
+        <AvoirFonction rdf:resource="#fonction_principale_voiture"/>
+        <AvoirFonction rdf:resource="#fonction_technique_voiture"/>
+        <hasnameproduct rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+        >Voiture</hasnameproduct>
+        <ConceptDe rdf:resource="#Voiture_"/>
+        <ConceptDe rdf:resource="#Ford"/>
+      </Concept_produit>
+    </ProduitConcept>
+    <Aelement rdf:resource="#Chargeur_GPS"/>
+    <hasnameparametretechnique rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Param Tech Chargeur GPS</hasnameparametretechnique>
+    <ParametreDe rdf:resource="#Chargeur_GPS"/>
+  </Parametre_technique>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.5, Build 649)  http://protege.stanford.edu -->
