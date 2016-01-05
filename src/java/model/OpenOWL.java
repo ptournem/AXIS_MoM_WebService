@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.jena.ontology.OntModel;
@@ -21,6 +22,9 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.util.FileManager;
 
 /**
@@ -31,8 +35,9 @@ public class OpenOWL {
 
     public static void main(String args[]) {
 
-       OpenConnectOWL();
-        TestOpenOwl();
+        //OpenConnectOWL();
+        //TestOpenOwl();
+        test();
     }
 
     static String s;
@@ -41,7 +46,7 @@ public class OpenOWL {
     static OntModel OpenConnectOWL() {
 
         //OntModel mode = null;
-        String pathOntologie = "C:/Users/App-riad.belmahi/Documents/NetBeansProjects/SemanticMuseum1/src/java/model/ontologieMoM.owl";
+        String pathOntologie = "/Users/loannguyen/Downloads/AXIS_MoM_WebService-master/sources/model/axis-csrm-datamodel-MoM.owl";
         OntModel mode = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_RULE_INF);
         java.io.InputStream in = FileManager.get().open(pathOntologie);  //MyFile
         
@@ -61,7 +66,7 @@ public class OpenOWL {
         QueryExecution qe = QueryExecutionFactory.create(query, OpenConnectOWL());
         ResultSet results = qe.execSelect();
 
-        return results;  // Retrun jena.query.ResultSet 
+        return results;  // Return jena.query.ResultSet 
 
     }
 
@@ -98,12 +103,10 @@ public class OpenOWL {
 
        //OntModel model = OpenOWL.OpenConnectOWL();
       // System.out.println("");  // get the activity from my File OWL 
-        String queryString;
+       String queryString;
        
-       queryString = "PREFIX vcard: <http://www.w3.org/2001/vcard-rdf/3.0#>" +
-                    "SELECT ?g" +
-                    "WHERE" +
-                    "{ ?y vcard:Given ?g.}";
+       queryString = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>" +
+                    "CONSTRUCT WHERE { ?s axis:uses ?o}";
         /* queryString = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.1#>"
                 + "SELECT  ?hasRepresentation "
                 + "where { ?y axis:aperture ?hasRepresentation.}";
@@ -114,5 +117,38 @@ public class OpenOWL {
         
         System.out.println("le resultat"+ results);
 
+    }
+    
+    
+    private static final String UPDATE_TEMPLATE = 
+            "PREFIX dc: <http://purl.org/dc/elements/1.1/>"
+            + "INSERT DATA"
+            + "{ <http://example/%s>    dc:title    \"A new book\" ;"
+            + "                         dc:creator  \"A.N.Other\" ." + "}   ";
+    
+    public static void test() {
+        String id = UUID.randomUUID().toString();
+        System.out.println(String.format("Adding %s", id));
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(UPDATE_TEMPLATE, id)), 
+                "http://localhost:3030/ds/update");
+        upp.execute();
+        //Query the collection, dump output
+        
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
+                        "SELECT * WHERE {?x axis:uses ?y}");
+        ResultSet results = qe.execSelect();
+        ResultSetFormatter.out(System.out, results);
+        
+//        System.out.println("----------\n");
+//        //test construct
+//        QueryExecution qe = QueryExecutionFactory.sparqlService(
+//                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
+//                        "CONSTRUCT WHERE {?x axis:uses ?y}");
+//        ResultSet results = qe.execSelect();
+//        ResultSetFormatter.out(System.out, results);
+        
+        qe.close();
     }
 }
