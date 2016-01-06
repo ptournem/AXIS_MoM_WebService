@@ -23,6 +23,7 @@ import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
@@ -39,7 +40,7 @@ public class OpenOWL {
 
         //OpenConnectOWL();
         //TestOpenOwl();
-        testSelect();
+        testConstruct();
         
         //test coucou melanie
     }
@@ -182,8 +183,8 @@ public class OpenOWL {
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
                         "CONSTRUCT WHERE {?s axis:uses ?o}");
-        ResultSet results = qe.execSelect();
-        ResultSetFormatter.out(System.out, results);
+       Model constructModel = qe.execConstruct();
+       System.out.println("Construct result = " + constructModel.toString());
         
         qe.close();
     }
@@ -201,13 +202,10 @@ public class OpenOWL {
                 "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
             + "INSERT DATA"
             + "{ <http://example/%s>    axis:uses    \"objet\" .}");
-   
-           
+         
         ResultSet results = qe.execSelect();
         ResultSetFormatter.out(System.out, results);
-        
-        
-        
+
         qe.close();
     }
 
