@@ -39,7 +39,7 @@ public class OpenOWL {
 
         //OpenConnectOWL();
 
-        testSelect();
+        testInsert();
 
     }
 
@@ -219,7 +219,7 @@ public class OpenOWL {
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
             + "INSERT DATA"
-            + "{ <http://example/%s>    axis:uses    \"objet\" .}";)
+            + "{ <http://example/%s>    axis:uses    \"objet\" .}");
    
            
         ResultSet results = qe.execSelect();
