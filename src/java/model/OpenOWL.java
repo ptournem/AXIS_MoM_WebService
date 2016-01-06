@@ -181,11 +181,9 @@ public class OpenOWL {
         
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
-                        "SELECT * WHERE {?x axis:uses ?y}");
+                        "CONSTRUCT WHERE {?s axis:uses ?o}");
         ResultSet results = qe.execSelect();
         ResultSetFormatter.out(System.out, results);
-        
-        
         
         qe.close();
     }
@@ -200,16 +198,11 @@ public class OpenOWL {
         //Query the collection, dump output
         
         QueryExecution qe = QueryExecutionFactory.sparqlService(
-                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
-                        "INSERT DATA {" +
-"ex:dog1    rdf:type         ex:animal ." +
-"ex:cat1    rdf:type         ex:cat ." +
-"ex:cat     rdfs:subClassOf  ex:animal ." +
-"zoo:host   rdfs:range       ex:animal ." +
-"ex:zoo1    zoo:host         ex:cat2 ." +
-"ex:cat3    owl:sameAs       ex:cat2 ." +
-"\n" +
-"}");
+                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+            + "INSERT DATA"
+            + "{ <http://example/%s>    axis:uses    \"objet\" .}";)
+   
+           
         ResultSet results = qe.execSelect();
         ResultSetFormatter.out(System.out, results);
         
