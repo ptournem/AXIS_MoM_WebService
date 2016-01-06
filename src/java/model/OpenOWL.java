@@ -38,10 +38,9 @@ public class OpenOWL {
     public static void main(String args[]) {
 
         //OpenConnectOWL();
-        //TestOpenOwl();
+
         testSelect();
-        
-        //test coucou melanie
+
     }
 
     static String s;
@@ -150,6 +149,26 @@ public class OpenOWL {
         qe.close();
     }
     
+    
+    public static void testSelectDBPedia() {
+        String sparqlQueryString1 = "PREFIX dbont: <http://dbpedia.org/ontology/> " +
+                "PREFIX dbp: <http://dbpedia.org/property/>" +
+                "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>" +
+                "   SELECT ?musician  ?place" +
+                "   FROM<http://dbpedia.org/resource/Daphne_Oram>" +
+                "   WHERE { " +
+                "       ?musician dbont:birthPlace ?place ." +
+                "   }";
+
+        Query query = QueryFactory.create(sparqlQueryString1);
+        QueryExecution qexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", query);
+
+        ResultSet results = qexec.execSelect();
+        ResultSetFormatter.out(System.out, results);      
+
+        qexec.close() ;
+    }
+    
     public static void testSelect() {
         String id = UUID.randomUUID().toString();
         System.out.println(String.format("Adding %s", id));
@@ -161,7 +180,7 @@ public class OpenOWL {
         
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
-                        "SELECT * WHERE {?x axis:uses ?y}");
+                        "SELECT * WHERE {? axis:uses ?y}");
         ResultSet results = qe.execSelect();
         ResultSetFormatter.out(System.out, results);
         
