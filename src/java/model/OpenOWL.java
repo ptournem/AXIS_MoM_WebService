@@ -5,10 +5,12 @@
  */
 package model;
 
+import com.github.jsonldjava.core.RDFDataset.Quad;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +39,7 @@ public class OpenOWL {
 
         //OpenConnectOWL();
         //TestOpenOwl();
-        test();
+        testSelect();
     }
 
     static String s;
@@ -141,14 +143,79 @@ public class OpenOWL {
         ResultSet results = qe.execSelect();
         ResultSetFormatter.out(System.out, results);
         
-//        System.out.println("----------\n");
-//        //test construct
-//        QueryExecution qe = QueryExecutionFactory.sparqlService(
-//                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
-//                        "CONSTRUCT WHERE {?x axis:uses ?y}");
-//        ResultSet results = qe.execSelect();
-//        ResultSetFormatter.out(System.out, results);
+        
         
         qe.close();
     }
+    
+    public static void testSelect() {
+        String id = UUID.randomUUID().toString();
+        System.out.println(String.format("Adding %s", id));
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(UPDATE_TEMPLATE, id)), 
+                "http://localhost:3030/ds/update");
+        upp.execute();
+        //Query the collection, dump output
+        
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
+                        "SELECT * WHERE {?x axis:uses ?y}");
+        ResultSet results = qe.execSelect();
+        ResultSetFormatter.out(System.out, results);
+        
+        
+        
+        qe.close();
+    }
+    
+    public static void testConstruct() {
+        String id = UUID.randomUUID().toString();
+        System.out.println(String.format("Adding %s", id));
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(UPDATE_TEMPLATE, id)), 
+                "http://localhost:3030/ds/update");
+        upp.execute();
+        //Query the collection, dump output
+        
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
+                        "SELECT * WHERE {?x axis:uses ?y}");
+        ResultSet results = qe.execSelect();
+        ResultSetFormatter.out(System.out, results);
+        
+        
+        
+        qe.close();
+    }
+    
+    public static void testInsert() {
+        String id = UUID.randomUUID().toString();
+        System.out.println(String.format("Adding %s", id));
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(UPDATE_TEMPLATE, id)), 
+                "http://localhost:3030/ds/update");
+        upp.execute();
+        //Query the collection, dump output
+        
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
+                        "INSERT DATA {" +
+"ex:dog1    rdf:type         ex:animal ." +
+"ex:cat1    rdf:type         ex:cat ." +
+"ex:cat     rdfs:subClassOf  ex:animal ." +
+"zoo:host   rdfs:range       ex:animal ." +
+"ex:zoo1    zoo:host         ex:cat2 ." +
+"ex:cat3    owl:sameAs       ex:cat2 ." +
+"\n" +
+"}");
+        ResultSet results = qe.execSelect();
+        ResultSetFormatter.out(System.out, results);
+        
+        
+        
+        qe.close();
+    }
+
+
+
 }
