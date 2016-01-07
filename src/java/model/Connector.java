@@ -30,7 +30,12 @@ public class Connector {
 
     public static void main(String args[]) {
         //test
-        loadModels("/Users/Mélanie/Documents/AXIS_MoM_WebService/src/java/resources/axis-csrm-datamodel-MoM.owl");
+        //test selectFromEntity (1 variable)
+        System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-poc2015/Entity_TheMuseumObjects").toString());
+        
+        //test selectFromEntity (2 variables)
+        System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-csrm/datamodel/ontology/0.3#fileName", "MLK_speech.bwf").toString());
+
     }
 
     
@@ -62,7 +67,7 @@ public class Connector {
     }
     
     
-    public static Model selectFromEntity(URI uri) { //loan
+    public static Model selectFromEntity(String uri) { //loan
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
@@ -74,7 +79,13 @@ public class Connector {
     }
     
     public static Model selectFromEntity(String pred, String obj) { //loan
-        return null;
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
+                        "CONSTRUCT WHERE {?s <"+pred+"> \""+obj+"\"}");
+
+        Model constructModel = qe.execConstruct();
+        
+        return constructModel;
     }
     
     public static boolean selectlod(URI uri) { //riad
