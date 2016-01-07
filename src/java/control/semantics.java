@@ -19,6 +19,13 @@ public class semantics {
     
     public URI AddEntity(String name, URI type) {
         // on ajoute une nouvelle entity à l'aide du connector
+        
+        //on fait une "case" en fonction des 6 types possibles
+        
+        // pour chaque case on fait un insert into avec :
+//            sujet = type;
+//            prédicat = le prédicat en fonction du case type;
+//            objet = name;
         return null;
         
     }

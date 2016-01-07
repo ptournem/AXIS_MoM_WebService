@@ -9,6 +9,7 @@ import com.github.jsonldjava.core.RDFDataset.Quad;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import static java.lang.System.in;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.UUID;
@@ -16,14 +17,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.query.Dataset;
+import org.apache.jena.query.DatasetFactory;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ReadWrite;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.ResIterator;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.shared.Lock;
+import org.apache.jena.tdb.TDB;
+import org.apache.jena.tdb.TDBFactory;
+import org.apache.jena.tdb.TDBLoader;
+import org.apache.jena.tdb.sys.TDBInternal;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
@@ -37,9 +50,10 @@ public class OpenOWL {
 
     public static void main(String args[]) {
 
-        //OpenConnectOWL();
 
-        testConstruct();
+        //TestOpenOwl();
+        testLoan();
+        
 
     }
 
@@ -201,8 +215,10 @@ public class OpenOWL {
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
                         "CONSTRUCT WHERE {?s axis:uses ?o}");
-        ResultSet results = (ResultSet) qe.execConstruct();
-        ResultSetFormatter.out(System.out, results);
+
+       Model constructModel = qe.execConstruct();
+       System.out.println("Construct result = " + constructModel.toString());
+
         
         qe.close();
     }
@@ -220,14 +236,21 @@ public class OpenOWL {
                 "http://localhost:3030/ds/update", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#> "
             + "INSERT DATA "
             + "{ <http://example/%s>    axis:uses    \"objet\" .}");
-   
-           
+         
         ResultSet results = qe.execSelect();
         ResultSetFormatter.out(System.out, results);
-        
-        
-        
+
         qe.close();
+    }
+    
+    public static void testLoan() {
+        
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
+                        "CONSTRUCT WHERE {<http://titan.be/axis-poc2015/Entity_TheMuseumObjects> ?p ?o}");
+
+       Model constructModel = qe.execConstruct();
+       System.out.println("Construct result = " + constructModel.toString());
     }
 
 
