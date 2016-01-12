@@ -5,9 +5,11 @@
  */
 package model;
 
+import java.io.InputStream;
 import java.net.URI;
 import java.util.UUID;
 import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -16,9 +18,11 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
+import org.apache.jena.util.FileManager;
 
 /**
  *
@@ -28,6 +32,11 @@ public class Connector {
 
     public static void main(String args[]) {
         //test
+        //System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-poc2015/Entity_TheMuseumObjects").toString());
+        
+        //test selectFromEntity (2 variables)
+        //System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-csrm/datamodel/ontology/0.3#fileName", "MLK_speech.bwf").toString());
+
         System.out.println("main");
 
         selectlod();
@@ -35,7 +44,21 @@ public class Connector {
 
     public static Model loadModels(String url) { //mélanoche
         //todo
-        return null;
+        url = "/Users/Mélanie/Documents/AXIS_MoM_WebService/src/java/resources/axis-csrm-datamodel-MoM.owl";
+	
+	// Create an empty model
+	OntModel model = ModelFactory.createOntologyModel(OntModelSpec.RDFS_MEM);
+	
+	// Use the FileManager to find the input file
+	InputStream in = FileManager.get().open(url);
+
+	if (in == null)
+		throw new IllegalArgumentException("File: "+url+" not found");
+
+	// Read the RDF/XML file
+	model.read(in, null);
+        model.write(System.out);
+        return model;
     }
 
     public static boolean executeQuery(String str) {
@@ -47,8 +70,9 @@ public class Connector {
     public static Model selectFromEntity(URI uri) { //loan
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
-                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "CONSTRUCT WHERE {<" + uri + "> ?p ?o}");
+                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
+                "CONSTRUCT WHERE {<"+uri+"> ?p ?o}");
+
 
         Model constructModel = qe.execConstruct();
 
@@ -56,7 +80,14 @@ public class Connector {
     }
 
     public static Model selectFromEntity(String pred, String obj) { //loan
-        return null;
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"+
+                        "CONSTRUCT WHERE {?s <"+pred+"> \""+obj+"\"}");
+
+        Model constructModel = qe.execConstruct();
+        
+        return constructModel;
+
     }
 
     public static void selectlod() {
