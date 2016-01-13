@@ -11,6 +11,8 @@ import java.net.URI;
 import java.util.UUID;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.query.DatasetAccessor;
+import org.apache.jena.query.DatasetAccessorFactory;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -46,6 +48,7 @@ public class Connector {
     }
 
     public static Model loadModels(String url) { //mélanoche
+
         //todo
         url = "D:/4-PRP/Riad_WS/src/java/resources/axis-csrm-datamodel-MoM.owl";
 	
@@ -62,6 +65,14 @@ public class Connector {
 	model.read(in, null);
         model.write(System.out);
         model.listIndividuals();
+
+                String serviceURI = "http://localhost:3030/ds";
+        DatasetAccessorFactory factory = null;
+        DatasetAccessor accessor;
+        accessor = DatasetAccessorFactory.createHTTP(serviceURI);
+        
+        //Model model = accessor.getModel();
+
         return model;
     }
 
@@ -139,15 +150,54 @@ public class Connector {
 
         }
 
-    public static int insert(String s, String p) { //robine
-
-        int uid = 0;
-        return uid;
+    public static String insert(String p, String o) { //robine
+        String req = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+        + "PREFIX poc: <http://titan.be/axis-poc2015/>"
+        + "INSERT DATA { "
+        + "poc:%s "
+        + "axis:%s "
+        + "axis:%s "
+        + ".}";
+        
+        String id = UUID.randomUUID().toString();
+        System.out.println(String.format("Adding %s", id));
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                                                                  UpdateFactory.create(String.format(req, id, p, o)),
+                                                                  "http://localhost:3030/ds/update");
+        upp.execute();
+        return id;
     }
-
+    
     public static boolean insert(String s, String p, String o) { //robine
-        //insert en suivant la logique de sujet-prédicat-objet
+        String req = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+        + "PREFIX poc: <http://titan.be/axis-poc2015/>"
+        + "INSERT DATA { "
+        + "poc:%s "
+        + "axis:%s "
+        + "poc:%s"
+        + ".}";
 
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                                                                  UpdateFactory.create(String.format(req, s , p, o)),
+                                                                  "http://localhost:3030/ds/update");
+        upp.execute();
+        
+        return true;
+    }
+    public static boolean insertLitteral(String s, String p, String o) { //robine
+        String req = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+        + "PREFIX poc: <http://titan.be/axis-poc2015/>"
+        + "INSERT DATA { "
+        + "poc:%s "
+        + "axis:%s "
+        + "\"%s\"@fr "
+        + ".}";
+
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                                                                  UpdateFactory.create(String.format(req, s , p, o)),
+                                                                  "http://localhost:3030/ds/update");
+        upp.execute();
+        
         return true;
     }
 
