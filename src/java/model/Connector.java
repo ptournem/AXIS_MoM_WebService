@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.UUID;
@@ -38,13 +39,15 @@ public class Connector {
         //System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-csrm/datamodel/ontology/0.3#fileName", "MLK_speech.bwf").toString());
 
         System.out.println("main");
-
-        selectlod();
+        //String   url = "D:/4-PRP/Riad_WS/src/java/resources/axis-csrm-datamodel-MoM.owl";
+        //loadModels(url);
+       String keyword = "Jacques-Louis_David";
+        selectlod(keyword);
     }
 
     public static Model loadModels(String url) { //mélanoche
         //todo
-        url = "/Users/Mélanie/Documents/AXIS_MoM_WebService/src/java/resources/axis-csrm-datamodel-MoM.owl";
+        url = "D:/4-PRP/Riad_WS/src/java/resources/axis-csrm-datamodel-MoM.owl";
 	
 	// Create an empty model
 	OntModel model = ModelFactory.createOntologyModel(OntModelSpec.RDFS_MEM);
@@ -58,6 +61,7 @@ public class Connector {
 	// Read the RDF/XML file
 	model.read(in, null);
         model.write(System.out);
+        model.listIndividuals();
         return model;
     }
 
@@ -90,7 +94,7 @@ public class Connector {
 
     }
 
-    public static void selectlod() {
+    public static void selectlod(String keyword) {
         //riad
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         // l'URI est externe, et fait donc référence à un lien dbpedia, freebase...
@@ -99,35 +103,39 @@ public class Connector {
                 + "PREFIX dbp: <http://dbpedia.org/property/>"
                 + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
                 + "PREFIX dbr: <http://dbpedia.org/resource/>"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 + // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                " CONSTRUCT WHERE {"
-                + " ?s dbont:museum dbr:Louvre ."
-                + " }";
+                " SELECT * WHERE {dbr:"+keyword+" ?p ?o FILTER langMatches(lang(?o), \"EN\")}"; // la langue française on ajoute <FILTER langMatches(lang(?o), \"FR\")>
 
         Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
         ResultSet resultsDB = qDBexec.execSelect();
-            System.out.println("DBPedia");
-            ResultSetFormatter.out(System.out, resultsDB);
+          //  System.out.println("--------------- DBPedia Resultset ------------------");
+          //  ResultSetFormatter.out(System.out, resultsDB);
+ 
+           
+            System.out.println("--------------- DBPedia JSON ------------------");
+            ResultSetFormatter.outputAsJSON(System.out, resultsDB);
 
-            String FBQueryString
-                    = "prefix fb: <http://rdf.freebase.com/ns/>"
-                    + "prefix fn: <http://www.w3.org/2005/xpath-functions#>"
-                    + "construct where {"
-                    + " ?s fb:type.object.type fb:visual_art.artwork ."
-                    + " } ";
-
-            Query FBquery = QueryFactory.create(FBQueryString);
-
-            QueryExecution qFBexec = QueryExecutionFactory.sparqlService("http://www.freebase.com/query", FBquery);
-
-            ResultSet resultsFB = qFBexec.execSelect();
-            System.out.println("FreeBase");
-            ResultSetFormatter.out(System.out, resultsFB);
+//            String FBQueryString
+//                    = "prefix fb: <http://rdf.freebase.com/ns/>"
+//                    + "prefix fn: <http://www.w3.org/2005/xpath-functions#>"
+//                    + "select * {"
+//                    + " ?s fb:type.object.type fb:visual_art.artwork ."
+//                    + " } ";
+//
+//            Query FBquery = QueryFactory.create(FBQueryString);
+//
+//            QueryExecution qFBexec = QueryExecutionFactory.sparqlService("http://www.freebase.com/query", FBquery);
+//
+//            ResultSet resultsFB = qFBexec.execSelect();
+//            System.out.println("FreeBase");
+//            ResultSetFormatter.out(System.out, resultsFB);
 
             qDBexec.close();
-            qFBexec.close();
+   //         qFBexec.close();
 
         }
 
