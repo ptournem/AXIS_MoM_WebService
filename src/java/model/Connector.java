@@ -38,41 +38,24 @@ public class Connector {
         //System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-poc2015/Entity_TheMuseumObjects").toString());
         
         //test selectFromEntity (2 variables)
-        System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-csrm/datamodel/ontology/0.3#fileName", "MLK_speech.bwf").toString());
+        //System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-csrm/datamodel/ontology/0.3#fileName", "MLK_speech.bwf").toString());
 
         System.out.println("main");
         //String   url = "D:/4-PRP/Riad_WS/src/java/resources/axis-csrm-datamodel-MoM.owl";
         //loadModels(url);
         
-        String keyword = "Jacques-Louis_David";
+        //String keyword = "Jacques-Louis_David";
         //selectlod(keyword);
     }
 
     public static Model loadModels(String url) { //mélanoche
 
-        //todo
-        url = "D:/4-PRP/Riad_WS/src/java/resources/axis-csrm-datamodel-MoM.owl";
-	
-	// Create an empty model
-	OntModel model = ModelFactory.createOntologyModel(OntModelSpec.RDFS_MEM);
-	
-	// Use the FileManager to find the input file
-	InputStream in = FileManager.get().open(url);
 
-	if (in == null)
-		throw new IllegalArgumentException("File: "+url+" not found");
-
-	// Read the RDF/XML file
-	model.read(in, null);
-        model.write(System.out);
-        model.listIndividuals();
-
-                String serviceURI = "http://localhost:3030/ds";
-        DatasetAccessorFactory factory = null;
+        String serviceURI = "http://localhost:3030/ds";
         DatasetAccessor accessor;
         accessor = DatasetAccessorFactory.createHTTP(serviceURI);
         
-        //Model model = accessor.getModel();
+        Model model = accessor.getModel();
 
         return model;
     }
