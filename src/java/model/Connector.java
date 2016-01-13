@@ -35,17 +35,15 @@ public class Connector {
 
     public static void main(String args[]) {
         //test
-        //System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-poc2015/Entity_TheMuseumObjects").toString());
         
-        //test selectFromEntity (2 variables)
-        //System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-csrm/datamodel/ontology/0.3#fileName", "MLK_speech.bwf").toString());
-
         System.out.println("main");
-        //String   url = "D:/4-PRP/Riad_WS/src/java/resources/axis-csrm-datamodel-MoM.owl";
-        //loadModels(url);
         
-        //String keyword = "Jacques-Louis_David";
-        //selectlod(keyword);
+        String myUID = insert("Entity", "RegOfPhysicalPerson");
+        insertLitteral(myUID, "label", "Martin Luther King");
+        
+        Model m = loadModels("test");
+        System.out.println(m.toString());
+        
     }
 
     public static Model loadModels(String url) { //mélanoche
