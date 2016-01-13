@@ -38,13 +38,14 @@ public class Connector {
         //System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-poc2015/Entity_TheMuseumObjects").toString());
         
         //test selectFromEntity (2 variables)
-        //System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-csrm/datamodel/ontology/0.3#fileName", "MLK_speech.bwf").toString());
+        System.out.println("Construct result = " + selectFromEntity("http://titan.be/axis-csrm/datamodel/ontology/0.3#fileName", "MLK_speech.bwf").toString());
 
         System.out.println("main");
         //String   url = "D:/4-PRP/Riad_WS/src/java/resources/axis-csrm-datamodel-MoM.owl";
         //loadModels(url);
-       String keyword = "Jacques-Louis_David";
-        selectlod(keyword);
+        
+        String keyword = "Jacques-Louis_David";
+        //selectlod(keyword);
     }
 
     public static Model loadModels(String url) { //mélanoche
@@ -76,10 +77,17 @@ public class Connector {
         return model;
     }
 
-    public static boolean executeQuery(String str) {
+    public static Model executeQueryConstruct(String str) {
 
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", " PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#> "+
+                str);
+
+
+        Model constructModel = qe.execConstruct();
+
+        return constructModel;
         //pas prio
-        return true;
     }
 
     public static Model selectFromEntity(URI uri) { //loan

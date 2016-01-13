@@ -8,6 +8,8 @@ package control;
 import Dialog.Entity;
 import Dialog.Property;
 import java.net.URI;
+import static model.Connector.*;
+import org.apache.jena.rdf.model.Model;
 
 
 
@@ -16,6 +18,13 @@ import java.net.URI;
  * @author loannguyen
  */
 public class semantics {
+    
+    
+    public static void main(String args[]) {
+        Model m2;
+        m2 = SearchOurEntitiesFromText("MLK_speech.bwf");
+        System.out.println("main");
+    }
     
     public URI AddEntity(String name, URI type) { //robine
         // on ajoute une nouvelle entity à l'aide du connector
@@ -60,9 +69,14 @@ public class semantics {
         return null;
     }
 
-    public Entity[] SearchOurEntitiesFromText(String needle) { //loan
+    public static Model SearchOurEntitiesFromText(String needle) { //loan
         // renvoie un tableau d'entité à partir d'une chaîne de caractere dans notre base de données sémantique
-        return null;
+        Model m = executeQueryConstruct("SELECT ?s "
+                + "WHERE { ?s ?p ?name . "
+                + "FILTER regex(?name, '^MLK_speech.bwf') }");
+        
+        System.out.println(m.toString());
+        return m;
     }
 
     public Entity[] SearchAllEntitiesFromText(String needle) { //riad
