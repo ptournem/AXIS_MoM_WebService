@@ -6,9 +6,13 @@
 
 package model;
 
+import Dialog.Entity;
+import Dialog.PropertyObject;
+import Dialog.PropertyText;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import static model.Connector.*;
 
 /**
  *
@@ -38,14 +42,33 @@ public class TestWebService {
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
+    
+    
       @WebMethod(operationName = "AddEntity")
-    public String AddEntity() {
-        return "AddEntity";
+    public Entity AddEntity(Entity e) {
+        
+        
+        if(e.type == "person") {
+            e.URI = insert("Entity", "RegOfPhysicalPerson");
+        }
+        
+        else {
+            e.URI = insert("Entity", "RegOfPhysicalObject");
+        }
+        
+        // on crée le wati AFP
+        insertLitteral(e.URI, "label", e.name);
+        return e;
     }
+    
+    
           @WebMethod(operationName = "SetEntityTextProperty")
-    public String SetEntityTextProperty() {
-        return "SetEntityTextProperty";
+    public boolean SetEntityTextProperty(Entity e, PropertyText p) {
+        
+        insertLitteral(e.URI, p.propURI, p.value);
+        return true;
     }
+    
     
           @WebMethod(operationName = "RemoveEntity")
     public String RemoveEntity() {
@@ -53,8 +76,9 @@ public class TestWebService {
     }
     
           @WebMethod(operationName = "SetEntityObjectProperty")
-    public String SetEntityObjectProperty() {
-        return "SetEntityObjectProperty";
+    public boolean SetEntityObjectProperty(Entity  e, PropertyObject p) {
+        insert(e.URI, p.propURI, p.ObjectURI);
+        return true;
     }
     
           @WebMethod(operationName = "AddComment")

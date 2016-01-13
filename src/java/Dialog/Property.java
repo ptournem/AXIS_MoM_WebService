@@ -11,8 +11,8 @@ package Dialog;
  */
 public class Property {
     
-    String propURI;
-    String name;
+    public String propURI;
+    public String name;
 
     public Property(String propURI, String name) {
         this.propURI = propURI;

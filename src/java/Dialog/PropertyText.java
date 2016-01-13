@@ -11,7 +11,7 @@ package Dialog;
  */
 public class PropertyText extends Property{
     
-    String value;
+    public String value;
 
     public PropertyText(String value, String propURI, String name) {
         super(propURI, name);

@@ -11,7 +11,7 @@ package Dialog;
  */
 public class PropertyObject extends Property{
     
-    String ObjectURI;
+    public String ObjectURI;
 
     public PropertyObject(String ObjectURI, String propURI, String name) {
         super(propURI, name);

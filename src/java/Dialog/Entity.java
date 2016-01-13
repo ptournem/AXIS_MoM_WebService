@@ -14,40 +14,20 @@ import static model.Connector.insertLitteral;
  */
 public class Entity {
    
-    String URI;
-    String name;
-
+    public String URI;
+    public String name;
+    public String image;
+    public String type;
     
     public static void main(String args[]) {
-        addEntity("person");
 
     }
     
-    public Entity(String URI, String name) {
+    public Entity(String URI, String name, String image, String type) {
         this.URI = URI;
         this.name = name;
-    }
-    
-    public static void addEntity(String json) {
-        
-        String myUID = null;
-        if(json == "person") {
-            myUID = insert("Entity", "RegOfPhysicalPerson");
-        }
-        
-        else if (json == "object") {
-            myUID = insert("Entity", "RegOfPhysicalObject");
-        }
-        
-        // on crée le wati AFP
-        
-        addEntityName(myUID, "Martin Luther King");
-    }
-    
-    public static void addEntityName(String uri, String name) {
-        insertLitteral(uri, "label", name);
-    }
-    
-    
+        this.image = image;
+        this.type = type;
+    }    
     
 }
