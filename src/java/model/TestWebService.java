@@ -47,25 +47,46 @@ public class TestWebService {
       @WebMethod(operationName = "AddEntity")
     public Entity AddEntity(Entity e) {
         
-        
-        if(e.type == "person") {
-            e.URI = insert("Entity", "RegOfPhysicalPerson");
-        }
-        
-        else {
-            e.URI = insert("Entity", "RegOfPhysicalObject");
-        }
-        
+        e.URI = insert("rdf:type", "axis:Entity");
+        String uri =null;
+          switch (e.type) {
+              case "person":
+                  uri = insert("rdf:type", "axis:RegOfPhysicalPerson");
+                  insert(e.URI, "axis:hasExpression", uri);
+                  break;
+              case "event":
+                  uri = insert("rdf:type", "axis:RegOfEvent");
+                  insert(e.URI, "axis:hasExpression", uri);
+                  break;
+              case "object":
+                  uri = insert("rdf:type", "axis:RegOfPhysicalObject");
+                  insert(e.URI, "axis:hasExpression", uri);
+                  break;
+              case "location":
+                  uri = insert("rdf:type", "axis:RegOfPlace");
+                  insert(e.URI, "axis:hasExpression", uri);
+                  break;
+//              case "activity":
+//                  uri = insert("rdf:type", "axis:RegOfPhysicalPerson");
+//                  insert(e.URI, "axis:hasExpression", uri);
+//                  break;
+              case "organisation":
+                  uri = insert("rdf:type", "axis:RegOfMoralPerson");
+                  insert(e.URI, "axis:hasExpression", uri);
+                  break;
+              default:
+                  throw new AssertionError();
+          }
         // on crée le wati AFP
-        insertLitteral(e.URI, "label", e.name);
+        insert(e.URI, "rdfs:label", e.name, "fr");
         return e;
     }
     
-    
+  
           @WebMethod(operationName = "SetEntityTextProperty")
     public boolean SetEntityTextProperty(Entity e, PropertyText p) {
         
-        insertLitteral(e.URI, p.propURI, p.value);
+        insert(e.URI, p.propURI, p.value, "fr");
         return true;
     }
     
