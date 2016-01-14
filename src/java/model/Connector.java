@@ -39,7 +39,7 @@ public class Connector {
         System.out.println("main");
         
         String myUID = insert("Entity", "RegOfPhysicalPerson");
-        insertLitteral(myUID, "label", "Martin Luther King");
+        insert(myUID, "label", "Martin Luther King", "fr");
         
         Model m = loadModels("test");
         System.out.println(m.toString());
@@ -142,10 +142,13 @@ public class Connector {
     public static String insert(String p, String o) { //robine
         String req = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
         + "PREFIX poc: <http://titan.be/axis-poc2015/>"
+        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
         + "INSERT DATA { "
-        + "poc:%s "
-        + "axis:%s "
-        + "axis:%s "
+        + " poc:%s "
+        + " %s "
+        + " %s "
         + ".}";
         
         String id = UUID.randomUUID().toString();
@@ -160,10 +163,13 @@ public class Connector {
     public static boolean insert(String s, String p, String o) { //robine
         String req = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
         + "PREFIX poc: <http://titan.be/axis-poc2015/>"
+        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
         + "INSERT DATA { "
-        + "poc:%s "
-        + "axis:%s "
-        + "poc:%s"
+        + " %s "
+        + " %s "
+        + " %s "
         + ".}";
 
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
@@ -173,17 +179,20 @@ public class Connector {
         
         return true;
     }
-    public static boolean insertLitteral(String s, String p, String o) { //robine
+    public static boolean insert(String s, String p, String o, String lang) { //robine
         String req = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
         + "PREFIX poc: <http://titan.be/axis-poc2015/>"
+        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
         + "INSERT DATA { "
-        + "poc:%s "
-        + "axis:%s "
-        + "\"%s\"@fr "
+        + " %s "
+        + " %s "
+        + "\"%s\"@%s"
         + ".}";
 
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
-                                                                  UpdateFactory.create(String.format(req, s , p, o)),
+                                                                  UpdateFactory.create(String.format(req, s , p, o, lang)),
                                                                   "http://localhost:3030/ds/update");
         upp.execute();
         
