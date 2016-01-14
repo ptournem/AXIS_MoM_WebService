@@ -5,8 +5,7 @@
  */
 package Dialog;
 
-import static model.Connector.insert;
-import static model.Connector.insertLitteral;
+import static model.Connector.*;
 
 /**
  *
@@ -23,11 +22,11 @@ public class Entity {
 
     }
     
-    public Entity(String URI, String name, String image, String type) {
+    public Entity(String URI) {
         this.URI = URI;
-        this.name = name;
-        this.image = image;
-        this.type = type;
+        this.name = URI;
+        this.image = URI;
+        this.type = URI;
     }    
     
 }

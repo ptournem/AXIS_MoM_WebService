@@ -45,8 +45,11 @@ public class TestWebService {
     
     
       @WebMethod(operationName = "AddEntity")
-    public Entity AddEntity(Entity e) {
+    public Entity AddEntity(@WebParam(name = "e") Entity e) {
         
+        if(e == null) {
+            return new Entity("test");
+        }
         e.URI = insert("rdf:type", "axis:Entity");
         String uri =null;
           switch (e.type) {

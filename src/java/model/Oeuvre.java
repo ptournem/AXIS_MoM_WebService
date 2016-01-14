@@ -6,6 +6,7 @@
 
 package model;
 
+import Dialog.Entity;
 import org.apache.jena.rdf.model.*;
 
 /**
@@ -13,21 +14,18 @@ import org.apache.jena.rdf.model.*;
  * @author APP-Riad.Belmahi
  */
 
-public class Oeuvre extends Object {
-    
- // quelques définitions
-static String oeuvreURI	= "http://somewhere/sacreNapoleon";
-static String fullName 	= "sacreDeNapoleon";
- 
+public class Oeuvre extends Entity {
 
- 
-// créer un modèle vide
-Model model = ModelFactory.createDefaultModel();
- 
-// créer la ressource
-Resource sacreDeNapoleon = model.createResource(oeuvreURI);
- 
-// ajouter la propriété
+    public String dateCreation;
+    public String location;
+    public String author;
+
+    public Oeuvre(String URI) {
+        super(URI);
+        this.dateCreation = URI;
+        this.location = URI;
+        this.author = URI;
+    }
 
 
 
