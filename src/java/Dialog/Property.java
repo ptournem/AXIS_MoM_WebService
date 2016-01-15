@@ -5,20 +5,33 @@
  */
 package Dialog;
 
-/**
- *
- * @author Mélanie
- */
 public class Property {
-    
-    public String propURI;
-    public String name;
+
+    String propURI;
+    String name;
 
     public Property(String propURI, String name) {
-        this.propURI = propURI;
-        this.name = name;
+	this.propURI = propURI;
+	this.name = name;
     }
-    
-    
-    
+
+    public Property() {
+    }
+
+    public String getPropURI() {
+	return propURI;
+    }
+
+    public void setPropURI(String propURI) {
+	this.propURI = propURI;
+    }
+
+    public String getName() {
+	return name;
+    }
+
+    public void setName(String name) {
+	this.name = name;
+    }
+
 }
