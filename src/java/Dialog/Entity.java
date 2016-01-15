@@ -18,14 +18,16 @@ public class Entity {
     String type;
 
     public static void main(String args[]) {
-
-    }
-
-    public Entity(String URI) {
-	this.URI = URI;
-	this.name = URI;
-	this.image = URI;
-	this.type = URI;
+        
+        Entity e = new Entity();
+        e.setURI("TESTURI456");
+        
+        PropertyText p = new PropertyText();
+        p.setName("image");
+        p.setValue("mon_image_test.jpg");
+        
+        e.insertImage(p);
+        
     }
 
     public Entity() {
@@ -80,7 +82,24 @@ public class Entity {
         
     }
     
-    public void insertImage(Property p) {
+    public void insertImage(PropertyText p) {
+        
+        String uid1 = insert("rdf:type", "axis:RegOfPhotoItem");
+        String uid2 = insert("rdf:type", "axis:Location");
+        String uid3 = insert("rdf:type", "axis:EmbodimentOfFile");
+        
+        insert("poc:"+this.URI, "rdf:uses", "poc:"+uid1);
+        
+        insert("poc:"+uid3, "axis:fileName", '"'+p.value+'"');
+        
+        insert("poc:"+uid3, "axis:hasLocation", "poc:"+uid2);
+        
+        insert("poc:"+uid2, "axis:locates", "poc:"+uid3);
+        
+        insert("poc:"+uid1, "axis:hasExpression", "poc:"+uid2);
+        
+        // Entity => RegOfPhotoItem => Location <=> EmbodimentOfFile => p.value
+        
         // on crée un "RegOfPhotoItem"
         // on le lie à "Location" via "hasExpression"
         // on le lie à "EmbodimentOfFile" via "locates"

@@ -85,7 +85,10 @@ public class TestWebService {
     @WebMethod(operationName = "SetEntityTextProperty")
     public boolean SetEntityTextProperty(Entity e, PropertyText p) {
 
-	insert(e.getURI(), p.getPropURI(), p.getValue(), "fr");
+	//insert(e.getURI(), p.getPropURI(), p.getValue(), "fr");
+        
+        if(p.getName() == "image")
+            e.insertImage(p);
 	return true;
     }
 
