@@ -9,29 +9,62 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import static model.Connector.*;
 
-/**
- *
- * @author Mélanie
- */
-
-@XmlSeeAlso({Entity.class})
 
 public class Entity {
-    public String URI;
-    public String name;
-    public String image;
-    public String type;
-    
+
+    String URI;
+    String name;
+    String image;
+    String type;
+
     public static void main(String args[]) {
 
     }
-    
-    public Entity() {
-        
 
-        
+    public Entity(String URI) {
+	this.URI = URI;
+	this.name = URI;
+	this.image = URI;
+	this.type = URI;
     }
-    
+
+    public Entity() {
+
+    }
+
+    public String getURI() {
+	return URI;
+    }
+
+    public void setURI(String URI) {
+	this.URI = URI;
+    }
+
+    public String getName() {
+	return name;
+    }
+
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    public String getImage() {
+	return image;
+    }
+
+    public void setImage(String image) {
+	this.image = image;
+    }
+
+    public String getType() {
+	return type;
+    }
+
+    public void setType(String type) {
+	this.type = type;
+    }
+
+
     public void constructEntity(String URI) {
         //construct de name
         //this.name = blabla;
@@ -59,7 +92,4 @@ public class Entity {
     public void insertType(Property p) {
         
     }
-    
-
-    
 }

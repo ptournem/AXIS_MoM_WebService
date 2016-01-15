@@ -5,22 +5,54 @@
  */
 package Dialog;
 
-/**
- *
- * @author Mélanie
- */
-public class Comment extends Entity{
-   
+public class Comment extends Entity {
+
     String robin;
     String AuthorName;
     String email;
     String comment;
 
     public Comment(String AuthorName, String email, String comment, String URI, String name) {
-        super(URI, name);
-        this.AuthorName = AuthorName;
-        this.email = email;
-        this.comment = comment;
+	super(URI);
+	this.AuthorName = AuthorName;
+	this.email = email;
+	this.comment = comment;
     }
-   
+
+    public Comment() {
+	super();
+    }
+
+    public String getRobin() {
+	return robin;
+    }
+
+    public void setRobin(String robin) {
+	this.robin = robin;
+    }
+
+    public String getAuthorName() {
+	return AuthorName;
+    }
+
+    public void setAuthorName(String AuthorName) {
+	this.AuthorName = AuthorName;
+    }
+
+    public String getEmail() {
+	return email;
+    }
+
+    public void setEmail(String email) {
+	this.email = email;
+    }
+
+    public String getComment() {
+	return comment;
+    }
+
+    public void setComment(String comment) {
+	this.comment = comment;
+    }
+
 }

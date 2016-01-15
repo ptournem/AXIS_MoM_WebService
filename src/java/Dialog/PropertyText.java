@@ -5,18 +5,25 @@
  */
 package Dialog;
 
-/**
- *
- * @author Mélanie
- */
-public class PropertyText extends Property{
-    
-    public String value;
+public class PropertyText extends Property {
+
+    String value;
 
     public PropertyText(String value, String propURI, String name) {
-        super(propURI, name);
-        this.value = value;
+	super(propURI, name);
+	this.value = value;
     }
-    
-    
+
+    public PropertyText() {
+	super();
+    }
+
+    public String getValue() {
+	return value;
+    }
+
+    public void setValue(String value) {
+	this.value = value;
+    }
+
 }

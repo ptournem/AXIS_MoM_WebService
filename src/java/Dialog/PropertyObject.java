@@ -5,17 +5,25 @@
  */
 package Dialog;
 
-/**
- *
- * @author Mélanie
- */
-public class PropertyObject extends Property{
-    
-    public String ObjectURI;
+public class PropertyObject extends Property {
+
+    String ObjectURI;
 
     public PropertyObject(String ObjectURI, String propURI, String name) {
-        super(propURI, name);
-        this.ObjectURI = ObjectURI;
+	super(propURI, name);
+	this.ObjectURI = ObjectURI;
     }
-    
+
+    public PropertyObject() {
+	super();
+    }
+
+    public String getObjectURI() {
+	return ObjectURI;
+    }
+
+    public void setObjectURI(String ObjectURI) {
+	this.ObjectURI = ObjectURI;
+    }
+
 }
