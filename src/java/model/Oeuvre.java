@@ -7,6 +7,7 @@
 package model;
 
 import Dialog.Entity;
+import Dialog.Property;
 import org.apache.jena.rdf.model.*;
 
 /**
@@ -21,12 +22,29 @@ public class Oeuvre extends Entity {
     public String author;
 
     public Oeuvre(String URI) {
-        super(URI);
-        this.dateCreation = URI;
-        this.location = URI;
-        this.author = URI;
+        constructEntity(URI);
+        
+        //construct de dateCreation
+        //this.dateCreation = blabla
+        
+        
+        //construct de location
+        
+        //construct de author
     }
 
+    public void insertDateCreation(Property p) {
+        
+    }
 
+    public void insertLocation(Property p) {
+        
+    }
+    
+    public void insertAuthor(Property p) {
+        
+    }
+    
+    
 
 }

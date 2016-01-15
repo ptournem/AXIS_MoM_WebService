@@ -5,14 +5,18 @@
  */
 package Dialog;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import static model.Connector.*;
 
 /**
  *
  * @author Mélanie
  */
+
+@XmlSeeAlso({Entity.class})
+
 public class Entity {
-   
     public String URI;
     public String name;
     public String image;
@@ -22,11 +26,40 @@ public class Entity {
 
     }
     
-    public Entity(String URI) {
-        this.URI = URI;
-        this.name = URI;
-        this.image = URI;
-        this.type = URI;
-    }    
+    public Entity() {
+        
+
+        
+    }
+    
+    public void constructEntity(String URI) {
+        //construct de name
+        //this.name = blabla;
+        
+        //construct de image
+        //this.image = blabla
+        
+        //construct de type
+        //this.type = blabla
+    }
+    
+    public void insertName(Property p) {
+        
+    }
+    
+    public void insertImage(Property p) {
+        // on crée un "RegOfPhotoItem"
+        // on le lie à "Location" via "hasExpression"
+        // on le lie à "EmbodimentOfFile" via "locates"
+        // on le lie à "notre_fichier_jpg" via "fileName"
+        // et on lie "EmbodimentOfFile" à "Location" via "hasLocation"
+        
+    }
+    
+    public void insertType(Property p) {
+        
+    }
+    
+
     
 }

@@ -6,6 +6,7 @@
 package model;
 
 import Dialog.Entity;
+import Dialog.Property;
 
 /**
  *
@@ -17,9 +18,24 @@ public class Person extends Entity {
     public String placeOfBirth;
 
     public Person(String URI) {
-        super(URI);
-        this.birthDate = URI;
-        this.deathDate = URI;
-        this.placeOfBirth = URI;
-    }  
+        constructEntity(URI);
+        
+        //construct de birthDate
+        
+        //construct de deathDate
+        
+        //construct de placeOfBirth
+    }
+    
+    public void insertBirthDate(Property p) {
+        
+    }
+    
+    public void insertDeathDate(Property p) {
+        
+    }
+    
+    public void insertPlaceOfBirth(Property p) {
+        
+    }
 }
