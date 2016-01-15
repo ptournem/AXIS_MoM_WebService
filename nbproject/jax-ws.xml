@@ -4,6 +4,9 @@
     <service name="TestWebService">
       <implementation-class>model.TestWebService</implementation-class>
     </service>
+    <service name="AXIS_MoM_WS_phpTest">
+      <implementation-class>ws.AXIS_MoM_WS_phpTest</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>

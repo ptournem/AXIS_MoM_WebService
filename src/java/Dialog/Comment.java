@@ -7,13 +7,13 @@ package Dialog;
 
 public class Comment extends Entity {
 
-    String robin;
     String AuthorName;
     String email;
     String comment;
 
     public Comment(String AuthorName, String email, String comment, String URI, String name) {
-	super(URI);
+	super();
+	this.setURI(URI);
 	this.AuthorName = AuthorName;
 	this.email = email;
 	this.comment = comment;
@@ -21,14 +21,6 @@ public class Comment extends Entity {
 
     public Comment() {
 	super();
-    }
-
-    public String getRobin() {
-	return robin;
-    }
-
-    public void setRobin(String robin) {
-	this.robin = robin;
     }
 
     public String getAuthorName() {
