@@ -22,7 +22,7 @@ public class Entity {
         Entity e = new Entity();
         e.setURI("TESTURI456");
         
-        PropertyText p = new PropertyText();
+        Property p = new Property();
         p.setName("image");
         p.setValue("mon_image_test.jpg");
         
@@ -31,7 +31,7 @@ public class Entity {
     }
 
     public Entity() {
-
+        
     }
 
     public String getURI() {
@@ -82,7 +82,7 @@ public class Entity {
         
     }
     
-    public void insertImage(PropertyText p) {
+    public void insertImage(Property p) {
         
         String uid1 = insert("rdf:type", "axis:RegOfPhotoItem");
         String uid2 = insert("rdf:type", "axis:Location");
@@ -90,7 +90,7 @@ public class Entity {
         
         insert("poc:"+this.URI, "rdf:uses", "poc:"+uid1);
         
-        insert("poc:"+uid3, "axis:fileName", '"'+p.value+'"');
+        insert("poc:"+uid3, "axis:fileName", '"'+p.getValue()+'"');
         
         insert("poc:"+uid3, "axis:hasLocation", "poc:"+uid2);
         
