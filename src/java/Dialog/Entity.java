@@ -30,6 +30,12 @@ public class Entity {
         
     }
 
+    public Entity(String URI, String name, String image, String type) {
+        this.URI = URI;
+        this.name = name;
+        this.image = image;
+        this.type = type;
+    }
     public Entity() {
         
     }
