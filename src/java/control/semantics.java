@@ -21,8 +21,10 @@ public class semantics {
     
     
     public static void main(String args[]) {
-        Model m2;
-        m2 = SearchOurEntitiesFromText("MLK_speech.bwf");
+       // Model m2;
+       // m2 = SearchOurEntitiesFromText("MLK_speech.bwf");
+        
+        SearchAllEntitiesFromText("<http://dbpedia.org/resource/The_Thinker>");
         System.out.println("main");
     }
     
@@ -79,8 +81,10 @@ public class semantics {
         return m;
     }
 
-    public Entity[] SearchAllEntitiesFromText(String needle) { //riad
+    public static Entity[] SearchAllEntitiesFromText(String needle) { //riad
         // renvoie un tableau d'entité à partir d'une chaîne de caractere dans le LoD (dbpedia, freebase)
+       
+        selectlod(needle);
         return null;
     }
 }

@@ -1,0 +1,118 @@
+package ws;
+
+import Dialog.Comment;
+import Dialog.Entity;
+import Dialog.Property;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
+/**
+ * Interface à implémenter dans les web services qui vont avec le projet
+ * AXIS_MoM_WebSite
+ *
+ */
+@WebService(name = "AXIS_MoM_WS")
+public interface AXIS_MoM_WSInterface {
+    
+    
+    /**
+     * Ajoute une entité
+     * @param e
+     * @return 
+     */
+    @WebMethod(operationName = "AddEntity")
+    Entity AddEntity(@WebParam(name = "e") Entity e);
+
+    /**
+     * Supprime une entité
+     * @param e
+     * @return 
+     */
+    @WebMethod(operationName = "RemoveEntity")
+    Boolean RemoveEntity(@WebParam(name = "e") Entity e);
+
+    /**
+     * Set la property p d'une entite e
+     * @param e
+     * @param p
+     * @return 
+     */
+    @WebMethod(operationName = "SetEntityProperty")
+    Boolean SetEntityProperty(@WebParam(name = "e") Entity e, @WebParam(name = "p") Property p);
+
+    /**
+     * Remove la property p d'une entité e
+     * @param e
+     * @param p
+     * @return 
+     */
+    @WebMethod(operationName = "RemoveEntityObjectProperty")
+    Boolean RemoveEntityObjectProperty(@WebParam(name = "e") Entity e, @WebParam(name = "p") Property p);
+
+    /**
+     * Remove la property p d'une entité e et l'entité e 
+     * @param e
+     * @param p
+     * @return 
+     */
+    @WebMethod(operationName = "RemoveEntityObjectPropertyWithObject")
+    Boolean RemoveEntityObjectPropertyWithObject(@WebParam(name = "e") Entity e, @WebParam(name = "p") Property p);
+
+    /**
+     * Charge les propriété d'une entité e
+     * @param e
+     * @return 
+     */
+    @WebMethod(operationName = "LoadEntityProperties")
+    Property[] LoadEntityProperties(@WebParam(name = "e") Entity e);
+
+    /**
+     * Cherche les entité contenant le texte needle dans la bdd sémantique interne 
+     * @param needle
+     * @return 
+     */
+    @WebMethod(operationName = "SearchOurEntitiesFromText")
+    Entity[] SearchOurEntitiesFromText(@WebParam(name = "needle") String needle);
+
+    /**
+     * Cherche les entité contenant le texte needle dans la bdd sémantique interne ou le LoD 
+     * @param needle
+     * @return 
+     */
+    @WebMethod(operationName = "SearchAllEntitiesFromText")
+    Entity[] SearchAllEntitiesFromText(@WebParam(name = "needle") String needle);
+
+    /**
+     * Ajoute un commentaire c
+     * @param c
+     * @return 
+     */
+    @WebMethod(operationName = "AddComment")
+    Comment AddComment(@WebParam(name = "c") Comment c);
+
+    /**
+     * Approuve un commentaire c
+     * @param c
+     * @return 
+     */
+    @WebMethod(operationName = "GrantComment")
+    Boolean GrantComment(@WebParam(name = "c") Comment c);
+
+    /**
+     * Supprime un commentaire c
+     * @param c
+     * @return 
+     */
+    @WebMethod(operationName = "RemoveComment")
+    Boolean RemoveComment(@WebParam(name = "c") Comment c);
+
+    /**
+     * Charge les commentaire d'une entité e 
+     * @param e
+     * @return 
+     */
+    @WebMethod(operationName = "LoadComment")
+    Comment[] LoadComment(@WebParam(name = "e") Entity e);
+
+}

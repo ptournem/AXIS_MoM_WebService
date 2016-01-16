@@ -45,7 +45,7 @@ public class TestWebService {
     public Entity AddEntity(@WebParam(name = "e") Entity e) {
 
 	if (e == null) {
-	    return new Entity("test");
+	    return new Entity();
 	}
 	e.setURI(insert("rdf:type", "axis:Entity"));
 	String uri = null;
@@ -99,7 +99,7 @@ public class TestWebService {
 
     @WebMethod(operationName = "SetEntityObjectProperty")
     public boolean SetEntityObjectProperty(Entity e, PropertyObject p) {
-	insert(e.getURI(), p.getPropURI(), p.getObjectURI());
+	insert(e.getURI(), p.getURI(), p.getObjectURI());
 	return true;
     }
 
