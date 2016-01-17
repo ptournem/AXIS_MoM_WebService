@@ -6,8 +6,8 @@
 package model;
 
 import Dialog.Entity;
-import Dialog.PropertyObject;
-import Dialog.PropertyText;
+import Dialog.Property;
+import model.Oeuvre;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -77,30 +77,50 @@ public class TestWebService {
 	    default:
 		throw new AssertionError();
 	}
-	// on crée le wati AFP
-	insert(e.getURI(), "rdfs:label", e.getName(), "fr");
+        
+        e.insertName(new Property("name", e.getName(), "fr", null));
+        e.insertImage(new Property("image", e.getImage(), "fr", null));
+	//insert(e.getURI(), "rdfs:label", e.getName(), "fr");
 	return e;
     }
 
     @WebMethod(operationName = "SetEntityTextProperty")
-    public boolean SetEntityTextProperty(Entity e, PropertyText p) {
+    public boolean SetEntityProperty(Entity e, Property p) {
 
 	//insert(e.getURI(), p.getPropURI(), p.getValue(), "fr");
         
+        Oeuvre oeuv = null;
+        Person pers = null;
+        
+        if(p.getName() == "author") {
+            oeuv = (Oeuvre) e;
+            oeuv.insertAuthor(p);
+        }
+        
         if(p.getName() == "image")
             e.insertImage(p);
+        
+        if(p.getName() == "name") {
+            e.insertName(p);
+        }
+        
+        if(p.getName() == "birthdate") {
+            pers = (Person) e;
+            pers.insertBirthDate(p);
+        }
+        
+        if(p.getName() == "deathdate") {
+            pers = (Person) e;
+            pers.insertDeathDate(p);
+        }
+        
+        
 	return true;
     }
 
     @WebMethod(operationName = "RemoveEntity")
     public String RemoveEntity() {
 	return "RemoveEntity";
-    }
-
-    @WebMethod(operationName = "SetEntityObjectProperty")
-    public boolean SetEntityObjectProperty(Entity e, PropertyObject p) {
-	insert(e.getURI(), p.getURI(), p.getObjectURI());
-	return true;
     }
 
     @WebMethod(operationName = "AddComment")

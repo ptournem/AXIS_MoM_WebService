@@ -7,26 +7,19 @@ package Dialog;
 
 public class Property {
 
-    String URI;
     String name;
     String value;
     String type;
-    Entity e;
+    Entity ent;
 
-    public Property(String propURI, String name) {
-	this.URI = propURI;
+    public Property(String name, String value, String type, Entity ent) {
 	this.name = name;
+	this.value = value;
+        this.type = type;
+        this.ent = ent;
     }
 
     public Property() {
-    }
-
-    public String getURI() {
-	return URI;
-    }
-
-    public void setURI(String URI) {
-	this.URI = URI;
     }
 
     public String getName() {
@@ -53,12 +46,12 @@ public class Property {
 	this.type = type;
     }
 
-    public Entity getE() {
-	return e;
+    public Entity getEnt() {
+	return ent;
     }
 
-    public void setE(Entity e) {
-	this.e = e;
+    public void setEnt(Entity ent) {
+	this.ent = ent;
     }
 
 }
