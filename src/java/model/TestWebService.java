@@ -47,32 +47,38 @@ public class TestWebService {
 	if (e == null) {
 	    return new Entity();
 	}
-	e.setURI(insert("rdf:type", "axis:Entity"));
+	        String mainURI = insert("rdf:type", "axis:Entity");
+	
 	String uri = null;
 	switch (e.getType()) {
 	    case "person":
-		uri = insert("rdf:type", "axis:RegOfPhysicalPerson");
-		insert(e.getURI(), "axis:hasExpression", uri);
+		uri = insert("rdf:type", "axis:PhysicalPerson");
+		insert(mainURI, "axis:uses", uri);
+                e.setURI(uri);
 		break;
 	    case "event":
-		uri = insert("rdf:type", "axis:RegOfEvent");
-		insert(e.getURI(), "axis:hasExpression", uri);
+		uri = insert("rdf:type", "axis:Event");
+		insert(mainURI, "axis:uses", uri);
+                e.setURI(uri);
 		break;
 	    case "object":
-		uri = insert("rdf:type", "axis:RegOfPhysicalObject");
-		insert(e.getURI(), "axis:hasExpression", uri);
+		uri = insert("rdf:type", "axis:PhysicalObject");
+		insert(mainURI, "axis:uses", uri);
+                e.setURI(uri);
 		break;
 	    case "location":
-		uri = insert("rdf:type", "axis:RegOfPlace");
-		insert(e.getURI(), "axis:hasExpression", uri);
+		uri = insert("rdf:type", "axis:Place");
+		insert(mainURI, "axis:uses", uri);
+                e.setURI(uri);
 		break;
 //              case "activity":
 //                  uri = insert("rdf:type", "axis:RegOfPhysicalPerson");
 //                  insert(e.URI, "axis:hasExpression", uri);
 //                  break;
 	    case "organisation":
-		uri = insert("rdf:type", "axis:RegOfMoralPerson");
-		insert(e.getURI(), "axis:hasExpression", uri);
+		uri = insert("rdf:type", "axis:MoralPerson");
+		insert(mainURI, "axis:uses", uri);
+                e.setURI(uri);
 		break;
 	    default:
 		throw new AssertionError();

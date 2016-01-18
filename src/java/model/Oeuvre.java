@@ -22,7 +22,7 @@ public class Oeuvre extends Entity {
     public String author;
 
     public Oeuvre(String URI) {
-        constructEntity(URI);
+//        constructEntity(URI);
         
         //construct de dateCreation
         //this.dateCreation = blabla
