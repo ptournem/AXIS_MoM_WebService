@@ -5,30 +5,18 @@
  */
 package model;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.net.URI;
 import java.util.UUID;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.DatasetAccessor;
 import org.apache.jena.query.DatasetAccessorFactory;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
-import org.apache.jena.util.FileManager;
 import Dialog.Entity;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
@@ -78,27 +66,45 @@ public class Connector {
         //pas prio
     }
 
-    public static Model selectFromEntity(URI uri) { //loan
+
+    public static Model selectFromEntity(String uri) { //robine
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
-                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "CONSTRUCT WHERE {<" + uri + "> ?p ?o}");
+                "http://localhost:3030/ds/query", String.format(
+                "PREFIX poc: <http://titan.be/axis-poc2015/>" +
+                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>" +
+                "construct{?s ?p ?o}" +
+                "WHERE { ?s ?p ?o . {" +
+                "SELECT * WHERE {" +
+                "%s ?p ?o }" +
+                "} }", uri));
 
-        Model constructModel = qe.execConstruct();
 
-        return constructModel;
+        Model m = qe.execConstruct();
+
+        return m;
     }
-
-    public static Model selectFromEntity(String pred, String obj) { //loan
+    
+    public static Model selectFromEntityWithPredicat(String uri, String predicat) { //Robine
+        //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
-                "http://localhost:3030/ds/query", "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "CONSTRUCT WHERE {?s <" + pred + "> \"" + obj + "\"}");
+                "http://localhost:3030/ds/query", String.format(
+                "PREFIX poc: <http://titan.be/axis-poc2015/>" +
+                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>" +
+                "construct{?s ?p ?o}" +
+                "WHERE { ?s ?p ?o . {" +
+                "SELECT * WHERE {" +
+                "%s %s ?o }" +
+                "} }", uri, predicat));
 
-        Model constructModel = qe.execConstruct();
 
-        return constructModel;
+        Model m = qe.execConstruct();
 
+        return m;
     }
+
 
     // méthode pour supprimer des charactéres
 
@@ -243,7 +249,7 @@ public class Connector {
                 UpdateFactory.create(String.format(req, id, p, o)),
                 "http://localhost:3030/ds/update");
         upp.execute();
-        return id;
+        return "http://titan.be/axis-poc2015/"+id;
     }
 
     public static boolean insert(String s, String p, String o) { //robine

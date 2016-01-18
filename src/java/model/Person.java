@@ -17,8 +17,8 @@ public class Person extends Entity {
     public String deathDate;
     public String placeOfBirth;
 
-    public Person(String URI) {
-        constructEntity(URI);
+    public Person() {
+        this.constructEntity();
         
         //construct de birthDate
         

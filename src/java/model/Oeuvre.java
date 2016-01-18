@@ -21,11 +21,13 @@ public class Oeuvre extends Entity {
     public String location;
     public String author;
 
-    public Oeuvre(String URI) {
-        constructEntity(URI);
+    public Oeuvre() {
+        
+        
+        this.constructEntity();
         
         //construct de dateCreation
-        //this.dateCreation = blabla
+        //this.dateCreation = blablabla
         
         
         //construct de location
@@ -38,11 +40,23 @@ public class Oeuvre extends Entity {
     }
 
     public void insertLocation(Property p) {
+        if(p.getType() == "uri") {
+            
+        }
         
+        else {
+            
+        } 
     }
     
     public void insertAuthor(Property p) {
+        if(p.getType() == "uri") {
+            
+        }
         
+        else {
+            
+        } 
     }
     
     
