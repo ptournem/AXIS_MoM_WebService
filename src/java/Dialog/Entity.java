@@ -117,4 +117,10 @@ public class Entity {
     public void insertType(Property p) {
         
     }
+
+    @Override
+    public String toString() {
+        return "Entity{" + "URI=" + URI + ", name=" + name + ", image=" + image + ", type=" + type + '}';
+    }
+    
 }
