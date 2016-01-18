@@ -27,6 +27,7 @@ import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import org.apache.jena.util.FileManager;
 import Dialog.Entity;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
@@ -50,7 +51,7 @@ public class Connector {
 //        
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
-        selectlod("<http://dbpedia.org/resource/The_Thinker>");
+        selectlod("<http://dbpedia.org/resource/FIFA>");
 
     }
 
@@ -101,13 +102,13 @@ public class Connector {
 
     // méthode pour supprimer des charactéres
 
-    public static Entity selectlod(String keyword) {
+    public static ArrayList<Entity> selectlod(String keyword) {
         //riad
 
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         // l'URI est externe, et fait donc référence à un lien dbpedia, freebase...
 
-       // ArrayList<Entity> entities = new ArrayList<>();
+        ArrayList<Entity> entities = new ArrayList<>();
 
         String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
                 + "PREFIX dbp: <http://dbpedia.org/property/>"
@@ -116,18 +117,19 @@ public class Connector {
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 + // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                " construct WHERE {" + keyword + " ?p ?o }"; // la langue française on ajoute <. FILTER langMatches( lang(?o), \"FR\" )>
-
+                " construct WHERE {"+keyword+" ?p ?o }"; // la langue française on ajoute <. FILTER langMatches( lang(?o), \"FR\" )>
+                    // FILTER contains(str(?s), \"++\")
         Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
         Model m = qDBexec.execConstruct();
 
         StmtIterator iter = m.listStatements();
-        Entity e = new Entity();
+        
+        Entity e = new Entity(); 
         while (iter.hasNext()) {
            
-
+               
             Statement stmt = (Statement) iter.next();
 
             Resource subject = stmt.getSubject();
@@ -149,7 +151,7 @@ public class Connector {
 
                 // si le predicat est un type
                 case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
-                    String typ = stmt.getObject().toString().replace("http://dbpedia.org/class/yago/", "");
+                    String typ = stmt.getObject().toString();
                     if(typ.contains("Object")){
                         e.setType("object");
                     }
@@ -216,11 +218,11 @@ public class Connector {
         qDBexec.close();
         //         qFBexec.close();
 
-        
-
     }
-           System.out.println(e);
-        return e;
+        entities.add(e);
+        
+           System.out.println(entities);
+        return entities;
     }
 
     public static String insert(String p, String o) { //robine
