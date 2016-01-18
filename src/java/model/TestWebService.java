@@ -92,28 +92,27 @@ public class TestWebService {
         Oeuvre oeuv = null;
         Person pers = null;
         
-        if(p.getName() == "author") {
-            oeuv = (Oeuvre) e;
-            oeuv.insertAuthor(p);
+        switch (p.getName()) {
+	    case "author":
+                oeuv = (Oeuvre) e;
+                oeuv.insertAuthor(p);
+                break;
+            case "image":
+                e.insertImage(p);
+                break;
+            case "name":
+                e.insertName(p);
+                break;
+            case "birthdate":
+                pers = (Person) e;
+                pers.insertBirthDate(p);
+                break;
+            case "deathdate":
+                pers = (Person) e;
+                pers.insertDeathDate(p);
+                break;
+                
         }
-        
-        if(p.getName() == "image")
-            e.insertImage(p);
-        
-        if(p.getName() == "name") {
-            e.insertName(p);
-        }
-        
-        if(p.getName() == "birthdate") {
-            pers = (Person) e;
-            pers.insertBirthDate(p);
-        }
-        
-        if(p.getName() == "deathdate") {
-            pers = (Person) e;
-            pers.insertDeathDate(p);
-        }
-        
         
 	return true;
     }

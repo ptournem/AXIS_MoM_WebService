@@ -8,6 +8,8 @@ package Dialog;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import static model.Connector.*;
+import model.TestWebService;
+import model.jaxws.AddEntity;
 
 
 public class Entity {
@@ -19,14 +21,17 @@ public class Entity {
 
     public static void main(String args[]) {
         
+        
         Entity e = new Entity();
-        e.setURI("TESTURI456");
+        e.setImage("ig2i.jpg");
+        e.setName("IG2I");
+        e.setType("object");
         
-        Property p = new Property();
-        p.setName("image");
-        p.setValue("mon_image_test.jpg");
         
-        e.insertImage(p);
+        TestWebService ws = new TestWebService();
+        Entity e2 = ws.AddEntity(e);
+        
+        e2.constructEntity();
         
     }
 
@@ -73,7 +78,7 @@ public class Entity {
     }
 
 
-    public void constructEntity(String URI) {
+    public void constructEntity() {
         //construct de name
         //this.name = blabla;
         
@@ -85,24 +90,24 @@ public class Entity {
     }
     
     public void insertName(Property p) {
-        
+        insert(this.URI, "label", p.name, "fr");
     }
     
     public void insertImage(Property p) {
         
-        String uid1 = insert("rdf:type", "axis:RegOfPhotoItem");
-        String uid2 = insert("rdf:type", "axis:Location");
-        String uid3 = insert("rdf:type", "axis:EmbodimentOfFile");
+        String uri1 = insert("rdf:type", "axis:RegOfPhotoItem");
+        String uri2 = insert("rdf:type", "axis:Location");
+        String uri3 = insert("rdf:type", "axis:EmbodimentOfFile");
         
-        insert("poc:"+this.URI, "rdf:uses", "poc:"+uid1);
+        insert(this.URI, "rdf:uses", uri1);
         
-        insert("poc:"+uid3, "axis:fileName", '"'+p.getValue()+'"');
+        insert(uri3, "axis:fileName", '"'+p.getValue()+'"');
         
-        insert("poc:"+uid3, "axis:hasLocation", "poc:"+uid2);
+        insert(uri3, "axis:hasLocation", uri2);
         
-        insert("poc:"+uid2, "axis:locates", "poc:"+uid3);
+        insert(uri2, "axis:locates", uri3);
         
-        insert("poc:"+uid1, "axis:hasExpression", "poc:"+uid2);
+        insert(uri1, "axis:hasExpression", uri2);
         
         // Entity => RegOfPhotoItem => Location <=> EmbodimentOfFile => p.value
         
@@ -114,7 +119,4 @@ public class Entity {
         
     }
     
-    public void insertType(Property p) {
-        
-    }
 }
