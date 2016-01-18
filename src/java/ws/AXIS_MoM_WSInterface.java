@@ -3,6 +3,7 @@ package ws;
 import Dialog.Comment;
 import Dialog.Entity;
 import Dialog.Property;
+import Dialog.PropertyAdmin;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -130,5 +131,16 @@ public interface AXIS_MoM_WSInterface {
      */
     @WebMethod(operationName = "LoadComment")
     Comment[] LoadComment(@WebParam(name = "e") Entity e);
+
+    /**
+     * Renvoie tous les entities de la base locale
+     *
+     * @return
+     */
+    @WebMethod(operationName = "GetAllEntities")
+    Entity[] GetAllEntities();
+
+    @WebMethod(operationName = "GetAllPropertiesAdmin")
+    PropertyAdmin[] GetAllPropertiesAdmin(@WebParam(name = "e") Entity e);
 
 }
