@@ -248,7 +248,7 @@ public class Connector {
                 UpdateFactory.create(String.format(req, id, p, o)),
                 "http://localhost:3030/ds/update");
         upp.execute();
-        return id;
+        return "http://titan.be/axis-poc2015/"+id;
     }
 
     public static boolean insert(String s, String p, String o) { //robine
