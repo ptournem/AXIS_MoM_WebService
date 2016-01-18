@@ -9,7 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import static model.Connector.*;
 import model.TestWebService;
-import model.jaxws.AddEntity;
 
 
 public class Entity {
@@ -90,7 +89,8 @@ public class Entity {
     }
     
     public void insertName(Property p) {
-        insert(this.URI, "label", p.name, "fr");
+        System.out.println(p.getValue());
+        insert("<"+this.URI+">", "label", p.getValue(), "fr");
     }
     
     public void insertImage(Property p) {
