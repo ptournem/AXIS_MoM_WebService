@@ -150,7 +150,25 @@ public class Connector {
                 // si le predicat est un type
                 case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
                     String typ = stmt.getObject().toString().replace("http://dbpedia.org/class/yago/", "");
-                    e.setType(typ);
+                    if(typ.contains("Object")){
+                        e.setType("object");
+                    }
+                     if(typ.contains("Event")){
+                        e.setType("event");
+                    }
+                      if(typ.contains("Person")){
+                        e.setType("person");
+                    }
+                       if(typ.contains("Location")){
+                        e.setType("location");
+                    }
+                        if(typ.contains("Activity")){
+                        e.setType("activity");
+                    }
+                         if(typ.contains("Organisation")){
+                        e.setType("organisation");
+                    }
+                    
                     break;
                 case "http://dbpedia.org/ontology/thumbnail":
                     e.setImage(object.toString());

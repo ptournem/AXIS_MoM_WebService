@@ -33,17 +33,17 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
     }
 
     @Override
-    public Boolean SetEntityProperty(Entity e, Property p) {
+    public Boolean SetEntityProperty(Entity e, Property p, Entity valueEntity) {
 	return true;
     }
 
     @Override
-    public Boolean RemoveEntityObjectProperty(Entity e, Property p) {
+    public Boolean RemoveEntityObjectProperty(Entity e, Property p, Entity valueEntity) {
 	return true;
     }
 
     @Override
-    public Boolean RemoveEntityObjectPropertyWithObject(Entity e, Property p) {
+    public Boolean RemoveEntityObjectPropertyWithObject(Entity e, Property p, Entity valueEntity) {
 	return true;
     }
 
@@ -52,14 +52,12 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	ArrayList<Property> list = new ArrayList<Property>();
 	Property p1 = new Property();
 	p1.setName("blablabla");
-	p1.setURI("URIprop");
 	p1.setValue("blablbal");
 	p1.setType("fr");
 	list.add(p1);
 
 	Property p2 = new Property();
 	p2.setName("blabliblo");
-	p2.setURI("URI2");
 	p2.setValue("oui");
 	p2.setType("fr");
 	Entity e2 = new Entity();
@@ -67,7 +65,7 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e2.setName("Pain");
 	e2.setType("Object");
 	e2.setURI("URI");
-	p2.setE(e2);
+	p2.setEnt(e2);
 	list.add(p2);
 
 	Property[] ret = new Property[list.size()];
