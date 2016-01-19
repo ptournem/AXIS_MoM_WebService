@@ -88,7 +88,7 @@ public class Connector {
                 "http://localhost:3030/ds/query", String.format(
                         "PREFIX poc: <http://titan.be/axis-poc2015/>"
                         + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>"
+                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                         + "construct{?s ?p ?o}"
                         + "WHERE { ?s ?p ?o . {"
                         + "SELECT * WHERE {"
@@ -106,7 +106,7 @@ public class Connector {
                 "http://localhost:3030/ds/query", String.format(
                 "PREFIX poc: <http://titan.be/axis-poc2015/>" +
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>" +
+                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>" +
                 "construct{?s ?p ?o}" +
                 "WHERE { ?s ?p ?o . {" +
                 "SELECT * WHERE {" +
@@ -294,7 +294,7 @@ public class Connector {
     }
 
     public static String insert(String p, String o) { //robine
-        String req = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+        String req = "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX poc: <http://titan.be/axis-poc2015/>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
@@ -315,7 +315,7 @@ public class Connector {
     }
 
     public static boolean insert(String s, String p, String o) { //robine
-        String req = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+        String req = "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX poc: <http://titan.be/axis-poc2015/>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
@@ -335,7 +335,7 @@ public class Connector {
     }
 
     public static boolean insert(String s, String p, String o, String lang) { //robine
-        String req = "PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+        String req = "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX poc: <http://titan.be/axis-poc2015/>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
