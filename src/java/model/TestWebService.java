@@ -9,6 +9,7 @@ import Dialog.Entity;
 import Dialog.Property;
 import model.Oeuvre;
 import control.semantics;
+import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -149,9 +150,23 @@ public class TestWebService {
 	return "LoadComment";
     }
 
-    @WebMethod(operationName = "SearchEntitiesFromText")
-    public String SearchEntitiesFromText() {
-	return "SearchEntitiesFromText";
+    @WebMethod(operationName = "SearchOurEntitiesFromText")
+    public Entity[] SearchOurEntitiesFromText(@WebParam(name = "needle") String needle) {
+        
+        String [] tabEntities = selectAllEntitiesURI();
+        ArrayList<Entity> tab = new ArrayList<Entity>();
+        
+        for(int i =0; i<tabEntities.length; i++) {
+            Entity e = new Entity();
+            e.setURI(tabEntities[i]);
+            e.constructEntity();
+            System.out.println(e.toString());
+            if(e.getName().contains(needle))
+                tab.add(e);
+        }
+        
+        Entity[] ret = new Entity[tab.size()];
+	return (Entity[]) tab.toArray(ret);
     }
     
     @WebMethod(operationName = "GetEntity")
@@ -162,8 +177,8 @@ public class TestWebService {
         
     }
     
-    @WebMethod(operationName = "")
-    public Property[] LoadEntityProperties(@WebParam(name = "e") Entity e) {
+    @WebMethod(operationName = "LoadEntityProperties")
+    Property[] LoadEntityProperties(@WebParam(name = "e") Entity e) {
         semantics ctrl = new semantics();
         Property[] tab = ctrl.getAllPropertiesFromEntity(e);
         return tab;

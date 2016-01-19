@@ -18,7 +18,10 @@ import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import Dialog.Entity;
 import java.util.ArrayList;
-import org.apache.jena.rdf.model.NodeIterator;
+import java.util.List;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
@@ -42,7 +45,11 @@ public class Connector {
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
         // uriBrowser("<http://dbpedia.org/resource/Racine>");
-        selectlod("http://dbpedia.org/resource/ONU");
+        
+        
+        //selectlod("http://dbpedia.org/resource/ONU");
+
+        selectAllEntitiesURI();
 
     }
 
@@ -79,7 +86,7 @@ public class Connector {
                         + "construct{?s ?p ?o}"
                         + "WHERE { ?s ?p ?o . {"
                         + "SELECT * WHERE {"
-                        + "%s ?p ?o }"
+                        + "<%s> ?p ?o }"
                         + "} }", uri));
 
         Model m = qe.execConstruct();
@@ -124,6 +131,31 @@ public class Connector {
         Model m = qDBexec.execConstruct();
 
         return m;
+    }
+    
+    public static String[] selectAllEntitiesURI() {
+        
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", String.format(
+                        "PREFIX dbont: <http://dbpedia.org/ontology/> "
+                + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + "select ?s where {?s ?p axis-datamodel:Entity}"));
+
+        ResultSet rs = qe.execSelect();
+
+        List<QuerySolution> mList = null;
+        mList = ResultSetFormatter.toList(rs);
+        
+        ArrayList<String> tab = new ArrayList<>();
+        
+        for(int i=0; i<mList.size(); i++) {
+            tab.add(mList.get(i).getResource("s").toString());
+        }
+
+        String[] ret = new String[tab.size()];
+	return (String[]) tab.toArray(ret);
     }
 
     public static ArrayList<Entity> selectlod(String keyword) {

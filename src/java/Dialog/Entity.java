@@ -43,7 +43,8 @@ public class Entity {
         TestWebService ws = new TestWebService();
         Entity e2 = ws.AddEntity(e);
         
-        e2.printEntity();
+        //e2.printEntity();
+        
         
     }
 
@@ -188,7 +189,7 @@ public List browseModel(Resource resource, String predicate){
         String uri2 = insert("rdf:type", "axis:Location");
         String uri3 = insert("rdf:type", "axis:EmbodimentOfFile");
         
-        insert(this.URI, "rdf:uses", uri1);
+        insert(this.URI, "axis:hasRepresentation", uri1);
         
         insert(uri3, "axis:fileName", p.getValue());
         
