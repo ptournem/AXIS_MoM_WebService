@@ -133,8 +133,6 @@ public List<List> browseModel(Resource resource, String predicate){
 public void constructEntity() {
         Model m = selectFromEntity(this.URI);
         Resource resource = m.getResource(this.URI);
-        List<List> l0 = browseModel(resource, "date");
-        System.out.println("l0"+l0);
         List<List> l = browseModel(resource, "label");
         this.name = (String) l.get(0).get(2);
         l = browseModel(resource, "type");

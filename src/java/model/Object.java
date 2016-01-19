@@ -72,6 +72,7 @@ public class Object extends Entity {
                 pa.setEntity_locale(null);
                 this.dateCreation = pa;
             }
+            
             l2 = browseModel(resource, "takesPlaceIn");
             if(!l2.isEmpty()){
                 PropertyAdmin pa = new PropertyAdmin();
@@ -84,6 +85,7 @@ public class Object extends Entity {
                 pa.setEntity_locale(null);
                 this.location = pa;
             }
+            
             l2 = browseModel(resource, "isPerformedBy");
             if(!l2.isEmpty()){
                 selectFromEntity(null, null, null);
