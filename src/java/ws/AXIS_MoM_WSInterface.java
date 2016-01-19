@@ -143,4 +143,6 @@ public interface AXIS_MoM_WSInterface {
     @WebMethod(operationName = "GetAllPropertiesAdmin")
     PropertyAdmin[] GetAllPropertiesAdmin(@WebParam(name = "e") Entity e);
 
+    @WebMethod(operationName = "GetEntity")
+    Entity GetEntity(@WebParam(name = "e") Entity e);
 }
