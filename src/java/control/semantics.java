@@ -8,6 +8,7 @@ package control;
 import Dialog.Entity;
 import Dialog.Property;
 import java.net.URI;
+import java.util.ArrayList;
 import static model.Connector.*;
 import org.apache.jena.rdf.model.Model;
 
@@ -23,8 +24,9 @@ public class semantics {
     public static void main(String args[]) {
        // Model m2;
        // m2 = SearchOurEntitiesFromText("MLK_speech.bwf");
-        
-        SearchAllEntitiesFromText("<http://dbpedia.org/resource/The_Thinker>");
+         Entity e = new Entity("<http://dbpedia.org/resource/Racine>", null, null, null);
+         LoadEntityProperties(e);
+     //   SearchAllEntitiesFromText("<http://dbpedia.org/resource/The_Thinker>");
         System.out.println("main");
     }
     
@@ -66,8 +68,11 @@ public class semantics {
         return null;
     }
 
-    public Property[] LoadEntityProperties() { //loan
+    public static ArrayList<Property> LoadEntityProperties(Entity e) { //Riad
         // renvoie un tableau de toutes les propriétés d'une entité donnée
+        
+        entityBrowser(e);
+        
         return null;
     }
 

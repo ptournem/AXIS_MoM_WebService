@@ -41,8 +41,10 @@ public class Connector {
 //        
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
-        // uriBrowser("<http://dbpedia.org/resource/Racine>");
-        selectlod("http://dbpedia.org/resource/ONU");
+        Entity e = new Entity("<http://dbpedia.org/resource/Racine>", null, null, null);
+       // String uri = e.getURI().toString();
+      entityBrowser(e);
+      //  selectlod("http://dbpedia.org/resource/Racine");
 
     }
 
@@ -106,8 +108,10 @@ public class Connector {
     }
 
     // méthode pour supprimer des charactéres
-    public static Model uriBrowser(String uri) {
+    public static ArrayList<Property> entityBrowser(Entity e) {
 
+       ArrayList<Property> tProp = new ArrayList<Property>();
+        String uri = e.getURI().toString();
         String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
                 + "PREFIX dbp: <http://dbpedia.org/property/>"
                 + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
@@ -122,10 +126,25 @@ public class Connector {
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
         Model m = qDBexec.execConstruct();
+        StmtIterator iter = m.listStatements();
+        while (iter.hasNext()) {
 
-        return m;
+            Statement stmt = (Statement) iter.next();
+           // Resource subject = stmt.getSubject();
+            Property predicate = stmt.getPredicate();
+            String p = predicate.toString();
+           // RDFNode object = stmt.getObject();
+            
+            tProp.add(predicate);
+            
+            
+        }
+
+        System.out.println("tab de prop"+tProp);
+        return tProp;
     }
 
+    
     public static ArrayList<Entity> selectlod(String keyword) {
         //riad
 
@@ -174,12 +193,12 @@ public class Connector {
             // System.out.println("uri : "+e.getURI());
             // on vérifie les prédicats
 
-            if (p.contains("wikiPageDisambiguates")) {
-                Resource r2 = stmt.getResource();
-                selectlod(r2.toString().replace("http://dbpedia.org/resource/", ""));
-                // System.out.println("wikiPageDisambiguates:"+r2);
-
-            } else {
+//            if (p.contains("wikiPageDisambiguates")) {
+//                Resource r2 = stmt.getResource();
+//                selectlod(r2.toString().replace("http://dbpedia.org/resource/", ""));
+//                // System.out.println("wikiPageDisambiguates:"+r2);
+//
+//            } else {
                 switch (p) {
 
                     // si le predicat est un type
@@ -232,7 +251,7 @@ public class Connector {
             }
             // on ajoute nos entités a notre tableau 
           entities.add(e);
-        }
+      //  }
         System.out.println("entity :" + e);
         // System.out.println("les entites : "+entities);
         return entities;
