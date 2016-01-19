@@ -285,9 +285,9 @@ public class Connector {
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "INSERT DATA { "
+                + "<%s>"
                 + " %s "
-                + " %s "
-                + " %s "
+                + "<%s>"
                 + ".}";
 
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
@@ -305,7 +305,7 @@ public class Connector {
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "INSERT DATA { "
-                + " %s "
+                + "<%s>"
                 + " %s "
                 + "\"%s\"@%s"
                 + ".}";

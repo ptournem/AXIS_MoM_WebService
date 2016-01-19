@@ -33,17 +33,17 @@ public class Entity {
         
 //        e.insertImage(p);
         
-        String uri = "<http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom>";
-        String uri1 = "<http://titan.be/axis-poc2015/8b281ed7-1514-4f29-842c-3a81a3dfd722>";
-        e.setURI(uri);
-        e.constructEntity();
-        System.out.println(e);
+        //String uri = "<http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom>";
+        //String uri1 = "<http://titan.be/axis-poc2015/8b281ed7-1514-4f29-842c-3a81a3dfd722>";
+        //e.setURI(uri);
+        //e.constructEntity();
+        //System.out.println(e);
 //        e.printEntity(uri);
         
         TestWebService ws = new TestWebService();
         Entity e2 = ws.AddEntity(e);
         
-        e2.constructEntity();
+        e2.printEntity();
         
     }
 
@@ -124,10 +124,13 @@ public List browseModel(Resource resource, String predicate){
 //        this.name = browseModel(resource, "label");
     }
     
-    public void printEntity(String URI) {
-        Model m = selectFromEntity(this.URI);
+    public void printEntity() {
+        
+        System.out.println(this.URI);
+        Model m = selectFromEntity("<"+this.URI+">");
+        
         String uri = this.URI.replace("<", "").replace(">", "");
-        Resource main = m.getResource(uri);
+        Resource main = m.getResource(this.URI);
         StmtIterator test = main.listProperties();
         while(test.hasNext()){
             Statement stmt = test.nextStatement();
@@ -175,8 +178,8 @@ public List browseModel(Resource resource, String predicate){
     }
     
     public void insertName(Property p) {
-        System.out.println(p.getValue());
-        insert("<"+this.URI+">", "label", p.getValue(), "fr");
+        System.out.println(this.URI);
+        insert(this.URI, "rdf:label", p.getValue(), "fr");
     }
     
     public void insertImage(Property p) {
@@ -187,7 +190,7 @@ public List browseModel(Resource resource, String predicate){
         
         insert(this.URI, "rdf:uses", uri1);
         
-        insert(uri3, "axis:fileName", '"'+p.getValue()+'"');
+        insert(uri3, "axis:fileName", p.getValue());
         
         insert(uri3, "axis:hasLocation", uri2);
         
