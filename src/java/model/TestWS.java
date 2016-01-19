@@ -19,6 +19,7 @@ public class TestWS {
         
         testPerson(e);
         
+        testRecherche();
     }
     
     public static Entity testAddEntity() {
@@ -91,5 +92,14 @@ public class TestWS {
         
         per.insertBirthDate(p1);
     
+    }
+    
+    public static void testRecherche() {
+
+        TestWebService ws = new TestWebService();
+        Entity[] tab = ws.SearchOurEntitiesFromText("G2");
+
+        
+        System.out.println("-!- nb de résultats : "+tab.length);
     }
 }

@@ -158,8 +158,9 @@ public class TestWebService {
         for(int i =0; i<tabEntities.length; i++) {
             Entity e = new Entity();
             e.setURI(tabEntities[i]);
+            System.out.println("Entity avant le construct : "+e.toString());
             e.constructEntity();
-            System.out.println(e.toString());
+            System.out.println("Entity après le construct : "+e.toString());
             if(e.getName().contains(needle))
                 tab.add(e);
         }
