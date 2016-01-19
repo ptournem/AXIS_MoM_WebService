@@ -35,15 +35,15 @@ public class Person extends Entity {
         
     }
     
-    public void insertBirthDate(PropertyAdmin p) {
+    public void insertBirthDate(Property p) {
         
     }
     
-    public void insertDeathDate(PropertyAdmin p) {
+    public void insertDeathDate(Property p) {
         
     }
     
-    public void insertPlaceOfBirth(PropertyAdmin p) {
+    public void insertPlaceOfBirth(Property p) {
         
     }
 }

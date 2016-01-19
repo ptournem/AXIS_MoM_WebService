@@ -32,11 +32,11 @@ public class Event extends Entity{
         
     }
     
-    public void insertDateOfEvent(PropertyAdmin p) {
+    public void insertDateOfEvent(Property p) {
         
     }
 
-    public void insertLocation(PropertyAdmin p) {
+    public void insertLocation(Property p) {
         
     }
 }

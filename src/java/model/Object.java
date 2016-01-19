@@ -38,15 +38,15 @@ public class Object extends Entity {
         
     }
 
-    public void insertDateCreation(PropertyAdmin p) {
+    public void insertDateCreation(Property p) {
         
     }
     
-    public void insertLocation(PropertyAdmin p) {
+    public void insertLocation(Property p) {
         
     }
     
-    public void insertAuthor(PropertyAdmin p) {
+    public void insertAuthor(Property p) {
         
     }
 
