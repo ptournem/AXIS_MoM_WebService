@@ -70,6 +70,13 @@ public class Connector {
     public static Model selectFromEntity(String uri) { //robine
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
+//                "http://localhost:3030/ds/query", String.format(
+//                "PREFIX poc: <http://titan.be/axis-poc2015/>" +
+//                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+//                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>" +
+//                "construct {%s ?p ?o}" +
+//                "WHERE { ?s ?p ?o }", uri));
+//        
                 "http://localhost:3030/ds/query", String.format(
                 "PREFIX poc: <http://titan.be/axis-poc2015/>" +
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
@@ -96,7 +103,7 @@ public class Connector {
                 "construct{?s ?p ?o}" +
                 "WHERE { ?s ?p ?o . {" +
                 "SELECT * WHERE {" +
-                "%s %s ?o }" +
+                "%s %s ?s }" +
                 "} }", uri, predicat));
 
 
@@ -278,7 +285,7 @@ public class Connector {
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "INSERT DATA { "
-                + " %s "
+                + " <%s> "
                 + " %s "
                 + "\"%s\"@%s"
                 + ".}";
