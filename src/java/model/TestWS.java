@@ -15,9 +15,9 @@ import Dialog.PropertyAdmin;
  */
 public class TestWS {
     public static void main(String args[]) {
-        Entity e = testAddEntity();
+        //Entity e = testAddEntity();
         
-        testPerson(e);
+        //testPerson(e);
         
         testRecherche();
     }
@@ -93,7 +93,7 @@ public class TestWS {
         per.insertBirthDate(p1);
     
         Object obj1 = new Object();
-        obj1.setURI(obj.getURI());
+        obj1.setURI(obj1.getURI());
         obj1.constructEntity();
         obj1.constructObject();
         System.out.println(obj1);
@@ -110,7 +110,8 @@ public class TestWS {
         TestWebService ws = new TestWebService();
         Entity[] tab = ws.SearchOurEntitiesFromText("G2");
 
-        
-        System.out.println("-!- nb de résultats : "+tab.length);
+        for(int i=0; i<tab.length;i++) {
+            System.out.println("Entity trouvée : "+tab[i]);
+        }
     }
 }
