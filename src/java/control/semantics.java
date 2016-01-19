@@ -28,6 +28,16 @@ public class semantics {
         System.out.println("main");
     }
     
+    public Property[] getAllPropertiesFromEntity(Entity e) {
+        
+        //en fonction du type, on fait une boucle pour récuperer toutes les infos de l'oeuvre en interne + lod
+        
+        
+        Property[] tab = null;
+        
+        return tab;
+    }
+    
     public URI AddEntity(String name, URI type) { //robine
         // on ajoute une nouvelle entity à l'aide du connector
         
