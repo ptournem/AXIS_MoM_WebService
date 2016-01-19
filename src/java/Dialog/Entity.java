@@ -229,9 +229,21 @@ public void constructEntity() {
     }
     
 
-    public void insertType(Property p) {
+    public String getTypeProperty(Property p) {
         
+        if(p.getType() == "uri") {
+            if(p.getEnt().getURI().contains("dbpedia")) {
+                return "dbpedia";
+            }
+            else {
+                return "our";
+            }
+        }
+        else {
+            return "literal";
+        }
     }
+    
 
     @Override
     public String toString() {
