@@ -7,7 +7,8 @@
 package model;
 
 import Dialog.Entity;
-import org.apache.jena.rdf.model.*;
+import Dialog.Property;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,17 +17,36 @@ import org.apache.jena.rdf.model.*;
 
 public class Object extends Entity {
 
-    public String dateCreation;
-    public String location;
-    public String author;
+    public Property dateCreation;
+    public Property location;
+    public Property author;
 
-    public Object(String URI) {
-//        super(URI);
-        this.dateCreation = URI;
-        this.location = URI;
-        this.author = URI;
+    
+    public Property[] getPropertiesObject() {
+        ArrayList<Property> list = new ArrayList<Property>();
+
+	list.add(this.author);
+        list.add(this.location);
+        list.add(this.dateCreation);
+	
+	Property[] ret = new Property[list.size()];
+	return (Property[]) list.toArray(ret);
+    }
+    
+    public void constructObject() {
+        
     }
 
-
+    public void insertDateCreation(Property p) {
+        
+    }
+    
+    public void insertLocation(Property p) {
+        
+    }
+    
+    public void insertAuthor(Property p) {
+        
+    }
 
 }

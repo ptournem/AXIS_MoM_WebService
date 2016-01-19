@@ -7,24 +7,31 @@ package model;
 
 import Dialog.Entity;
 import Dialog.Property;
+import java.util.ArrayList;
 
 /**
  *
  * @author loannguyen
  */
 public class Person extends Entity {
-    public String birthDate;
-    public String deathDate;
-    public String placeOfBirth;
+    public Property birthDate;
+    public Property deathDate;
+    public Property placeOfBirth;
 
-    public Person() {
-        this.constructEntity();
+    
+    public Property[] getPropertiesPerson() {
+        ArrayList<Property> list = new ArrayList<Property>();
+
+	list.add(this.birthDate);
+        list.add(this.deathDate);
+        list.add(this.placeOfBirth);
+	
+	Property[] ret = new Property[list.size()];
+	return (Property[]) list.toArray(ret);
+    }
+    
+    public void constructPerson() {
         
-        //construct de birthDate
-        
-        //construct de deathDate
-        
-        //construct de placeOfBirth
     }
     
     public void insertBirthDate(Property p) {
