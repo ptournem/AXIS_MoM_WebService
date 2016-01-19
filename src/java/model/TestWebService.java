@@ -63,7 +63,7 @@ public class TestWebService {
 		break;
 	    case "object":
 		uri = insert("rdf:type", "axis:PhysicalObject");
-		insert(mainURI, "axis:uses", uri);
+		insert("<"+mainURI+">", "axis:uses", "<"+uri+">");
                 e.setURI(uri);
 		break;
 	    case "location":

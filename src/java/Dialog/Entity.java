@@ -175,7 +175,8 @@ public List browseModel(Resource resource, String predicate){
     }
     
     public void insertName(Property p) {
-        insert(this.URI, "label", p.name, "fr");
+        System.out.println(p.getValue());
+        insert("<"+this.URI+">", "label", p.getValue(), "fr");
     }
     
     public void insertImage(Property p) {
