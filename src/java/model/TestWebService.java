@@ -7,7 +7,6 @@ package model;
 
 import Dialog.Entity;
 import Dialog.Property;
-import model.Oeuvre;
 import control.semantics;
 import java.util.ArrayList;
 import javax.jws.WebService;
@@ -97,13 +96,13 @@ public class TestWebService {
 
 	//insert(e.getURI(), p.getPropURI(), p.getValue(), "fr");
         
-        Oeuvre oeuv = null;
+        Object obj = null;
         Person pers = null;
         
         switch (p.getName()) {
 	    case "author":
-                oeuv = (Oeuvre) e;
-                oeuv.insertAuthor(p);
+                obj = (Object) e;
+                obj.insertAuthor(p);
                 break;
             case "image":
                 e.insertImage(p);
