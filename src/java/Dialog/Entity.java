@@ -131,7 +131,7 @@ public List<List> browseModel(Resource resource, String predicate){
     }
     
 public void constructEntity() {
-        Model m = selectFromEntity("<"+this.URI+">");
+        Model m = selectFromEntity(this.URI);
         Resource resource = m.getResource(this.URI);
         List<List> l = browseModel(resource, "label");
         this.name = (String) l.get(0).get(2);
@@ -139,7 +139,7 @@ public void constructEntity() {
         this.type = (String) l.get(0).get(2);
         l = browseModel(resource, "uses");
         
-        m = selectFromEntityWithPredicat("<"+this.URI+">", "axis-datamodel:uses");
+        m = selectFromEntityWithPredicat(this.URI, "axis-datamodel:uses");
         
         Iterator it = l.iterator();
         while(it.hasNext()){
@@ -150,7 +150,7 @@ public void constructEntity() {
             if(!l1.isEmpty()){
                 while(it1.hasNext()){
                     List o = (List) it1.next();
-                    Model m1 = selectFromEntityWithPredicat("<"+o.get(2)+">", "axis-datamodel:hasExpression");
+                    Model m1 = selectFromEntityWithPredicat(o.get(2).toString(), "axis-datamodel:hasExpression");
                     
                     Iterator itt = m1.listSubjects();
                     while(itt.hasNext()){
@@ -169,7 +169,7 @@ public void constructEntity() {
     }
     
 public void printEntity() {
-        Model m = selectFromEntity("<"+this.URI+">");
+        Model m = selectFromEntity(this.URI);
         Resource main = m.getResource(this.URI);
         StmtIterator test = main.listProperties();
         while(test.hasNext()){
@@ -225,9 +225,9 @@ public void printEntity() {
     
     public void insertImage(Property p) {
         
-        String uri1 = "<"+insert("rdf:type", "axis:RegOfPhotoItem")+">";
-        String uri2 = "<"+insert("rdf:type", "axis:Location")+">";
-        String uri3 = "<"+insert("rdf:type", "axis:EmbodimentOfFile")+">";
+        String uri1 = insert("rdf:type", "axis:RegOfPhotoItem");
+        String uri2 = insert("rdf:type", "axis:Location");
+        String uri3 = insert("rdf:type", "axis:EmbodimentOfFile");
 
         insert(this.URI, "axis:hasRepresentation", uri1);
         

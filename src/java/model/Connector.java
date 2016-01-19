@@ -110,7 +110,7 @@ public class Connector {
                 "construct{?s ?p ?o}" +
                 "WHERE { ?s ?p ?o . {" +
                 "SELECT * WHERE {" +
-                "%s %s ?s }" +
+                "<%s> %s ?s }" +
                 "} }", uri, predicat));
 
         Model m = qe.execConstruct();

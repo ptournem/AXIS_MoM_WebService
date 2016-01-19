@@ -49,28 +49,28 @@ public class TestWebService {
 	if (e == null) {
 	    return new Entity();
 	}
-	        String mainURI = "<"+insert("rdf:type", "axis:Entity")+">";
+	        String mainURI = insert("rdf:type", "axis:Entity");
 	
 	String uri = null;
 	switch (e.getType()) {
 	    case "person":
 		uri = insert("rdf:type", "axis:PhysicalPerson");
-		insert(mainURI, "axis:uses", "<"+uri+">");
+		insert(mainURI, "axis:uses", uri);
                 e.setURI(uri);
 		break;
 	    case "event":
 		uri = insert("rdf:type", "axis:Event");
-		insert(mainURI, "axis:uses", "<"+uri+">");
+		insert(mainURI, "axis:uses", uri);
                 e.setURI(uri);
 		break;
 	    case "object":
 		uri = insert("rdf:type", "axis:PhysicalObject");
-		insert(mainURI, "axis:uses", "<"+uri+">");
+		insert(mainURI, "axis:uses", uri);
                 e.setURI(uri);
 		break;
 	    case "location":
 		uri = insert("rdf:type", "axis:Place");
-		insert(mainURI, "axis:uses", "<"+uri+">");
+		insert(mainURI, "axis:uses", uri);
                 e.setURI(uri);
 		break;
 //              case "activity":
@@ -79,7 +79,7 @@ public class TestWebService {
 //                  break;
 	    case "organisation":
 		uri = insert("rdf:type", "axis:MoralPerson");
-		insert(mainURI, "axis:uses", "<"+uri+">");
+		insert(mainURI, "axis:uses", uri);
                 e.setURI(uri);
 		break;
 	    default:
