@@ -100,6 +100,23 @@ public class Connector {
         return m;
     }
 
+        public static ResultSet selectFromEntity(String s, String p, String o) { //robine
+        //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", String.format(
+                        "PREFIX poc: <http://titan.be/axis-poc2015/>"
+                        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                        + "SELECT ?s " 
+                        + "WHERE {" 
+                        + "  %s %s %s " 
+                        + "}", s,p,o));
+
+        ResultSet rs = qe.execSelect();
+
+        return rs;
+    }
+        
     public static Model selectFromEntityWithPredicat(String uri, String predicat) { //Robine
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
@@ -343,12 +360,17 @@ public class Connector {
                 + "INSERT DATA { "
                 + "<%s>"
                 + " %s "
-                + "\"%s\"@%s"
+                + "\"%s\"%s"
                 + ".}";
-
+        if(lang.equals("file")){
+            lang="";
+        }else{
+            lang="@"+lang;
+        }
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
                 UpdateFactory.create(String.format(req, s, p, o, lang)),
                 "http://localhost:3030/ds/update");
+
         upp.execute();
 
         return true;

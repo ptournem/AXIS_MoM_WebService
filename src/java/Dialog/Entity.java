@@ -13,6 +13,7 @@ import java.util.ListIterator;
 import java.util.Vector;
 import static model.Connector.*;
 import model.TestWebService;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
@@ -36,11 +37,11 @@ public class Entity {
         
         
 //        e.insertImage(p);
-        Entity e3 = new Entity();
-        String uri = "http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom";
-        e3.setURI(uri);
-        e3.constructEntity();
-        System.out.println(e3);
+//        Entity e3 = new Entity();
+//        String uri = "http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom";
+//        e3.setURI(uri);
+//        e3.constructEntity();
+//        System.out.println(e3);
         
         //String uri = "<http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom>";
         //String uri1 = "<http://titan.be/axis-poc2015/8b281ed7-1514-4f29-842c-3a81a3dfd722>";
@@ -58,7 +59,6 @@ public class Entity {
         e4.setURI(e2.getURI());
         e4.constructEntity();
         System.out.println(e4);
-        e2.printEntity();
         
     }
 
@@ -136,11 +136,34 @@ public void constructEntity() {
         List<List> l = browseModel(resource, "label");
         this.name = (String) l.get(0).get(2);
         l = browseModel(resource, "type");
-        this.type = (String) l.get(0).get(2);
+        String type = (String) l.get(0).get(2);
+        
+        if(type.contains("PhysicalPerson"))
+            this.type = "persone";
+        if(type.contains("Event"))
+            this.type = "event";
+        if(type.contains("PhysicalObject"))
+            this.type = "object";
+        if(type.contains("Place"))
+            this.type = "location";
+        if(type.contains("MoralPerson"))
+            this.type = "organisation";
+//        if(type.contains(""))
+//            this.type = "activity";
+        
         l = browseModel(resource, "uses");
         
         m = selectFromEntityWithPredicat(this.URI, "axis-datamodel:uses");
-        
+        if(m.isEmpty()){
+            ResultSet rs = selectFromEntity("?s", "axis-datamodel:uses", "<"+this.URI+">");
+            if(rs.hasNext()){
+                String newUri = rs.nextSolution().get("s").toString();
+                m = selectFromEntity(newUri);
+                resource = m.getResource(newUri);
+                l = browseModel(resource, "uses");
+                m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
+            }
+        }
         Iterator it = l.iterator();
         while(it.hasNext()){
             List list = (List) it.next();
@@ -168,72 +191,21 @@ public void constructEntity() {
         }
     }
     
-public void printEntity() {
-        Model m = selectFromEntity(this.URI);
-        Resource main = m.getResource(this.URI);
-        StmtIterator test = main.listProperties();
-        while(test.hasNext()){
-            Statement stmt = test.nextStatement();
-            System.out.println("Subject: "+ stmt.getSubject());
-            System.out.println("predicate: "+ stmt.getPredicate());
-            
-            
-        
-            if(stmt.getObject().isLiteral()){
-                    System.out.println("\n>>>>>>>>>>> \n\n LITERRAL \n\n <<<<<<<<<<\n\n");
-                    System.out.println(stmt.getPredicate()+">>>>"+stmt.getObject().asLiteral().getString());
-                }else{
-                    System.out.println("Object: "+stmt.getObject());
-//            Model m2 = selectFromEntity(String.format("<%s>", stmt.getObject().toString()));
-//            Resource r = m2.getResource(stmt.getObject().toString());
-//            StmtIterator test2 = r.listProperties();
-//            
-//            while(test2.hasNext()){
-//                
-//                Statement stmt2 = test2.nextStatement();
-//                
-//                System.out.println("Subject: "+ stmt2.getSubject());
-//                System.out.println("predicate: "+ stmt2.getPredicate());
-//                System.out.println("Object: "+stmt2.getObject());
-//                
-//                
-//                if(stmt2.getObject().isLiteral()){
-//                    System.out.println("\n>>>>>>>>>>> \n\n LITERRAL \n\n <<<<<<<<<<\n\n");
-//                    System.out.println(stmt2.getPredicate()+">>>>"+stmt2.getObject().asLiteral().getString());
-//                }else{
-//                
-//                Model m3 = selectFromEntity(String.format("<%s>", stmt2.getObject().toString()));
-//                Resource r1 = m3.getResource(stmt.getObject().toString());
-//                StmtIterator test3 = r1.listProperties();
-//                    
-//                while(test3.hasNext()){
-//                Statement stmt3 = test3.nextStatement();
-//                System.out.println("Subject: "+ stmt3.getSubject());
-//                System.out.println("predicate: "+ stmt3.getPredicate());
-//                System.out.println("Object: "+stmt3.getObject());
-//
-//                }
-//                }
-//            }
-        }}
-    }
-    
     public void insertName(Property p) {
-        System.out.println(p.getValue());
         insert(this.URI, "rdfs:label", p.getValue(), "fr");
     }
     
     public void insertImage(Property p) {
         
-        String uri1 = insert("rdf:type", "axis-model:RegOfPhotoItem");
-        String uri2 = insert("rdf:type", "axis-model:Location");
-        String uri3 = insert("rdf:type", "axis-model:EmbodimentOfFile");
+        String uri1 = insert("rdf:type", "axis-datamodel:RegOfPhotoItem");
+        String uri2 = insert("rdf:type", "axis-datamodel:Location");
+        String uri3 = insert("rdf:type", "axis-datamodel:EmbodimentOfImageFile");
 
         insert(this.URI, "axis-datamodel:hasRepresentation", uri1);
         
         insert(uri1, "axis-datamodel:isARepresentationOf", this.URI);
         
-        insert(uri3, "axis-datamodel:fileName", p.getValue());
+        insert(uri3, "axis-datamodel:fileName", p.getValue(), "file");
         
         insert(uri3, "axis-datamodel:hasLocation", uri2);
         

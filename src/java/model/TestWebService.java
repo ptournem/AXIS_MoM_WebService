@@ -49,28 +49,28 @@ public class TestWebService {
 	if (e == null) {
 	    return new Entity();
 	}
-	        String mainURI = insert("rdf:type", "axis:Entity");
+	        String mainURI = insert("rdf:type", "axis-datamodel:Entity");
 	
 	String uri = null;
 	switch (e.getType()) {
 	    case "person":
-		uri = insert("rdf:type", "axis:PhysicalPerson");
-		insert(mainURI, "axis:uses", uri);
+		uri = insert("rdf:type", "axis-datamodel:PhysicalPerson");
+		insert(mainURI, "axis-datamodel:uses", uri);
                 e.setURI(uri);
 		break;
 	    case "event":
-		uri = insert("rdf:type", "axis:Event");
-		insert(mainURI, "axis:uses", uri);
+		uri = insert("rdf:type", "axis-datamodel:Event");
+		insert(mainURI, "axis-datamodel:uses", uri);
                 e.setURI(uri);
 		break;
 	    case "object":
-		uri = insert("rdf:type", "axis:PhysicalObject");
-		insert(mainURI, "axis:uses", uri);
+		uri = insert("rdf:type", "axis-datamodel:PhysicalObject");
+		insert(mainURI, "axis-datamodel:uses", uri);
                 e.setURI(uri);
 		break;
 	    case "location":
-		uri = insert("rdf:type", "axis:Place");
-		insert(mainURI, "axis:uses", uri);
+		uri = insert("rdf:type", "axis-datamodel:Place");
+		insert(mainURI, "axis-datamodel:uses", uri);
                 e.setURI(uri);
 		break;
 //              case "activity":
@@ -78,8 +78,8 @@ public class TestWebService {
 //                  insert(e.URI, "axis:hasExpression", uri);
 //                  break;
 	    case "organisation":
-		uri = insert("rdf:type", "axis:MoralPerson");
-		insert(mainURI, "axis:uses", uri);
+		uri = insert("rdf:type", "axis-datamodel:MoralPerson");
+		insert(mainURI, "axis-datamodel:uses", uri);
                 e.setURI(uri);
 		break;
 	    default:
