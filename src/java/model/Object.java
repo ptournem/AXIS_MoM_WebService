@@ -8,6 +8,7 @@ package model;
 
 import Dialog.Entity;
 import Dialog.Property;
+import Dialog.PropertyAdmin;
 import java.util.ArrayList;
 
 /**
@@ -17,35 +18,35 @@ import java.util.ArrayList;
 
 public class Object extends Entity {
 
-    public Property dateCreation;
-    public Property location;
-    public Property author;
+    public PropertyAdmin dateCreation;
+    public PropertyAdmin location;
+    public PropertyAdmin author;
 
     
-    public Property[] getPropertiesObject() {
-        ArrayList<Property> list = new ArrayList<Property>();
+    public PropertyAdmin[] getPropertiesObject() {
+        ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
 	list.add(this.author);
         list.add(this.location);
         list.add(this.dateCreation);
 	
-	Property[] ret = new Property[list.size()];
-	return (Property[]) list.toArray(ret);
+	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
+	return (PropertyAdmin[]) list.toArray(ret);
     }
     
     public void constructObject() {
         
     }
 
-    public void insertDateCreation(Property p) {
+    public void insertDateCreation(PropertyAdmin p) {
         
     }
     
-    public void insertLocation(Property p) {
+    public void insertLocation(PropertyAdmin p) {
         
     }
     
-    public void insertAuthor(Property p) {
+    public void insertAuthor(PropertyAdmin p) {
         
     }
 

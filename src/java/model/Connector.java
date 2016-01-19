@@ -50,6 +50,7 @@ public class Connector {
       entityBrowser(e);
       //  selectlod("http://dbpedia.org/resource/Racine");
 
+
     }
 
     public static Model loadModels(String url) { //mélanoche

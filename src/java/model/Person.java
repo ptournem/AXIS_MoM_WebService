@@ -7,6 +7,7 @@ package model;
 
 import Dialog.Entity;
 import Dialog.Property;
+import Dialog.PropertyAdmin;
 import java.util.ArrayList;
 
 /**
@@ -14,35 +15,35 @@ import java.util.ArrayList;
  * @author loannguyen
  */
 public class Person extends Entity {
-    public Property birthDate;
-    public Property deathDate;
-    public Property placeOfBirth;
+    public PropertyAdmin birthDate;
+    public PropertyAdmin deathDate;
+    public PropertyAdmin placeOfBirth;
 
     
-    public Property[] getPropertiesPerson() {
-        ArrayList<Property> list = new ArrayList<Property>();
+    public PropertyAdmin[] getPropertiesPerson() {
+        ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
 	list.add(this.birthDate);
         list.add(this.deathDate);
         list.add(this.placeOfBirth);
 	
-	Property[] ret = new Property[list.size()];
-	return (Property[]) list.toArray(ret);
+	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
+	return (PropertyAdmin[]) list.toArray(ret);
     }
     
     public void constructPerson() {
         
     }
     
-    public void insertBirthDate(Property p) {
+    public void insertBirthDate(PropertyAdmin p) {
         
     }
     
-    public void insertDeathDate(Property p) {
+    public void insertDeathDate(PropertyAdmin p) {
         
     }
     
-    public void insertPlaceOfBirth(Property p) {
+    public void insertPlaceOfBirth(PropertyAdmin p) {
         
     }
 }

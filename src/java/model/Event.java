@@ -7,6 +7,7 @@ package model;
 
 import Dialog.Entity;
 import Dialog.Property;
+import Dialog.PropertyAdmin;
 import java.util.ArrayList;
 
 /**
@@ -14,28 +15,28 @@ import java.util.ArrayList;
  * @author Robois
  */
 public class Event extends Entity{
-    public Property dateOfEvent;
-    public Property location;
+    public PropertyAdmin dateOfEvent;
+    public PropertyAdmin location;
 
-    public Property[] getPropertiesEvent() {
-        ArrayList<Property> list = new ArrayList<Property>();
+    public PropertyAdmin[] getPropertiesEvent() {
+        ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
 	list.add(this.dateOfEvent);
         list.add(this.location);
 	
-	Property[] ret = new Property[list.size()];
-	return (Property[]) list.toArray(ret);
+	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
+	return (PropertyAdmin[]) list.toArray(ret);
     }
     
     public void constructEvent() {
         
     }
     
-    public void insertDateOfEvent(Property p) {
+    public void insertDateOfEvent(PropertyAdmin p) {
         
     }
 
-    public void insertLocation(Property p) {
+    public void insertLocation(PropertyAdmin p) {
         
     }
 }
