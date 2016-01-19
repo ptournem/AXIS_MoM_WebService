@@ -92,6 +92,17 @@ public class TestWS {
         
         per.insertBirthDate(p1);
     
+        Object obj1 = new Object();
+        obj1.setURI(obj.getURI());
+        obj1.constructEntity();
+        obj1.constructObject();
+        System.out.println(obj1);
+        //PropertyAdmin[] props = obj.getPropertiesObject();
+//        Entity[] maListe = ws.SearchOurEntitiesFromText("G2");
+//        System.out.println("-!- Résultat de la recherche pour 'G2' : ");
+//        for(int i =0; i<maListe.length; i++) {
+//            System.out.println(maListe[i]);
+//        }
     }
     
     public static void testRecherche() {

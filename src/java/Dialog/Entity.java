@@ -134,10 +134,10 @@ public void constructEntity() {
         
         Model m = selectFromEntity(this.URI);
         Resource resource = m.getResource(this.URI);
-        List<List> l0 = browseModel(resource, "date");
-        System.out.println("l0"+l0);
         List<List> l = browseModel(resource, "label");
+        if(!l.isEmpty()){
         this.name = (String) l.get(0).get(2);
+        }
         l = browseModel(resource, "type");
         String type = (String) l.get(0).get(2);
         
@@ -171,6 +171,10 @@ public void constructEntity() {
         while(it.hasNext()){
             List list = (List) it.next();
             resource = m.getResource(list.get(2).toString());
+            l = browseModel(resource, "label");
+            if(!l.isEmpty()){
+            this.name = (String) l.get(0).get(2);
+            }
             List l1 = browseModel(resource, "hasRepresentation");
             Iterator it1 = l1.iterator();
             if(!l1.isEmpty()){
