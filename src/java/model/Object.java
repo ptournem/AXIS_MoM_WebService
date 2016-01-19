@@ -33,7 +33,18 @@ public class Object extends Entity {
     
 
     
-    public PropertyAdmin[] getPropertiesObject() {
+    public Property[] getPropertiesObject() {
+        ArrayList<Property> list = new ArrayList<Property>();
+
+	list.add(new Property(this.author.getName(), this.author.getValue_locale(), this.author.getType(), this.author.getEntity_locale()));
+        list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
+        list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
+	
+	Property[] ret = new Property[list.size()];
+	return (Property[]) list.toArray(ret);
+    }
+    
+    public PropertyAdmin[] getPropertiesAdminObject() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
 	list.add(this.author);

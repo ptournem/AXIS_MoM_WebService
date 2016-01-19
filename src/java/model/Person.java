@@ -20,8 +20,18 @@ public class Person extends Entity {
     public PropertyAdmin deathDate;
     public PropertyAdmin placeOfBirth;
 
-    
-    public PropertyAdmin[] getPropertiesPerson() {
+    public Property[] getPropertiesObject() {
+        ArrayList<Property> list = new ArrayList<Property>();
+
+	list.add(new Property(this.birthDate.getName(), this.birthDate.getValue_locale(), this.birthDate.getType(), this.birthDate.getEntity_locale()));
+        list.add(new Property(this.deathDate.getName(), this.deathDate.getValue_locale(), this.deathDate.getType(), this.deathDate.getEntity_locale()));
+        list.add(new Property(this.placeOfBirth.getName(), this.placeOfBirth.getValue_locale(), this.placeOfBirth.getType(), this.placeOfBirth.getEntity_locale()));
+	
+	Property[] ret = new Property[list.size()];
+	return (Property[]) list.toArray(ret);
+    }
+        
+    public PropertyAdmin[] getPropertiesAdminPerson() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
 	list.add(this.birthDate);

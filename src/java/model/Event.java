@@ -18,7 +18,17 @@ public class Event extends Entity{
     public PropertyAdmin dateOfEvent;
     public PropertyAdmin location;
 
-    public PropertyAdmin[] getPropertiesEvent() {
+    public Property[] getPropertiesObject() {
+        ArrayList<Property> list = new ArrayList<Property>();
+
+	list.add(new Property(this.dateOfEvent.getName(), this.dateOfEvent.getValue_locale(), this.dateOfEvent.getType(), this.dateOfEvent.getEntity_locale()));
+        list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
+
+	Property[] ret = new Property[list.size()];
+	return (Property[]) list.toArray(ret);
+    }
+    
+    public PropertyAdmin[] getPropertiesAdminEvent() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
 	list.add(this.dateOfEvent);
