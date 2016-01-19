@@ -8,6 +8,7 @@ package model;
 import Dialog.Entity;
 import Dialog.Property;
 import model.Oeuvre;
+import control.semantics;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -91,7 +92,7 @@ public class TestWebService {
     }
 
     @WebMethod(operationName = "SetEntityTextProperty")
-    public boolean SetEntityProperty(Entity e, Property p) {
+    public boolean SetEntityProperty(@WebParam(name = "e") Entity e, @WebParam(name = "p") Property p) {
 
 	//insert(e.getURI(), p.getPropURI(), p.getValue(), "fr");
         
@@ -151,6 +152,21 @@ public class TestWebService {
     @WebMethod(operationName = "SearchEntitiesFromText")
     public String SearchEntitiesFromText() {
 	return "SearchEntitiesFromText";
+    }
+    
+    @WebMethod(operationName = "GetEntity")
+    public Entity GetEntity(@WebParam(name = "e") Entity e) {
+
+        e.constructEntity();        
+        return e;
+        
+    }
+    
+    @WebMethod(operationName = "")
+    public Property[] LoadEntityProperties(@WebParam(name = "e") Entity e) {
+        semantics ctrl = new semantics();
+        Property[] tab = ctrl.getAllPropertiesFromEntity(e);
+        return tab;
     }
 
 }

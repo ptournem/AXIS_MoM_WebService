@@ -41,6 +41,12 @@ public class Entity {
         e3.setURI(uri);
         e3.constructEntity();
         System.out.println(e3);
+        
+        //String uri = "<http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom>";
+        //String uri1 = "<http://titan.be/axis-poc2015/8b281ed7-1514-4f29-842c-3a81a3dfd722>";
+        //e.setURI(uri);
+        //e.constructEntity();
+        //System.out.println(e);
 //        e.printEntity(uri);
 //        
         TestWebService ws = new TestWebService();
@@ -51,6 +57,7 @@ public class Entity {
         e4.setURI(e2.getURI());
         e4.constructEntity();
         System.out.println(e4);
+        e2.printEntity();
         
     }
 
@@ -162,7 +169,6 @@ public void constructEntity() {
     
 public void printEntity() {
         Model m = selectFromEntity("<"+this.URI+">");
-//        String uri = this.URI.replace("<", "").replace(">", "");
         Resource main = m.getResource(this.URI);
         StmtIterator test = main.listProperties();
         while(test.hasNext()){
@@ -225,7 +231,7 @@ public void printEntity() {
         System.out.println("this.uri:"+this.URI);
         insert("<"+this.URI+">", "axis:uses", uri1);
         
-        insert(uri3, "axis:fileName", '"'+p.getValue()+'"');
+        insert(uri3, "axis:fileName", p.getValue());
         
         insert(uri3, "axis:hasLocation", uri2);
         
