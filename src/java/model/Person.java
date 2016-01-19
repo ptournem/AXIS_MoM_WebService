@@ -46,6 +46,23 @@ public class Person extends Entity {
     }
     
     public void insertPlaceOfBirth(Property p) {
-        
+        String uri1 = null;
+        switch (this.getTypeProperty(p)) {
+	    case "dbpedia":
+                uri1 = insert("rdf:type", "axis-datamodel:Place");
+                insert(this.getURI(), "dbont:birthPlace", uri1);
+                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                break;
+                
+            case "our":
+                insert(this.getURI(), "dbont:birthPlace", p.getEnt().getURI());
+                break;
+                
+            case "literal":
+                uri1 = insert("rdf:type", "axis-datamodel:Place");
+                insert(this.getURI(), "dbont:birthPlace", uri1);
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                break;
+        }
     }
 }

@@ -15,10 +15,13 @@ import Dialog.PropertyAdmin;
  */
 public class TestWS {
     public static void main(String args[]) {
-        test1();
+        Entity e = testAddEntity();
+        
+        testPerson(e);
+        
     }
     
-    public static void test1() {
+    public static Entity testAddEntity() {
         Entity e = new Entity();
         e.setImage("ig2i.jpg");
         e.setName("IG2I");
@@ -30,6 +33,11 @@ public class TestWS {
         
         System.out.println("-!- Entité ajoutée : "+e2);
         
+        return e2;
+        
+    }
+    
+    public static void testObject(Entity e) {
         Property p1 = new Property();
 	p1.setName("author");
 	p1.setValue("robite");
@@ -48,13 +56,41 @@ public class TestWS {
 	p3.setEnt(new Entity("http://dbpedia.com/blabla", "blabla", "bla.jpg", "aaaaaa"));
         
         Object obj = new Object();
-        obj.setImage(e2.getImage());
-        obj.setURI(e2.getURI());
-        obj.setType(e2.getType());
-        obj.setName(e2.getName());
+        obj.setImage(e.getImage());
+        obj.setURI(e.getURI());
+        obj.setType(e.getType());
+        obj.setName(e.getName());
         
         obj.insertAuthor(p1);
+    
+    }
+    
+    public static void testPerson(Entity e) {
+        Property p1 = new Property();
+	p1.setName("birthdate");
+	p1.setValue("20/01");
+	p1.setType("fr");
         
+        Property p2 = new Property();
+	p2.setName("birthplace");
+	p2.setValue(null);
+	p2.setType("uri");
+        p2.setEnt(new Entity("http://blablabla.com", "blabla", "bla.jpg", "aaaaaa"));
+        
+        Property p3 = new Property();
+	p3.setName("birthplace");
+	p3.setValue(null);
+        p3.setType("uri");
+	p3.setEnt(new Entity("http://dbpedia.com/blabla", "blabla", "bla.jpg", "aaaaaa"));
+        
+        Person per = new Person();
+        per.setImage(e.getImage());
+        per.setURI(e.getURI());
+        per.setType(e.getType());
+        per.setName(e.getName());
+        
+        per.insertBirthDate(p1);
+    
         Object obj1 = new Object();
         obj1.setURI(obj.getURI());
         obj1.constructEntity();
