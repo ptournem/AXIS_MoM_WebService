@@ -9,6 +9,7 @@ import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
 import java.util.ArrayList;
+import static model.Connector.*;
 
 /**
  *
@@ -35,12 +36,13 @@ public class Person extends Entity {
         
     }
     
+    
     public void insertBirthDate(Property p) {
-        
+        insert(this.getURI(), "schema:birthDate", p.getValue(), p.getType());
     }
     
     public void insertDeathDate(Property p) {
-        
+        insert(this.getURI(), "schema:deathDate", p.getValue(), p.getType());
     }
     
     public void insertPlaceOfBirth(Property p) {
