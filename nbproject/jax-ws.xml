@@ -7,6 +7,9 @@
     <service name="AXIS_MoM_WS_phpTest">
       <implementation-class>ws.AXIS_MoM_WS_phpTest</implementation-class>
     </service>
+    <service name="AXIS_MoM_WS">
+      <implementation-class>ws.AXIS_MoM_WS</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>

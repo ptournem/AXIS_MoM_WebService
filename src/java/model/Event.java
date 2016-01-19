@@ -6,19 +6,36 @@
 package model;
 
 import Dialog.Entity;
+import Dialog.Property;
+import java.util.ArrayList;
 
 /**
  *
  * @author Robois
  */
 public class Event extends Entity{
-    public String dateOfEvent;
-    public String location;
+    public Property dateOfEvent;
+    public Property location;
 
-    public Event(String URI) {
-//        super(URI);
-        this.dateOfEvent = URI;
-        this.location = URI;
+    public Property[] getPropertiesEvent() {
+        ArrayList<Property> list = new ArrayList<Property>();
+
+	list.add(this.dateOfEvent);
+        list.add(this.location);
+	
+	Property[] ret = new Property[list.size()];
+	return (Property[]) list.toArray(ret);
+    }
+    
+    public void constructEvent() {
+        
+    }
+    
+    public void insertDateOfEvent(Property p) {
+        
     }
 
+    public void insertLocation(Property p) {
+        
+    }
 }
