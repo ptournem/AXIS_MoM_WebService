@@ -30,17 +30,17 @@ public class Entity {
     public static void main(String args[]) {
         
         
-        Entity e = new Entity();
-        e.setImage("ig2i.jpg");
-        e.setName("IG2I");
-        e.setType("object");
-        
+//        Entity e = new Entity();
+//        e.setImage("ig2i.jpg");
+//        e.setName("IG2I");
+//        e.setType("object");
+//        
         
 //        e.insertImage(p);
-//        Entity e3 = new Entity();
-//        String uri = "http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom";
-//        e3.setURI(uri);
-//        e3.constructEntity();
+        Entity e3 = new Entity();
+        String uri = "http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom";
+        e3.setURI(uri);
+        e3.constructEntity();
 //        System.out.println(e3);
         
         //String uri = "<http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom>";
@@ -50,15 +50,15 @@ public class Entity {
         //System.out.println(e);
 //        e.printEntity(uri);
 //        
-        TestWebService ws = new TestWebService();
-        Entity e2 = ws.AddEntity(e);
+//        TestWebService ws = new TestWebService();
+//        Entity e2 = ws.AddEntity(e);
 //        
         
-
-        Entity e4 = new Entity();
-        e4.setURI(e2.getURI());
-        e4.constructEntity();
-        System.out.println(e4);
+//
+//        Entity e4 = new Entity();
+//        e4.setURI(e2.getURI());
+//        e4.constructEntity();
+//        System.out.println(e4);
         
     }
 
@@ -133,6 +133,8 @@ public List<List> browseModel(Resource resource, String predicate){
 public void constructEntity() {
         Model m = selectFromEntity(this.URI);
         Resource resource = m.getResource(this.URI);
+        List<List> l0 = browseModel(resource, "date");
+        System.out.println("l0"+l0);
         List<List> l = browseModel(resource, "label");
         this.name = (String) l.get(0).get(2);
         l = browseModel(resource, "type");
