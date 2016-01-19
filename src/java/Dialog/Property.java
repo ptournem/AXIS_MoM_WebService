@@ -54,4 +54,9 @@ public class Property {
 	this.ent = ent;
     }
 
+    @Override
+    public String toString() {
+        return "OurProperty{" + "name=" + name + ", value=" + value + ", type=" + type + ", ent=" + ent + '}';
+    }
+
 }

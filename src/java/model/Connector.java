@@ -137,9 +137,8 @@ public class Connector {
     }
 
     // méthode pour supprimer des charactéres
-    public static ArrayList<Property> entityBrowser(Entity e) {
-
-       ArrayList<Property> tProp = new ArrayList<Property>();
+       public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
+       ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
         String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
                 + "PREFIX dbp: <http://dbpedia.org/property/>"
@@ -149,56 +148,77 @@ public class Connector {
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "construct where {" + uri + " ?p ?o}";
-
+                + "construct where {<" + uri + "> ?p ?o}";
         Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
-
         Model m = qDBexec.execConstruct();
         StmtIterator iter = m.listStatements();
+       
         while (iter.hasNext()) {
-
-            Statement stmt = (Statement) iter.next();
-           // Resource subject = stmt.getSubject();
-            Property predicate = stmt.getPredicate();
+           Dialog.Property p2 = new Dialog.Property(null, null,null,null);
+            Statement stmt = (Statement) iter.next();           
+//          System.out.println("test : "+stmt.asTriple().toString());
+            Resource subject = stmt.getSubject();
+            org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
-           // RDFNode object = stmt.getObject();
-            
-            tProp.add(predicate);
-            
-            
+            RDFNode object = stmt.getObject();
+//            System.out.println("----------------------");
+//            System.out.println("Predicate :" + p);
+//            System.out.println("Subject :" + subject.toString());
+//            System.out.println("Object:" + object.toString());
+//            System.out.println("----------------------");
+        
+            switch (p) {
+                case "http://dbpedia.org/property/artist":
+                    p2.setName("author");
+                    break;
+                case "http://dbpedia.org/property/dateOfBirth":
+                    p2.setName("birthdate");
+                    break;
+
+                case "http://dbpedia.org/property/dateOfDeath":
+                    p2.setName("deathdate");
+                    break;
+                case "http://www.w3.org/2002/07/owl#sameAs":
+                    p2.setName("sameas");
+                    break;
+                default:
+                   p2.setName("default");
+                    break;
+            }
+            p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", ""));
+            if (object.isResource()) {
+                p2.setType("uri");
+                String uri2 = object.toString();
+                Entity e2 = new Entity(uri2, "", "", "");
+                p2.setEnt(e2);
+            } else {
+                p2.setType("fr");
+                p2.setEnt(null);
+            }
+            if (p2.getName().contains("default")) {
+            } else {
+//                System.out.println("--------------------");
+//                System.out.println("entity :" + p2.getEnt());
+//                System.out.println("name :" + p2.getName());
+//                System.out.println("type :" + p2.getType());
+//                System.out.println("value :" + p2.getValue());  
+//                System.out.println("--------------------");
+                tProp.add(p2);
+            } 
+              
+              
         }
-
-        System.out.println("tab de prop"+tProp);
-        return tProp;
-    }
-    
-    public static String[] selectAllEntitiesURI() {
         
-        QueryExecution qe = QueryExecutionFactory.sparqlService(
-                "http://localhost:3030/ds/query", String.format(
-                        "PREFIX dbont: <http://dbpedia.org/ontology/> "
-                + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "select ?s where {?s ?p axis-datamodel:Entity}"));
-
-        ResultSet rs = qe.execSelect();
-
-        List<QuerySolution> mList = null;
-        mList = ResultSetFormatter.toList(rs);
-        
-        ArrayList<String> tab = new ArrayList<>();
-        
-        for(int i=0; i<mList.size(); i++) {
-            tab.add(mList.get(i).getResource("s").toString());
-        }
-
-        String[] ret = new String[tab.size()];
-	return (String[]) tab.toArray(ret);
+     System.out.println("ppp"+tProp);
+      return tProp;
     }
 
-    
+//    for(int i = 0; i < tProp.size(); i++)
+//    {
+//      System.out.println("donnée à l'indice " + i + " = " + tProp.get(i));
+//    }
+
     public static ArrayList<Entity> selectlod(String keyword) {
         //riad
 
@@ -233,7 +253,7 @@ public class Connector {
 
             Statement stmt = (Statement) iter.next();
             Resource subject = stmt.getSubject();
-            Property predicate = stmt.getPredicate();
+            org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
             RDFNode object = stmt.getObject();
 
@@ -309,6 +329,31 @@ public class Connector {
         System.out.println("entity :" + e);
         // System.out.println("les entites : "+entities);
         return entities;
+    }
+    
+    public static String[] selectAllEntitiesURI() {
+        
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", String.format(
+                        "PREFIX dbont: <http://dbpedia.org/ontology/> "
+                + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + "select ?s where {?s ?p axis-datamodel:Entity}"));
+
+        ResultSet rs = qe.execSelect();
+
+        List<QuerySolution> mList = null;
+        mList = ResultSetFormatter.toList(rs);
+        
+        ArrayList<String> tab = new ArrayList<>();
+        
+        for(int i=0; i<mList.size(); i++) {
+            tab.add(mList.get(i).getResource("s").toString());
+        }
+
+        String[] ret = new String[tab.size()];
+	return (String[]) tab.toArray(ret);
     }
 
     public static String insert(String p, String o) { //robine
