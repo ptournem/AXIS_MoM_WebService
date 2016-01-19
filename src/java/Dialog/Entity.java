@@ -225,20 +225,25 @@ public void printEntity() {
     
     public void insertImage(Property p) {
         
-        String uri1 = insert("rdf:type", "axis:RegOfPhotoItem");
-        String uri2 = insert("rdf:type", "axis:Location");
-        String uri3 = insert("rdf:type", "axis:EmbodimentOfFile");
+        String uri1 = insert("rdf:type", "axis-model:RegOfPhotoItem");
+        String uri2 = insert("rdf:type", "axis-model:Location");
+        String uri3 = insert("rdf:type", "axis-model:EmbodimentOfFile");
 
-        insert(this.URI, "axis:hasRepresentation", uri1);
+        insert(this.URI, "axis-datamodel:hasRepresentation", uri1);
         
-        insert(uri3, "axis:fileName", p.getValue());
+        insert(uri1, "axis-datamodel:isARepresentationOf", this.URI);
         
-        insert(uri3, "axis:hasLocation", uri2);
+        insert(uri3, "axis-datamodel:fileName", p.getValue());
         
-        insert(uri2, "axis:locates", uri3);
+        insert(uri3, "axis-datamodel:hasLocation", uri2);
         
-        insert(uri1, "axis:hasExpression", uri2);
+        insert(uri3, "axis-datamodel:expresses", uri1);
         
+        insert(uri2, "axis-datamodel:locates", uri3);
+        
+        insert(uri1, "axis-datamodel:hasExpression", uri3);
+        
+        insert(uri3, "axis-datamodel:expresses", uri1);
         // Entity => RegOfPhotoItem => Location <=> EmbodimentOfFile => p.value
         
         // on crée un "RegOfPhotoItem"
