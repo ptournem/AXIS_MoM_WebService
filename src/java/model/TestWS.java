@@ -31,18 +31,18 @@ public class TestWS {
         System.out.println("-!- Entité ajoutée : "+e2);
         
         Property p1 = new Property();
-	p1.setName("location");
-	p1.setValue("dans la chambre de robine");
+	p1.setName("author");
+	p1.setValue("robite");
 	p1.setType("fr");
         
         Property p2 = new Property();
-	p2.setName("location");
+	p2.setName("author");
 	p2.setValue(null);
 	p2.setType("uri");
         p2.setEnt(new Entity("http://blablabla.com", "blabla", "bla.jpg", "aaaaaa"));
         
         Property p3 = new Property();
-	p3.setName("location");
+	p3.setName("author");
 	p3.setValue(null);
         p3.setType("uri");
 	p3.setEnt(new Entity("http://dbpedia.com/blabla", "blabla", "bla.jpg", "aaaaaa"));
@@ -53,7 +53,7 @@ public class TestWS {
         obj.setType(e2.getType());
         obj.setName(e2.getName());
         
-        obj.insertLocation(p3);
+        obj.insertAuthor(p1);
         
         //PropertyAdmin[] props = obj.getPropertiesObject();
 //        Entity[] maListe = ws.SearchOurEntitiesFromText("G2");
