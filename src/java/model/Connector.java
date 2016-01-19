@@ -108,7 +108,7 @@ public class Connector {
                         "PREFIX poc: <http://titan.be/axis-poc2015/>"
                         + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                         + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                        + "SELECT ?s " 
+                        + "SELECT ?s ?p ?o " 
                         + "WHERE {" 
                         + "  %s %s %s " 
                         + "}", s,p,o));

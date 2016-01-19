@@ -55,6 +55,11 @@ public class TestWS {
         
         obj.insertAuthor(p1);
         
+        Object obj1 = new Object();
+        obj1.setURI(obj.getURI());
+        obj1.constructEntity();
+        obj1.constructObject();
+        System.out.println(obj1);
         //PropertyAdmin[] props = obj.getPropertiesObject();
 //        Entity[] maListe = ws.SearchOurEntitiesFromText("G2");
 //        System.out.println("-!- Résultat de la recherche pour 'G2' : ");

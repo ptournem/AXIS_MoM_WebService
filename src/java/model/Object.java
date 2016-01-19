@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import static model.Connector.selectFromEntity;
 import static model.Connector.selectFromEntityWithPredicat;
+import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
@@ -65,39 +66,61 @@ public class Object extends Entity {
             resource = m.getResource(list.get(2).toString());
             List<List> l2 = browseModel(resource, "date");
             if(!l2.isEmpty()){
-                PropertyAdmin pa = new PropertyAdmin();
-                pa.setName("dateCreation");
-                pa.setType("fr");
-                pa.setValue_locale(l2.get(0).get(2).toString());
-                pa.setEntity_locale(null);
-                this.dateCreation = pa;
+//                PropertyAdmin pa = new PropertyAdmin();
+//                pa.setName("dateCreation");
+//                pa.setType("fr");
+//                pa.setValue_locale(l2.get(0).get(2).toString());
+//                pa.setEntity_locale(null);
+//                this.dateCreation = pa;
             }
             
-            l2 = browseModel(resource, "takesPlaceIn");
-            if(!l2.isEmpty()){
-                PropertyAdmin pa = new PropertyAdmin();
-                pa.setName("location");
-                pa.setType("uri");
-                pa.setValue_locale(null);
-                Entity e = new Entity();
-                e.setURI(l2.get(0).get(2).toString());
-                e.constructEntity();
-                pa.setEntity_locale(null);
-                this.location = pa;
-            }
+//            l2 = browseModel(resource, "takesPlaceIn");
+//            if(!l2.isEmpty()){
+//                PropertyAdmin pa = new PropertyAdmin();
+//                pa.setName("location");
+//                pa.setType("uri");
+//                pa.setValue_locale(null);
+//                Entity e = new Entity();
+//                e.setURI(l2.get(0).get(2).toString());
+//                e.constructEntity();
+//                pa.setEntity_locale(null);
+//                this.location = pa;
+//            }
             
             l2 = browseModel(resource, "isPerformedBy");
             if(!l2.isEmpty()){
-                selectFromEntity(null, null, null);
                 PropertyAdmin pa = new PropertyAdmin();
                 pa.setName("author");
-                pa.setType("uri");
-                pa.setValue_locale(null);
-                Entity e = new Entity();
-                e.setURI(l2.get(0).get(2).toString());
-                e.constructEntity();
-                pa.setEntity_locale(null);
-                this.author = pa;
+                System.out.println(l2.get(0).get(2).toString());
+                ResultSet rs = selectFromEntity("<"+l2.get(0).get(2).toString()+">", "?p", "?o");
+                while(rs.hasNext()){
+                    QuerySolution qs = rs.nextSolution();
+                    String nextSol = qs.get("p").toString();
+                    if(nextSol.contains("takePlaceIn")){
+                        pa.setType("uri");
+                        pa.setValue_locale(null);
+                        Entity e = new Entity();
+                        e.setURI(l2.get(0).get(2).toString());
+                        e.constructEntity();
+                        pa.setEntity_locale(e);
+                        this.author = pa;
+                    }else if(nextSol.contains("sameAs")){
+                        pa.setType("uri");
+                        pa.setValue_locale(null);
+                        Entity e = new Entity();
+                        e.setURI(l2.get(0).get(2).toString());
+                        
+                        // ajout du construct entity de Riad pour le LoD
+                        pa.setEntity_locale(e);
+                        this.author = pa;
+                    }else{
+                        pa.setType("fr");
+                        System.out.println(qs.get("o").asLiteral().toString());
+//                        pa.setValue_locale();
+                        pa.setEntity_locale(null);
+                        this.author = pa;
+                    }
+                }
             }
             }
         
@@ -157,6 +180,11 @@ public class Object extends Entity {
                 break;
         }
         
+    }
+
+    @Override
+    public String toString() {
+        return "Object{" + "dateCreation=" + dateCreation + ", location=" + location + ", author=" + author + '}';
     }
     
 
