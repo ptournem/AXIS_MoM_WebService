@@ -24,7 +24,7 @@ public class semantics {
     public static void main(String args[]) {
        // Model m2;
        // m2 = SearchOurEntitiesFromText("MLK_speech.bwf");
-         Entity e = new Entity("<http://dbpedia.org/resource/Racine>", null, null, null);
+         Entity e = new Entity("http://dbpedia.org/resource/Racine", null, null, null);
          LoadEntityProperties(e);
      //   SearchAllEntitiesFromText("<http://dbpedia.org/resource/The_Thinker>");
         System.out.println("main");
