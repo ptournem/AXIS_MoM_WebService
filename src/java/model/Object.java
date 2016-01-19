@@ -64,7 +64,7 @@ public class Object extends Entity {
                 uri1 = insert("rdf:type", "axis-datamodel:Place");
                 insert(this.getURI(), "axis-datamodel:takePlaceIn", uri1);
                 insert(uri1, "axis-datamodel:isAPlaceOfObject", this.getURI());
-                insert(uri1, "axis-datamodel:", p.getValue(), p.getType());
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
         }
     }
@@ -90,7 +90,7 @@ public class Object extends Entity {
                 uri1 = insert("rdf:type", "axis-datamodel:PhysicalPerson");
                 insert(this.getURI(), "axis-datamodel:isPerformedBy", uri1);
                 insert(uri1, "axis-datamodel:performs", this.getURI());
-                insert(uri1, "axis-datamodel:", p.getValue(), p.getType());
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
         }
         
