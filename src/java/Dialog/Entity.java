@@ -235,6 +235,8 @@ public void printEntity() {
         
         insert(uri3, "axis:hasLocation", uri2);
         
+        insert(uri3, "axis:expresses", uri1);
+        
         insert(uri2, "axis:locates", uri3);
         
         insert(uri1, "axis:hasExpression", uri2);
