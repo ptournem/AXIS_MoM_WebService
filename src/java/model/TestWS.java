@@ -23,10 +23,66 @@ public class TestWS {
 //        testObject();
         //testRecherche();
 //        testLoadEntityProperties();
+        testAll();
         
 
     }
     
+    public static void testAll(){
+        Entity e2 = new Entity();
+        e2.setURI("http://dbpedia.org/resource/Leonardo_da_Vinci");
+        e2.constructEntity();
+        
+        Property p1 = new Property();
+	p1.setName("sameas");
+	p1.setValue(null);
+	p1.setType("uri");
+        p1.setEnt(e2);
+        
+        Entity e = testAddEntity("da_Vinci.jpg", "Leonard de Vinci", "person");
+        
+        Property p2 = new Property();
+        p2.setName("birthdate");
+        p2.setType("fr");
+        p2.setValue("20/03");
+        p2.setEnt(null);
+        
+        Property p3 = new Property();
+        p3.setName("deathdate");
+        p3.setType("fr");
+        p3.setValue("21/03");
+        p3.setEnt(null);
+        
+        Entity e3 = testAddEntity("Paris.jpg", "Paris", "location");
+        Property p4 = new Property();
+        p4.setName("birthplace");
+        p4.setType("fr");
+        p4.setValue(null);
+        p4.setEnt(e3);
+        
+        Person per = new Person();
+        per.setImage(e.getImage());
+        per.setURI(e.getURI());
+        per.setType(e.getType());
+        per.setName(e.getName());
+        
+        per.insertBirthDate(p2);
+        per.insertPlaceOfBirth(p4);
+        per.insertDeathDate(p3);
+        
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        ws.SetEntityProperty(per, p1, e2);
+        
+        Person per1 = new Person();
+        per1.setURI(per.getURI());
+        per1.constructEntity();
+        per1.constructPerson();
+        System.out.println(per1);
+        
+        
+        
+        
+    }
     public static void testConstructWithLod(){
         
         Entity e = new Entity();

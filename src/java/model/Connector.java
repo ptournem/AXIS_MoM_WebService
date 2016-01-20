@@ -191,7 +191,7 @@ public class Connector {
                     p2.setName("deathdate");
                     break;
                  case "http://dbpedia.org/ontology/birthPlace":
-                    p2.setName("birthPlace");
+                    p2.setName("birthplace");
                     break;
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
@@ -223,8 +223,11 @@ public class Connector {
               
               
         }
-        
-     System.out.println("ppp"+tProp);
+        for(int i = 0; i < tProp.size(); i++)
+        {
+            System.out.println("propriété n° " + i + " = " + tProp.get(i));
+        }
+//     System.out.println("ppp"+tProp);
       return tProp;
     }
 
