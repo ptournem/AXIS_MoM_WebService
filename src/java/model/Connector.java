@@ -45,10 +45,11 @@ public class Connector {
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
 
-        Entity e = new Entity("<http://dbpedia.org/resource/Racine>", null, null, null);
+      // Entity e = new Entity("<http://dbpedia.org/resource/Mona_Lisa>", null, null, null);
        // String uri = e.getURI().toString();
-      entityBrowser(e);
-      //  selectlod("http://dbpedia.org/resource/Racine");
+     // entityBrowser(e);
+        selectlodFromKeyWord("Racine");
+     //   selectlodFromEntity(e);
 
 
     }
@@ -221,8 +222,76 @@ public class Connector {
 //    {
 //      System.out.println("donnée à l'indice " + i + " = " + tProp.get(i));
 //    }
+       
+    public static Entity selectlodFromEntity (Entity e){
+        
+       String uri = e.getURI();
+         String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
+                + "PREFIX dbp: <http://dbpedia.org/property/>"
+                + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
+                + "PREFIX dbr: <http://dbpedia.org/resource/>"
+                + "PREFIX type: <http://dbpedia.org/class/yago/>"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
+                + "construct where {"+uri+" ?p ?o}";
+          Query DBquery = QueryFactory.create(DBQueryString);
+        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
-    public static ArrayList<Entity> selectlod(String keyword) {
+        Model m = qDBexec.execConstruct();
+
+        StmtIterator iter = m.listStatements();
+        
+        while (iter.hasNext()) {
+
+            Statement stmt = (Statement) iter.next();
+            Resource subject = stmt.getSubject();
+            org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
+            String p = predicate.toString();
+            RDFNode object = stmt.getObject();
+            
+            switch (p) {
+
+                    // si le predicat est un type
+                    case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
+                        String typ = stmt.getObject().toString();
+                        if (typ.contains("Object")) {
+                            e.setType("object");
+                        }
+                        if (typ.contains("Event")) {
+                            e.setType("event");
+                        }
+                        if (typ.contains("Person")) {
+                            e.setType("person");
+                        }
+                        if (typ.contains("Location")) {
+                            e.setType("location");
+                        }
+                        if (typ.contains("Activity")) {
+                            e.setType("activity");
+                        }
+                        if (typ.contains("Organisation")) {
+                            e.setType("organisation");
+                        }
+
+                        break;
+                    case "http://dbpedia.org/ontology/thumbnail":
+                        e.setImage(object.toString());
+                        break;
+                    case "http://www.w3.org/2000/01/rdf-schema#label":
+                        String test = stmt.getObject().asLiteral().getLanguage();
+                        if (test.equals("fr")) {
+                            e.setName(object.toString().replace("@fr", ""));
+                        }
+                        break;
+                }
+           }
+        System.out.println("l'entité : "+e);
+        qDBexec.close();
+        return e;
+    }
+
+    public static ArrayList<Entity> selectlodFromKeyWord(String keyword) {
         //riad
 
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
@@ -237,7 +306,7 @@ public class Connector {
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "construct where {<" + keyword + "> ?p ?o}";
+                + "construct where {dbr:"+keyword+" ?p ?o}";
 //                "select ?s ?o" +
 //                "where {" +
 //                "  dbr:"+keyword+" dbont:wikiPageRedirects ?o." +
@@ -270,12 +339,13 @@ public class Connector {
             // System.out.println("uri : "+e.getURI());
             // on vérifie les prédicats
 
-//            if (p.contains("wikiPageDisambiguates")) {
-//                Resource r2 = stmt.getResource();
-//                selectlod(r2.toString().replace("http://dbpedia.org/resource/", ""));
-//                // System.out.println("wikiPageDisambiguates:"+r2);
-//
-//            } else {
+            if (p.contains("wikiPageDisambiguates")) {
+                Resource r2 = stmt.getResource();
+                System.out.println("r2 :"+r2.toString().substring(28));
+               // selectlodFromKeyWord(r2.toString().substring(28));
+                // System.out.println("wikiPageDisambiguates:"+r2);
+
+            } else {
                 switch (p) {
 
                     // si le predicat est un type
@@ -320,7 +390,7 @@ public class Connector {
 //                if (image != null) {
 //                    System.out.println("e : " + e);
 //                }
-//            }
+           }
                 // System.out.println("L'entité est :"+e);
                 //  System.out.println("--------------- DBPedia Resultset ------------------");
                 //  ResultSetFormatter.out(System.out, resultsDB);
@@ -365,6 +435,7 @@ public class Connector {
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
                 + "INSERT DATA { "
                 + " poc:%s "
                 + " %s "
@@ -386,6 +457,7 @@ public class Connector {
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
                 + "INSERT DATA { "
                 + "<%s>"
                 + " %s "
@@ -407,6 +479,7 @@ public class Connector {
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX schema: <https://schema.org/>"
+                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
                 + "INSERT DATA { "
                 + "<%s>"
                 + " %s "

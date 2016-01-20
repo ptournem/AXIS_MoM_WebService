@@ -16,8 +16,7 @@ import ws.AXIS_MoM_WS;
  */
 public class TestWS {
     public static void main(String args[]) {
-        
-        //testPerson();
+
         
         //testRecherche();
         testLoadEntityProperties();
@@ -164,11 +163,12 @@ public class TestWS {
         per.setName(e.getName());
         
         per.insertBirthDate(p1);
-        per.insertPlaceOfBirth(p2);
+        per.insertPlaceOfBirth(p1);
     
         Person per1 = new Person();
         per1.setURI(per.getURI());
         per1.constructEntity();
+        System.out.println("<<<<<<<<<<<<"+per1.getType());
         per1.constructPerson();
         System.out.println(per1);
         

@@ -179,35 +179,36 @@ public void constructEntity() {
         
         Model m = selectFromEntity(this.URI);
         Resource resource = m.getResource(this.URI);
-        List<List> l = browseModel(resource, "label");
-        if(!l.isEmpty()){
-        this.name = (String) l.get(0).get(2);
-        }
-        l = browseModel(resource, "type");
-        System.out.println("this.uir:"+this.URI);
-        String type = (String) l.get(0).get(2);
         
-        if(type.contains("PhysicalPerson"))
-            this.type = "person";
-        if(type.contains("Event"))
-            this.type = "event";
-        if(type.contains("PhysicalObject"))
-            this.type = "object";
-        if(type.contains("Place"))
-            this.type = "location";
-        if(type.contains("MoralPerson"))
-            this.type = "organisation";
-//        if(type.contains(""))
-//            this.type = "activity";
-        
-        l = browseModel(resource, "uses");
+        List<List> l = browseModel(resource, "uses");
         
         m = selectFromEntityWithPredicat(this.URI, "axis-datamodel:uses");
         if(m.isEmpty()){
+            l = browseModel(resource, "label");
+            if(!l.isEmpty()){
+            this.name = (String) l.get(0).get(2);
+            }
+            l = browseModel(resource, "type");
+            if(!l.isEmpty()){
+                String type = (String) l.get(0).get(2);
+                if(type.contains("PhysicalPerson"))
+                    this.type = "person";
+                if(type.contains("Event"))
+                    this.type = "event";
+                if(type.contains("PhysicalObject"))
+                    this.type = "object";
+                if(type.contains("Place"))
+                    this.type = "location";
+                if(type.contains("MoralPerson"))
+                    this.type = "organisation";
+        //        if(type.contains(""))
+        //            this.type = "activity";
+            }
             ResultSet rs = selectFromEntity("?s", "axis-datamodel:uses", "<"+this.URI+">");
             if(rs.hasNext()){
                 String newUri = rs.nextSolution().get("s").toString();
                 m = selectFromEntity(newUri);
+                System.out.println("newUri: "+newUri);
                 resource = m.getResource(newUri);
                 l = browseModel(resource, "uses");
                 m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
@@ -220,6 +221,22 @@ public void constructEntity() {
             l = browseModel(resource, "label");
             if(!l.isEmpty()){
             this.name = (String) l.get(0).get(2);
+            }
+            l = browseModel(resource, "type");
+            if(!l.isEmpty()){
+                String type = (String) l.get(0).get(2);
+                if(type.contains("PhysicalPerson"))
+                    this.type = "person";
+                if(type.contains("Event"))
+                    this.type = "event";
+                if(type.contains("PhysicalObject"))
+                    this.type = "object";
+                if(type.contains("Place"))
+                    this.type = "location";
+                if(type.contains("MoralPerson"))
+                    this.type = "organisation";
+        //        if(type.contains(""))
+        //            this.type = "activity";
             }
             List l1 = browseModel(resource, "hasRepresentation");
             Iterator it1 = l1.iterator();
