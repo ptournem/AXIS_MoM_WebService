@@ -42,6 +42,8 @@ public class Person extends Entity {
         list.add(new Property(this.father.getName(), this.father.getValue_locale(), this.father.getType(), this.father.getEntity_locale()));
         list.add(new Property(this.isAuthorOf.getName(), this.isAuthorOf.getValue_locale(), this.isAuthorOf.getType(), this.isAuthorOf.getEntity_locale()));
         list.add(new Property(this.restInPlace.getName(), this.restInPlace.getValue_locale(), this.restInPlace.getType(), this.restInPlace.getEntity_locale()));
+        list.add(new Property(this.sameAs.getName(), this.sameAs.getValue_locale(), this.sameAs.getType(), this.sameAs.getEntity_locale()));
+        list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getType(), this.description.getEntity_locale()));
 	Property[] ret = new Property[list.size()];
 	return (Property[]) list.toArray(ret);
     }

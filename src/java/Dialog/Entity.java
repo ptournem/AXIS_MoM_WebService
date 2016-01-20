@@ -28,8 +28,8 @@ public class Entity {
     String name;
     String image;
     String type;
-    PropertyAdmin sameAs;
-    PropertyAdmin description;
+    public PropertyAdmin sameAs;
+    public PropertyAdmin description;
 
     public static void main(String args[]) {
         
