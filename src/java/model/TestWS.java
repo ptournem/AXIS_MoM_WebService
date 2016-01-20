@@ -15,17 +15,18 @@ import Dialog.PropertyAdmin;
  */
 public class TestWS {
     public static void main(String args[]) {
-        Entity e = testAddEntity();
+//        Entity e = testAddEntity();
         
-        testPerson(e);
+//        testPerson(e);
+        testObject();
         
     }
     
-    public static Entity testAddEntity() {
+    public static Entity testAddEntity(String img, String name, String type) {
         Entity e = new Entity();
-        e.setImage("ig2i.jpg");
-        e.setName("IG2I");
-        e.setType("object");
+        e.setImage(img);
+        e.setName(name);
+        e.setType(type);
         
         
         TestWebService ws = new TestWebService();
@@ -37,7 +38,9 @@ public class TestWS {
         
     }
     
-    public static void testObject(Entity e) {
+    public static void testObject() {
+        Entity e1 = testAddEntity("test.jpg", "lolo", "person");
+        Entity e2 = testAddEntity("photo.jpg", "tableau", "object");
         Property p1 = new Property();
 	p1.setName("author");
 	p1.setValue("robite");
@@ -47,7 +50,7 @@ public class TestWS {
 	p2.setName("author");
 	p2.setValue(null);
 	p2.setType("uri");
-        p2.setEnt(new Entity("http://blablabla.com", "blabla", "bla.jpg", "aaaaaa"));
+        p2.setEnt(e1);
         
         Property p3 = new Property();
 	p3.setName("author");
@@ -55,13 +58,44 @@ public class TestWS {
         p3.setType("uri");
 	p3.setEnt(new Entity("http://dbpedia.com/blabla", "blabla", "bla.jpg", "aaaaaa"));
         
-        Object obj = new Object();
-        obj.setImage(e.getImage());
-        obj.setURI(e.getURI());
-        obj.setType(e.getType());
-        obj.setName(e.getName());
         
-        obj.insertAuthor(p1);
+        Entity e11 = testAddEntity("paris.jpg", "Paris", "location");
+        
+        Property p11 = new Property();
+	p11.setName("location");
+	p11.setValue("Paris");
+	p11.setType("fr");
+        p11.setEnt(null);
+        
+        Property p22 = new Property();
+	p22.setName("location");
+	p22.setValue(null);
+	p22.setType("uri");
+        p22.setEnt(e11);
+        
+        Property p33 = new Property();
+	p33.setName("location");
+	p33.setValue(null);
+        p33.setType("uri");
+	p33.setEnt(new Entity("http://dbpedia.com/Paris", "Pariss", "paris.jpg", "location"));
+        
+        
+        
+        Object obj = new Object();
+        obj.setImage(e2.getImage());
+        obj.setURI(e2.getURI());
+        obj.setType(e2.getType());
+        obj.setName(e2.getName());
+        obj.insertAuthor(p2);
+        System.out.println("e11:"+e11);
+        obj.insertLocation(p22);
+        
+        Object obj1 = new Object();
+        obj1.setURI(obj.getURI());
+        obj1.constructEntity();
+        System.out.println(obj1.getName()+":"+obj1.getImage()+":"+obj1.getType()+":"+obj1.getURI());
+        obj1.constructObject();
+        System.out.println(obj1);
     
     }
     
@@ -91,11 +125,7 @@ public class TestWS {
         
         per.insertBirthDate(p1);
     
-        Object obj1 = new Object();
-        obj1.setURI(obj.getURI());
-        obj1.constructEntity();
-        obj1.constructObject();
-        System.out.println(obj1);
+        
         //PropertyAdmin[] props = obj.getPropertiesObject();
 //        Entity[] maListe = ws.SearchOurEntitiesFromText("G2");
 //        System.out.println("-!- Résultat de la recherche pour 'G2' : ");

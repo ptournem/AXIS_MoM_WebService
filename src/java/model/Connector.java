@@ -90,6 +90,7 @@ public class Connector {
                         "PREFIX poc: <http://titan.be/axis-poc2015/>"
                         + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                         + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>" 
                         + "construct{?s ?p ?o}"
                         + "WHERE { ?s ?p ?o . {"
                         + "SELECT * WHERE {"
@@ -107,6 +108,7 @@ public class Connector {
                 "http://localhost:3030/ds/query", String.format(
                         "PREFIX poc: <http://titan.be/axis-poc2015/>"
                         + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                         + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                         + "SELECT ?s ?p ?o " 
                         + "WHERE {" 
@@ -125,6 +127,7 @@ public class Connector {
                 "PREFIX poc: <http://titan.be/axis-poc2015/>" +
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
                 "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>" +
+                "PREFIX owl: <http://www.w3.org/2002/07/owl#>" +
                 "construct{?s ?p ?o}" +
                 "WHERE { ?s ?p ?o . {" +
                 "SELECT * WHERE {" +

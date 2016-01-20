@@ -141,7 +141,7 @@ public void constructEntity() {
         String type = (String) l.get(0).get(2);
         
         if(type.contains("PhysicalPerson"))
-            this.type = "persone";
+            this.type = "person";
         if(type.contains("Event"))
             this.type = "event";
         if(type.contains("PhysicalObject"))

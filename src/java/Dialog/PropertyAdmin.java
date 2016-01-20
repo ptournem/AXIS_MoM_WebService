@@ -60,4 +60,9 @@ public class PropertyAdmin {
 	this.entity_dbpedia = entity_dbpedia;
     }
 
+    @Override
+    public String toString() {
+        return "PropertyAdmin{" + "name=" + name + ", value_locale=" + value_locale + ", value_dbpedia=" + value_dbpedia + ", entity_locale=" + entity_locale + ", entity_dbpedia=" + entity_dbpedia + ", type=" + type + '}';
+    }
+
 }

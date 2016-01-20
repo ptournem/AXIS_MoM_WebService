@@ -17,8 +17,10 @@ import static model.Connector.selectFromEntity;
 import static model.Connector.selectFromEntityWithPredicat;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.StmtIterator;
 
 /**
  *
@@ -45,6 +47,15 @@ public class Object extends Entity {
     }
     
     public void constructObject() {
+        this.author = getObjectPropertyAdmin("author");
+        this.location = getObjectPropertyAdmin("location");
+        
+    }
+
+    public PropertyAdmin getObjectPropertyAdmin(String propertyName){
+        PropertyAdmin pa = new PropertyAdmin();
+        pa.setName(propertyName);
+                
         Model m = selectFromEntity(this.getURI());
         Resource resource = m.getResource(this.getURI());
         List l = browseModel(resource, "uses");
@@ -64,68 +75,56 @@ public class Object extends Entity {
         while(it.hasNext()){
             List list = (List) it.next();
             resource = m.getResource(list.get(2).toString());
-            List<List> l2 = browseModel(resource, "date");
-            if(!l2.isEmpty()){
-//                PropertyAdmin pa = new PropertyAdmin();
-//                pa.setName("dateCreation");
-//                pa.setType("fr");
-//                pa.setValue_locale(l2.get(0).get(2).toString());
-//                pa.setEntity_locale(null);
-//                this.dateCreation = pa;
+            List<List> l2 = null;
+            switch (propertyName) {
+                case "author":
+                    l2 = browseModel(resource, "isPerformedBy");
+                    break;
+                case "location":
+                    l2 = browseModel(resource, "takePlaceIn");
+                    break;
+                default:
+                    throw new AssertionError();
             }
-            
-//            l2 = browseModel(resource, "takesPlaceIn");
-//            if(!l2.isEmpty()){
-//                PropertyAdmin pa = new PropertyAdmin();
-//                pa.setName("location");
-//                pa.setType("uri");
-//                pa.setValue_locale(null);
-//                Entity e = new Entity();
-//                e.setURI(l2.get(0).get(2).toString());
-//                e.constructEntity();
-//                pa.setEntity_locale(null);
-//                this.location = pa;
-//            }
-            
-            l2 = browseModel(resource, "isPerformedBy");
             if(!l2.isEmpty()){
-                PropertyAdmin pa = new PropertyAdmin();
-                pa.setName("author");
-                System.out.println(l2.get(0).get(2).toString());
+                ResultSet rset = selectFromEntity("?s", "axis-datamodel:uses", "<"+l2.get(0).get(2).toString()+">");
+                if(rset.hasNext()){
+                    Entity e = new Entity();
+                    e.setURI(l2.get(0).get(2).toString());
+                    e.constructEntity();
+                    pa.setEntity_locale(e);
+                }else{
                 ResultSet rs = selectFromEntity("<"+l2.get(0).get(2).toString()+">", "?p", "?o");
                 while(rs.hasNext()){
                     QuerySolution qs = rs.nextSolution();
                     String nextSol = qs.get("p").toString();
-                    if(nextSol.contains("takePlaceIn")){
+                    if(nextSol.contains("sameAs")){
                         pa.setType("uri");
                         pa.setValue_locale(null);
-                        Entity e = new Entity();
-                        e.setURI(l2.get(0).get(2).toString());
-                        e.constructEntity();
-                        pa.setEntity_locale(e);
-                        this.author = pa;
-                    }else if(nextSol.contains("sameAs")){
-                        pa.setType("uri");
-                        pa.setValue_locale(null);
-                        Entity e = new Entity();
-                        e.setURI(l2.get(0).get(2).toString());
-                        
-                        // ajout du construct entity de Riad pour le LoD
-                        pa.setEntity_locale(e);
-                        this.author = pa;
-                    }else{
-                        pa.setType("fr");
-                        System.out.println(qs.get("o").asLiteral().toString());
-//                        pa.setValue_locale();
                         pa.setEntity_locale(null);
-                        this.author = pa;
+                        Entity e = new Entity();
+                        ResultSet rst = selectFromEntity("<"+l2.get(0).get(2).toString()+">", "owl:sameAs", "?o");
+                        if(rst.hasNext())
+                            e.setURI(rst.nextSolution().get("o").toString());
+                        // ajout du construct entity de Riad pour le LoD
+                        // pa.setValue_dbpedia(récup sur lod avec tes fonctions)
+                        pa.setEntity_dbpedia(e);
+                    }else{
+                        if(qs.get("o").isLiteral()){
+                            Literal aut = qs.get("o").asLiteral();
+                            pa.setType(aut.getLanguage());
+                            pa.setValue_locale(aut.getString());
+                            pa.setEntity_locale(null);
+                        }
                     }
+                }
                 }
             }
             }
+        return pa;
         
     }
-
+    
     public void insertDateCreation(Property p) {
         
     }
@@ -168,8 +167,8 @@ public class Object extends Entity {
                 break;
                 
             case "our":
-                insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt().getURI());
-                insert(p.getEnt().getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
+                insert(this.getURI(), "axis-datamodel:isPerformedBy", p.getEnt().getURI());
+                insert(p.getEnt().getURI(), "axis-datamodel:performs", this.getURI());
                 break;
                 
             case "literal":
