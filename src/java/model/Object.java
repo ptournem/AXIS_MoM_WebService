@@ -97,6 +97,7 @@ public class Object extends Entity {
                 break;
                 
             case "our":
+                System.out.println(this);
                 insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt().getURI());
                 insert(p.getEnt().getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;

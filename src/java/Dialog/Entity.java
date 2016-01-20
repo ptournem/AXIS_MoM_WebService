@@ -271,6 +271,10 @@ public void constructEntity() {
         insert(this.URI, "rdfs:label", p.getValue(), "fr");
     }
     
+    public void insertSameAs(Property p) {
+        insert(this.URI, "owl:sameAs", p.getEnt().getURI());
+    }
+    
     public void insertImage(Property p) {
         
         String uri1 = insert("rdf:type", "axis-datamodel:RegOfPhotoItem");
@@ -305,13 +309,18 @@ public void constructEntity() {
 
     public String getTypeProperty(Property p) {
         
-        if(p.getType() == "uri") {
+        String type = p.getType();
+        System.out.println(type);
+        if(p.getType().equals("uri")) {
             if(p.getEnt().getURI().contains("dbpedia")) {
+                System.out.println("dbpedia");
                 return "dbpedia";
             }
             else {
+                System.out.println("our");
                 return "our";
             }
+            
         }
         else {
             return "literal";
@@ -350,6 +359,7 @@ public void constructEntity() {
                     e.setURI(l2.get(0).get(2).toString());
                     e.constructEntity();
                     pa.setEntity_locale(e);
+                    pa.setType("uri");
                 }else{
                 ResultSet rs = selectFromEntity("<"+l2.get(0).get(2).toString()+">", "?p", "?o");
                 while(rs.hasNext()){

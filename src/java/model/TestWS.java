@@ -17,7 +17,7 @@ import ws.AXIS_MoM_WS;
 public class TestWS {
     public static void main(String args[]) {
 
-        System.out.println("test");
+        //System.out.println("test");
         //testConstructEntity();
 //        testPerson();
         //testObject();
@@ -28,39 +28,42 @@ public class TestWS {
     }
     
     public static void testLoadEntityProperties() {
-        Entity e = new Entity();
+
         
-        e.setURI("http://titan.be/axis-poc2015/3e3a8e51-3665-4e60-bb7a-5847f65651cf");
-        
-        e.constructEntity();
-        
-        System.out.println(e);
-        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        Entity e2 = new Entity();
+        e2.setURI("http://dbpedia.org/blabla");
         
         Property p1 = new Property();
-	p1.setName("author");
-	p1.setValue("robite");
-	p1.setType("fr");
+	p1.setName("sameas");
+	p1.setValue(null);
+	p1.setType("uri");
+        p1.setEnt(e2);
         
         
-        Object obj = new Object();
-        obj.setURI(e.getURI());
-        obj.constructEntity();
-        obj.insertAuthor(p1);
+//        Object obj = new Object();
+//        obj.setURI("http://titan.be/axis-poc2015/47581d04-390c-4572-ad8b-af79c8384979");
+//        obj.constructEntity();
+//        obj.insertAuthor(p1);
         
         Object obj2 = new Object();
-        obj2.setURI(obj.getURI());
+        obj2.setURI("http://titan.be/axis-poc2015/6c8f6218-8d9e-425e-aabb-996db5e8d407");
         obj2.constructEntity();
         obj2.constructObject();
         
-        System.out.println(obj2);
+        
+        
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        ws.SetEntityProperty(obj2, p1, e2);
+        
+        
+        System.out.println("obj = "+obj2);
 //        PropertyAdmin[] tab = ws.GetAllPropertiesAdmin(e);
 //        
 //        for(int i=0; i<tab.length;i++) {
 //            System.out.println("Property trouvée : "+tab[i]);
 //        }
         
-        System.out.println(e);
+        //System.out.println(e);
     }
     
     public static void testConstructEntity() {
@@ -204,8 +207,8 @@ public class TestWS {
     public static void testRecherche() {
 
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
-        Entity[] tab = ws.SearchOurEntitiesFromText("lo");
-
+        Entity[] tab = ws.SearchOurEntitiesFromText("");
+        //System.out.println("test");
         for(int i=0; i<tab.length;i++) {
             System.out.println("Entity trouvée : "+tab[i]);
         }
