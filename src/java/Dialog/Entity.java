@@ -139,6 +139,7 @@ public void constructEntity() {
         this.name = (String) l.get(0).get(2);
         }
         l = browseModel(resource, "type");
+        System.out.println("this.uir:"+this.URI);
         String type = (String) l.get(0).get(2);
         
         if(type.contains("PhysicalPerson"))
