@@ -375,8 +375,6 @@ public List<List> browseModel(Resource resource, String predicate){
                     String nextSol = qs.get("p").toString();
                     if(nextSol.contains("sameAs")){
                         pa.setType("uri");
-                        pa.setValue_locale(null);
-                        pa.setEntity_locale(null);
                         Entity e = new Entity();
                         ResultSet rst = selectFromEntity("<"+l2.get(0).get(2).toString()+">", "owl:sameAs", "?o");
                         if(rst.hasNext())
@@ -384,7 +382,9 @@ public List<List> browseModel(Resource resource, String predicate){
                             e.setName(selectlodFromEntity(e).getName());
                             e.setImage(selectlodFromEntity(e).getImage());
                             e.setType(selectlodFromEntity(e).getType());
-                            pa.setEntity_dbpedia(e);
+                            pa.setEntity_locale(e);
+                            pa.setValue_locale(null);
+                            pa.setEntity_dbpedia(null);
                             pa.setValue_dbpedia(null);
                     }else{
                         if(qs.get("o").isLiteral()){
