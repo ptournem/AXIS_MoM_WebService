@@ -19,7 +19,8 @@ public class TestWS {
 
         
         //testRecherche();
-        testLoadEntityProperties();
+//        testLoadEntityProperties();
+        testPerson();
     }
     
     public static void testLoadEntityProperties() {

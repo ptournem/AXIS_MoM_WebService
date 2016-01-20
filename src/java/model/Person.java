@@ -53,7 +53,9 @@ public class Person extends Entity {
     public void constructPerson() {
         this.birthDate = getPersonPropertyAdmin("birthDate");
         this.deathDate = getPersonPropertyAdmin("deathDate");
-        this.placeOfBirth = getPersonPropertyAdmin("placeOfBirth");
+        this.placeOfBirth = getPropertyAdmin("birthplace");
+        System.out.println("birthplace>>>>"+this.placeOfBirth);
+        System.out.println("constructPerson");
     }
     
     public PropertyAdmin getPersonPropertyAdmin(String propertyName){
@@ -74,29 +76,47 @@ public class Person extends Entity {
                     l = browseModel(resource, "uses");
                     if(!l.isEmpty()){
                         m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
-                        System.out.println("newURI>>"+newUri);
-                        System.out.println("m>>>"+m);
                     }
             }
         }
         Iterator it = l.iterator();
         java.lang.Object o = null;
-        while(it.hasNext()){
+        if(it.hasNext()){
             o = it.next();
-            System.out.println("oooooooooooo>>>"+o);
             }
         List list = (List) o;
         resource = m.getResource(list.get(2).toString());
         StmtIterator p = resource.listProperties();
+        
         while(p.hasNext()){
             Statement n = p.nextStatement();
-            System.out.println("n>>>"+n);
-            if(n.getPredicate().toString().contains("birthDate")){
-                System.out.println("birthdate:");
-                System.out.println(n.getLiteral());
+            System.out.println("nnnnnn>"+n);
+            if(propertyName.equals("birthDate")){
+//                System.out.println("birthDate:n.getPredicate().toString():"+n.getPredicate().toString());
+                if(n.getPredicate().toString().contains("birthDate")){
+                    pa.setType(n.getLiteral().getLanguage());
+                    pa.setValue_locale(n.getLiteral().getString());
+                }
+            }
+            if(propertyName.equals("deathDate")){
+                if(n.getPredicate().toString().contains("deathdate")){
+//                    System.out.println("deathDate:n.getPredicate().toString():"+n.getPredicate().toString());
+                    pa.setType(n.getLiteral().getLanguage());
+                    pa.setValue_locale(n.getLiteral().getString());
+                }
+            }
+            if(propertyName.equals("birthplace")){
+                if(n.getPredicate().toString().contains("birthPlace")){
+//                    System.out.println("birthplace:n.getPredicate().toString():"+n.getPredicate().toString());
+                      System.out.println("subject>>>"+n.getObject());
+//                    Entity e = new Entity();
+//                    e.setURI();
+//                    pa.setType(n.getLiteral().getLanguage());
+//                    pa.setValue_locale(n.getLiteral().getString());
+                }
             }
         }
-        return null;
+        return pa;
     }
     
     public void insertBirthDate(Property p) {
@@ -127,4 +147,10 @@ public class Person extends Entity {
                 break;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Person{" + "birthDate=" + birthDate + ", deathDate=" + deathDate + ", placeOfBirth=" + placeOfBirth + '}';
+    }
+    
 }

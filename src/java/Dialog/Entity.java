@@ -13,7 +13,9 @@ import java.util.ListIterator;
 import java.util.Vector;
 import static model.Connector.*;
 import model.SAVETestWebService;
+import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
@@ -316,6 +318,85 @@ public void constructEntity() {
         }
     }
     
+    public PropertyAdmin getPropertyAdmin(String propertyName){
+        PropertyAdmin pa = new PropertyAdmin();
+        pa.setName(propertyName);
+                
+        Model m = selectFromEntity(this.getURI());
+        Resource resource = m.getResource(this.getURI());
+        List l = browseModel(resource, "uses");
+        
+        m = selectFromEntityWithPredicat(this.getURI(), "axis-datamodel:uses");
+        if(m.isEmpty()){
+            ResultSet rs = selectFromEntity("?s", "axis-datamodel:uses", "<"+this.getURI()+">");
+            if(rs.hasNext()){
+                String newUri = rs.nextSolution().get("s").toString();
+                m = selectFromEntity(newUri);
+                resource = m.getResource(newUri);
+                l = browseModel(resource, "uses");
+                m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
+            }
+        }
+        Iterator it = l.iterator();
+        while(it.hasNext()){
+            List list = (List) it.next();
+            resource = m.getResource(list.get(2).toString());
+            List<List> l2 = null;
+            switch (propertyName) {
+                case "author":
+                    l2 = browseModel(resource, "isPerformedBy");
+                    break;
+                case "location":
+                    l2 = browseModel(resource, "takePlaceIn");
+                    break;
+                case "birthplace":
+                    l2 = browseModel(resource, "birthPlace");
+                default:
+                    throw new AssertionError();
+            }
+            if(!l2.isEmpty()){
+                ResultSet rset = selectFromEntity("?s", "axis-datamodel:uses", "<"+l2.get(0).get(2).toString()+">");
+                if(rset.hasNext()){
+                    Entity e = new Entity();
+                    e.setURI(l2.get(0).get(2).toString());
+                    e.constructEntity();
+                    pa.setEntity_locale(e);
+                }else{
+                ResultSet rs = selectFromEntity("<"+l2.get(0).get(2).toString()+">", "?p", "?o");
+                while(rs.hasNext()){
+                    QuerySolution qs = rs.nextSolution();
+                    String nextSol = qs.get("p").toString();
+                    if(nextSol.contains("sameAs")){
+                        pa.setType("uri");
+                        pa.setValue_locale(null);
+                        pa.setEntity_locale(null);
+                        Entity e = new Entity();
+                        ResultSet rst = selectFromEntity("<"+l2.get(0).get(2).toString()+">", "owl:sameAs", "?o");
+                        if(rst.hasNext())
+                            e.setURI(rst.nextSolution().get("o").toString());
+                        // ajout du construct entity de Riad pour le LoD
+                        
+                        e.setName(selectlodFromEntity(e).getName());
+                        e.setImage(selectlodFromEntity(e).getImage());
+                        e.setType(selectlodFromEntity(e).getType());
+                        // pa.setValue_dbpedia(récup sur lod avec tes fonctions)
+                        pa.setEntity_dbpedia(e);
+                        pa.setValue_dbpedia(null);
+                    }else{
+                        if(qs.get("o").isLiteral()){
+                            Literal aut = qs.get("o").asLiteral();
+                            pa.setType(aut.getLanguage());
+                            pa.setValue_locale(aut.getString());
+                            pa.setEntity_locale(null);
+                        }
+                    }
+                }
+                }
+            }
+            }
+        return pa;
+        
+    }
 
     @Override
     public String toString() {
