@@ -80,6 +80,34 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pers.insertDeathDate(p);
                 ret = true;
                 break;
+            case "restinplace":
+                pers.setURI(e.getURI());
+                pers.constructEntity();
+                pers.constructPerson();
+                pers.insertRestInPlace(p);
+                ret = true;
+                break;
+            case "mother":
+                pers.setURI(e.getURI());
+                pers.constructEntity();
+                pers.constructPerson();
+                pers.insertMother(p);
+                ret = true;
+                break;
+            case "father":
+                pers.setURI(e.getURI());
+                pers.constructEntity();
+                pers.constructPerson();
+                pers.insertFather(p);
+                ret = true;
+                break;
+            case "isauthorof":
+                pers.setURI(e.getURI());
+                pers.constructEntity();
+                pers.constructPerson();
+                pers.insertIsAuthorOf(p);
+                ret = true;
+                break;
             default:
                 return false;
                 
