@@ -64,7 +64,7 @@ public class Person extends Entity {
         this.mother = getPersonPropertyAdmin("mother");
         this.father = getPersonPropertyAdmin("father");
         this.isAuthorOf = getPersonPropertyAdmin("isauthorof");
-        this.restInPlace = getPersonPropertyAdmin("isauthorof");
+        this.restInPlace = getPersonPropertyAdmin("restinplace");
         
         ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
         Iterator<Property> it = p.iterator();
