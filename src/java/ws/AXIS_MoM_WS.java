@@ -37,7 +37,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	Object obj = new Object();
         Person pers = new Person();
         
-        p.setEnt(valueEntity);
+        //p.setEnt(valueEntity);
         boolean ret;
         switch (p.getName()) {
 	    case "author":
@@ -45,6 +45,17 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 obj.constructEntity();
                 obj.constructObject();
                 obj.insertAuthor(p);
+                ret = true;
+                break;
+            case "sameas":
+                e.insertSameAs(p);
+                ret = true;
+                break;
+            case "location":
+                obj.setURI(e.getURI());
+                obj.constructEntity();
+                obj.constructObject();
+                obj.insertLocation(p);
                 ret = true;
                 break;
             case "image":
@@ -242,7 +253,15 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     @Override
     public PropertyAdmin[] GetAllPropertiesAdmin(Entity e) {
+        
+        System.out.println(e.getURI());
         e.constructEntity();
+        
+        Object obj = new Object();
+        obj.setURI(e.getURI());
+        obj.constructObject();
+        System.out.println(obj);
+        
         semantics ctrl = new semantics();
         PropertyAdmin[] tab = ctrl.getAllPropertiesAdminFromEntity(e);
         return tab;

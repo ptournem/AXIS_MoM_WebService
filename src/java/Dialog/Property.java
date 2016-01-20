@@ -56,7 +56,7 @@ public class Property {
 
     @Override
     public String toString() {
-        return "OurProperty{" + "name=" + name + ", value=" + value + ", type=" + type + ", ent=" + ent + '}';
+        return "Property{" + "name=" + name + ", value=" + value + ", type=" + type + ", ent=" + ent + '}';
     }
 
 }

@@ -46,9 +46,9 @@ public class Connector {
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
 
-       Entity e = new Entity("http://dbpedia.org/resource/Paris", null, null, null);
+       //Entity e = new Entity("http://dbpedia.org/resource/Paris", null, null, null);
        // String uri = e.getURI().toString();
-      entityBrowser(e);
+      //entityBrowser(e);
        // String test = "The_Coronation_of_Napoleon";
       //  selectlodFromKeyWord(test);
      //   selectlodFromEntity(e);
@@ -480,7 +480,8 @@ public class Connector {
                 + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "select ?s where {?s ?p axis-datamodel:Entity}"));
+                + "select ?o where {?s axis-datamodel:uses ?o ." +
+"	?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> axis-datamodel:Entity}"));
 
         ResultSet rs = qe.execSelect();
 
@@ -489,8 +490,11 @@ public class Connector {
         
         ArrayList<String> tab = new ArrayList<>();
         
+        //System.out.println("mlist size = "+mList.size());
+        
         for(int i=0; i<mList.size(); i++) {
-            tab.add(mList.get(i).getResource("s").toString());
+            System.out.println(mList.get(i).getResource("o").toString());
+            tab.add(mList.get(i).getResource("o").toString());
         }
 
         String[] ret = new String[tab.size()];
