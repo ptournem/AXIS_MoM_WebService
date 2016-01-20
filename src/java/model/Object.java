@@ -40,6 +40,8 @@ public class Object extends Entity {
 //        entityBrowser(this.getURI()
 	list.add(new Property(this.author.getName(), this.author.getValue_locale(), this.author.getType(), this.author.getEntity_locale()));
         list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
+        list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getType(), this.description.getEntity_locale()));
+        
         //list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
 	
 	Property[] ret = new Property[list.size()];
@@ -51,6 +53,8 @@ public class Object extends Entity {
 
 	list.add(this.author);
         list.add(this.location);
+        list.add(this.sameAs);
+        list.add(this.description);
         //list.add(this.dateCreation);
 	
 	PropertyAdmin[] ret = new PropertyAdmin[list.size()];

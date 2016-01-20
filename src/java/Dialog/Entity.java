@@ -288,6 +288,10 @@ public List<List> browseModel(Resource resource, String predicate){
         insert(this.URI, "owl:sameAs", p.getEnt().getURI());
     }
     
+    public void insertDescription(Property p) {
+        insert(this.URI, "rdf:Description", p.getValue(), "fr");
+    }
+    
     public void insertImage(Property p) {
         
         String uri1 = insert("rdf:type", "axis-datamodel:RegOfPhotoItem");

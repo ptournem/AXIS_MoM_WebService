@@ -114,12 +114,46 @@ public class TestWS {
         p7.setEnt(e6);
         //fin ajout du restinplace
         
+        
+        //debut ajout description leonard da vinci
+        Property p8 = new Property();
+        p8.setName("description");
+        p8.setType("fr");
+        p8.setValue("Léonard de Vinci (Leonardo di ser Piero da VinciLeonardo di ser Piero da Vinci, dit Leonardo da Vinci, né à Vinci le 15 avril 1452 et mort à Amboise le 2 mai 1519, est un peintre florentin et un homme d'esprit universel");
+        p8.setEnt(null);
+        //fin ajout description leonard da vinci
+        
+        
+        //ajout de la joconde
+        Entity e7 = testAddEntity("https://download.vikidia.org/vikidia/fr/images/thumb/1/13/La_gioconda.jpg/200px-La_gioconda.jpg", "La Joconde", "object");
+        Object obj5 = new Object();
+        obj5.setImage(e7.getImage());
+        obj5.setURI(e7.getURI());
+        obj5.setType(e7.getType());
+        obj5.setName(e7.getName());
+
+        Property p9 = new Property();
+        p9.setName("isauthorof");
+        p9.setType("uri");
+        p9.setValue(null);
+        p9.setEnt(e7);
+        
+        Property p10 = new Property();
+        p10.setName("description");
+        p10.setType("fr");
+        p10.setValue("La Joconde, ou Portrait de Mona Lisa, est un tableau de l'artiste italien Léonard de Vinci, réalisé entre 1503 et 1506, qui représente un portrait mi-corps, probablement celui de la florentine Lisa Gherardini, épouse de Francesco del Giocondo.");
+        p10.setEnt(null);
+        obj5.insertDescription(p10);
+        //fin de la joconde
+        
+        per.insertIsAuthorOf(p9);
         per.insertRestInPlace(p7);
         per.insertFather(p6);
         per.insertMother(p5);
         per.insertBirthDate(p2);
         per.insertPlaceOfBirth(p4);
         per.insertDeathDate(p3);
+        per.insertDescription(p8);
         
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
         ws.SetEntityProperty(per, p1, e2);
