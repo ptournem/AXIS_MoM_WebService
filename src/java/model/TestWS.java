@@ -17,10 +17,12 @@ import ws.AXIS_MoM_WS;
 public class TestWS {
     public static void main(String args[]) {
 
+        System.out.println("test");
         //testConstructEntity();
-        
+//        testPerson();
+        testObject();
         //testRecherche();
-        testLoadEntityProperties();
+//        testLoadEntityProperties();
         
 
     }
@@ -93,14 +95,14 @@ public class TestWS {
 	p2.setType("uri");
         p2.setEnt(e1);
         
-        Entity e3 = new Entity();
-        e3.setURI("http://dbpedia.org/resource/Martin_Luther_King,_Jr.");
-        e3.constructEntity();
-        Property p3 = new Property();
-	p3.setName("author");
-	p3.setValue(null);
-        p3.setType("uri");
-	p3.setEnt(e3);
+//        Entity e3 = new Entity();
+//        e3.setURI("http://dbpedia.org/resource/Martin_Luther_King,_Jr.");
+////        e3.constructEntity();
+//        Property p3 = new Property();
+//	p3.setName("author");
+//	p3.setValue(null);
+//        p3.setType("uri");
+//	p3.setEnt(e3);
         
         
         Entity e11 = testAddEntity("paris.jpg", "Paris", "location");
@@ -130,7 +132,7 @@ public class TestWS {
         obj.setURI(e2.getURI());
         obj.setType(e2.getType());
         obj.setName(e2.getName());
-        obj.insertAuthor(p3);
+        obj.insertAuthor(p1);
         System.out.println("e11:"+e11);
         obj.insertLocation(p22);
         
@@ -163,6 +165,11 @@ public class TestWS {
         p3.setType("uri");
 	p3.setEnt(new Entity("http://dbpedia.com/blabla", "blabla", "bla.jpg", "aaaaaa"));
         
+        Property p4 = new Property();
+	p4.setName("deathdate");
+	p4.setValue("20/06");
+	p4.setType("fr");
+        
         Person per = new Person();
         per.setImage(e.getImage());
         per.setURI(e.getURI());
@@ -170,12 +177,12 @@ public class TestWS {
         per.setName(e.getName());
         
         per.insertBirthDate(p1);
-        per.insertPlaceOfBirth(p1);
+        per.insertPlaceOfBirth(p2);
+        per.insertDeathDate(p4);
     
         Person per1 = new Person();
         per1.setURI(per.getURI());
         per1.constructEntity();
-        System.out.println("<<<<<<<<<<<<"+per1.getType());
         per1.constructPerson();
         System.out.println(per1);
         

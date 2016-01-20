@@ -53,69 +53,81 @@ public class Person extends Entity {
     public void constructPerson() {
         this.birthDate = getPersonPropertyAdmin("birthDate");
         this.deathDate = getPersonPropertyAdmin("deathDate");
-        this.placeOfBirth = getPropertyAdmin("birthplace");
+        this.placeOfBirth = getPersonPropertyAdmin("birthPlace");
         System.out.println("birthplace>>>>"+this.placeOfBirth);
         System.out.println("constructPerson");
     }
     
     public PropertyAdmin getPersonPropertyAdmin(String propertyName){
+          
         PropertyAdmin pa = new PropertyAdmin();
         pa.setName(propertyName);
-        Model m = selectFromEntity(this.getURI());
-        Resource resource = m.getResource(this.getURI());
-        List l = browseModel(resource, "uses");
-        
-        m = selectFromEntityWithPredicat(this.getURI(), "axis-datamodel:uses");
-        if(m.isEmpty()){
-            ResultSet rs = selectFromEntity("?s", "axis-datamodel:uses", "<"+this.getURI()+">");
-            if(rs.hasNext()){
-                QuerySolution qso = rs.nextSolution();
-                    String newUri = qso.get("s").toString();
-                    m = selectFromEntity(newUri);
-                    resource = m.getResource(newUri);
-                    l = browseModel(resource, "uses");
-                    if(!l.isEmpty()){
-                        m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
-                    }
-            }
+        switch (propertyName) {
+            case "birthDate":
+                pa = getPropertyAdmin(propertyName, "literal");
+                pa.setName(propertyName);
+                break;
+            case "deathDate":
+                pa = getPropertyAdmin(propertyName, "literal");
+                pa.setName(propertyName);
+                break;
+            case "birthPlace":
+                pa = getPropertyAdmin(propertyName, "entity");
+                pa.setName(propertyName);
+                break;
+            default:
+                throw new AssertionError();
         }
-        Iterator it = l.iterator();
-        java.lang.Object o = null;
-        if(it.hasNext()){
-            o = it.next();
-            }
-        List list = (List) o;
-        resource = m.getResource(list.get(2).toString());
-        StmtIterator p = resource.listProperties();
         
-        while(p.hasNext()){
-            Statement n = p.nextStatement();
-            System.out.println("nnnnnn>"+n);
-            if(propertyName.equals("birthDate")){
-//                System.out.println("birthDate:n.getPredicate().toString():"+n.getPredicate().toString());
-                if(n.getPredicate().toString().contains("birthDate")){
-                    pa.setType(n.getLiteral().getLanguage());
-                    pa.setValue_locale(n.getLiteral().getString());
-                }
-            }
-            if(propertyName.equals("deathDate")){
-                if(n.getPredicate().toString().contains("deathdate")){
-//                    System.out.println("deathDate:n.getPredicate().toString():"+n.getPredicate().toString());
-                    pa.setType(n.getLiteral().getLanguage());
-                    pa.setValue_locale(n.getLiteral().getString());
-                }
-            }
-            if(propertyName.equals("birthplace")){
-                if(n.getPredicate().toString().contains("birthPlace")){
-//                    System.out.println("birthplace:n.getPredicate().toString():"+n.getPredicate().toString());
-                      System.out.println("subject>>>"+n.getObject());
-//                    Entity e = new Entity();
-//                    e.setURI();
+//        Model m = selectFromEntity(this.getURI());
+//        Resource resource = m.getResource(this.getURI());
+//        List l = browseModel(resource, "uses");
+//        
+//        m = selectFromEntityWithPredicat(this.getURI(), "axis-datamodel:uses");
+//        if(m.isEmpty()){
+//            ResultSet rs = selectFromEntity("?s", "axis-datamodel:uses", "<"+this.getURI()+">");
+//            if(rs.hasNext()){
+//                QuerySolution qso = rs.nextSolution();
+//                    String newUri = qso.get("s").toString();
+//                    m = selectFromEntity(newUri);
+//                    resource = m.getResource(newUri);
+//                    l = browseModel(resource, "uses");
+//                    if(!l.isEmpty()){
+//                        m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
+//                    }
+//            }
+//        }
+//        Iterator it = l.iterator();
+//        java.lang.Object o = null;
+//        if(it.hasNext()){
+//            o = it.next();
+//            }
+//        List list = (List) o;
+//        resource = m.getResource(list.get(2).toString());
+//        StmtIterator p = resource.listProperties();
+//        
+//        while(p.hasNext()){
+//            Statement n = p.nextStatement();
+//            if(propertyName.equals("birthDate")){
+////                System.out.println("birthDate:n.getPredicate().toString():"+n.getPredicate().toString());
+//                if(n.getPredicate().toString().contains("birthDate")){
 //                    pa.setType(n.getLiteral().getLanguage());
 //                    pa.setValue_locale(n.getLiteral().getString());
-                }
-            }
-        }
+//                }
+//            }
+//            if(propertyName.equals("deathDate")){
+//                if(n.getPredicate().toString().contains("deathDate")){
+////                    System.out.println("deathDate:n.getPredicate().toString():"+n.getPredicate().toString());
+//                    pa.setType(n.getLiteral().getLanguage());
+//                    pa.setValue_locale(n.getLiteral().getString());
+//                }
+//            }
+//            if(propertyName.equals("birthplace")){
+//                if(n.getPredicate().toString().contains("birthPlace")){
+//                    pa = getPropertyAdmin("birthPlace");
+//                }
+//            }
+//        }
         return pa;
     }
     

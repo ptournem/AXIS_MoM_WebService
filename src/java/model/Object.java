@@ -58,11 +58,27 @@ public class Object extends Entity {
     }
     
     public void constructObject() {
-        this.author = getPropertyAdmin("author");
-        this.location = getPropertyAdmin("location");
+        this.author = getObjectPropertyAdmin("author");
+        this.location = getObjectPropertyAdmin("location");
         
     }
-
+    
+    public PropertyAdmin getObjectPropertyAdmin(String propertyName){
+        PropertyAdmin pa = new PropertyAdmin();
+        switch (propertyName) {
+            case "author":
+                pa = getPropertyAdmin("isPerformedBy", "entity");
+                pa.setName(propertyName);
+                break;
+            case "location":
+                pa = getPropertyAdmin("takePlaceIn", "entity");
+                pa.setName(propertyName);
+                break;
+            default:
+                throw new AssertionError();
+        }
+        return pa;
+    }
     
     public void insertDateCreation(Property p) {
         
