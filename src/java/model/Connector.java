@@ -17,6 +17,7 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import Dialog.Entity;
+import Dialog.PropertyAdmin;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -317,6 +318,16 @@ public class Connector {
                         break;
                     case "http://dbpedia.org/ontology/thumbnail":
                         e.setImage(object.toString());
+                        break;
+                    case "http://dbpedia.org/ontology/abstract":
+                        String test1 = stmt.getObject().asLiteral().getLanguage();
+                        if (test1.equals("fr")) {
+                            PropertyAdmin pa = new PropertyAdmin();
+                            pa.setName("description");
+                            pa.setType("fr");
+                            pa.setValue_dbpedia(object.toString().replace("@fr", ""));
+                            e.setDescription(pa);
+                        }
                         break;
                     case "http://www.w3.org/2000/01/rdf-schema#label":
                         String test = stmt.getObject().asLiteral().getLanguage();
