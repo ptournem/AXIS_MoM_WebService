@@ -96,10 +96,12 @@ public class semantics {
         return m;
     }
 
-    public static Entity[] SearchAllEntitiesFromText(String needle) { //riad
+    public static ArrayList<Entity> SearchAllEntitiesFromText(String needle) { //riad
         // renvoie un tableau d'entité à partir d'une chaîne de caractere dans le LoD (dbpedia, freebase)
        
-        selectlod(needle);
-        return null;
+        ArrayList<Entity> entites = new ArrayList<Entity>();
+        
+        selectlodFromKeyWord(needle);
+        return entites;
     }
 }

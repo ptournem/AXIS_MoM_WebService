@@ -118,6 +118,10 @@ public class Object extends Entity {
                         if(rst.hasNext())
                             e.setURI(rst.nextSolution().get("o").toString());
                         // ajout du construct entity de Riad pour le LoD
+                        
+                        e.setName(selectlodFromEntity(e).getName());
+                        e.setImage(selectlodFromEntity(e).getImage());
+                        e.setType(selectlodFromEntity(e).getType());
                         // pa.setValue_dbpedia(récup sur lod avec tes fonctions)
                         pa.setEntity_dbpedia(e);
                     }else{
