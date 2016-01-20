@@ -17,6 +17,7 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import Dialog.Entity;
+import Dialog.PropertyAdmin;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,8 @@ public class Connector {
                         "PREFIX poc: <http://titan.be/axis-poc2015/>"
                         + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                         + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>" 
+                        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" 
                         + "construct{?s ?p ?o}"
                         + "WHERE { ?s ?p ?o . {"
                         + "SELECT * WHERE {"
@@ -112,6 +114,7 @@ public class Connector {
                         "PREFIX poc: <http://titan.be/axis-poc2015/>"
                         + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                         + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                         + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                         + "SELECT ?s ?p ?o " 
                         + "WHERE {" 
@@ -131,6 +134,7 @@ public class Connector {
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
                 "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>" +
                 "PREFIX owl: <http://www.w3.org/2002/07/owl#>" +
+                "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
                 "construct{?s ?p ?o}" +
                 "WHERE { ?s ?p ?o . {" +
                 "SELECT * WHERE {" +
@@ -153,6 +157,7 @@ public class Connector {
                 + "PREFIX type: <http://dbpedia.org/class/yago/>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<" + uri + "> ?p ?o}";
         Query DBquery = QueryFactory.create(DBQueryString);
@@ -246,6 +251,7 @@ public class Connector {
                 + "PREFIX type: <http://dbpedia.org/class/yago/>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<"+uri+"> ?p ?o}";
           Query DBquery = QueryFactory.create(DBQueryString);
@@ -313,6 +319,16 @@ public class Connector {
                     case "http://dbpedia.org/ontology/thumbnail":
                         e.setImage(object.toString());
                         break;
+                    case "http://dbpedia.org/ontology/abstract":
+                        String test1 = stmt.getObject().asLiteral().getLanguage();
+                        if (test1.equals("fr")) {
+                            PropertyAdmin pa = new PropertyAdmin();
+                            pa.setName("description");
+                            pa.setType("fr");
+                            pa.setValue_dbpedia(object.toString().replace("@fr", ""));
+                            e.setDescription(pa);
+                        }
+                        break;
                     case "http://www.w3.org/2000/01/rdf-schema#label":
                         String test = stmt.getObject().asLiteral().getLanguage();
                         if (test.equals("fr")) {
@@ -348,6 +364,7 @@ public class Connector {
                 + "PREFIX type: <http://dbpedia.org/class/yago/>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<http://dbpedia.org/resource/"+keyword+"> ?p ?o}";
 //                "select ?s ?o" +
@@ -483,6 +500,7 @@ public class Connector {
                 + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 + "select ?o where {?s axis-datamodel:uses ?o ." +
 "	?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> axis-datamodel:Entity}"));
 
