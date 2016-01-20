@@ -28,7 +28,7 @@ public class TestWS {
     public static void testLoadEntityProperties() {
         Entity e = new Entity();
         
-        e.setURI("http://titan.be/axis-poc2015/9557c14a-1509-453f-ab37-2efc3d662676");
+        e.setURI("http://titan.be/axis-poc2015/3e3a8e51-3665-4e60-bb7a-5847f65651cf");
         
         e.constructEntity();
         

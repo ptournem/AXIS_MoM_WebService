@@ -40,7 +40,7 @@ public class Object extends Entity {
 
 	list.add(new Property(this.author.getName(), this.author.getValue_locale(), this.author.getType(), this.author.getEntity_locale()));
         list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
-        list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
+        //list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
 	
 	Property[] ret = new Property[list.size()];
 	return (Property[]) list.toArray(ret);
@@ -49,9 +49,10 @@ public class Object extends Entity {
     public PropertyAdmin[] getPropertiesAdminObject() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
+        System.out.println("author = "+this.author.getValue_locale());
 	list.add(this.author);
         list.add(this.location);
-        list.add(this.dateCreation);
+        //list.add(this.dateCreation);
 	
 	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
 	return (PropertyAdmin[]) list.toArray(ret);

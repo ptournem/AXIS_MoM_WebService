@@ -16,6 +16,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import static model.Connector.selectAllEntitiesURI;
 import model.Person;
+import model.Object;
 
 
 @WebService(serviceName = "AXIS_MoM_WS", endpointInterface = "ws.AXIS_MoM_WSInterface")
@@ -33,32 +34,47 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     @Override
     public Boolean SetEntityProperty(Entity e, Property p, Entity valueEntity) {
-	model.Object obj = null;
-        Person pers = null;
+	Object obj = new Object();
+        Person pers = new Person();
         
+        p.setEnt(valueEntity);
+        boolean ret;
         switch (p.getName()) {
 	    case "author":
-                obj = (model.Object) e;
+                obj.setURI(e.getURI());
+                obj.constructEntity();
+                obj.constructObject();
                 obj.insertAuthor(p);
+                ret = true;
                 break;
             case "image":
                 e.insertImage(p);
+                ret = true;
                 break;
             case "name":
                 e.insertName(p);
+                ret = true;
                 break;
             case "birthdate":
-                pers = (Person) e;
+                pers.setURI(e.getURI());
+                pers.constructEntity();
+                pers.constructPerson();
                 pers.insertBirthDate(p);
+                ret = true;
                 break;
             case "deathdate":
-                pers = (Person) e;
+                pers.setURI(e.getURI());
+                pers.constructEntity();
+                pers.constructPerson();
                 pers.insertDeathDate(p);
+                ret = true;
                 break;
+            default:
+                return false;
                 
         }
         
-	return true;
+	return ret;
     }
 
     @Override
@@ -226,7 +242,6 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     @Override
     public PropertyAdmin[] GetAllPropertiesAdmin(Entity e) {
-        System.out.println(e);
         e.constructEntity();
         semantics ctrl = new semantics();
         PropertyAdmin[] tab = ctrl.getAllPropertiesAdminFromEntity(e);

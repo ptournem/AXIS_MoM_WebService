@@ -66,19 +66,30 @@ public class semantics {
         //en fonction du type, on fait une boucle pour récuperer toutes les infos de l'oeuvre en interne + lod
         PropertyAdmin[] tab = null;
         String type = e.getType();
-        System.out.println(type);
+        
         switch (type) {
 	    case "person":
-		Person p = (Person) e;
+                Person p = new Person();
+                p.setURI(e.getURI());
+                p.constructEntity();
+                p.constructPerson();
                 tab = p.getPropertiesAdminPerson();
 		break;
 	    case "event":
-		Event ev = (Event) e;
+		Event ev = new Event();
+                ev.setURI(e.getURI());
+                ev.constructEntity();
+                ev.constructEvent();
                 tab = ev.getPropertiesAdminEvent();
 		break;
 	    case "object":
-                System.out.println("object");
-		Object o = (Object) e;
+                System.out.println("un objet");
+                Object o = new Object();
+                o.setURI(e.getURI());
+                o.constructEntity();
+                System.out.println("Etape 1 : "+e);
+                o.constructObject();
+                System.out.println("Etape 2 : "+o);
                 tab = o.getPropertiesAdminObject();
 		break;
 
@@ -88,44 +99,8 @@ public class semantics {
         
         return tab;
     }
-    
-    public URI AddEntity(String name, URI type) { //robine
-        // on ajoute une nouvelle entity à l'aide du connector
-        
-        //on fait une "case" en fonction des 6 types possibles
-        
-        // pour chaque case on fait un insert into avec :
-//            sujet = type;
-//            prédicat = le prédicat en fonction du case type;
-//            objet = name;
-        return null;
-        
-    }
-    
-    public Boolean RemoveEntity(URI entity) {
-        // on supprime une nouvelle entity à l'aide du connector
-        return null;
-    }
 
-    public Boolean SetEntityTextProperty(URI entity, URI property, String value) { 
-        // on affecte une nouvelle valeur à une propriété d'une entité à l'aide du connector
-        return null;
-    }
-    
-    public Boolean SetEntityObjectProperty(URI entity, URI property, URI value) { 
-        // on affecte une nouvelle URI à une propriété d'une entité à l'aide du connector
-        return null;
-    }
 
-    public Boolean RemoveEntityObjectProperty(URI entity, URI property) {
-        // on supprime la propriété d'une entity
-        return null;
-    }
-
-    public Boolean RemoveEntityObjectPropertyWithObject(URI entity, URI property) {
-        // ???
-        return null;
-    }
 
     public static ArrayList<Property> LoadEntityProperties(Entity e) { //Riad
         // renvoie un tableau de toutes les propriétés d'une entité donnée
