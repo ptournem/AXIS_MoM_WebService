@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="TestWebService">
-      <implementation-class>model.TestWebService</implementation-class>
+    <service name="AXIS_MoM_WS">
+      <implementation-class>ws.AXIS_MoM_WS</implementation-class>
     </service>
     <service name="AXIS_MoM_WS_phpTest">
       <implementation-class>ws.AXIS_MoM_WS_phpTest</implementation-class>
     </service>
-    <service name="AXIS_MoM_WS">
-      <implementation-class>ws.AXIS_MoM_WS</implementation-class>
+    <service name="SAVETestWebService">
+      <implementation-class>model.SAVETestWebService</implementation-class>
     </service>
   </services>
   <clients/>

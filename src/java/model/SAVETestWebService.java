@@ -16,10 +16,29 @@ import static model.Connector.*;
 
 /**
  *
- * @author APP-Riad.Belmahi
+ * SAVE NE PAS MODIFIER
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  */
 @WebService(serviceName = "TestWebService")
-public class TestWebService {
+public class SAVETestWebService {
 
     /**
      * le webservice fait appel aux méthodes suivantes :
@@ -45,50 +64,8 @@ public class TestWebService {
     @WebMethod(operationName = "AddEntity")
     public Entity AddEntity(@WebParam(name = "e") Entity e) {
 
-	if (e == null) {
-	    return new Entity();
-	}
-	        String mainURI = insert("rdf:type", "axis-datamodel:Entity");
-	
-	String uri = null;
-	switch (e.getType()) {
-	    case "person":
-		uri = insert("rdf:type", "axis-datamodel:PhysicalPerson");
-		insert(mainURI, "axis-datamodel:uses", uri);
-                e.setURI(uri);
-		break;
-	    case "event":
-		uri = insert("rdf:type", "axis-datamodel:Event");
-		insert(mainURI, "axis-datamodel:uses", uri);
-                e.setURI(uri);
-		break;
-	    case "object":
-		uri = insert("rdf:type", "axis-datamodel:PhysicalObject");
-		insert(mainURI, "axis-datamodel:uses", uri);
-                e.setURI(uri);
-		break;
-	    case "location":
-		uri = insert("rdf:type", "axis-datamodel:Place");
-		insert(mainURI, "axis-datamodel:uses", uri);
-                e.setURI(uri);
-		break;
-//              case "activity":
-//                  uri = insert("rdf:type", "axis:RegOfPhysicalPerson");
-//                  insert(e.URI, "axis:hasExpression", uri);
-//                  break;
-	    case "organisation":
-		uri = insert("rdf:type", "axis-datamodel:MoralPerson");
-		insert(mainURI, "axis-datamodel:uses", uri);
-                e.setURI(uri);
-		break;
-	    default:
-		throw new AssertionError();
-	}
-        
-        e.insertName(new Property("name", e.getName(), "fr", null));
-        e.insertImage(new Property("image", e.getImage(), "fr", null));
-	//insert(e.getURI(), "rdfs:label", e.getName(), "fr");
-	return e;
+        return e.AddEntity();
+
     }
 
     @WebMethod(operationName = "SetEntityTextProperty")
@@ -158,9 +135,7 @@ public class TestWebService {
         for(int i =0; i<tabEntities.length; i++) {
             Entity e = new Entity();
             e.setURI(tabEntities[i]);
-            System.out.println("Entity avant le construct : "+e.toString());
             e.constructEntity();
-            System.out.println("Entity après le construct : "+e.toString());
             if(e.getName().contains(needle))
                 tab.add(e);
         }

@@ -8,6 +8,7 @@ package model;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
+import ws.AXIS_MoM_WS;
 
 /**
  *
@@ -29,7 +30,7 @@ public class TestWS {
         e.setType(type);
         
         
-        TestWebService ws = new TestWebService();
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
         Entity e2 = ws.AddEntity(e);
         
         System.out.println("-!- Entité ajoutée : "+e2);
@@ -141,7 +142,7 @@ public class TestWS {
     
     public static void testRecherche() {
 
-        TestWebService ws = new TestWebService();
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
         Entity[] tab = ws.SearchOurEntitiesFromText("G2");
 
         for(int i=0; i<tab.length;i++) {

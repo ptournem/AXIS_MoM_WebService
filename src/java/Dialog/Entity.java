@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Vector;
 import static model.Connector.*;
-import model.TestWebService;
+import model.SAVETestWebService;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
@@ -105,6 +105,51 @@ public class Entity {
     }
 
 
+    public Entity AddEntity() {
+        String mainURI = insert("rdf:type", "axis-datamodel:Entity");
+	
+	String uri = null;
+	switch (this.type) {
+	    case "person":
+		uri = insert("rdf:type", "axis-datamodel:PhysicalPerson");
+		insert(mainURI, "axis-datamodel:uses", uri);
+                this.setURI(uri);
+		break;
+	    case "event":
+		uri = insert("rdf:type", "axis-datamodel:Event");
+		insert(mainURI, "axis-datamodel:uses", uri);
+                this.setURI(uri);
+		break;
+	    case "object":
+		uri = insert("rdf:type", "axis-datamodel:PhysicalObject");
+		insert(mainURI, "axis-datamodel:uses", uri);
+                this.setURI(uri);
+		break;
+	    case "location":
+		uri = insert("rdf:type", "axis-datamodel:Place");
+		insert(mainURI, "axis-datamodel:uses", uri);
+                this.setURI(uri);
+		break;
+//              case "activity":
+//                  uri = insert("rdf:type", "axis:RegOfPhysicalPerson");
+//                  insert(e.URI, "axis:hasExpression", uri);
+//                  break;
+	    case "organisation":
+		uri = insert("rdf:type", "axis-datamodel:MoralPerson");
+		insert(mainURI, "axis-datamodel:uses", uri);
+                this.setURI(uri);
+		break;
+	    default:
+		throw new AssertionError();
+	}
+        
+        this.insertName(new Property("name", this.getName(), "fr", null));
+        this.insertImage(new Property("image", this.getImage(), "fr", null));
+	//insert(e.getURI(), "rdfs:label", e.getName(), "fr");
+	return this;
+    }
+    
+    
 public List<List> browseModel(Resource resource, String predicate){
         
         List<List> l2 = new ArrayList<List>();
