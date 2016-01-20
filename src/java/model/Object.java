@@ -124,6 +124,7 @@ public class Object extends Entity {
                         e.setType(selectlodFromEntity(e).getType());
                         // pa.setValue_dbpedia(récup sur lod avec tes fonctions)
                         pa.setEntity_dbpedia(e);
+                        pa.setValue_dbpedia(null);
                     }else{
                         if(qs.get("o").isLiteral()){
                             Literal aut = qs.get("o").asLiteral();
