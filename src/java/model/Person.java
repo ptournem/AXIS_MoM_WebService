@@ -29,7 +29,7 @@ public class Person extends Entity {
     public PropertyAdmin placeOfBirth;
     public PropertyAdmin mother;
     public PropertyAdmin father;
-    public PropertyAdmin oeuvre;
+    public PropertyAdmin isAuthorOf;
     public PropertyAdmin restInPlace;
 
     public Property[] getPropertiesPerson() {
