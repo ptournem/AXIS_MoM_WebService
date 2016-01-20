@@ -17,8 +17,11 @@ import ws.AXIS_MoM_WS;
 public class TestWS {
     public static void main(String args[]) {
         //Entity e = testAddEntity();
-        
-        testPerson();
+        Entity e = new Entity();
+        e.setURI("http://titan.be/axis-poc2015/1c1497ea-eaa3-4bd2-9930-5d6b2cf3a819");
+        e.constructEntity();
+        System.out.println(e);
+//        testPerson();
         
 //        testRecherche();
     }
@@ -127,11 +130,12 @@ public class TestWS {
         per.setName(e.getName());
         
         per.insertBirthDate(p1);
-        per.insertPlaceOfBirth(p2);
+        per.insertPlaceOfBirth(p1);
     
         Person per1 = new Person();
         per1.setURI(per.getURI());
         per1.constructEntity();
+        System.out.println("<<<<<<<<<<<<"+per1.getType());
         per1.constructPerson();
         System.out.println(per1);
         

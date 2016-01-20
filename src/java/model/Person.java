@@ -12,9 +12,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import static model.Connector.*;
+import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 
 /**
@@ -65,20 +67,33 @@ public class Person extends Entity {
         if(m.isEmpty()){
             ResultSet rs = selectFromEntity("?s", "axis-datamodel:uses", "<"+this.getURI()+">");
             if(rs.hasNext()){
-                String newUri = rs.nextSolution().get("s").toString();
-                m = selectFromEntity(newUri);
-                resource = m.getResource(newUri);
-                l = browseModel(resource, "uses");
-                m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
+                QuerySolution qso = rs.nextSolution();
+                    String newUri = qso.get("s").toString();
+                    m = selectFromEntity(newUri);
+                    resource = m.getResource(newUri);
+                    l = browseModel(resource, "uses");
+                    if(!l.isEmpty()){
+                        m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
+                        System.out.println("newURI>>"+newUri);
+                        System.out.println("m>>>"+m);
+                    }
             }
         }
         Iterator it = l.iterator();
+        java.lang.Object o = null;
         while(it.hasNext()){
-            List list = (List) it.next();
-            resource = m.getResource(list.get(2).toString());
-            StmtIterator p = resource.listProperties();
-            while(p.hasNext()){
-                System.out.println("pit="+p.nextStatement());
+            o = it.next();
+            System.out.println("oooooooooooo>>>"+o);
+            }
+        List list = (List) o;
+        resource = m.getResource(list.get(2).toString());
+        StmtIterator p = resource.listProperties();
+        while(p.hasNext()){
+            Statement n = p.nextStatement();
+            System.out.println("n>>>"+n);
+            if(n.getPredicate().toString().contains("birthDate")){
+                System.out.println("birthdate:");
+                System.out.println(n.getLiteral());
             }
         }
         return null;
