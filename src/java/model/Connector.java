@@ -17,6 +17,7 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import Dialog.Entity;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.jena.query.QuerySolution;
@@ -48,7 +49,8 @@ public class Connector {
       // Entity e = new Entity("<http://dbpedia.org/resource/Mona_Lisa>", null, null, null);
        // String uri = e.getURI().toString();
      // entityBrowser(e);
-        selectlodFromKeyWord("Racine");
+        String test = "Racine";
+        selectlodFromKeyWord(test);
      //   selectlodFromEntity(e);
 
 
@@ -314,7 +316,7 @@ public class Connector {
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "construct where {dbr:"+keyword+" ?p ?o}";
+                + "construct where {<http://dbpedia.org/resource/"+keyword+"> ?p ?o}";
 //                "select ?s ?o" +
 //                "where {" +
 //                "  dbr:"+keyword+" dbont:wikiPageRedirects ?o." +
@@ -349,8 +351,10 @@ public class Connector {
 
             if (p.contains("wikiPageDisambiguates")) {
                 Resource r2 = stmt.getResource();
-                System.out.println("r2 :"+r2.toString().substring(28));
-               // selectlodFromKeyWord(r2.toString().substring(28));
+                String rString = r2.toString().substring(28);
+                String rString2= new String( rString.getBytes(),Charset.forName("UTF-8"));
+                //System.out.println("r2 :"+rString2);
+                selectlodFromKeyWord(rString2);
                 // System.out.println("wikiPageDisambiguates:"+r2);
 
             } else {
