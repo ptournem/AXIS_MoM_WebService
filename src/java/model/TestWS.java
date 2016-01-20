@@ -15,11 +15,11 @@ import Dialog.PropertyAdmin;
  */
 public class TestWS {
     public static void main(String args[]) {
-//        Entity e = testAddEntity();
+        //Entity e = testAddEntity();
         
-//        testPerson(e);
-        testObject();
+        //testPerson(e);
         
+        testRecherche();
     }
     
     public static Entity testAddEntity(String img, String name, String type) {
@@ -125,6 +125,11 @@ public class TestWS {
         
         per.insertBirthDate(p1);
     
+        Object obj1 = new Object();
+        obj1.setURI(obj1.getURI());
+        obj1.constructEntity();
+        obj1.constructObject();
+        System.out.println(obj1);
         
         //PropertyAdmin[] props = obj.getPropertiesObject();
 //        Entity[] maListe = ws.SearchOurEntitiesFromText("G2");
@@ -132,5 +137,15 @@ public class TestWS {
 //        for(int i =0; i<maListe.length; i++) {
 //            System.out.println(maListe[i]);
 //        }
+    }
+    
+    public static void testRecherche() {
+
+        TestWebService ws = new TestWebService();
+        Entity[] tab = ws.SearchOurEntitiesFromText("G2");
+
+        for(int i=0; i<tab.length;i++) {
+            System.out.println("Entity trouvée : "+tab[i]);
+        }
     }
 }

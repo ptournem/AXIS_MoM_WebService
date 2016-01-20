@@ -131,6 +131,7 @@ public List<List> browseModel(Resource resource, String predicate){
     }
     
 public void constructEntity() {
+        
         Model m = selectFromEntity(this.URI);
         Resource resource = m.getResource(this.URI);
         List<List> l = browseModel(resource, "label");
