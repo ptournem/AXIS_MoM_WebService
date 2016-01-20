@@ -56,7 +56,7 @@ public class TestWS {
         Entity e3 = testAddEntity("Paris.jpg", "Paris", "location");
         Property p4 = new Property();
         p4.setName("birthplace");
-        p4.setType("fr");
+        p4.setType("uri");
         p4.setValue(null);
         p4.setEnt(e3);
         

@@ -27,6 +27,10 @@ public class Person extends Entity {
     public PropertyAdmin birthDate;
     public PropertyAdmin deathDate;
     public PropertyAdmin placeOfBirth;
+    public PropertyAdmin mother;
+    public PropertyAdmin father;
+    public PropertyAdmin oeuvre;
+    public PropertyAdmin restInPlace;
 
     public Property[] getPropertiesPerson() {
         ArrayList<Property> list = new ArrayList<Property>();
@@ -109,6 +113,7 @@ public class Person extends Entity {
     
     public void insertPlaceOfBirth(Property p) {
         String uri1 = null;
+        System.out.println("type property = "+this.getTypeProperty(p));
         switch (this.getTypeProperty(p)) {
 	    case "dbpedia":
                 uri1 = insert("rdf:type", "axis-datamodel:Place");
