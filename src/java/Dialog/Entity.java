@@ -177,6 +177,9 @@ public List<List> browseModel(Resource resource, String predicate){
     
 public void constructEntity() {
         
+        if(this.URI.contains("dbpedia")){
+            selectlodFromEntity(this);
+        }else{
         Model m = selectFromEntity(this.URI);
         Resource resource = m.getResource(this.URI);
         
@@ -258,6 +261,7 @@ public void constructEntity() {
                     }
                     }
                 }
+        }
         }
     }
     
