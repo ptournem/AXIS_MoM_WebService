@@ -58,6 +58,10 @@ public class Person extends Entity {
         this.birthDate = getPersonPropertyAdmin("birthdate");
         this.deathDate = getPersonPropertyAdmin("deathdate");
         this.placeOfBirth = getPersonPropertyAdmin("birthplace");
+        this.mother = getPersonPropertyAdmin("mother");
+        this.father = getPersonPropertyAdmin("father");
+        this.isAuthorOf = getPersonPropertyAdmin("isauthorof");
+        this.restInPlace = getPersonPropertyAdmin("isauthorof");
         
         ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
         Iterator<Property> it = p.iterator();
@@ -76,6 +80,7 @@ public class Person extends Entity {
                     this.placeOfBirth.setEntity_dbpedia(n.getEnt());
                     this.placeOfBirth.setValue_dbpedia(n.getValue());
                     break;
+                    
             }
             
         }
@@ -96,6 +101,22 @@ public class Person extends Entity {
                 break;
             case "birthplace":
                 pa = getPropertyAdmin("birthPlace", "entity");
+                pa.setName(propertyName);
+                break;
+            case "mother":
+                pa = getPropertyAdmin("mother", "entity");
+                pa.setName(propertyName);
+                break;
+            case "father":
+                pa = getPropertyAdmin("father", "entity");
+                pa.setName(propertyName);
+                break;
+            case "isauthorof":
+                pa = getPropertyAdmin("isAuthorOf", "entity");
+                pa.setName(propertyName);
+                break;
+            case "restinplace":
+                pa = getPropertyAdmin("restInPlace", "entity");
                 pa.setName(propertyName);
                 break;
         }
