@@ -73,9 +73,53 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     @Override
     public Property[] LoadEntityProperties(Entity e) {
-	semantics ctrl = new semantics();
-        Property[] tab = ctrl.getAllPropertiesFromEntity(e);
-        return tab;
+        
+        ArrayList<Property> list = new ArrayList<Property>();
+	Property p1 = new Property();
+	p1.setName("Surnom");
+	p1.setValue("MLK");
+	p1.setType("fr");
+	list.add(p1);
+
+	Property p2 = new Property();
+	p2.setName("Aime");
+	p2.setType("URI");
+	Entity e2 = new Entity();
+	e2.setImage("http://t2.uccdn.com/fr/images/2/0/5/img_comment_ouvrir_une_canette_de_coca_secouee_6502_orig.jpg");
+	e2.setName("Coca");
+	e2.setType("object");
+	e2.setURI("coca");
+	p2.setEnt(e2);
+	list.add(p2);
+
+	Property p3 = new Property();
+	p3.setName("Est de nationalité");
+	p3.setType("URI");
+	Entity e3 = new Entity();
+	e3.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/320px-Flag_of_the_United_States_%28Pantone%29.svg.png");
+	e3.setName("Américain");
+	e3.setType("organisation");
+	e3.setURI("USA");
+	p3.setEnt(e3);
+	list.add(p3);
+
+	Property p4 = new Property();
+	p4.setName("Conjoint");
+	p4.setType("URI");
+	Entity e4 = new Entity();
+	e4.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Martin_Luther_King_Jr_NYWTS_5.jpg/440px-Martin_Luther_King_Jr_NYWTS_5.jpg");
+	e4.setName("Coretta Scott King");
+	e4.setType("person");
+	e4.setURI("CSK");
+	p4.setEnt(e4);
+	list.add(p4);
+
+	Property[] ret = new Property[list.size()];
+	return (Property[]) list.toArray(ret);
+        
+//	semantics ctrl = new semantics();
+//        Property[] tab = ctrl.getAllPropertiesFromEntity(e);
+//        return tab;
     }
 
     @Override
@@ -182,35 +226,28 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     @Override
     public PropertyAdmin[] GetAllPropertiesAdmin(Entity e) {
-	ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
-	PropertyAdmin p1 = new PropertyAdmin();
-	p1.setName("Surnom");
-	p1.setValue_locale("MLK");
-	p1.setValue_dbpedia("Martin LK");
-	p1.setType("fr");
-	list.add(p1);
-
-	PropertyAdmin p2 = new PropertyAdmin();
-	p2.setName("Aime");
-	p2.setType("URI");
-
-	Entity e2 = new Entity();
-	e2.setImage("http://1.1.1.2/bmi/static.ladepeche.fr/content/media/image/zoom/2011/03/07/603056.jpg");
-	e2.setName("Coca");
-	e2.setType("Object");
-	e2.setURI("coca");
-	p2.setEntity_locale(e2);
-
-	Entity e1 = new Entity();
-	e1.setImage("http://www.sushitime-france.fr/wp-content/uploads/2015/01/canette-coca-33cl.jpg");
-	e1.setName("Coca Dbpedia");
-	e1.setType("Object");
-	e1.setURI("coca");
-	p2.setEntity_dbpedia(e1);
-	list.add(p2);
-
-	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
-	return (PropertyAdmin[]) list.toArray(ret);
+        System.out.println(e);
+        e.constructEntity();
+        semantics ctrl = new semantics();
+        PropertyAdmin[] tab = ctrl.getAllPropertiesAdminFromEntity(e);
+        return tab;
+//	ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
+//	PropertyAdmin p1 = new PropertyAdmin();
+//	p1.setName("author");
+//	p1.setValue_locale("");
+//	p1.setValue_dbpedia("");
+//	p1.setType("");
+//	list.add(p1);
+//
+//	PropertyAdmin p2 = new PropertyAdmin();
+//	p2.setName("location");
+//	p2.setValue_locale("");
+//	p2.setValue_dbpedia("");
+//	p2.setType("");
+//	list.add(p2);
+//
+//	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
+//	return (PropertyAdmin[]) list.toArray(ret);
     }
 
     @Override

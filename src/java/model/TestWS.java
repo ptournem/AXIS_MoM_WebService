@@ -16,16 +16,17 @@ import ws.AXIS_MoM_WS;
  */
 public class TestWS {
     public static void main(String args[]) {
-
+        //testConstructEntity();
         
         //testRecherche();
         testLoadEntityProperties();
+        
     }
     
     public static void testLoadEntityProperties() {
         Entity e = new Entity();
         
-        e.setURI("http://titan.be/axis-poc2015/55cad415-5726-4e25-a9dc-5da1d2d483ed");
+        e.setURI("http://titan.be/axis-poc2015/9557c14a-1509-453f-ab37-2efc3d662676");
         
         e.constructEntity();
         
@@ -37,11 +38,12 @@ public class TestWS {
 	p1.setValue("robite");
 	p1.setType("fr");
         
-        Object o = (Object) e;
-        o.insertAuthor(p1);
+        //Object o = (Object) e;
+        
+        //o.insertAuthor(p1);
         
         
-        Property[] tab = ws.LoadEntityProperties(e);
+        PropertyAdmin[] tab = ws.GetAllPropertiesAdmin(e);
         
         for(int i=0; i<tab.length;i++) {
             System.out.println("Property trouvée : "+tab[i]);
@@ -183,7 +185,7 @@ public class TestWS {
     public static void testRecherche() {
 
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
-        Entity[] tab = ws.SearchOurEntitiesFromText("");
+        Entity[] tab = ws.SearchOurEntitiesFromText("lo");
 
         for(int i=0; i<tab.length;i++) {
             System.out.println("Entity trouvée : "+tab[i]);

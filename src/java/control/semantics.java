@@ -7,11 +7,13 @@ package control;
 
 import Dialog.Entity;
 import Dialog.Property;
+import Dialog.PropertyAdmin;
 import java.net.URI;
 import java.util.ArrayList;
 import static model.Connector.*;
 import model.Event;
 import model.Person;
+import model.Object;
 import org.apache.jena.rdf.model.Model;
 
 
@@ -35,26 +37,54 @@ public class semantics {
     public Property[] getAllPropertiesFromEntity(Entity e) {
         
         //en fonction du type, on fait une boucle pour récuperer toutes les infos de l'oeuvre en interne + lod
+        Property[] tab = null;
         
         switch (e.getType()) {
 	    case "person":
 		Person p = (Person) e;
-                p.getPropertiesPerson();
+                tab = p.getPropertiesPerson();
 		break;
 	    case "event":
 		Event ev = (Event) e;
-                ev.getPropertiesEvent();
+                tab = ev.getPropertiesEvent();
 		break;
 	    case "object":
 		model.Object o = (model.Object) e;
-                o.getPropertiesObject();
+                tab = o.getPropertiesObject();
 		break;
 
 	    default:
 		throw new AssertionError();
 	}
         
-        Property[] tab = null;
+        
+        return tab;
+    }
+    
+    public PropertyAdmin[] getAllPropertiesAdminFromEntity(Entity e) {
+        
+        //en fonction du type, on fait une boucle pour récuperer toutes les infos de l'oeuvre en interne + lod
+        PropertyAdmin[] tab = null;
+        String type = e.getType();
+        System.out.println(type);
+        switch (type) {
+	    case "person":
+		Person p = (Person) e;
+                tab = p.getPropertiesAdminPerson();
+		break;
+	    case "event":
+		Event ev = (Event) e;
+                tab = ev.getPropertiesAdminEvent();
+		break;
+	    case "object":
+                System.out.println("object");
+		Object o = (Object) e;
+                tab = o.getPropertiesAdminObject();
+		break;
+
+	    default:
+		throw new AssertionError();
+	}
         
         return tab;
     }
