@@ -392,13 +392,14 @@ public List<List> browseModel(Resource resource, String predicate){
                             pa.setType(aut.getLanguage());
                             pa.setValue_locale(aut.getString());
                             pa.setEntity_locale(null);
+                            
                         }
                     }
                 }
                 }
             }
             }
-        }else if(type.equals("literal")){
+        }else if(type.equals("literal") || (pa.getEntity_dbpedia()==null && pa.getEntity_locale()==null)){
             java.lang.Object o = null;
             if(it.hasNext()){
                 o = it.next();
