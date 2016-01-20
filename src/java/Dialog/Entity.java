@@ -177,7 +177,22 @@ public List<List> browseModel(Resource resource, String predicate){
         return l2;
     }
     
-public void constructEntity() {
+    public ArrayList<Property> getPropertiesMapFromLod(String uri){
+        String newUri = null;
+        ResultSet rs = selectFromEntity("<"+uri+">", "?p", "?o");
+        while(rs.hasNext()){
+            QuerySolution qs = rs.nextSolution();
+            if(qs.get("p").toString().contains("sameAs")){
+                newUri = qs.get("o").toString();
+                System.out.println(newUri);
+                Entity e =new Entity();
+                e.setURI(newUri);
+                return entityBrowser(e);
+            }
+        }
+        return null;
+    }
+    public void constructEntity() {
         
         if(this.URI.contains("dbpedia")){
             selectlodFromEntity(this);

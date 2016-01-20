@@ -20,13 +20,26 @@ public class TestWS {
         System.out.println("test");
         //testConstructEntity();
 //        testPerson();
-        //testObject();
+//        testObject();
         //testRecherche();
-        testLoadEntityProperties();
+//        testLoadEntityProperties();
         
 
     }
     
+    public static void testConstructWithLod(){
+        
+        Entity e = new Entity();
+        e.setURI("http://dbpedia.org/resource/Leonardo_da_Vinci");
+        e.constructEntity();
+        
+        Entity e1 = testAddEntity("Da_Vinci.jpg", "Leonard de Vinci", "person");
+        
+        Property p = new Property();
+        p.setName(null);
+//        SetEntityProperty
+        
+    }
     public static void testLoadEntityProperties() {
         Entity e = new Entity();
         

@@ -54,8 +54,28 @@ public class Person extends Entity {
         this.birthDate = getPersonPropertyAdmin("birthDate");
         this.deathDate = getPersonPropertyAdmin("deathDate");
         this.placeOfBirth = getPersonPropertyAdmin("birthPlace");
-        System.out.println("birthplace>>>>"+this.placeOfBirth);
-        System.out.println("constructPerson");
+        
+        ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
+        Iterator<Property> it = p.iterator();
+        while(it.hasNext()){
+            Property n = it.next();
+            switch (n.getName()) {
+                case "birthDate":
+                    this.birthDate.setEntity_dbpedia(n.getEnt());
+                    this.birthDate.setValue_dbpedia(n.getValue());
+                    break;
+                case "deathDate":
+                    this.deathDate.setEntity_dbpedia(n.getEnt());
+                    this.deathDate.setValue_dbpedia(n.getValue());
+                    break;
+                case "birthPlace":
+                    this.placeOfBirth.setEntity_dbpedia(n.getEnt());
+                    this.placeOfBirth.setValue_dbpedia(n.getValue());
+                default:
+                    throw new AssertionError();
+            }
+            
+        }
     }
     
     public PropertyAdmin getPersonPropertyAdmin(String propertyName){
