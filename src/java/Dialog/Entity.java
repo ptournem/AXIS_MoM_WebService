@@ -141,8 +141,6 @@ public class Entity {
 		insert(mainURI, "axis-datamodel:uses", uri);
                 this.setURI(uri);
 		break;
-	    default:
-		throw new AssertionError();
 	}
         
         this.insertName(new Property("name", this.getName(), "fr", null));
@@ -177,7 +175,21 @@ public List<List> browseModel(Resource resource, String predicate){
         return l2;
     }
     
-public void constructEntity() {
+    public ArrayList<Property> getPropertiesMapFromLod(String uri){
+        String newUri = null;
+        ResultSet rs = selectFromEntity("<"+uri+">", "?p", "?o");
+        while(rs.hasNext()){
+            QuerySolution qs = rs.nextSolution();
+            if(qs.get("p").toString().contains("sameAs")){
+                newUri = qs.get("o").toString();
+                Entity e =new Entity();
+                e.setURI(newUri);
+                return entityBrowser(e);
+            }
+        }
+        return null;
+    }
+    public void constructEntity() {
         
         if(this.URI.contains("dbpedia")){
             selectlodFromEntity(this);
@@ -213,7 +225,6 @@ public void constructEntity() {
             if(rs.hasNext()){
                 String newUri = rs.nextSolution().get("s").toString();
                 m = selectFromEntity(newUri);
-                System.out.println("newUri: "+newUri);
                 resource = m.getResource(newUri);
                 l = browseModel(resource, "uses");
                 m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
@@ -310,14 +321,11 @@ public void constructEntity() {
     public String getTypeProperty(Property p) {
         
         String type = p.getType();
-        System.out.println(type);
         if(p.getType().equals("uri")) {
             if(p.getEnt().getURI().contains("dbpedia")) {
-                System.out.println("dbpedia");
                 return "dbpedia";
             }
             else {
-                System.out.println("our");
                 return "our";
             }
             

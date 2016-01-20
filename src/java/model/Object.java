@@ -37,7 +37,7 @@ public class Object extends Entity {
     
     public Property[] getPropertiesObject() {
         ArrayList<Property> list = new ArrayList<Property>();
-
+//        entityBrowser(this.getURI()
 	list.add(new Property(this.author.getName(), this.author.getValue_locale(), this.author.getType(), this.author.getEntity_locale()));
         list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
         //list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
@@ -49,7 +49,6 @@ public class Object extends Entity {
     public PropertyAdmin[] getPropertiesAdminObject() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
-        System.out.println("author = "+this.author.getValue_locale());
 	list.add(this.author);
         list.add(this.location);
         //list.add(this.dateCreation);
@@ -61,6 +60,24 @@ public class Object extends Entity {
     public void constructObject() {
         this.author = getObjectPropertyAdmin("author");
         this.location = getObjectPropertyAdmin("location");
+        ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
+        if(p != null){
+        Iterator<Property> it = p.iterator();
+            while(it.hasNext()){
+                Property n = it.next();
+                switch (n.getName()) {
+                    case "author":
+                        this.author.setEntity_dbpedia(n.getEnt());
+                        this.author.setValue_dbpedia(n.getValue());
+                        break;
+                    case "location":
+                        this.location.setEntity_dbpedia(n.getEnt());
+                        this.location.setValue_dbpedia(n.getValue());
+                        break;
+                }
+            }
+        }
+        
         
     }
     
@@ -75,8 +92,6 @@ public class Object extends Entity {
                 pa = getPropertyAdmin("takePlaceIn", "entity");
                 pa.setName(propertyName);
                 break;
-            default:
-                throw new AssertionError();
         }
         return pa;
     }
@@ -97,7 +112,6 @@ public class Object extends Entity {
                 break;
                 
             case "our":
-                System.out.println(this);
                 insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt().getURI());
                 insert(p.getEnt().getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;
