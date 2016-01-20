@@ -18,9 +18,9 @@ public class TestWS {
     public static void main(String args[]) {
         //Entity e = testAddEntity();
         
-        //testPerson(e);
+        testPerson();
         
-        testRecherche();
+//        testRecherche();
     }
     
     public static Entity testAddEntity(String img, String name, String type) {
@@ -100,7 +100,9 @@ public class TestWS {
     
     }
     
-    public static void testPerson(Entity e) {
+    public static void testPerson() {
+        Entity e = testAddEntity("test.jpg", "lolo", "person");
+        Entity e1 = testAddEntity("paris.jpg", "Paris", "location");
         Property p1 = new Property();
 	p1.setName("birthdate");
 	p1.setValue("20/01");
@@ -110,7 +112,7 @@ public class TestWS {
 	p2.setName("birthplace");
 	p2.setValue(null);
 	p2.setType("uri");
-        p2.setEnt(new Entity("http://blablabla.com", "blabla", "bla.jpg", "aaaaaa"));
+        p2.setEnt(e1);
         
         Property p3 = new Property();
 	p3.setName("birthplace");
@@ -125,12 +127,13 @@ public class TestWS {
         per.setName(e.getName());
         
         per.insertBirthDate(p1);
+        per.insertPlaceOfBirth(p2);
     
-        Object obj1 = new Object();
-        obj1.setURI(obj1.getURI());
-        obj1.constructEntity();
-        obj1.constructObject();
-        System.out.println(obj1);
+        Person per1 = new Person();
+        per1.setURI(per.getURI());
+        per1.constructEntity();
+        per1.constructPerson();
+        System.out.println(per1);
         
         //PropertyAdmin[] props = obj.getPropertiesObject();
 //        Entity[] maListe = ws.SearchOurEntitiesFromText("G2");

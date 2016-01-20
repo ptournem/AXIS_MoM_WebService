@@ -9,7 +9,13 @@ import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import static model.Connector.*;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.StmtIterator;
 
 /**
  *
@@ -43,9 +49,40 @@ public class Person extends Entity {
     }
     
     public void constructPerson() {
-        
+        this.birthDate = getPersonPropertyAdmin("birthDate");
+        this.deathDate = getPersonPropertyAdmin("deathDate");
+        this.placeOfBirth = getPersonPropertyAdmin("placeOfBirth");
     }
     
+    public PropertyAdmin getPersonPropertyAdmin(String propertyName){
+        PropertyAdmin pa = new PropertyAdmin();
+        pa.setName(propertyName);
+        Model m = selectFromEntity(this.getURI());
+        Resource resource = m.getResource(this.getURI());
+        List l = browseModel(resource, "uses");
+        
+        m = selectFromEntityWithPredicat(this.getURI(), "axis-datamodel:uses");
+        if(m.isEmpty()){
+            ResultSet rs = selectFromEntity("?s", "axis-datamodel:uses", "<"+this.getURI()+">");
+            if(rs.hasNext()){
+                String newUri = rs.nextSolution().get("s").toString();
+                m = selectFromEntity(newUri);
+                resource = m.getResource(newUri);
+                l = browseModel(resource, "uses");
+                m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
+            }
+        }
+        Iterator it = l.iterator();
+        while(it.hasNext()){
+            List list = (List) it.next();
+            resource = m.getResource(list.get(2).toString());
+            StmtIterator p = resource.listProperties();
+            while(p.hasNext()){
+                System.out.println("pit="+p.nextStatement());
+            }
+        }
+        return null;
+    }
     
     public void insertBirthDate(Property p) {
         insert(this.getURI(), "schema:birthDate", p.getValue(), p.getType());
