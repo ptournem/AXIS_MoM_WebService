@@ -39,7 +39,7 @@ public class TestWS {
 	p1.setType("uri");
         p1.setEnt(e2);
         
-        Entity e = testAddEntity("da_Vinci.jpg", "Leonard de Vinci", "person");
+        Entity e = testAddEntity("http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "Leonard de Vinci", "person");
         
         Property p2 = new Property();
         p2.setName("birthdate");
@@ -53,7 +53,10 @@ public class TestWS {
         p3.setValue("21/03");
         p3.setEnt(null);
         
-        Entity e3 = testAddEntity("http://wikitravel.org/upload/shared//thumb/d/da/Paris_Eiffel.jpg/320px-Paris_Eiffel.jpg", "Paris", "location");
+//        Entity e3 = testAddEntity("http://wikitravel.org/upload/shared//thumb/d/da/Paris_Eiffel.jpg/320px-Paris_Eiffel.jpg", "Paris", "location");
+        Entity e3 = new Entity();
+        e3.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
+        e3.constructEntity();
         Property p4 = new Property();
         p4.setName("birthplace");
         p4.setType("uri");
@@ -66,6 +69,7 @@ public class TestWS {
         per.setType(e.getType());
         per.setName(e.getName());
         
+        //ajout de la mother
         Entity e4 = testAddEntity("https://pbs.twimg.com/profile_images/514575733126365185/u_xPRRKq_400x400.jpeg", "Caterina da Vinci", "person");
         Person per2 = new Person();
         per2.setImage(e4.getImage());
@@ -78,20 +82,39 @@ public class TestWS {
         p5.setType("uri");
         p5.setValue(null);
         p5.setEnt(e4);
+        //fin ajout de la mother
         
+        //ajout du pere
         Entity e5 = testAddEntity("https://s-media-cache-ak0.pinimg.com/736x/b8/d7/51/b8d7512c624b786baad3ab1bfa3f0163.jpg", "Antonio da Vinci", "person");
         Person per3 = new Person();
         per3.setImage(e5.getImage());
         per3.setURI(e5.getURI());
         per3.setType(e5.getType());
         per3.setName(e5.getName());
-        
+
         Property p6 = new Property();
         p6.setName("father");
         p6.setType("uri");
         p6.setValue(null);
         p6.setEnt(e5);
+        //fin ajout du pere
         
+        //ajout du restinplace
+        Entity e6 = testAddEntity("https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ch%C3%A2teau_d'Amboise_07.jpg/220px-Ch%C3%A2teau_d'Amboise_07.jpg", "Amboise", "location");
+        Person per4 = new Person();
+        per4.setImage(e6.getImage());
+        per4.setURI(e6.getURI());
+        per4.setType(e6.getType());
+        per4.setName(e6.getName());
+
+        Property p7 = new Property();
+        p7.setName("restinplace");
+        p7.setType("uri");
+        p7.setValue(null);
+        p7.setEnt(e6);
+        //fin ajout du restinplace
+        
+        per.insertRestInPlace(p7);
         per.insertFather(p6);
         per.insertMother(p5);
         per.insertBirthDate(p2);
