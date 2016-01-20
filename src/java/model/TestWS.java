@@ -73,6 +73,7 @@ public class TestWS {
         Entity e4 = testAddEntity("https://pbs.twimg.com/profile_images/514575733126365185/u_xPRRKq_400x400.jpeg", "Caterina da Vinci", "person");
         Person per2 = new Person();
         per2.setImage(e4.getImage());
+        System.out.println("\n\n>>>>>>>>>>>"+e4.getURI()+"<<<<<<<<<<<<<<\n\n");
         per2.setURI(e4.getURI());
         per2.setType(e4.getType());
         per2.setName(e4.getName());
