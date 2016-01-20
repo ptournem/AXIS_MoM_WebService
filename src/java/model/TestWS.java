@@ -17,9 +17,9 @@ import ws.AXIS_MoM_WS;
 public class TestWS {
     public static void main(String args[]) {
 
-        
+        testObject();
         //testRecherche();
-        testLoadEntityProperties();
+//        testLoadEntityProperties();
     }
     
     public static void testLoadEntityProperties() {
@@ -89,11 +89,14 @@ public class TestWS {
 	p2.setType("uri");
         p2.setEnt(e1);
         
+        Entity e3 = new Entity();
+        e3.setURI("http://dbpedia.org/resource/Martin_Luther_King,_Jr.");
+        e3.constructEntity();
         Property p3 = new Property();
 	p3.setName("author");
 	p3.setValue(null);
         p3.setType("uri");
-	p3.setEnt(new Entity("http://dbpedia.com/blabla", "blabla", "bla.jpg", "aaaaaa"));
+	p3.setEnt(e3);
         
         
         Entity e11 = testAddEntity("paris.jpg", "Paris", "location");
@@ -123,7 +126,7 @@ public class TestWS {
         obj.setURI(e2.getURI());
         obj.setType(e2.getType());
         obj.setName(e2.getName());
-        obj.insertAuthor(p2);
+        obj.insertAuthor(p3);
         System.out.println("e11:"+e11);
         obj.insertLocation(p22);
         

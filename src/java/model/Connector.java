@@ -234,7 +234,7 @@ public class Connector {
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "construct where {"+uri+" ?p ?o}";
+                + "construct where {<"+uri+"> ?p ?o}";
           Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
@@ -284,9 +284,17 @@ public class Connector {
                             e.setName(object.toString().replace("@fr", ""));
                         }
                         break;
+                     case "http://dbpedia.org/ontology/alias":
+                            e.setName(object.toString().replace("@en",""));
+                        break;
+                      case "http://dbpedia.org/ontology/birthName":
+                            e.setName(object.toString().replace("@en",""));
+                        break;
+                      
+                          
                 }
            }
-        System.out.println("l'entité : "+e);
+      //  System.out.println("l'entité : "+e);
         qDBexec.close();
         return e;
     }
