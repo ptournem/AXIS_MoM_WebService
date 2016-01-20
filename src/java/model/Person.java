@@ -66,7 +66,9 @@ public class Person extends Entity {
         this.isAuthorOf = getPersonPropertyAdmin("isauthorof");
         this.restInPlace = getPersonPropertyAdmin("restinplace");
         
+        String testuri = this.getURI();
         ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
+        if(p != null){
         Iterator<Property> it = p.iterator();
         while(it.hasNext()){
             Property n = it.next();
@@ -86,7 +88,7 @@ public class Person extends Entity {
                     
             }
             
-        }
+        }}
     }
     
     public PropertyAdmin getPersonPropertyAdmin(String propertyName){
