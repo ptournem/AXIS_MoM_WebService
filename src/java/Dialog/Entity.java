@@ -318,9 +318,8 @@ public void constructEntity() {
         }
     }
     
-    public PropertyAdmin getPropertyAdmin(String propertyName){
+    public PropertyAdmin getPropertyAdmin(String propertyName, String type){
         PropertyAdmin pa = new PropertyAdmin();
-        pa.setName(propertyName);
                 
         Model m = selectFromEntity(this.getURI());
         Resource resource = m.getResource(this.getURI());
@@ -338,22 +337,12 @@ public void constructEntity() {
             }
         }
         Iterator it = l.iterator();
+        
+        if(type.equals("entity")){
         while(it.hasNext()){
             List list = (List) it.next();
             resource = m.getResource(list.get(2).toString());
-            List<List> l2 = null;
-            switch (propertyName) {
-                case "author":
-                    l2 = browseModel(resource, "isPerformedBy");
-                    break;
-                case "location":
-                    l2 = browseModel(resource, "takePlaceIn");
-                    break;
-                case "birthplace":
-                    l2 = browseModel(resource, "birthPlace");
-                default:
-                    throw new AssertionError();
-            }
+            List<List> l2 = browseModel(resource, propertyName);
             if(!l2.isEmpty()){
                 ResultSet rset = selectFromEntity("?s", "axis-datamodel:uses", "<"+l2.get(0).get(2).toString()+">");
                 if(rset.hasNext()){
@@ -374,14 +363,11 @@ public void constructEntity() {
                         ResultSet rst = selectFromEntity("<"+l2.get(0).get(2).toString()+">", "owl:sameAs", "?o");
                         if(rst.hasNext())
                             e.setURI(rst.nextSolution().get("o").toString());
-                        // ajout du construct entity de Riad pour le LoD
-                        
-                        e.setName(selectlodFromEntity(e).getName());
-                        e.setImage(selectlodFromEntity(e).getImage());
-                        e.setType(selectlodFromEntity(e).getType());
-                        // pa.setValue_dbpedia(récup sur lod avec tes fonctions)
-                        pa.setEntity_dbpedia(e);
-                        pa.setValue_dbpedia(null);
+                            e.setName(selectlodFromEntity(e).getName());
+                            e.setImage(selectlodFromEntity(e).getImage());
+                            e.setType(selectlodFromEntity(e).getType());
+                            pa.setEntity_dbpedia(e);
+                            pa.setValue_dbpedia(null);
                     }else{
                         if(qs.get("o").isLiteral()){
                             Literal aut = qs.get("o").asLiteral();
@@ -394,6 +380,22 @@ public void constructEntity() {
                 }
             }
             }
+        }else if(type.equals("literal")){
+            java.lang.Object o = null;
+            if(it.hasNext()){
+                o = it.next();
+                }
+            List list = (List) o;
+            resource = m.getResource(list.get(2).toString());
+            StmtIterator p = resource.listProperties();
+             while(p.hasNext()){
+            Statement n = p.nextStatement();
+                if(n.getPredicate().toString().contains(propertyName)){
+                    pa.setType(n.getLiteral().getLanguage());
+                    pa.setValue_locale(n.getLiteral().getString());
+                }
+            }
+        }
         return pa;
         
     }
