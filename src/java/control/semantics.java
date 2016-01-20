@@ -38,18 +38,31 @@ public class semantics {
         
         //en fonction du type, on fait une boucle pour récuperer toutes les infos de l'oeuvre en interne + lod
         Property[] tab = null;
+        String type = e.getType();
         
-        switch (e.getType()) {
+        switch (type) {
 	    case "person":
-		Person p = (Person) e;
+                Person p = new Person();
+                p.setURI(e.getURI());
+                p.constructEntity();
+                p.constructPerson();
                 tab = p.getPropertiesPerson();
 		break;
 	    case "event":
-		Event ev = (Event) e;
+		Event ev = new Event();
+                ev.setURI(e.getURI());
+                ev.constructEntity();
+                ev.constructEvent();
                 tab = ev.getPropertiesEvent();
 		break;
 	    case "object":
-		model.Object o = (model.Object) e;
+                System.out.println("un objet");
+                Object o = new Object();
+                o.setURI(e.getURI());
+                o.constructEntity();
+                System.out.println("Etape 1 : "+e);
+                o.constructObject();
+                System.out.println("Etape 2 : "+o);
                 tab = o.getPropertiesObject();
 		break;
 

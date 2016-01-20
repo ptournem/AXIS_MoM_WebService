@@ -29,33 +29,13 @@ public class TestWS {
     
     public static void testLoadEntityProperties() {
 
-        
-        Entity e2 = new Entity();
-        e2.setURI("http://dbpedia.org/blabla");
-        
-        Property p1 = new Property();
-	p1.setName("sameas");
-	p1.setValue(null);
-	p1.setType("uri");
-        p1.setEnt(e2);
-        
-        
-//        Object obj = new Object();
-//        obj.setURI("http://titan.be/axis-poc2015/47581d04-390c-4572-ad8b-af79c8384979");
-//        obj.constructEntity();
-//        obj.insertAuthor(p1);
-        
+
         Object obj2 = new Object();
-        obj2.setURI("http://titan.be/axis-poc2015/6c8f6218-8d9e-425e-aabb-996db5e8d407");
+        obj2.setURI("http://titan.be/axis-poc2015/7d0b5b6f-5471-4c17-bc43-1cb236795490");
         obj2.constructEntity();
         obj2.constructObject();
         
-        
-        
-        AXIS_MoM_WS ws = new AXIS_MoM_WS();
-        ws.SetEntityProperty(obj2, p1, e2);
-        
-        
+
         System.out.println("obj = "+obj2);
 //        PropertyAdmin[] tab = ws.GetAllPropertiesAdmin(e);
 //        
