@@ -46,11 +46,11 @@ public class Connector {
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
 
-      // Entity e = new Entity("<http://dbpedia.org/resource/Mona_Lisa>", null, null, null);
+       Entity e = new Entity("http://dbpedia.org/resource/Paris", null, null, null);
        // String uri = e.getURI().toString();
-     // entityBrowser(e);
-        String test = "Racine";
-        selectlodFromKeyWord(test);
+      entityBrowser(e);
+       // String test = "The_Coronation_of_Napoleon";
+      //  selectlodFromKeyWord(test);
      //   selectlodFromEntity(e);
 
 
@@ -178,12 +178,20 @@ public class Connector {
                 case "http://dbpedia.org/property/artist":
                     p2.setName("author");
                     break;
+                  case "http://dbpedia.org/property/author":
+                    p2.setName("author");
+                    break;
                 case "http://dbpedia.org/property/dateOfBirth":
                     p2.setName("birthdate");
                     break;
-
+//                   case "http://dbpedia.org/ontology/birthDate":
+//                    p2.setName("birthdate");
+//                    break;
                 case "http://dbpedia.org/property/dateOfDeath":
                     p2.setName("deathdate");
+                    break;
+                 case "http://dbpedia.org/ontology/birthPlace":
+                    p2.setName("birthPlace");
                     break;
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
@@ -197,7 +205,7 @@ public class Connector {
                 p2.setType("uri");
                 String uri2 = object.toString();
                 Entity e2 = new Entity(uri2, "", "", "");
-                p2.setEnt(e2);
+                p2.setEnt(selectlodFromEntity(e2));
             } else {
                 p2.setType("fr");
                 p2.setEnt(null);
@@ -266,13 +274,35 @@ public class Connector {
                         if (typ.contains("Person")) {
                             e.setType("person");
                         }
-                        if (typ.contains("Location")) {
+                      if (typ.contains("Location") ||typ.contains("Place") || typ.contains("State") ) {
                             e.setType("location");
                         }
                         if (typ.contains("Activity")) {
                             e.setType("activity");
                         }
                         if (typ.contains("Organisation")) {
+                            e.setType("organisation");
+                        }
+
+                        break;
+                         case "http://dbpedia.org/property/type":
+                        String typ2 = stmt.getObject().toString();
+                        if (typ2.contains("Object")) {
+                            e.setType("object");
+                        }
+                        if (typ2.contains("Event")) {
+                            e.setType("event");
+                        }
+                        if (typ2.contains("Person")) {
+                            e.setType("person");
+                        }
+                        if (typ2.contains("Location") ||typ2.contains("Place") || typ2.contains("State") ) {
+                            e.setType("location");
+                        }
+                        if (typ2.contains("Activity")) {
+                            e.setType("activity");
+                        }
+                        if (typ2.contains("Organisation")) {
                             e.setType("organisation");
                         }
 
@@ -375,10 +405,36 @@ public class Connector {
                         if (typ.contains("Location")) {
                             e.setType("location");
                         }
+                        if (typ.contains("Location") ||typ.contains("Place") || typ.contains("State") ) {
+                            e.setType("location");
+                        }
                         if (typ.contains("Activity")) {
                             e.setType("activity");
                         }
                         if (typ.contains("Organisation")) {
+                            e.setType("organisation");
+                        }
+
+                        break;
+                           // si le predicat est un type
+                    case "http://dbpedia.org/property/type":
+                        String typ2 = stmt.getObject().toString();
+                        if (typ2.contains("Object")) {
+                            e.setType("object");
+                        }
+                        if (typ2.contains("Event")) {
+                            e.setType("event");
+                        }
+                        if (typ2.contains("Person")) {
+                            e.setType("person");
+                        }
+                        if (typ2.contains("Location") ||typ2.contains("Place") || typ2.contains("State") ) {
+                            e.setType("location");
+                        }
+                        if (typ2.contains("Activity")) {
+                            e.setType("activity");
+                        }
+                        if (typ2.contains("Organisation")) {
                             e.setType("organisation");
                         }
 
