@@ -20,9 +20,9 @@ public class TestWS {
         System.out.println("test");
         //testConstructEntity();
 //        testPerson();
-        testObject();
+        //testObject();
         //testRecherche();
-//        testLoadEntityProperties();
+        testLoadEntityProperties();
         
 
     }
@@ -42,16 +42,23 @@ public class TestWS {
 	p1.setValue("robite");
 	p1.setType("fr");
         
-        //Object o = (Object) e;
         
-        //o.insertAuthor(p1);
+        Object obj = new Object();
+        obj.setURI(e.getURI());
+        obj.constructEntity();
+        obj.insertAuthor(p1);
         
+        Object obj2 = new Object();
+        obj2.setURI(obj.getURI());
+        obj2.constructEntity();
+        obj2.constructObject();
         
-        PropertyAdmin[] tab = ws.GetAllPropertiesAdmin(e);
-        
-        for(int i=0; i<tab.length;i++) {
-            System.out.println("Property trouvée : "+tab[i]);
-        }
+        System.out.println(obj2);
+//        PropertyAdmin[] tab = ws.GetAllPropertiesAdmin(e);
+//        
+//        for(int i=0; i<tab.length;i++) {
+//            System.out.println("Property trouvée : "+tab[i]);
+//        }
         
         System.out.println(e);
     }
