@@ -28,8 +28,6 @@ public class Entity {
     String name;
     String image;
     String type;
-    public PropertyAdmin sameAs;
-    public PropertyAdmin description;
 
     public static void main(String args[]) {
         
@@ -108,21 +106,6 @@ public class Entity {
 	this.type = type;
     }
 
-    public PropertyAdmin getSameAs() {
-        return sameAs;
-    }
-
-    public void setSameAs(PropertyAdmin sameAs) {
-        this.sameAs = sameAs;
-    }
-
-    public PropertyAdmin getDescription() {
-        return description;
-    }
-
-    public void setDescription(PropertyAdmin description) {
-        this.description = description;
-    }
 
 
     public Entity AddEntity() {
@@ -208,7 +191,6 @@ public List<List> browseModel(Resource resource, String predicate){
         return null;
     }
     public void constructEntity() {
-        PropertyAdmin pa = new PropertyAdmin();
         if(this.URI.contains("dbpedia")){
             selectlodFromEntity(this);
         }else{
@@ -222,13 +204,6 @@ public List<List> browseModel(Resource resource, String predicate){
             l = browseModel(resource, "label");
             if(!l.isEmpty()){
             this.name = (String) l.get(0).get(2);
-            }
-            l = browseModel(resource, "Description");
-            if(!l.isEmpty()){
-                pa.setName("description");
-                pa.setValue_locale((String) l.get(0).get(2));
-                pa.setType("fr");
-            this.description = pa;
             }
             l = browseModel(resource, "type");
             if(!l.isEmpty()){
@@ -262,13 +237,6 @@ public List<List> browseModel(Resource resource, String predicate){
             l = browseModel(resource, "label");
             if(!l.isEmpty()){
             this.name = (String) l.get(0).get(2);
-            }
-            l = browseModel(resource, "Description");
-            if(!l.isEmpty()){
-                pa.setName("description");
-                pa.setValue_locale((String) l.get(0).get(2));
-                pa.setType("fr");
-            this.description = pa;
             }
             l = browseModel(resource, "type");
             if(!l.isEmpty()){

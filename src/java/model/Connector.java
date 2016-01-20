@@ -198,6 +198,9 @@ public class Connector {
                  case "http://dbpedia.org/ontology/birthPlace":
                     p2.setName("birthplace");
                     break;
+                case "http://dbpedia.org/ontology/abstract":
+                    p2.setName("description");
+                    break;
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
                     break;
@@ -319,16 +322,7 @@ public class Connector {
                     case "http://dbpedia.org/ontology/thumbnail":
                         e.setImage(object.toString());
                         break;
-                    case "http://dbpedia.org/ontology/abstract":
-                        String test1 = stmt.getObject().asLiteral().getLanguage();
-                        if (test1.equals("fr")) {
-                            PropertyAdmin pa = new PropertyAdmin();
-                            pa.setName("description");
-                            pa.setType("fr");
-                            pa.setValue_dbpedia(object.toString().replace("@fr", ""));
-                            e.setDescription(pa);
-                        }
-                        break;
+                        
                     case "http://www.w3.org/2000/01/rdf-schema#label":
                         String test = stmt.getObject().asLiteral().getLanguage();
                         if (test.equals("fr")) {

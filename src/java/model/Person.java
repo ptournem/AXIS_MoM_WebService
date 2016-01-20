@@ -31,7 +31,9 @@ public class Person extends Entity {
     public PropertyAdmin father;
     public PropertyAdmin isAuthorOf;
     public PropertyAdmin restInPlace;
-
+    public PropertyAdmin sameAs;
+    public PropertyAdmin description;
+    
     public Property[] getPropertiesPerson() {
         ArrayList<Property> list = new ArrayList<Property>();
 
@@ -72,6 +74,7 @@ public class Person extends Entity {
         this.father = getPersonPropertyAdmin("father");
         this.isAuthorOf = getPersonPropertyAdmin("isauthorof");
         this.restInPlace = getPersonPropertyAdmin("restinplace");
+        this.description = getPersonPropertyAdmin("description");
         
         String testuri = this.getURI();
         ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
@@ -91,6 +94,10 @@ public class Person extends Entity {
                 case "birthplace":
                     this.placeOfBirth.setEntity_dbpedia(n.getEnt());
                     this.placeOfBirth.setValue_dbpedia(n.getValue());
+                    break;
+                case "description":
+                    this.description.setEntity_dbpedia(n.getEnt());
+                    this.description.setValue_dbpedia(n.getValue());
                     break;
                     
             }
@@ -124,11 +131,16 @@ public class Person extends Entity {
                 pa.setName(propertyName);
                 break;
             case "isauthorof":
-                pa = getPropertyAdmin("isAuthorOf", "entity");
+                pa = getPropertyAdmin("performs", "entity");
                 pa.setName(propertyName);
                 break;
             case "restinplace":
                 pa = getPropertyAdmin("restInPlace", "entity");
+                pa.setName(propertyName);
+                break;
+                
+            case "description":
+                pa = getPropertyAdmin("Description", "literal");
                 pa.setName(propertyName);
                 break;
         }

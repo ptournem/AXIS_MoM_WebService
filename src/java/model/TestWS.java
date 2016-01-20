@@ -164,6 +164,7 @@ public class TestWS {
         per1.constructEntity();
         per1.constructPerson();
         System.out.println(per1);
+        System.out.println(e);
         
         
         

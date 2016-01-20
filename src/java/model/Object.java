@@ -32,7 +32,8 @@ public class Object extends Entity {
     public PropertyAdmin dateCreation;
     public PropertyAdmin location;
     public PropertyAdmin author;
-    
+    public PropertyAdmin sameAs;
+    public PropertyAdmin description;
 
     
     public Property[] getPropertiesObject() {
@@ -64,6 +65,7 @@ public class Object extends Entity {
     public void constructObject() {
         this.author = getObjectPropertyAdmin("author");
         this.location = getObjectPropertyAdmin("location");
+        this.description = getObjectPropertyAdmin("description");
         ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
         if(p != null){
         Iterator<Property> it = p.iterator();
@@ -77,6 +79,10 @@ public class Object extends Entity {
                     case "location":
                         this.location.setEntity_dbpedia(n.getEnt());
                         this.location.setValue_dbpedia(n.getValue());
+                        break;
+                    case "description":
+                        this.description.setEntity_dbpedia(n.getEnt());
+                        this.description.setValue_dbpedia(n.getValue());
                         break;
                 }
             }
@@ -94,6 +100,10 @@ public class Object extends Entity {
                 break;
             case "location":
                 pa = getPropertyAdmin("takePlaceIn", "entity");
+                pa.setName(propertyName);
+                break;
+            case "description":
+                pa = getPropertyAdmin("Description", "literal");
                 pa.setName(propertyName);
                 break;
         }

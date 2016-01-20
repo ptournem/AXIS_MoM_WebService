@@ -56,13 +56,10 @@ public class semantics {
                 tab = ev.getPropertiesEvent();
 		break;
 	    case "object":
-                System.out.println("un objet");
                 Object o = new Object();
                 o.setURI(e.getURI());
                 o.constructEntity();
-                System.out.println("Etape 1 : "+e);
                 o.constructObject();
-                System.out.println("Etape 2 : "+o);
                 tab = o.getPropertiesObject();
 		break;
 

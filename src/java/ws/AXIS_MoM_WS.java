@@ -135,10 +135,10 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
         
         e.constructEntity();
         
-        Object obj = new Object();
-        obj.setURI(e.getURI());
-        obj.constructObject();
-        System.out.println(obj);
+//        Object obj = new Object();
+//        obj.setURI(e.getURI());
+//        obj.constructObject();
+//        System.out.println(obj);
         
         semantics ctrl = new semantics();
         Property[] tab = ctrl.getAllPropertiesFromEntity(e);
