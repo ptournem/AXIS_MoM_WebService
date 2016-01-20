@@ -87,8 +87,10 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
             Entity e = new Entity();
             e.setURI(tabEntities[i]);
             e.constructEntity();
-            if(e.getName().contains(needle))
-                tab.add(e);
+            if(e.getName() != null) {
+                if(e.getName().contains(needle))
+                    tab.add(e);
+            }
         }
         
         Entity[] ret = new Entity[tab.size()];
@@ -156,24 +158,26 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     @Override
     public Entity[] GetAllEntities() {
-	ArrayList<Entity> list = new ArrayList<>();
-
-	Entity e1 = new Entity();
-	e1.setImage("http://1.1.1.2/bmi/static.ladepeche.fr/content/media/image/zoom/2011/03/07/603056.jpg");
-	e1.setName("Canette de coca");
-	e1.setURI("coca");
-	e1.setType("object");
-	list.add(e1);
-
-	Entity e2 = new Entity();
-	e2.setImage("http://1.1.1.1/bmi/cp91279.biography.com/1000509261001/1000509261001_1891997649001_History-Bill-Clinton-on-MLK-SF.jpg");
-	e2.setName("Martin Luther King");
-	e2.setURI("MLK");
-	e2.setType("person");
-	list.add(e2);
-
-	Entity[] ret = new Entity[list.size()];
-	return (Entity[]) list.toArray(ret);
+        
+        return this.SearchOurEntitiesFromText("");
+//	ArrayList<Entity> list = new ArrayList<>();
+//
+//	Entity e1 = new Entity();
+//	e1.setImage("http://1.1.1.2/bmi/static.ladepeche.fr/content/media/image/zoom/2011/03/07/603056.jpg");
+//	e1.setName("gros bouffon coco");
+//	e1.setURI("coca");
+//	e1.setType("object");
+//	list.add(e1);
+//
+//	Entity e2 = new Entity();
+//	e2.setImage("http://1.1.1.1/bmi/cp91279.biography.com/1000509261001/1000509261001_1891997649001_History-Bill-Clinton-on-MLK-SF.jpg");
+//	e2.setName("salut beau gosse");
+//	e2.setURI("MLK");
+//	e2.setType("person");
+//	list.add(e2);
+//
+//	Entity[] ret = new Entity[list.size()];
+//	return (Entity[]) list.toArray(ret);
     }
 
     @Override

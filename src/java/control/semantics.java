@@ -10,6 +10,8 @@ import Dialog.Property;
 import java.net.URI;
 import java.util.ArrayList;
 import static model.Connector.*;
+import model.Event;
+import model.Person;
 import org.apache.jena.rdf.model.Model;
 
 
@@ -34,6 +36,23 @@ public class semantics {
         
         //en fonction du type, on fait une boucle pour récuperer toutes les infos de l'oeuvre en interne + lod
         
+        switch (e.getType()) {
+	    case "person":
+		Person p = (Person) e;
+                p.getPropertiesPerson();
+		break;
+	    case "event":
+		Event ev = (Event) e;
+                ev.getPropertiesEvent();
+		break;
+	    case "object":
+		model.Object o = (model.Object) e;
+                o.getPropertiesObject();
+		break;
+
+	    default:
+		throw new AssertionError();
+	}
         
         Property[] tab = null;
         

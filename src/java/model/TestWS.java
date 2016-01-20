@@ -16,13 +16,50 @@ import ws.AXIS_MoM_WS;
  */
 public class TestWS {
     public static void main(String args[]) {
-        //Entity e = testAddEntity();
         
-        testPerson();
+        //testPerson();
         
-//        testRecherche();
+        //testRecherche();
+        testLoadEntityProperties();
     }
     
+    public static void testLoadEntityProperties() {
+        Entity e = new Entity();
+        
+        e.setURI("http://titan.be/axis-poc2015/55cad415-5726-4e25-a9dc-5da1d2d483ed");
+        
+        e.constructEntity();
+        
+        System.out.println(e);
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        
+        Property p1 = new Property();
+	p1.setName("author");
+	p1.setValue("robite");
+	p1.setType("fr");
+        
+        Object o = (Object) e;
+        o.insertAuthor(p1);
+        
+        
+        Property[] tab = ws.LoadEntityProperties(e);
+        
+        for(int i=0; i<tab.length;i++) {
+            System.out.println("Property trouvée : "+tab[i]);
+        }
+        
+        System.out.println(e);
+    }
+    
+    public static void testConstructEntity() {
+        Entity e = new Entity();
+        
+        e.setURI("http://titan.be/axis-poc2015/55cad415-5726-4e25-a9dc-5da1d2d483ed");
+        
+        e.constructEntity();
+        
+        System.out.println(e);
+    }
     public static Entity testAddEntity(String img, String name, String type) {
         Entity e = new Entity();
         e.setImage(img);
@@ -146,7 +183,7 @@ public class TestWS {
     public static void testRecherche() {
 
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
-        Entity[] tab = ws.SearchOurEntitiesFromText("G2");
+        Entity[] tab = ws.SearchOurEntitiesFromText("");
 
         for(int i=0; i<tab.length;i++) {
             System.out.println("Entity trouvée : "+tab[i]);

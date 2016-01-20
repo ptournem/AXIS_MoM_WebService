@@ -26,7 +26,7 @@ public class Person extends Entity {
     public PropertyAdmin deathDate;
     public PropertyAdmin placeOfBirth;
 
-    public Property[] getPropertiesObject() {
+    public Property[] getPropertiesPerson() {
         ArrayList<Property> list = new ArrayList<Property>();
 
 	list.add(new Property(this.birthDate.getName(), this.birthDate.getValue_locale(), this.birthDate.getType(), this.birthDate.getEntity_locale()));
