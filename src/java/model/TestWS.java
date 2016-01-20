@@ -53,7 +53,7 @@ public class TestWS {
         p3.setValue("21/03");
         p3.setEnt(null);
         
-        Entity e3 = testAddEntity("Paris.jpg", "Paris", "location");
+        Entity e3 = testAddEntity("http://wikitravel.org/upload/shared//thumb/d/da/Paris_Eiffel.jpg/320px-Paris_Eiffel.jpg", "Paris", "location");
         Property p4 = new Property();
         p4.setName("birthplace");
         p4.setType("uri");
@@ -66,6 +66,34 @@ public class TestWS {
         per.setType(e.getType());
         per.setName(e.getName());
         
+        Entity e4 = testAddEntity("https://pbs.twimg.com/profile_images/514575733126365185/u_xPRRKq_400x400.jpeg", "Caterina da Vinci", "person");
+        Person per2 = new Person();
+        per2.setImage(e4.getImage());
+        per2.setURI(e4.getURI());
+        per2.setType(e4.getType());
+        per2.setName(e4.getName());
+        
+        Property p5 = new Property();
+        p5.setName("mother");
+        p5.setType("uri");
+        p5.setValue(null);
+        p5.setEnt(e4);
+        
+        Entity e5 = testAddEntity("https://s-media-cache-ak0.pinimg.com/736x/b8/d7/51/b8d7512c624b786baad3ab1bfa3f0163.jpg", "Antonio da Vinci", "person");
+        Person per3 = new Person();
+        per3.setImage(e5.getImage());
+        per3.setURI(e5.getURI());
+        per3.setType(e5.getType());
+        per3.setName(e5.getName());
+        
+        Property p6 = new Property();
+        p6.setName("father");
+        p6.setType("uri");
+        p6.setValue(null);
+        p6.setEnt(e5);
+        
+        per.insertFather(p6);
+        per.insertMother(p5);
         per.insertBirthDate(p2);
         per.insertPlaceOfBirth(p4);
         per.insertDeathDate(p3);

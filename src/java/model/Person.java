@@ -133,6 +133,101 @@ public class Person extends Entity {
         }
     }
 
+    public void insertMother(Property p) {
+        String uri1 = null;
+        System.out.println("type property = "+this.getTypeProperty(p));
+        switch (this.getTypeProperty(p)) {
+	    case "dbpedia":
+                uri1 = insert("rdf:type", "axis-datamodel:Person");
+                insert(this.getURI(), "dbont:mother", uri1);
+                insert(uri1, "dbont:child", this.getURI());
+                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                break;
+                
+            case "our":
+                insert(this.getURI(), "dbont:mother", p.getEnt().getURI());
+                break;
+                
+            case "literal":
+                uri1 = insert("rdf:type", "axis-datamodel:Person");
+                insert(this.getURI(), "dbont:mother", uri1);
+                insert(uri1, "dbont:child", this.getURI());
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertFather(Property p) {
+        String uri1 = null;
+        System.out.println("type property = "+this.getTypeProperty(p));
+        switch (this.getTypeProperty(p)) {
+	    case "dbpedia":
+                uri1 = insert("rdf:type", "axis-datamodel:Person");
+                insert(this.getURI(), "dbont:father", uri1);
+                insert(uri1, "dbont:child", this.getURI());
+                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                break;
+                
+            case "our":
+                insert(this.getURI(), "dbont:father", p.getEnt().getURI());
+                break;
+                
+            case "literal":
+                uri1 = insert("rdf:type", "axis-datamodel:Person");
+                insert(this.getURI(), "dbont:father", uri1);
+                insert(uri1, "dbont:child", this.getURI());
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertRestInPlace(Property p) {
+        String uri1 = null;
+        System.out.println("type property = "+this.getTypeProperty(p));
+        switch (this.getTypeProperty(p)) {
+	    case "dbpedia":
+                uri1 = insert("rdf:type", "axis-datamodel:Place");
+                insert(this.getURI(), "dbont:restInPlace", uri1);
+                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                break;
+                
+            case "our":
+                insert(this.getURI(), "dbont:restInPlace", p.getEnt().getURI());
+                break;
+                
+            case "literal":
+                uri1 = insert("rdf:type", "axis-datamodel:Place");
+                insert(this.getURI(), "dbont:restInPlace", uri1);
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertIsAuthorOf(Property p) {
+        String uri1 = null;
+        System.out.println("type property = "+this.getTypeProperty(p));
+        switch (this.getTypeProperty(p)) {
+	    case "dbpedia":
+                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
+                insert(this.getURI(), "axis-datamodel:performs", uri1);
+                insert(uri1, "axis-datamodel:isPerformedBy", this.getURI());
+                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                break;
+                
+            case "our":
+                insert(this.getURI(), "axis-datamodel:performs", p.getEnt().getURI());
+                insert(p.getEnt().getURI(), "axis-datamodel:isPerformedBy", this.getURI());
+                break;
+                
+            case "literal":
+                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
+                insert(this.getURI(), "axis-datamodel:performs", uri1);
+                insert(uri1, "axis-datamodel:isPerformedBy", this.getURI());
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
     @Override
     public String toString() {
         return "Person{" + "birthDate=" + birthDate + ", deathDate=" + deathDate + ", placeOfBirth=" + placeOfBirth + '}';
