@@ -22,7 +22,7 @@ public class Activity extends Entity {
     public PropertyAdmin location;
 
     
-    public Property[] getPropertiesEvent() {
+    public Property[] getPropertiesActivity() {
         ArrayList<Property> list = new ArrayList<Property>();
 
 	list.add(new Property(this.dateOfactivity.getName(), this.dateOfactivity.getValue_locale(), this.dateOfactivity.getType(), this.dateOfactivity.getEntity_locale()));
@@ -32,7 +32,7 @@ public class Activity extends Entity {
 	Property[] ret = new Property[list.size()];
 	return (Property[]) list.toArray(ret);
     }
-     public PropertyAdmin[] getPropertiesAdminEvent() {
+     public PropertyAdmin[] getPropertiesAdminActivity() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
 	list.add(this.dateOfactivity);
