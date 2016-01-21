@@ -151,21 +151,30 @@ public class Connector {
        public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
        ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
-        String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
-                + "PREFIX dbp: <http://dbpedia.org/property/>"
-                + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
-                + "PREFIX dbr: <http://dbpedia.org/resource/>"
-                + "PREFIX type: <http://dbpedia.org/class/yago/>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "construct where {<" + uri + "> ?p ?o}";
-        Query DBquery = QueryFactory.create(DBQueryString);
-        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
-        Model m = qDBexec.execConstruct();
+        Model m = lodQuery(uri, "http://dbpedia.org/property/artist", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+        m = lodQuery(uri, "http://dbpedia.org/property/author", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+        m = lodQuery(uri, "http://dbpedia.org/property/dateOfBirth", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+        m = lodQuery(uri, "http://dbpedia.org/property/dateOfDeath", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+        m = lodQuery(uri, "http://dbpedia.org/ontology/birthPlace", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+        m = lodQuery(uri, "http://dbpedia.org/ontology/abstract", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+        m = lodQuery(uri, "http://dbpedia.org/property/mother", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+        m = lodQuery(uri, "http://dbpedia.org/property/father", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+        m = lodQuery(uri, "http://dbpedia.org/property/restinplace", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+//     System.out.println("ppp"+tProp);
+      return tProp;
+    }
+
+      public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp){
         StmtIterator iter = m.listStatements();
-       
         while (iter.hasNext()) {
            Dialog.Property p2 = new Dialog.Property(null, null,null,null);
             Statement stmt = (Statement) iter.next();           
@@ -205,6 +214,12 @@ public class Connector {
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
                     break;
+                case "http://dbpedia.org/ontology/mother":
+                    p2.setName("mother");
+                    break;
+                case "http://dbpedia.org/ontology/father":
+                    p2.setName("father");
+                    break;
                 default:
                    p2.setName("default");
                     break;
@@ -232,14 +247,8 @@ public class Connector {
               
               
         }
-        for(int i = 0; i < tProp.size(); i++)
-        {
-            System.out.println("propriété n° " + i + " = " + tProp.get(i));
-        }
-//     System.out.println("ppp"+tProp);
-      return tProp;
-    }
-
+        return tProp;
+      }
 //    for(int i = 0; i < tProp.size(); i++)
 //    {
 //      System.out.println("donnée à l'indice " + i + " = " + tProp.get(i));
