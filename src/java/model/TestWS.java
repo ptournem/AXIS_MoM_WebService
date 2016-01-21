@@ -188,14 +188,16 @@ public class TestWS {
 
 
         Person obj2 = new Person();
-        obj2.setURI("http://dbpedia.org/resource/Leonardo_da_Vinci");
+        Entity e = new Entity();
+        e.setURI("http://dbpedia.org/resource/Napoleon");
+        obj2.setURI(e.getURI());
+        e.constructEntity();
         obj2.constructEntity();
         obj2.constructPerson();
         
 
         System.out.println("obj = "+obj2);
 //        PropertyAdmin[] tab = ws.GetAllPropertiesAdmin(e);
-//        
 //        for(int i=0; i<tab.length;i++) {
 //            System.out.println("Property trouvée : "+tab[i]);
 //        }

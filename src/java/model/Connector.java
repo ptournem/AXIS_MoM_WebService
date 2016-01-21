@@ -167,9 +167,9 @@ public class Connector {
         tProp = searchPropertyFromModel(m, tProp);
         m = lodQuery(uri, "http://dbpedia.org/property/father", "?o");
         tProp = searchPropertyFromModel(m, tProp);
-        m = lodQuery(uri, "http://dbpedia.org/property/restinplace", "?o");
+        m = lodQuery(uri, "http://dbpedia.org/ontology/restingPlace", "?o");
         tProp = searchPropertyFromModel(m, tProp);
-//     System.out.println("ppp"+tProp);
+     System.out.println("ppp"+tProp);
       return tProp;
     }
 
@@ -187,7 +187,6 @@ public class Connector {
 //            System.out.println("Subject :" + subject.toString());
 //            System.out.println("Object:" + object.toString());
 //            System.out.println("----------------------");
-        
             switch (p) {
                 case "http://dbpedia.org/property/artist":
                     p2.setName("author");
@@ -207,26 +206,30 @@ public class Connector {
                  case "http://dbpedia.org/ontology/birthPlace":
                     p2.setName("birthplace");
                     break;
+                 case "http://dbpedia.org/ontology/restingPlace":
+                    p2.setName("restinplace");
+                    break;
                 case "http://dbpedia.org/ontology/abstract":
                     String test = stmt.getObject().asLiteral().getLanguage();
                     if (test.equals("fr")) {
                         p2.setName(object.asLiteral().getString());
-                        System.out.println("FR>>"+object.toString());
                         p2.setName("description");
+                    }else{
+                        p2.setName("default");
                     }
                     
                     break;
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
                     break;
-                case "http://dbpedia.org/ontology/mother":
+                case "http://dbpedia.org/property/mother":
                     p2.setName("mother");
                     break;
-                case "http://dbpedia.org/ontology/father":
+                case "http://dbpedia.org/property/father":
                     p2.setName("father");
                     break;
                 default:
-                   p2.setName("default");
+                    p2.setName("default");
                     break;
             }
             p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", ""));
@@ -239,8 +242,7 @@ public class Connector {
                 p2.setType("fr");
                 p2.setEnt(null);
             }
-            if (p2.getName().contains("default")) {
-            } else {
+            if (!p2.getName().contains("default")) {
 //                System.out.println("--------------------");
 //                System.out.println("entity :" + p2.getEnt());
 //                System.out.println("name :" + p2.getName());
@@ -269,7 +271,6 @@ public class Connector {
                  + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<"+s+"> <"+p+"> "+o+"}";
-        System.out.println("DBQueryString:"+DBQueryString);
           Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
@@ -311,9 +312,7 @@ public class Connector {
             switch (p) {
                     // si le predicat est un type
                     case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
-                        System.out.println("type");
                         String typ = stmt.getObject().toString();
-                        System.out.println(typ);
                         if (typ.contains("Object")) {
                             e.setType("object");
                         }
@@ -336,8 +335,6 @@ public class Connector {
                         break;
                          case "http://dbpedia.org/property/type":
                         String typ2 = stmt.getObject().toString();
-                             System.out.println("type");
-                             System.out.println("typ");
                         if (typ2.contains("Object")) {
                             e.setType("object");
                         }
@@ -360,18 +357,13 @@ public class Connector {
                         break;
                     case "http://dbpedia.org/ontology/thumbnail":
                         e.setImage(object.toString());
-                        System.out.println("image");
-                        System.out.println(object.toString());
                         break;
                         
                     case "http://www.w3.org/2000/01/rdf-schema#label":
                         String test = stmt.getObject().asLiteral().getLanguage();
                         if (test.equals("fr")) {
                             e.setName(object.toString().replace("@fr", ""));
-                            System.out.println("FR>>"+object.toString());
                         }
-                        System.out.println("label");
-                        System.out.println(object.toString());
                         break;
                      case "http://dbpedia.org/ontology/alias":
                             e.setName(object.toString().replace("@en",""));
