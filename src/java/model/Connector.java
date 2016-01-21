@@ -179,7 +179,6 @@ public class Connector {
            Dialog.Property p2 = new Dialog.Property(null, null,null,null);
             Statement stmt = (Statement) iter.next();           
 //          System.out.println("test : "+stmt.asTriple().toString());
-            Resource subject = stmt.getSubject();
             org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
             RDFNode object = stmt.getObject();
@@ -209,7 +208,13 @@ public class Connector {
                     p2.setName("birthplace");
                     break;
                 case "http://dbpedia.org/ontology/abstract":
-                    p2.setName("description");
+                    String test = stmt.getObject().asLiteral().getLanguage();
+                    if (test.equals("fr")) {
+                        p2.setName(object.asLiteral().getString());
+                        System.out.println("FR>>"+object.toString());
+                        p2.setName("description");
+                    }
+                    
                     break;
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
@@ -264,6 +269,7 @@ public class Connector {
                  + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<"+s+"> <"+p+"> "+o+"}";
+        System.out.println("DBQueryString:"+DBQueryString);
           Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
