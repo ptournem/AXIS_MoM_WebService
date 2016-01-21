@@ -54,7 +54,7 @@ public class Object extends Entity {
 
 	list.add(this.author);
         list.add(this.location);
-        list.add(this.sameAs);
+        //list.add(this.sameAs);
         list.add(this.description);
         //list.add(this.dateCreation);
 	
