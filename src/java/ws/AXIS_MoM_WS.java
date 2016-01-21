@@ -254,13 +254,14 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
         System.out.println(e.getURI());
         e.constructEntity();
         
-        Object obj = new Object();
-        obj.setURI(e.getURI());
-        obj.constructObject();
-        System.out.println(obj);
         
         semantics ctrl = new semantics();
         PropertyAdmin[] tab = ctrl.getAllPropertiesAdminFromEntity(e);
+        
+        for(int i=0;i<tab.length;i++) {
+            PropertyAdmin ptest = tab[i];
+            System.out.println("valeur = "+ptest);
+        }
         return tab;
 //	ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 //	PropertyAdmin p1 = new PropertyAdmin();

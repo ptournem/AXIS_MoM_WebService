@@ -59,7 +59,7 @@ public class Person extends Entity {
         list.add(this.father);
         list.add(this.isAuthorOf);
         list.add(this.restInPlace);
-        list.add(this.sameAs);
+        //list.add(this.sameAs);
         list.add(this.description);
 	
 	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
@@ -68,8 +68,9 @@ public class Person extends Entity {
     
     public void constructPerson() {
         this.birthDate = getPersonPropertyAdmin("birthdate");
-        this.deathDate = getPersonPropertyAdmin("deathdate");
         this.placeOfBirth = getPersonPropertyAdmin("birthplace");
+        this.deathDate = getPersonPropertyAdmin("deathdate");
+        
         this.mother = getPersonPropertyAdmin("mother");
         this.father = getPersonPropertyAdmin("father");
         this.isAuthorOf = getPersonPropertyAdmin("isauthorof");
