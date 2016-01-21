@@ -46,7 +46,7 @@ public class Connector {
 //        
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
-       Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", null, null, null);
+       Entity e = new Entity("http://dbpedia.org/resource/Lens,_Pas-de-Calais", null, null, null);
         // String uri = e.getURI().toString();
        entityBrowser(e);
         // String test = "Racine";
@@ -169,6 +169,13 @@ public class Connector {
         tProp = searchPropertyFromModel(m, tProp);
         m = lodQuery(uri, "http://dbpedia.org/ontology/restingPlace", "?o");
         tProp = searchPropertyFromModel(m, tProp);
+         m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+         m = lodQuery(uri, "http://dbpedia.org/ontology/country", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+         m = lodQuery(uri, "http://dbpedia.org/ontology/postalCode", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+     
      System.out.println("ppp"+tProp);
       return tProp;
     }
@@ -228,6 +235,21 @@ public class Connector {
                 case "http://dbpedia.org/property/father":
                     p2.setName("father");
                     break;
+                case "http://dbpedia.org/ontology/country":
+                    p2.setName("country");
+                    break;
+                case "http://dbpedia.org/ontology/region":
+                    p2.setName("region");
+                    break;
+                case "http://dbpedia.org/ontology/postalCode":
+                    p2.setName("postalCode");
+                    break;
+                case "http://dbpedia.org/ontology/birthPlace of":
+                    p2.setName("birthPlaceOf");
+                    break;
+                case "http://dbpedia.org/ontology/location of":
+                    p2.setName("locationOf");
+                break;
                 default:
                     p2.setName("default");
                     break;
