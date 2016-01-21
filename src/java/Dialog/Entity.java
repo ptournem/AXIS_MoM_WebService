@@ -177,8 +177,14 @@ public List<List> browseModel(Resource resource, String predicate){
     }
     
     public ArrayList<Property> getPropertiesMapFromLod(String uri){
+        if(uri.contains("dbpedia")){
+            Entity e =new Entity();
+            e.setURI(uri);
+            return entityBrowser(e);
+        }
         String newUri = null;
         ResultSet rs = selectFromEntity("<"+uri+">", "?p", "?o");
+        
         while(rs.hasNext()){
             QuerySolution qs = rs.nextSolution();
             if(qs.get("p").toString().contains("sameAs")){
@@ -407,7 +413,6 @@ public List<List> browseModel(Resource resource, String predicate){
             java.lang.Object o = null;
             if(it.hasNext()){
                 o = it.next();
-                }
             List list = (List) o;
             resource = m.getResource(list.get(2).toString());
             StmtIterator p = resource.listProperties();
@@ -417,6 +422,7 @@ public List<List> browseModel(Resource resource, String predicate){
                     pa.setType(n.getLiteral().getLanguage());
                     pa.setValue_locale(n.getLiteral().getString());
                 }
+            }
             }
         }
         return pa;

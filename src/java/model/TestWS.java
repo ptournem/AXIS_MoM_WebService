@@ -23,7 +23,8 @@ public class TestWS {
 //        testObject();
         //testRecherche();
 //        testLoadEntityProperties();
-        testAll();
+//        testAll();
+        testLoadEntityProperties();
         
 
     }
@@ -186,10 +187,10 @@ public class TestWS {
     public static void testLoadEntityProperties() {
 
 
-        Object obj2 = new Object();
-        obj2.setURI("http://titan.be/axis-poc2015/7d0b5b6f-5471-4c17-bc43-1cb236795490");
+        Person obj2 = new Person();
+        obj2.setURI("http://dbpedia.org/resource/Leonardo_da_Vinci");
         obj2.constructEntity();
-        obj2.constructObject();
+        obj2.constructPerson();
         
 
         System.out.println("obj = "+obj2);
