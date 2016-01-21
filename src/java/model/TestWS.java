@@ -25,8 +25,7 @@ public class TestWS {
 //        testLoadEntityProperties();
 //        testAll();
         testLoadEntityProperties();
-        
-
+     
     }
     
     public static void testAll(){

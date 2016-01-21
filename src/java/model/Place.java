@@ -6,15 +6,17 @@
 
 package model;
 
+import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
  * @author APP-Riad.Belmahi
  */
-public class Place {
+public class Place extends Entity{
 public PropertyAdmin postalCode;
 public PropertyAdmin region;
 public PropertyAdmin country;
@@ -35,7 +37,78 @@ public PropertyAdmin locationOf;
         Property[] ret = new Property[list.size()];
 	return (Property[]) list.toArray(ret);
     }
- 
+   public void constructPerson() {
+        this.birthPlaceOf = getPlacePropertyAdmin("birthPlaceOf");
+        this.country = getPlacePropertyAdmin("country");
+        this.description = getPlacePropertyAdmin("description");
+        
+        this.locationOf = getPlacePropertyAdmin("locationOf");
+        this.postalCode = getPlacePropertyAdmin("postalCode");
+        this.region = getPlacePropertyAdmin("region");
+        
+        ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
+        if(p != null){
+        Iterator<Property> it = p.iterator();
+        while(it.hasNext()){
+            Property n = it.next();
+            System.out.println("n:"+n.getName());
+            switch (n.getName()) {
+                case "birthPlaceOf":
+                    this.birthPlaceOf.setEntity_dbpedia(n.getEnt());
+                    this.birthPlaceOf.setValue_dbpedia(n.getValue());
+                    break;
+                case "country":
+                    this.country.setEntity_dbpedia(n.getEnt());
+                    this.country.setValue_dbpedia(n.getValue());
+                    break;
+                case "locationOf":
+                    this.locationOf.setEntity_dbpedia(n.getEnt());
+                    this.locationOf.setValue_dbpedia(n.getValue());
+                    break;
+                case "postalCode":
+                    this.postalCode.setEntity_dbpedia(n.getEnt());
+                    this.postalCode.setValue_dbpedia(n.getValue());
+                    break;
+                case "region":
+                    this.region.setEntity_dbpedia(n.getEnt());
+                    this.region.setValue_dbpedia(n.getValue());
+                    break;
+            }
+            
+        }}
+    }
+   
+   public PropertyAdmin getPlacePropertyAdmin(String propertyName){
+        PropertyAdmin pa = new PropertyAdmin();
+        switch (propertyName) {
+            case "country":
+                pa = getPropertyAdmin("country", "entity");
+                pa.setName(propertyName);
+                break;
+            case "region":
+                pa = getPropertyAdmin("takePlaceIn", "entity");
+                pa.setName(propertyName);
+                break;
+            case "description":
+                pa = getPropertyAdmin("Description", "literal");
+                pa.setName(propertyName);
+                break;
+            case "locationOf":
+                pa = getPropertyAdmin("locationOf", "entity");
+                pa.setName(propertyName);
+                break;
+            case "birthPlaceOf":
+                pa = getPropertyAdmin("birthPlaceOf", "entity");
+                pa.setName(propertyName);
+                break;
+            case "postalCode":
+                pa = getPropertyAdmin("postalCode", "literal");
+                pa.setName(propertyName);
+                break;
+        }
+        return pa;
+    }
+   
    public PropertyAdmin[] getPropertiesAdminOrganisation() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 

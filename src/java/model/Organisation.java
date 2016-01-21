@@ -6,6 +6,7 @@
 
 package model;
 
+import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  *
  * @author APP-Riad.Belmahi
  */
-public class Organisation {
+public class Organisation extends Entity {
     
 public PropertyAdmin typeOfOrganisation;
 public PropertyAdmin dateOfCreation;
