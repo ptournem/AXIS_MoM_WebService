@@ -298,10 +298,21 @@ public class TestWS {
     public static void testLoadEntityProperties() {
 
 
+        
+        Entity napDB = new Entity();
+        napDB.setURI("http://dbpedia.org/resource/Napoleon");
+        napDB.constructEntity();
+        
+        Entity nap = testAddEntity("nap.jpg", "nap", "person");
+        
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        
         Person obj2 = new Person();
-        Entity e = new Entity();
-        e.setURI("http://dbpedia.org/resource/Napoleon");
-        obj2.setURI(e.getURI());
+        
+        
+        lierEntity(ws, nap, "sameas", napDB);
+        
+        obj2.setURI(nap.getURI());
         obj2.constructEntity();
         obj2.constructPerson();
         

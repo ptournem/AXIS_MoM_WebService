@@ -196,6 +196,7 @@ public List<List> browseModel(Resource resource, String predicate){
                 newUri = qs.get("o").toString();
                 Entity e1 =new Entity();
                 e1.setURI(newUri);
+                e1.constructEntity();
                 return entityBrowser(e1);
             }
         }
