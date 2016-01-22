@@ -36,9 +36,26 @@ public class TestWS {
 //        testLoadEntityProperties();
 
 //        testAll();
-        testLoadEntityProperties();
+        //testLoadEntityProperties();
 //        testFonctionnel();
+        testPropertiesDbpedia();
      
+    }
+    
+    public static void testPropertiesDbpedia() {
+        Entity e = new Entity();
+        e.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
+        e.constructEntity();
+        
+        Place pla = new Place();
+        pla.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
+        pla.constructEntity();
+        pla.constructPlace();
+        
+        System.out.println("Entity : "+e);
+        System.out.println("Place : "+pla);
+        
+        
     }
     
     

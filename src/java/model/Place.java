@@ -245,8 +245,14 @@ public class Place extends Entity{
     public void insertPostalCode(Property p) {
         insert(this.getURI(), "dbont:postalCode", p.getValue(), p.getType());
     }
+
+    @Override
+    public String toString() {
+        return "Place{" + "postalCode=" + postalCode + ", region=" + region + ", country=" + country + ", description=" + description + ", birthPlaceOf=" + birthPlaceOf + ", locationOf=" + locationOf + ", sameAs=" + sameAs + '}';
+    }
     
 
+    
    
    
 }
