@@ -21,6 +21,8 @@ import model.Object;
 
 @WebService(serviceName = "AXIS_MoM_WS", endpointInterface = "ws.AXIS_MoM_WSInterface")
 public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
+    
+    public String testTabResults;
 
     @Override
     public Entity AddEntity(Entity e) {
@@ -133,6 +135,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     @Override
     public Property[] LoadEntityProperties(Entity e) {
         
+        
         e.constructEntity();
         
 //        Object obj = new Object();
@@ -141,6 +144,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 //        System.out.println(obj);
         
         semantics ctrl = new semantics();
+        
         Property[] tab = ctrl.getAllPropertiesFromEntity(e);
         return tab;
 
@@ -148,19 +152,22 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     @Override
     public Entity[] SearchOurEntitiesFromText(String needle) {
+
 	String [] tabEntities = selectAllEntitiesURI();
         ArrayList<Entity> tab = new ArrayList<Entity>();
-        
+
+        needle = needle.toLowerCase().replaceAll(" ", "");
         for(int i =0; i<tabEntities.length; i++) {
             Entity e = new Entity();
             e.setURI(tabEntities[i]);
             e.constructEntity();
+
             if(e.getName() != null) {
-                if(e.getName().contains(needle))
+                if(e.getName().toLowerCase().replaceAll(" ", "").contains(needle))
                     tab.add(e);
             }
         }
-        
+
         Entity[] ret = new Entity[tab.size()];
 	return (Entity[]) tab.toArray(ret);
     }

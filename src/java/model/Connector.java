@@ -526,16 +526,16 @@ public class Connector {
         
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
-                        "PREFIX dbont: <http://dbpedia.org/ontology/> "
-                + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 + "select ?o where {?s axis-datamodel:uses ?o ." +
-"	?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> axis-datamodel:Entity}"));
+"	?s rdf:type axis-datamodel:Entity}"));
 
+        
         ResultSet rs = qe.execSelect();
-
+        
+        
+        
         List<QuerySolution> mList = null;
         mList = ResultSetFormatter.toList(rs);
         
