@@ -11,18 +11,21 @@ import Dialog.Property;
 import Dialog.PropertyAdmin;
 import java.util.ArrayList;
 import java.util.Iterator;
+import static model.Connector.insert;
 
 /**
  *
  * @author APP-Riad.Belmahi
  */
 public class Place extends Entity{
-public PropertyAdmin postalCode;
-public PropertyAdmin region;
-public PropertyAdmin country;
-public PropertyAdmin description;
-public PropertyAdmin birthPlaceOf;
-public PropertyAdmin locationOf;
+    
+    public PropertyAdmin postalCode;
+    public PropertyAdmin region;
+    public PropertyAdmin country;
+    public PropertyAdmin description;
+    public PropertyAdmin birthPlaceOf;
+    public PropertyAdmin locationOf;
+    public PropertyAdmin sameAs;
 
  public Property[] getPropertiesPlace() {
         ArrayList<Property> list = new ArrayList<Property>();
@@ -37,7 +40,20 @@ public PropertyAdmin locationOf;
         Property[] ret = new Property[list.size()];
 	return (Property[]) list.toArray(ret);
     }
-   public void constructPerson() {
+ 
+ public PropertyAdmin[] getPropertiesAdminPlace() {
+        ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
+
+	list.add(this.postalCode);
+        list.add(this.region);
+        list.add(this.country);
+        list.add(this.description);
+        list.add(this.birthPlaceOf);
+	 list.add(this.locationOf);
+	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
+	return (PropertyAdmin[]) list.toArray(ret);
+    }
+   public void constructPlace() {
 //        this.birthPlaceOf = getPlacePropertyAdmin("birthPlaceOf");
         this.country = getPlacePropertyAdmin("country");
         this.description = getPlacePropertyAdmin("description");
@@ -133,17 +149,99 @@ public PropertyAdmin locationOf;
         }
         return pa;
     }
-   
-   public PropertyAdmin[] getPropertiesAdminPlace() {
-        ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
-
-	list.add(this.postalCode);
-        list.add(this.region);
-        list.add(this.country);
-        list.add(this.description);
-        list.add(this.birthPlaceOf);
-	 list.add(this.locationOf);
-	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
-	return (PropertyAdmin[]) list.toArray(ret);
+    
+    public void insertCountry(Property p) {
+        String uri1 = null;
+        switch (this.getTypeProperty(p)) {
+	    case "dbpedia":
+                uri1 = insert("rdf:type", "axis-datamodel:Place");
+                insert(this.getURI(), "dbont:country", uri1);
+                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                break;
+                
+            case "our":
+                insert(this.getURI(), "dbont:country", p.getEnt().getURI());
+                break;
+                
+            case "literal":
+                uri1 = insert("rdf:type", "axis-datamodel:Place");
+                insert(this.getURI(), "dbont:country", uri1);
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                break;
+        }
     }
+    
+    public void insertRegion(Property p) {
+        String uri1 = null;
+        switch (this.getTypeProperty(p)) {
+	    case "dbpedia":
+                uri1 = insert("rdf:type", "axis-datamodel:Place");
+                insert(this.getURI(), "dbont:region", uri1);
+                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                break;
+                
+            case "our":
+                insert(this.getURI(), "dbont:region", p.getEnt().getURI());
+                break;
+                
+            case "literal":
+                uri1 = insert("rdf:type", "axis-datamodel:Place");
+                insert(this.getURI(), "dbont:region", uri1);
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertLocationOf(Property p) {
+        String uri1 = null;
+        switch (this.getTypeProperty(p)) {
+	    case "dbpedia":
+                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
+                insert(this.getURI(), "axis-datamodel:isAPlaceOfObject", uri1);
+                insert(uri1, "axis-datamodel:takePlaceIn", this.getURI());
+                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                break;
+                
+            case "our":
+                insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt().getURI());
+                insert(p.getEnt().getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
+                break;
+                
+            case "literal":
+                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
+                insert(this.getURI(), "axis-datamodel:isAPlaceOfObject", uri1);
+                insert(uri1, "axis-datamodel:takePlaceIn", this.getURI());
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertBirthPlaceOf(Property p) {
+        String uri1 = null;
+        switch (this.getTypeProperty(p)) {
+	    case "dbpedia":
+                uri1 = insert("rdf:type", "axis-datamodel:Person");
+                insert(this.getURI(), "dbont:birthPlace", uri1);
+                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                break;
+                
+            case "our":
+                insert(this.getURI(), "dbont:birthPlace", p.getEnt().getURI());
+                break;
+                
+            case "literal":
+                uri1 = insert("rdf:type", "axis-datamodel:Person");
+                insert(this.getURI(), "dbont:birthPlace", uri1);
+                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertPostalCode(Property p) {
+        insert(this.getURI(), "dbont:postalCode", p.getValue(), p.getType());
+    }
+    
+
+   
+   
 }

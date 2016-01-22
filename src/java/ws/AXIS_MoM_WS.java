@@ -17,6 +17,7 @@ import javax.jws.WebParam;
 import static model.Connector.selectAllEntitiesURI;
 import model.Person;
 import model.Object;
+import model.Place;
 
 
 @WebService(serviceName = "AXIS_MoM_WS", endpointInterface = "ws.AXIS_MoM_WSInterface")
@@ -38,6 +39,8 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     public Boolean SetEntityProperty(Entity e, Property p, Entity valueEntity) {
 	Object obj = new Object();
         Person pers = new Person();
+        Place pla = new Place();
+        e.constructEntity();
         
         p.setEnt(valueEntity);
         boolean ret = false;
@@ -119,6 +122,41 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pers.constructEntity();
                 pers.constructPerson();
                 pers.insertPlaceOfBirth(p);
+                ret = true;
+                break;
+            case "birthplaceof":
+                pla.setURI(e.getURI());
+                pla.constructEntity();
+                pla.constructPlace();
+                pla.insertBirthPlaceOf(p);
+                ret = true;
+                break;
+            case "postalcode":
+                pla.setURI(e.getURI());
+                pla.constructEntity();
+                pla.constructPlace();
+                pla.insertPostalCode(p);
+                ret = true;
+                break;
+            case "region":
+                pla.setURI(e.getURI());
+                pla.constructEntity();
+                pla.constructPlace();
+                pla.insertRegion(p);
+                ret = true;
+                break;
+            case "country":
+                pla.setURI(e.getURI());
+                pla.constructEntity();
+                pla.constructPlace();
+                pla.insertCountry(p);
+                ret = true;
+                break;
+            case "locationof":
+                pla.setURI(e.getURI());
+                pla.constructEntity();
+                pla.constructPlace();
+                pla.insertLocationOf(p);
                 ret = true;
                 break;
             default:
