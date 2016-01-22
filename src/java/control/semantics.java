@@ -8,7 +8,6 @@ package control;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
-import java.net.URI;
 import java.util.ArrayList;
 import static model.Connector.*;
 import model.Event;

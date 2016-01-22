@@ -8,13 +8,6 @@ package model;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
-import java.lang.reflect.Executable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.concurrent.Callable;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.query.ResultSet;
 import ws.AXIS_MoM_WS;
 
 /**
@@ -37,9 +30,10 @@ public class TestWS {
 
 //        testAll();
         //testLoadEntityProperties();
-//        testFonctionnel();
-        testPropertiesDbpedia();
+        testFonctionnel();
+        //testPropertiesDbpedia();
      
+        //System.out.println("\u001B[35mtest\u001B[1mtest\u001B[35mtest");
     }
     
     public static void testPropertiesDbpedia() {
@@ -133,6 +127,27 @@ public class TestWS {
         lierEntity(ws, leonard, "isauthorof", joconde);
         
         
+        
+        Property[] props = ws.LoadEntityProperties(leonard);
+        Property[] props2 = ws.LoadEntityProperties(vinciDB);
+        PropertyAdmin[] propsAdmin = ws.GetAllPropertiesAdmin(leonard);
+        
+        System.out.println("\n\n\n_______________");
+        
+        System.out.println("\nProperty Leonard (type Person) :");
+        for(int i=0; i<props.length;i++) {
+            System.out.println(" - Property["+i+"] : "+props[i]);
+        }
+        
+        System.out.println("\nPropertyAdmin Leonard (type Person) :");
+        for(int i=0; i<propsAdmin.length;i++) {
+            System.out.println(" - PropertyAdmin["+i+"] : "+propsAdmin[i]);
+        }
+        
+        System.out.println("\nProperty Vinci (URI Dbpedia) :");
+        for(int i=0; i<props2.length;i++) {
+            System.out.println(" - Property["+i+"] : "+props2[i]);
+        }
         
     }
     

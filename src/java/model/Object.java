@@ -12,15 +12,6 @@ import Dialog.PropertyAdmin;
 import java.util.ArrayList;
 import static model.Connector.*;
 import java.util.Iterator;
-import java.util.List;
-import static model.Connector.selectFromEntity;
-import static model.Connector.selectFromEntityWithPredicat;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.Literal;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.StmtIterator;
 
 /**
  *

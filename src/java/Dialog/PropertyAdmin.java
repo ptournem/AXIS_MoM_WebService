@@ -62,7 +62,7 @@ public class PropertyAdmin {
 
     @Override
     public String toString() {
-        return "PropertyAdmin{" + "name=" + name + ", value_locale=" + value_locale + ", value_dbpedia=" + value_dbpedia + ", entity_locale=" + entity_locale + ", entity_dbpedia=" + entity_dbpedia + ", type=" + type + '}';
+        return "PropertyAdmin{" + "\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue_locale=\u001B[0m" + value_locale + ", \u001B[34mvalue_dbpedia=\u001B[0m" + value_dbpedia + ", \u001B[34mentity_locale=\u001B[0m" + entity_locale + ", \u001B[34mentity_dbpedia=\u001B[0m" + entity_dbpedia + ", \u001B[34mtype=\u001B[0m" + type + '}';
     }
 
 }

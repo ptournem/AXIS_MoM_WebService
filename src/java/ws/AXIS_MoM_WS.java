@@ -12,8 +12,6 @@ import Dialog.PropertyAdmin;
 import control.semantics;
 import java.util.ArrayList;
 import javax.jws.WebService;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import static model.Connector.selectAllEntitiesURI;
 import model.Person;
 import model.Object;

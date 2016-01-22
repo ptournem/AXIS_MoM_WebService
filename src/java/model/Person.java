@@ -10,14 +10,7 @@ import Dialog.Property;
 import Dialog.PropertyAdmin;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import static model.Connector.*;
-import org.apache.jena.query.QuerySolution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
 
 /**
  *
