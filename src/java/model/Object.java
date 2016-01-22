@@ -73,15 +73,17 @@ public class Object extends Entity {
                 Property n = it.next();
                 switch (n.getName()) {
                     case "author":
+                        this.author.setType(n.getType());
                         if(this.getURI().contains("dbpedia")){
                             this.author.setEntity_locale(n.getEnt());
-                            this.author.setValue_locale(n.getValue());    
+                            this.author.setValue_locale(n.getValue());
                         }else{
                             this.author.setEntity_dbpedia(n.getEnt());
                             this.author.setValue_dbpedia(n.getValue());
                         }
                         break;
                     case "location":
+                        this.location.setType(n.getType());
                         if(this.getURI().contains("dbpedia")){
                             this.location.setEntity_locale(n.getEnt());
                             this.location.setValue_locale(n.getValue());
@@ -91,6 +93,7 @@ public class Object extends Entity {
                         }
                         break;
                     case "description":
+                        this.description.setType(n.getType());
                         if(this.getURI().contains("dbpedia")){
                             this.description.setEntity_locale(n.getEnt());
                             this.description.setValue_locale(n.getValue());

@@ -70,7 +70,6 @@ public class Person extends Entity {
         this.birthDate = getPersonPropertyAdmin("birthdate");
         this.placeOfBirth = getPersonPropertyAdmin("birthplace");
         this.deathDate = getPersonPropertyAdmin("deathdate");
-        
         this.mother = getPersonPropertyAdmin("mother");
         this.father = getPersonPropertyAdmin("father");
         this.isAuthorOf = getPersonPropertyAdmin("isAuthorOf");
@@ -83,9 +82,9 @@ public class Person extends Entity {
         Iterator<Property> it = p.iterator();
         while(it.hasNext()){
             Property n = it.next();
-            System.out.println("n:"+n.getName());
             switch (n.getName()) {
                 case "birthdate":
+                    this.birthDate.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.birthDate.setEntity_locale(n.getEnt());
                         this.birthDate.setValue_locale(n.getValue());
@@ -95,6 +94,7 @@ public class Person extends Entity {
                     }
                     break;
                 case "deathdate":
+                    this.birthDate.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.deathDate.setEntity_locale(n.getEnt());
                         this.deathDate.setValue_locale(n.getValue());
@@ -104,6 +104,7 @@ public class Person extends Entity {
                     }
                     break;
                 case "birthplace":
+                    this.placeOfBirth.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.placeOfBirth.setEntity_locale(n.getEnt());
                         this.placeOfBirth.setValue_locale(n.getValue());
@@ -113,6 +114,7 @@ public class Person extends Entity {
                     }
                     break;
                 case "description":
+                    this.description.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.description.setEntity_locale(n.getEnt());
                         this.description.setValue_locale(n.getValue());
@@ -122,6 +124,7 @@ public class Person extends Entity {
                     }
                     break;
                 case "mother":
+                    this.mother.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.mother.setEntity_locale(n.getEnt());
                         this.mother.setValue_locale(n.getValue());
@@ -131,15 +134,18 @@ public class Person extends Entity {
                     }
                     break;
                 case "father":
+                    this.father.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.father.setEntity_locale(n.getEnt());
                         this.father.setValue_locale(n.getValue());
+                        
                     }else {
                         this.father.setEntity_dbpedia(n.getEnt());
                         this.father.setValue_dbpedia(n.getValue());
                     }
                     break;
                 case "restinplace":
+                    this.restInPlace.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.restInPlace.setEntity_locale(n.getEnt());
                         this.restInPlace.setValue_locale(n.getValue());
@@ -149,8 +155,14 @@ public class Person extends Entity {
                     }
                     break;
                 case "isAuthorOf":
-                    this.restInPlace.setEntity_dbpedia(n.getEnt());
-                    this.restInPlace.setValue_dbpedia(n.getValue());
+                    this.isAuthorOf.setType(n.getType());
+                    if(this.getURI().contains("dbpedia")){
+                        this.isAuthorOf.setEntity_locale(n.getEnt());
+                        this.isAuthorOf.setValue_locale(n.getValue());
+                    }else {
+                        this.isAuthorOf.setEntity_dbpedia(n.getEnt());
+                        this.isAuthorOf.setValue_dbpedia(n.getValue());
+                    }
                     break;
             }
             
