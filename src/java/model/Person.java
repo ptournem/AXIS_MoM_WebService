@@ -83,6 +83,7 @@ public class Person extends Entity {
         Iterator<Property> it = p.iterator();
         while(it.hasNext()){
             Property n = it.next();
+            System.out.println("n:"+n.getName());
             switch (n.getName()) {
                 case "birthdate":
                     this.birthDate.setEntity_dbpedia(n.getEnt());
@@ -100,7 +101,18 @@ public class Person extends Entity {
                     this.description.setEntity_dbpedia(n.getEnt());
                     this.description.setValue_dbpedia(n.getValue());
                     break;
-                    
+                case "mother":
+                    this.mother.setEntity_dbpedia(n.getEnt());
+                    this.mother.setValue_dbpedia(n.getValue());
+                    break;
+                case "father":
+                    this.father.setEntity_dbpedia(n.getEnt());
+                    this.father.setValue_dbpedia(n.getValue());
+                    break;
+                case "restinplace":
+                    this.restInPlace.setEntity_dbpedia(n.getEnt());
+                    this.restInPlace.setValue_dbpedia(n.getValue());
+                    break;
             }
             
         }}
@@ -271,7 +283,7 @@ public class Person extends Entity {
 
     @Override
     public String toString() {
-        return "Person{" + "birthDate=" + birthDate + ",\n deathDate=" + deathDate + ",\n placeOfBirth=" + placeOfBirth + ",\n mother=" + mother + ",\n father=" + father + ",\n isAuthorOf=" + isAuthorOf + ",\n restInPlace=" + restInPlace + '}';
+        return "Person{" + "birthDate=" + birthDate + ", \n deathDate=" + deathDate + ",\n placeOfBirth=" + placeOfBirth + ",\n mother=" + mother + ",\n father=" + father + ",\n isAuthorOf=" + isAuthorOf + ",\n restInPlace=" + restInPlace + ",\n sameAs=" + sameAs + ",\n description=" + description + '}';
     }
     
     

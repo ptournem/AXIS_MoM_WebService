@@ -46,15 +46,14 @@ public class Connector {
 //        
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
-
-       Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", null, null, null);
-       // String uri = e.getURI().toString();
-      //entityBrowser(e);
-       // String test = "The_Coronation_of_Napoleon";
-      //  selectlodFromKeyWord(test);
-     //   selectlodFromEntity(e);
-        e = selectlodFromEntity(e);
-        System.out.println(e);
+       Entity e = new Entity("http://dbpedia.org/resource/Lens,_Pas-de-Calais", null, null, null);
+        // String uri = e.getURI().toString();
+       entityBrowser(e);
+        // String test = "Racine";
+       // selectlodFromKeyWord(test);
+       // selectlodFromEntity(e);
+       // e = selectlodFromEntity(e);
+        //System.out.println(e);
 
     }
 
@@ -84,19 +83,19 @@ public class Connector {
     public static Model selectFromEntity(String uri) { //robine
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
-//                "http://localhost:3030/ds/query", String.format(
-//                "PREFIX poc: <http://titan.be/axis-poc2015/>" +
-//                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-//                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>" +
-//                "construct {%s ?p ?o}" +
-//                "WHERE { ?s ?p ?o }", uri));
-//        
+                //                "http://localhost:3030/ds/query", String.format(
+                //                "PREFIX poc: <http://titan.be/axis-poc2015/>" +
+                //                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                //                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>" +
+                //                "construct {%s ?p ?o}" +
+                //                "WHERE { ?s ?p ?o }", uri));
+                //        
                 "http://localhost:3030/ds/query", String.format(
                         "PREFIX poc: <http://titan.be/axis-poc2015/>"
                         + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                         + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                         + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" 
+                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                         + "construct{?s ?p ?o}"
                         + "WHERE { ?s ?p ?o . {"
                         + "SELECT * WHERE {"
@@ -108,7 +107,7 @@ public class Connector {
         return m;
     }
 
-        public static ResultSet selectFromEntity(String s, String p, String o) { //robine
+    public static ResultSet selectFromEntity(String s, String p, String o) { //robine
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
@@ -117,30 +116,30 @@ public class Connector {
                         + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                         + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                         + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                        + "SELECT ?s ?p ?o " 
-                        + "WHERE {" 
-                        + "  %s %s %s " 
-                        + "}", s,p,o));
+                        + "SELECT ?s ?p ?o "
+                        + "WHERE {"
+                        + "  %s %s %s "
+                        + "}", s, p, o));
 
         ResultSet rs = qe.execSelect();
 
         return rs;
     }
-        
+
     public static Model selectFromEntityWithPredicat(String uri, String predicat) { //Robine
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
-                "PREFIX poc: <http://titan.be/axis-poc2015/>" +
-                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>" +
-                "PREFIX owl: <http://www.w3.org/2002/07/owl#>" +
-                "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
-                "construct{?s ?p ?o}" +
-                "WHERE { ?s ?p ?o . {" +
-                "SELECT * WHERE {" +
-                "<%s> %s ?s }" +
-                "} }", uri, predicat));
+                        "PREFIX poc: <http://titan.be/axis-poc2015/>"
+                        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                        + "construct{?s ?p ?o}"
+                        + "WHERE { ?s ?p ?o . {"
+                        + "SELECT * WHERE {"
+                        + "<%s> %s ?s }"
+                        + "} }", uri, predicat));
 
         Model m = qe.execConstruct();
 
@@ -148,9 +147,10 @@ public class Connector {
     }
 
     // méthode pour supprimer des charactéres
-       public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
-       ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
+    public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
+        ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
+       
         Model m = lodQuery(uri, "http://dbpedia.org/property/artist", "?o");
         tProp = searchPropertyFromModel(m, tProp);
         m = lodQuery(uri, "http://dbpedia.org/property/author", "?o");
@@ -167,19 +167,25 @@ public class Connector {
         tProp = searchPropertyFromModel(m, tProp);
         m = lodQuery(uri, "http://dbpedia.org/property/father", "?o");
         tProp = searchPropertyFromModel(m, tProp);
-        m = lodQuery(uri, "http://dbpedia.org/property/restinplace", "?o");
+        m = lodQuery(uri, "http://dbpedia.org/ontology/restingPlace", "?o");
         tProp = searchPropertyFromModel(m, tProp);
-//     System.out.println("ppp"+tProp);
+         m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+         m = lodQuery(uri, "http://dbpedia.org/ontology/country", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+         m = lodQuery(uri, "http://dbpedia.org/ontology/postalCode", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
+     
+     System.out.println("ppp"+tProp);
       return tProp;
     }
 
-      public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp){
+    public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp) {
         StmtIterator iter = m.listStatements();
         while (iter.hasNext()) {
-           Dialog.Property p2 = new Dialog.Property(null, null,null,null);
-            Statement stmt = (Statement) iter.next();           
+            Dialog.Property p2 = new Dialog.Property(null, null, null, null);
+            Statement stmt = (Statement) iter.next();
 //          System.out.println("test : "+stmt.asTriple().toString());
-            Resource subject = stmt.getSubject();
             org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
             RDFNode object = stmt.getObject();
@@ -188,12 +194,11 @@ public class Connector {
 //            System.out.println("Subject :" + subject.toString());
 //            System.out.println("Object:" + object.toString());
 //            System.out.println("----------------------");
-        
             switch (p) {
                 case "http://dbpedia.org/property/artist":
                     p2.setName("author");
                     break;
-                  case "http://dbpedia.org/property/author":
+                case "http://dbpedia.org/property/author":
                     p2.setName("author");
                     break;
                 case "http://dbpedia.org/property/dateOfBirth":
@@ -205,26 +210,52 @@ public class Connector {
                 case "http://dbpedia.org/property/dateOfDeath":
                     p2.setName("deathdate");
                     break;
-                 case "http://dbpedia.org/ontology/birthPlace":
+                case "http://dbpedia.org/ontology/birthPlace":
                     p2.setName("birthplace");
                     break;
+                 case "http://dbpedia.org/ontology/restingPlace":
+                    p2.setName("restinplace");
+                    break;
                 case "http://dbpedia.org/ontology/abstract":
-                    p2.setName("description");
+                    String test = stmt.getObject().asLiteral().getLanguage();
+                    if (test.equals("fr")) {
+                        p2.setName(object.asLiteral().getString());
+                        p2.setName("description");
+                    }else{
+                        p2.setName("default");
+                    }
+                    
                     break;
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
                     break;
-                case "http://dbpedia.org/ontology/mother":
+                case "http://dbpedia.org/property/mother":
                     p2.setName("mother");
                     break;
-                case "http://dbpedia.org/ontology/father":
+                case "http://dbpedia.org/property/father":
                     p2.setName("father");
                     break;
+                case "http://dbpedia.org/ontology/country":
+                    p2.setName("country");
+                    break;
+                case "http://dbpedia.org/ontology/region":
+                    p2.setName("region");
+                    break;
+                case "http://dbpedia.org/ontology/postalCode":
+                    p2.setName("postalCode");
+                    break;
+                case "http://dbpedia.org/ontology/birthPlace of":
+                    p2.setName("birthPlaceOf");
+                    break;
+                case "http://dbpedia.org/ontology/location of":
+                    p2.setName("locationOf");
+                break;
                 default:
-                   p2.setName("default");
+                    p2.setName("default");
                     break;
             }
             p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", ""));
+  
             if (object.isResource()) {
                 p2.setType("uri");
                 String uri2 = object.toString();
@@ -234,8 +265,7 @@ public class Connector {
                 p2.setType("fr");
                 p2.setEnt(null);
             }
-            if (p2.getName().contains("default")) {
-            } else {
+            if (!p2.getName().contains("default")) {
 //                System.out.println("--------------------");
 //                System.out.println("entity :" + p2.getEnt());
 //                System.out.println("name :" + p2.getName());
@@ -243,17 +273,17 @@ public class Connector {
 //                System.out.println("value :" + p2.getValue());  
 //                System.out.println("--------------------");
                 tProp.add(p2);
-            } 
-              
-              
+            }
+
         }
         return tProp;
-      }
+    }
 //    for(int i = 0; i < tProp.size(); i++)
 //    {
 //      System.out.println("donnée à l'indice " + i + " = " + tProp.get(i));
 //    }
-    private static Model lodQuery(String s, String p, String o){
+
+    private static Model lodQuery(String s, String p, String o) {
         String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
                 + "PREFIX dbp: <http://dbpedia.org/property/>"
                 + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
@@ -261,22 +291,23 @@ public class Connector {
                 + "PREFIX type: <http://dbpedia.org/class/yago/>"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<"+s+"> <"+p+"> "+o+"}";
-          Query DBquery = QueryFactory.create(DBQueryString);
+        Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
         Model m = qDBexec.execConstruct();
-        
+
         return m;
     }
-    public static Entity selectlodFromEntity(Entity e){
-        
-       String uri = e.getURI();
+
+    public static Entity selectlodFromEntity(Entity e) {
+
+        String uri = e.getURI();
         Model m = lodQuery(uri, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "?o");
         e = searchFromModel(m, e);
-        if(e.getType()== null){
+        if (e.getType() == null) {
             m = lodQuery(uri, "http://dbpedia.org/property/type", "?o");
             e = searchFromModel(m, e);
         }
@@ -289,25 +320,23 @@ public class Connector {
         m = lodQuery(uri, "http://dbpedia.org/ontology/birthName", "?o");
         e = searchFromModel(m, e);
       //  System.out.println("l'entité : "+e);
-        
+
         return e;
     }
 
-    public static Entity searchFromModel(Model m, Entity e){
-         StmtIterator iter = m.listStatements();
-         while (iter.hasNext()) {
+    public static Entity searchFromModel(Model m, Entity e) {
+        StmtIterator iter = m.listStatements();
+        while (iter.hasNext()) {
 
             Statement stmt = (Statement) iter.next();
             org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
             RDFNode object = stmt.getObject();
-            
+
             switch (p) {
                     // si le predicat est un type
                     case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
-                        System.out.println("type");
                         String typ = stmt.getObject().toString();
-                        System.out.println(typ);
                         if (typ.contains("Object")) {
                             e.setType("object");
                         }
@@ -330,8 +359,6 @@ public class Connector {
                         break;
                          case "http://dbpedia.org/property/type":
                         String typ2 = stmt.getObject().toString();
-                             System.out.println("type");
-                             System.out.println("typ");
                         if (typ2.contains("Object")) {
                             e.setType("object");
                         }
@@ -354,18 +381,13 @@ public class Connector {
                         break;
                     case "http://dbpedia.org/ontology/thumbnail":
                         e.setImage(object.toString());
-                        System.out.println("image");
-                        System.out.println(object.toString());
                         break;
                         
                     case "http://www.w3.org/2000/01/rdf-schema#label":
                         String test = stmt.getObject().asLiteral().getLanguage();
                         if (test.equals("fr")) {
                             e.setName(object.toString().replace("@fr", ""));
-                            System.out.println("FR>>"+object.toString());
                         }
-                        System.out.println("label");
-                        System.out.println(object.toString());
                         break;
                      case "http://dbpedia.org/ontology/alias":
                             e.setName(object.toString().replace("@en",""));
@@ -379,7 +401,7 @@ public class Connector {
            }
         return e;
     }
-    
+
     public static ArrayList<Entity> selectlodFromKeyWord(String keyword) {
         //riad
 
@@ -387,27 +409,7 @@ public class Connector {
         // l'URI est externe, et fait donc référence à un lien dbpedia, freebase...
         ArrayList<Entity> entities = new ArrayList<>();
 
-        String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
-                + "PREFIX dbp: <http://dbpedia.org/property/>"
-                + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
-                + "PREFIX dbr: <http://dbpedia.org/resource/>"
-                + "PREFIX type: <http://dbpedia.org/class/yago/>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "construct where {<http://dbpedia.org/resource/"+keyword+"> ?p ?o}";
-//                "select ?s ?o" +
-//                "where {" +
-//                "  dbr:"+keyword+" dbont:wikiPageRedirects ?o." +
-//                "  ?s dbont:wikiPageDisambiguates ?o." +
-//                "}";
-        // la langue française on ajoute <. FILTER langMatches( lang(?o), \"FR\" )>
-        // FILTER contains(str(?s), \"++\")
-        Query DBquery = QueryFactory.create(DBQueryString);
-        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
-
-        Model m = qDBexec.execConstruct();
+        Model m = lodQuery("http://dbpedia.org/resource/" + keyword , "?p", "?o");
 
         StmtIterator iter = m.listStatements();
         Entity e = new Entity();
@@ -428,108 +430,33 @@ public class Connector {
             // on ajoute l'uri qui sera notre sujet à l'entité
             // System.out.println("uri : "+e.getURI());
             // on vérifie les prédicats
-
             if (p.contains("wikiPageDisambiguates")) {
                 Resource r2 = stmt.getResource();
                 String rString = r2.toString().substring(28);
-                String rString2= new String( rString.getBytes(),Charset.forName("UTF-8"));
-                //System.out.println("r2 :"+rString2);
+                String rString2 = new String(rString.getBytes(), Charset.forName("UTF-8"));
+               // System.out.println("r2 :"+rString2);
                 selectlodFromKeyWord(rString2);
                 // System.out.println("wikiPageDisambiguates:"+r2);
-
             } else {
-                switch (p) {
-
-                    // si le predicat est un type
-                    case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
-                        String typ = stmt.getObject().toString();
-                        if (typ.contains("Object")) {
-                            e.setType("object");
-                        }
-                        if (typ.contains("Event")) {
-                            e.setType("event");
-                        }
-                        if (typ.contains("Person")) {
-                            e.setType("person");
-                        }
-                        if (typ.contains("Location")) {
-                            e.setType("location");
-                        }
-                        if (typ.contains("Location") ||typ.contains("Place") || typ.contains("State") ) {
-                            e.setType("location");
-                        }
-                        if (typ.contains("Activity")) {
-                            e.setType("activity");
-                        }
-                        if (typ.contains("Organisation")) {
-                            e.setType("organisation");
-                        }
-
-                        break;
-                           // si le predicat est un type
-                    case "http://dbpedia.org/property/type":
-                        String typ2 = stmt.getObject().toString();
-                        if (typ2.contains("Object")) {
-                            e.setType("object");
-                        }
-                        if (typ2.contains("Event")) {
-                            e.setType("event");
-                        }
-                        if (typ2.contains("Person")) {
-                            e.setType("person");
-                        }
-                        if (typ2.contains("Location") ||typ2.contains("Place") || typ2.contains("State") ) {
-                            e.setType("location");
-                        }
-                        if (typ2.contains("Activity")) {
-                            e.setType("activity");
-                        }
-                        if (typ2.contains("Organisation")) {
-                            e.setType("organisation");
-                        }
-
-                        break;
-                    case "http://dbpedia.org/ontology/thumbnail":
-                        e.setImage(object.toString());
-                        break;
-                    case "http://www.w3.org/2000/01/rdf-schema#label":
-                        String test = stmt.getObject().asLiteral().getLanguage();
-                        if (test.equals("fr")) {
-                            e.setName(object.toString().replace("@fr", ""));
-                        }
-                        break;
-                }
-            // e.setURI(subject.toString());
-//            String uri = e.getURI();
-//            String name = e.getName();
-//            String type = e.getType();
-//            String image = e.getImage();
-
-//                if (image != null) {
-//                    System.out.println("e : " + e);
-//                }
-           }
-                // System.out.println("L'entité est :"+e);
-                //  System.out.println("--------------- DBPedia Resultset ------------------");
-                //  ResultSetFormatter.out(System.out, resultsDB);
-                qDBexec.close();
+                searchFromModel(m,e);
             }
-            // on ajoute nos entités a notre tableau 
-          entities.add(e);
-      //  }
+             // on ajoute nos entités a notre tableau 
+            entities.add(e);
+        }
         System.out.println("entity :" + e);
-        // System.out.println("les entites : "+entities);
+         System.out.println("les entites : "+entities);
         return entities;
     }
-    
+
     public static String[] selectAllEntitiesURI() {
-        
+
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                 "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 + "select ?o where {?s axis-datamodel:uses ?o ." +
 "	?s rdf:type axis-datamodel:Entity}"));
+
 
         
         ResultSet rs = qe.execSelect();
@@ -538,18 +465,17 @@ public class Connector {
         
         List<QuerySolution> mList = null;
         mList = ResultSetFormatter.toList(rs);
-        
+
         ArrayList<String> tab = new ArrayList<>();
-        
+
         //System.out.println("mlist size = "+mList.size());
-        
-        for(int i=0; i<mList.size(); i++) {
+        for (int i = 0; i < mList.size(); i++) {
             System.out.println(mList.get(i).getResource("o").toString());
             tab.add(mList.get(i).getResource("o").toString());
         }
 
         String[] ret = new String[tab.size()];
-	return (String[]) tab.toArray(ret);
+        return (String[]) tab.toArray(ret);
     }
 
     public static String insert(String p, String o) { //robine
@@ -608,10 +534,10 @@ public class Connector {
                 + " %s "
                 + "\"%s\"%s"
                 + ".}";
-        if(lang.equals("file")){
-            lang="";
-        }else{
-            lang="@"+lang;
+        if (lang.equals("file")) {
+            lang = "";
+        } else {
+            lang = "@" + lang;
         }
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
                 UpdateFactory.create(String.format(req, s, p, o, lang)),
