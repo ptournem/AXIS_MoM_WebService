@@ -65,7 +65,7 @@ public class semantics {
                 o.constructObject();
                 tab = o.getPropertiesObject();
 		break;
-            case "place":
+            case "location":
                 Place pl = new Place();
                 pl.setURI(e.getURI());
                 pl.constructEntity();

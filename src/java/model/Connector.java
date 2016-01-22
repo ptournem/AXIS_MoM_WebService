@@ -77,8 +77,9 @@ public class Connector {
 
         Model constructModel = qe.execConstruct();
 
+       
+        qe.close();
         return constructModel;
-        //pas prio
     }
 
     public static Model selectFromEntity(String uri) { //robine
@@ -105,6 +106,7 @@ public class Connector {
 
         Model m = qe.execConstruct();
 
+        qe.close();
         return m;
     }
 
@@ -123,7 +125,8 @@ public class Connector {
                         + "}", s, p, o));
 
         ResultSet rs = qe.execSelect();
-
+        
+        //qe.close(); IMPOSSIBLE car sinon rs est vide
         return rs;
     }
 
@@ -144,6 +147,7 @@ public class Connector {
 
         Model m = qe.execConstruct();
 
+        qe.close();
         return m;
     }
 
@@ -365,6 +369,7 @@ public class Connector {
 
         Model m = qDBexec.execConstruct();
 
+        qDBexec.close();
         return m;
     }
 
@@ -533,9 +538,10 @@ public class Connector {
         
         
         
+        
         List<QuerySolution> mList = null;
         mList = ResultSetFormatter.toList(rs);
-
+        qe.close();
         ArrayList<String> tab = new ArrayList<>();
 
         //System.out.println("mlist size = "+mList.size());
