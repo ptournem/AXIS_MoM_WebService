@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class Organisation extends Entity {
     
-public PropertyAdmin typeOfOrganisation;
+
 public PropertyAdmin dateOfCreation;
 public PropertyAdmin location;
 public PropertyAdmin description;
@@ -25,7 +25,7 @@ public PropertyAdmin description;
  public Property[] getPropertiesOrganisation() {
         ArrayList<Property> list = new ArrayList<Property>();
 //        entityBrowser(this.getURI()
-	list.add(new Property(this.typeOfOrganisation.getName(), this.typeOfOrganisation.getValue_locale(), this.typeOfOrganisation.getType(), this.typeOfOrganisation.getEntity_locale()));
+	//list.add(new Property(this.typeOfOrganisation.getName(), this.typeOfOrganisation.getValue_locale(), this.typeOfOrganisation.getType(), this.typeOfOrganisation.getEntity_locale()));
         list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
         list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getType(), this.description.getEntity_locale()));
         list.add(new Property(this.dateOfCreation.getName(), this.dateOfCreation.getValue_locale(), this.dateOfCreation.getType(), this.dateOfCreation.getEntity_locale()));
@@ -37,7 +37,7 @@ public PropertyAdmin description;
    public PropertyAdmin[] getPropertiesAdminOrganisation() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
-	list.add(this.typeOfOrganisation);
+	//list.add(this.typeOfOrganisation);
         list.add(this.location);
         list.add(this.dateOfCreation);
         list.add(this.description);

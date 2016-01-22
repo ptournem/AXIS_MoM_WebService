@@ -36,6 +36,8 @@ public class semantics {
     
     public Property[] getAllPropertiesFromEntity(Entity e) {
         
+        
+        
         //en fonction du type, on fait une boucle pour récuperer toutes les infos de l'oeuvre en interne + lod
         Property[] tab = null;
         String type = e.getType();
@@ -66,6 +68,7 @@ public class semantics {
 	    default:
 		throw new AssertionError();
 	}
+        
         
         
         return tab;

@@ -8,6 +8,9 @@ package model;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.ResultSet;
 import ws.AXIS_MoM_WS;
 
 /**
@@ -21,8 +24,9 @@ public class TestWS {
         //testConstructEntity();
 //        testPerson();
 //        testObject();
-        //testRecherche();
+//            testRecherche();
 //        testLoadEntityProperties();
+
 //        testAll();
         testLoadEntityProperties();
      
