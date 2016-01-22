@@ -70,10 +70,17 @@ public class Entity {
         this.image = image;
         this.type = type;
     }
+    
     public Entity() {
         
     }
 
+    public Entity(String name, String image, String type) {
+        this.name = name;
+        this.image = image;
+        this.type = type;
+    }
+    
     public String getURI() {
 	return URI;
     }

@@ -8,6 +8,10 @@ package model;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
+import java.lang.reflect.Executable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.concurrent.Callable;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.ResultSet;
@@ -18,6 +22,10 @@ import ws.AXIS_MoM_WS;
  * @author loannguyen
  */
 public class TestWS {
+    
+    public static long startTime;
+    public static long endTime;
+    
     public static void main(String args[]) {
 
         //System.out.println("test");
@@ -28,8 +36,99 @@ public class TestWS {
 //        testLoadEntityProperties();
 
 //        testAll();
-        testLoadEntityProperties();
+        //testLoadEntityProperties();
+        testFonctionnel();
      
+    }
+    
+    
+    public static void testFonctionnel() {
+        
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        
+        Entity leonard = new Entity("Léonard Da Vinci", "http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "person");
+        Entity caterina = new Entity("Caterina Da Vinci", "https://pbs.twimg.com/profile_images/514575733126365185/u_xPRRKq_400x400.jpeg", "person");
+        Entity antonio = new Entity("Antonio Da Vinci", "https://s-media-cache-ak0.pinimg.com/736x/b8/d7/51/b8d7512c624b786baad3ab1bfa3f0163.jpg", "person");
+        Entity amboise = new Entity("Amboise", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ch%C3%A2teau_d'Amboise_07.jpg/220px-Ch%C3%A2teau_d'Amboise_07.jpg", "location");
+        Entity joconde = new Entity("La Joconde", "https://download.vikidia.org/vikidia/fr/images/thumb/1/13/La_gioconda.jpg/200px-La_gioconda.jpg", "object");
+
+        Entity leonardDB = new Entity();
+        leonardDB.setURI("http://dbpedia.org/resource/Leonardo_da_Vinci");
+        leonardDB.constructEntity();
+        
+        Entity vinciDB = new Entity();
+        vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
+        vinciDB.constructEntity();
+        
+        //création Léonard Da Vinci
+        leonard = ws.AddEntity(leonard);
+        
+        //ajouter Léonard Da vinci => sameas => dbpedia
+        lierEntity(ws, leonard, "sameas", leonardDB);
+        
+        //ajouter Léonard Da vinci => birthdate => String
+        lierEntity(ws, leonard, "birthdate", "21-01");
+        
+        //ajouter Léonard Da vinci => deathdate => String
+        lierEntity(ws, leonard, "deathdate", "21-05");
+        
+        //ajouter Léonard Da vinci => birthplace => dbpedia
+        lierEntity(ws, leonard, "birthplace", vinciDB);
+        
+        //création Caterina Da Vinci
+        caterina = ws.AddEntity(caterina);
+        
+        //lier Léonard de vinci => mother => Caterina
+        lierEntity(ws, leonard, "mother", caterina);
+        
+        //création de Antonio Da Vinci
+        antonio = ws.AddEntity(antonio);
+        
+        //lier Léonard de vinci => father => Antonio
+        lierEntity(ws, leonard, "father", antonio);
+        
+        //création Amboise
+        amboise = ws.AddEntity(amboise);
+        
+        //lier Léonard Da vinci => restinplace => Amboise
+        lierEntity(ws, leonard, "restinplace", amboise);
+        
+        //ajouter Léonard Da vinci => description => String
+        lierEntity(ws, leonard, "description", "Léonard Da Vinci est un super artiste");
+        
+        
+        //création Joconde
+        joconde = ws.AddEntity(joconde);
+        
+        //ajouter Joconde => description => String
+        lierEntity(ws, joconde, "description", "La Joconde est un super tableau");
+        
+        //lier Léonard Da vinci => isauthorof => Joconde
+        lierEntity(ws, leonard, "isauthorof", joconde);
+        
+        
+        
+    }
+    
+    
+    public static void lierEntity(AXIS_MoM_WS ws, Entity e1, String s, Entity e2) {
+        Property p = new Property(s, null, "uri", e2);
+        ws.SetEntityProperty(e1, p, e2);
+    }
+    
+    public static void lierEntity(AXIS_MoM_WS ws, Entity e1, String s, String val) {
+        Property p = new Property(s, val, "fr", null);
+        ws.SetEntityProperty(e1, p, null);
+    }
+    
+    public static void debutTimer() {
+        startTime = System.currentTimeMillis();
+        System.out.println("_____ DEBUT FONCTION");
+    }
+    
+    public static void finTimer() {
+        endTime = System.currentTimeMillis();
+        System.out.println("_____ FIN FONCTION : "+(endTime-startTime));
     }
     
     public static void testAll(){

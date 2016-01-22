@@ -114,6 +114,13 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pers.insertIsAuthorOf(p);
                 ret = true;
                 break;
+            case "birthplace":
+                pers.setURI(e.getURI());
+                pers.constructEntity();
+                pers.constructPerson();
+                pers.insertPlaceOfBirth(p);
+                ret = true;
+                break;
             default:
                 return false;
                 
