@@ -21,8 +21,8 @@ public PropertyAdmin postalCode;
 public PropertyAdmin region;
 public PropertyAdmin country;
 public PropertyAdmin description;
-//public PropertyAdmin birthPlaceOf;
-//public PropertyAdmin locationOf;
+public PropertyAdmin birthPlaceOf;
+public PropertyAdmin locationOf;
 
  public Property[] getPropertiesPlace() {
         ArrayList<Property> list = new ArrayList<Property>();
@@ -38,11 +38,11 @@ public PropertyAdmin description;
 	return (Property[]) list.toArray(ret);
     }
    public void constructPerson() {
-        this.birthPlaceOf = getPlacePropertyAdmin("birthPlaceOf");
+//        this.birthPlaceOf = getPlacePropertyAdmin("birthPlaceOf");
         this.country = getPlacePropertyAdmin("country");
         this.description = getPlacePropertyAdmin("description");
         
-        this.locationOf = getPlacePropertyAdmin("locationOf");
+//        this.locationOf = getPlacePropertyAdmin("locationOf");
         this.postalCode = getPlacePropertyAdmin("postalCode");
         this.region = getPlacePropertyAdmin("region");
         
@@ -54,24 +54,49 @@ public PropertyAdmin description;
             System.out.println("n:"+n.getName());
             switch (n.getName()) {
                 case "birthPlaceOf":
-                    this.birthPlaceOf.setEntity_dbpedia(n.getEnt());
-                    this.birthPlaceOf.setValue_dbpedia(n.getValue());
+                    if(this.getURI().contains("dbpedia")){
+                        this.birthPlaceOf.setEntity_locale(n.getEnt());
+                        this.birthPlaceOf.setValue_locale(n.getValue());
+                    }else{
+                        this.birthPlaceOf.setEntity_dbpedia(n.getEnt());
+                        this.birthPlaceOf.setValue_dbpedia(n.getValue());
+                    }
                     break;
                 case "country":
-                    this.country.setEntity_dbpedia(n.getEnt());
-                    this.country.setValue_dbpedia(n.getValue());
+                    if(this.getURI().contains("dbpedia")){
+                        this.country.setEntity_locale(n.getEnt());
+                        this.country.setValue_locale(n.getValue());
+                    }else{
+                        this.country.setEntity_dbpedia(n.getEnt());
+                        this.country.setValue_dbpedia(n.getValue());
+                    }
                     break;
                 case "locationOf":
-                    this.locationOf.setEntity_dbpedia(n.getEnt());
-                    this.locationOf.setValue_dbpedia(n.getValue());
+                    if(this.getURI().contains("dbpedia")){
+                        this.locationOf.setEntity_locale(n.getEnt());
+                        this.locationOf.setValue_locale(n.getValue());
+                    }else{
+                        this.locationOf.setEntity_dbpedia(n.getEnt());
+                        this.locationOf.setValue_dbpedia(n.getValue());
+                    }
                     break;
                 case "postalCode":
-                    this.postalCode.setEntity_dbpedia(n.getEnt());
-                    this.postalCode.setValue_dbpedia(n.getValue());
+                    if(this.getURI().contains("dbpedia")){
+                        this.postalCode.setEntity_locale(n.getEnt());
+                        this.postalCode.setValue_locale(n.getValue());
+                    }else{
+                        this.postalCode.setEntity_dbpedia(n.getEnt());
+                        this.postalCode.setValue_dbpedia(n.getValue());
+                    }
                     break;
                 case "region":
-                    this.region.setEntity_dbpedia(n.getEnt());
-                    this.region.setValue_dbpedia(n.getValue());
+                    if(this.getURI().contains("dbpedia")){
+                        this.region.setEntity_locale(n.getEnt());
+                        this.region.setValue_locale(n.getValue());
+                    }else{
+                        this.region.setEntity_dbpedia(n.getEnt());
+                        this.region.setValue_dbpedia(n.getValue());
+                    }
                     break;
             }
             
@@ -108,9 +133,7 @@ public PropertyAdmin description;
         }
         return pa;
     }
-   
-   public PropertyAdmin[] getPropertiesAdminOrganisation() {
- 
+  
    public PropertyAdmin[] getPropertiesAdminPlace() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
