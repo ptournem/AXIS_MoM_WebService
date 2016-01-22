@@ -67,7 +67,6 @@ public class Place extends Entity{
         Iterator<Property> it = p.iterator();
         while(it.hasNext()){
             Property n = it.next();
-            System.out.println("n:"+n.getName());
             switch (n.getName()) {
                 case "birthplaceof":
                     this.birthPlaceOf.setType(n.getType());
@@ -131,7 +130,8 @@ public class Place extends Entity{
                     break;
             }
             
-        }}
+        }
+        }
     }
    
    public PropertyAdmin getPlacePropertyAdmin(String propertyName){
@@ -157,7 +157,7 @@ public class Place extends Entity{
                 pa = getPropertyAdmin("birthPlace", "entity");
                 pa.setName(propertyName);
                 break;
-            case "postalCode":
+            case "postalcode":
                 pa = getPropertyAdmin("postalCode", "literal");
                 pa.setName(propertyName);
                 break;

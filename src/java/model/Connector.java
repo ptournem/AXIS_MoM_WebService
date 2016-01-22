@@ -241,7 +241,6 @@ public class Connector {
 //            System.out.println("Subject :" + subject.toString());
 //            System.out.println("Object:" + object.toString());
 //            System.out.println("----------------------");
-            System.out.println("<<<<<<<<<<<<<<"+p);
             switch (p) {
                 case "http://dbpedia.org/property/artist":
                     p2.setName("author");
