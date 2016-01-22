@@ -54,12 +54,12 @@ public class Place extends Entity{
 	return (PropertyAdmin[]) list.toArray(ret);
     }
    public void constructPlace() {
-//        this.birthPlaceOf = getPlacePropertyAdmin("birthPlaceOf");
+        this.birthPlaceOf = getPlacePropertyAdmin("birthplaceof");
         this.country = getPlacePropertyAdmin("country");
         this.description = getPlacePropertyAdmin("description");
         
-//        this.locationOf = getPlacePropertyAdmin("locationOf");
-        this.postalCode = getPlacePropertyAdmin("postalCode");
+        this.locationOf = getPlacePropertyAdmin("locationof");
+        this.postalCode = getPlacePropertyAdmin("postalcode");
         this.region = getPlacePropertyAdmin("region");
         
         ArrayList<Property> p = getPropertiesMapFromLod(this);
@@ -69,7 +69,7 @@ public class Place extends Entity{
             Property n = it.next();
             System.out.println("n:"+n.getName());
             switch (n.getName()) {
-                case "birthPlaceOf":
+                case "birthplaceof":
                     this.birthPlaceOf.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.birthPlaceOf.setEntity_locale(n.getEnt());
@@ -89,7 +89,7 @@ public class Place extends Entity{
                         this.country.setValue_dbpedia(n.getValue());
                     }
                     break;
-                case "locationOf":
+                case "locationof":
                     this.locationOf.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.locationOf.setEntity_locale(n.getEnt());
@@ -99,7 +99,7 @@ public class Place extends Entity{
                         this.locationOf.setValue_dbpedia(n.getValue());
                     }
                     break;
-                case "postalCode":
+                case "postalcode":
                     this.postalCode.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.postalCode.setEntity_locale(n.getEnt());
@@ -132,19 +132,19 @@ public class Place extends Entity{
                 pa.setName(propertyName);
                 break;
             case "region":
-                pa = getPropertyAdmin("takePlaceIn", "entity");
+                pa = getPropertyAdmin("region", "entity");
                 pa.setName(propertyName);
                 break;
             case "description":
                 pa = getPropertyAdmin("Description", "literal");
                 pa.setName(propertyName);
                 break;
-            case "locationOf":
-                pa = getPropertyAdmin("locationOf", "entity");
+            case "locationof":
+                pa = getPropertyAdmin("isAPlaceOfObject", "entity");
                 pa.setName(propertyName);
                 break;
-            case "birthPlaceOf":
-                pa = getPropertyAdmin("birthPlaceOf", "entity");
+            case "birthplaceof":
+                pa = getPropertyAdmin("birthPlace", "entity");
                 pa.setName(propertyName);
                 break;
             case "postalCode":
