@@ -70,6 +70,7 @@ public class Place extends Entity{
             System.out.println("n:"+n.getName());
             switch (n.getName()) {
                 case "birthPlaceOf":
+                    this.birthPlaceOf.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.birthPlaceOf.setEntity_locale(n.getEnt());
                         this.birthPlaceOf.setValue_locale(n.getValue());
@@ -79,6 +80,7 @@ public class Place extends Entity{
                     }
                     break;
                 case "country":
+                    this.country.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.country.setEntity_locale(n.getEnt());
                         this.country.setValue_locale(n.getValue());
@@ -88,6 +90,7 @@ public class Place extends Entity{
                     }
                     break;
                 case "locationOf":
+                    this.locationOf.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.locationOf.setEntity_locale(n.getEnt());
                         this.locationOf.setValue_locale(n.getValue());
@@ -97,6 +100,7 @@ public class Place extends Entity{
                     }
                     break;
                 case "postalCode":
+                    this.postalCode.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.postalCode.setEntity_locale(n.getEnt());
                         this.postalCode.setValue_locale(n.getValue());
@@ -106,6 +110,7 @@ public class Place extends Entity{
                     }
                     break;
                 case "region":
+                    this.region.setType(n.getType());
                     if(this.getURI().contains("dbpedia")){
                         this.region.setEntity_locale(n.getEnt());
                         this.region.setValue_locale(n.getValue());
