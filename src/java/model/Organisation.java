@@ -18,9 +18,10 @@ import java.util.ArrayList;
 public class Organisation extends Entity {
     
 
-public PropertyAdmin dateOfCreation;
-public PropertyAdmin location;
-public PropertyAdmin description;
+    public PropertyAdmin dateOfCreation;
+    public PropertyAdmin location;
+    public PropertyAdmin description;
+    public PropertyAdmin sameAs;
     
  public Property[] getPropertiesOrganisation() {
         ArrayList<Property> list = new ArrayList<Property>();

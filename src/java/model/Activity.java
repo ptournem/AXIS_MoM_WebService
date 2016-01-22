@@ -17,9 +17,10 @@ import java.util.ArrayList;
  */
 public class Activity extends Entity {
     public PropertyAdmin description;
-     public PropertyAdmin dateOfactivity;
+    public PropertyAdmin dateOfactivity;
     public PropertyAdmin typeOfactivity;
     public PropertyAdmin location;
+    public PropertyAdmin sameAs;
 
     
     public Property[] getPropertiesActivity() {

@@ -14,6 +14,7 @@ import static model.Connector.*;
 import model.Event;
 import model.Person;
 import model.Object;
+import model.Place;
 import org.apache.jena.rdf.model.Model;
 
 
@@ -64,7 +65,13 @@ public class semantics {
                 o.constructObject();
                 tab = o.getPropertiesObject();
 		break;
-
+            case "place":
+                Place pl = new Place();
+                pl.setURI(e.getURI());
+                pl.constructEntity();
+                pl.constructPlace();
+                tab = pl.getPropertiesPlace();
+		break;
 	    default:
 		throw new AssertionError();
 	}
@@ -96,14 +103,18 @@ public class semantics {
                 tab = ev.getPropertiesAdminEvent();
 		break;
 	    case "object":
-                System.out.println("un objet");
                 Object o = new Object();
                 o.setURI(e.getURI());
                 o.constructEntity();
-                System.out.println("Etape 1 : "+e);
                 o.constructObject();
-                System.out.println("Etape 2 : "+o);
                 tab = o.getPropertiesAdminObject();
+		break;
+            case "place":
+                Place pl = new Place();
+                pl.setURI(e.getURI());
+                pl.constructEntity();
+                pl.constructPlace();
+                tab = pl.getPropertiesAdminPlace();
 		break;
 
 	    default:

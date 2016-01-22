@@ -29,7 +29,6 @@ import org.apache.jena.rdf.model.StmtIterator;
 
 public class Object extends Entity {
 
-    public PropertyAdmin dateCreation;
     public PropertyAdmin location;
     public PropertyAdmin author;
     public PropertyAdmin sameAs;
@@ -186,8 +185,10 @@ public class Object extends Entity {
 
     @Override
     public String toString() {
-        return "Object{" + "dateCreation=" + dateCreation + ", location=" + location + ", author=" + author + '}';
+        return "Object{" + "location=" + location + ", author=" + author + ", sameAs=" + sameAs + ", description=" + description + '}';
     }
+
+    
     
 
 }
