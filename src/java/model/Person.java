@@ -73,7 +73,7 @@ public class Person extends Entity {
         
         this.mother = getPersonPropertyAdmin("mother");
         this.father = getPersonPropertyAdmin("father");
-        this.isAuthorOf = getPersonPropertyAdmin("isisAuthorOfof");
+        this.isAuthorOf = getPersonPropertyAdmin("isAuthorOf");
         this.restInPlace = getPersonPropertyAdmin("restinplace");
         this.description = getPersonPropertyAdmin("description");
         
