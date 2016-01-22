@@ -46,13 +46,13 @@ public class Connector {
 //        
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
-       Entity e = new Entity("http://dbpedia.org/resource/Lens,_Pas-de-Calais", null, null, null);
+        Entity e = new Entity("http://dbpedia.org/resource/Paris", null, null, null);
         // String uri = e.getURI().toString();
-       entityBrowser(e);
+        entityBrowser(e);
         // String test = "Racine";
-       // selectlodFromKeyWord(test);
-       // selectlodFromEntity(e);
-       // e = selectlodFromEntity(e);
+        // selectlodFromKeyWord(test);
+        // selectlodFromEntity(e);
+        // e = selectlodFromEntity(e);
         //System.out.println(e);
 
     }
@@ -150,7 +150,7 @@ public class Connector {
     public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
         ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
-       
+
         Model m = lodQuery(uri, "http://dbpedia.org/property/artist", "?o");
         tProp = searchPropertyFromModel(m, tProp);
         m = lodQuery(uri, "http://dbpedia.org/property/author", "?o");
@@ -169,15 +169,17 @@ public class Connector {
         tProp = searchPropertyFromModel(m, tProp);
         m = lodQuery(uri, "http://dbpedia.org/ontology/restingPlace", "?o");
         tProp = searchPropertyFromModel(m, tProp);
-         m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
+        m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
         tProp = searchPropertyFromModel(m, tProp);
-         m = lodQuery(uri, "http://dbpedia.org/ontology/country", "?o");
+        m = lodQuery(uri, "http://dbpedia.org/ontology/country", "?o");
         tProp = searchPropertyFromModel(m, tProp);
-         m = lodQuery(uri, "http://dbpedia.org/ontology/postalCode", "?o");
+        m = lodQuery(uri, "http://dbpedia.org/ontology/postalCode", "?o");
         tProp = searchPropertyFromModel(m, tProp);
-     
-     System.out.println("ppp"+tProp);
-      return tProp;
+
+        for (int i = 0; i < tProp.size(); i++) {
+            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
+        }
+        return tProp;
     }
 
     public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp) {
@@ -213,7 +215,7 @@ public class Connector {
                 case "http://dbpedia.org/ontology/birthPlace":
                     p2.setName("birthplace");
                     break;
-                 case "http://dbpedia.org/ontology/restingPlace":
+                case "http://dbpedia.org/ontology/restingPlace":
                     p2.setName("restinplace");
                     break;
                 case "http://dbpedia.org/ontology/abstract":
@@ -221,10 +223,10 @@ public class Connector {
                     if (test.equals("fr")) {
                         p2.setName(object.asLiteral().getString());
                         p2.setName("description");
-                    }else{
+                    } else {
                         p2.setName("default");
                     }
-                    
+
                     break;
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
@@ -244,18 +246,21 @@ public class Connector {
                 case "http://dbpedia.org/ontology/postalCode":
                     p2.setName("postalCode");
                     break;
-                case "http://dbpedia.org/ontology/birthPlace of":
-                    p2.setName("birthPlaceOf");
+                case "http://dbpedia.org/property/birthPlace":
+                    p2.setName("birthPlace");
                     break;
-                case "http://dbpedia.org/ontology/location of":
-                    p2.setName("locationOf");
-                break;
+                case "http://dbpedia.org/ontology/location":
+                    p2.setName("location");
+                    break;
+                case "http://dbpedia.org/property/location":
+                    p2.setName("location");
+                    break;
                 default:
                     p2.setName("default");
                     break;
             }
-            p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", ""));
-  
+            p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", ""));
+
             if (object.isResource()) {
                 p2.setType("uri");
                 String uri2 = object.toString();
@@ -276,12 +281,9 @@ public class Connector {
             }
 
         }
+
         return tProp;
     }
-//    for(int i = 0; i < tProp.size(); i++)
-//    {
-//      System.out.println("donnée à l'indice " + i + " = " + tProp.get(i));
-//    }
 
     private static Model lodQuery(String s, String p, String o) {
         String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
@@ -293,7 +295,7 @@ public class Connector {
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "construct where {<"+s+"> <"+p+"> "+o+"}";
+                + "construct where {<" + s + "> <" + p + "> " + o + "}";
         Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
@@ -319,8 +321,8 @@ public class Connector {
         e = searchFromModel(m, e);
         m = lodQuery(uri, "http://dbpedia.org/ontology/birthName", "?o");
         e = searchFromModel(m, e);
-      //  System.out.println("l'entité : "+e);
 
+      //  System.out.println("l'entité : "+e);
         return e;
     }
 
@@ -334,71 +336,73 @@ public class Connector {
             RDFNode object = stmt.getObject();
 
             switch (p) {
-                    // si le predicat est un type
-                    case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
-                        String typ = stmt.getObject().toString();
-                        if (typ.contains("Object")) {
-                            e.setType("object");
-                        }
-                        if (typ.contains("Event")) {
-                            e.setType("event");
-                        }
-                        if (typ.contains("Person")) {
-                            e.setType("person");
-                        }
-                      if (typ.contains("Location") ||typ.contains("Place") || typ.contains("State") ) {
-                            e.setType("location");
-                        }
-                        if (typ.contains("Activity")) {
-                            e.setType("activity");
-                        }
-                        if (typ.contains("Organisation")) {
-                            e.setType("organisation");
-                        }
+                // si le predicat est un type
+                case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
+                    String typ = stmt.getObject().toString();
+                    if (typ.contains("Object")) {
+                        e.setType("object");
+                    }
+                    if (typ.contains("Event")) {
+                        e.setType("event");
+                    }
+                    if (typ.contains("Person")) {
+                        e.setType("person");
+                    }
+                    if (typ.contains("location") || typ.contains("Place") || typ.contains("State")) {
+                        e.setType("location");
+                    }
+                    if (typ.contains("Activity")) {
+                        e.setType("activity");
+                    }
+                    if (typ.contains("Organisation") || (typ.contains("Museum"))) {
+                        e.setType("organisation");
+                    }
 
-                        break;
-                         case "http://dbpedia.org/property/type":
-                        String typ2 = stmt.getObject().toString();
-                        if (typ2.contains("Object")) {
-                            e.setType("object");
-                        }
-                        if (typ2.contains("Event")) {
-                            e.setType("event");
-                        }
-                        if (typ2.contains("Person")) {
-                            e.setType("person");
-                        }
-                        if (typ2.contains("Location") ||typ2.contains("Place") || typ2.contains("State") ) {
-                            e.setType("location");
-                        }
-                        if (typ2.contains("Activity")) {
-                            e.setType("activity");
-                        }
-                        if (typ2.contains("Organisation")) {
-                            e.setType("organisation");
-                        }
+                    break;
+                case "http://dbpedia.org/property/type":
+                    String typ2 = stmt.getObject().toString();
+                    if (typ2.contains("Object")) {
+                        e.setType("object");
+                    }
+                    if (typ2.contains("Event")) {
+                        e.setType("event");
+                    }
+                    if (typ2.contains("Person")) {
+                        e.setType("person");
+                    }
+                    if (typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State")) {
+                        e.setType("location");
+                    }
+                    if (typ2.contains("Activity")) {
+                        e.setType("activity");
+                    }
+                    if (typ2.contains("Organisation") || typ2.contains("Museum")) {
+                        e.setType("organisation");
+                    }
 
-                        break;
-                    case "http://dbpedia.org/ontology/thumbnail":
-                        e.setImage(object.toString());
-                        break;
-                        
-                    case "http://www.w3.org/2000/01/rdf-schema#label":
-                        String test = stmt.getObject().asLiteral().getLanguage();
-                        if (test.equals("fr")) {
-                            e.setName(object.toString().replace("@fr", ""));
-                        }
-                        break;
-                     case "http://dbpedia.org/ontology/alias":
-                            e.setName(object.toString().replace("@en",""));
-                        break;
-                      case "http://dbpedia.org/ontology/birthName":
-                            e.setName(object.toString().replace("@en",""));
-                        break;
-                      
-                          
-                }
-           }
+                    break;
+                case "http://dbpedia.org/ontology/thumbnail":
+                    e.setImage(object.toString());
+                    break;
+
+                case "http://www.w3.org/2000/01/rdf-schema#label":
+                    String test = stmt.getObject().asLiteral().getLanguage();
+                    if (test.equals("fr")) {
+                        e.setName(object.toString().replace("@fr", ""));
+                    }
+                    break;
+                case "http://dbpedia.org/ontology/alias":
+                    e.setName(object.toString().replace("@en", ""));
+                    break;
+                case "http://dbpedia.org/ontology/birthName":
+                    e.setName(object.toString().replace("@en", ""));
+                    break;
+                case "http://dbpedia.org/property/name":
+                    e.setName(object.toString().replace("@en", ""));
+                    break;
+
+            }
+        }
         return e;
     }
 
@@ -409,7 +413,7 @@ public class Connector {
         // l'URI est externe, et fait donc référence à un lien dbpedia, freebase...
         ArrayList<Entity> entities = new ArrayList<>();
 
-        Model m = lodQuery("http://dbpedia.org/resource/" + keyword , "?p", "?o");
+        Model m = lodQuery("http://dbpedia.org/resource/" + keyword, "?p", "?o");
 
         StmtIterator iter = m.listStatements();
         Entity e = new Entity();
@@ -434,17 +438,17 @@ public class Connector {
                 Resource r2 = stmt.getResource();
                 String rString = r2.toString().substring(28);
                 String rString2 = new String(rString.getBytes(), Charset.forName("UTF-8"));
-               // System.out.println("r2 :"+rString2);
+                // System.out.println("r2 :"+rString2);
                 selectlodFromKeyWord(rString2);
                 // System.out.println("wikiPageDisambiguates:"+r2);
             } else {
-                searchFromModel(m,e);
+                searchFromModel(m, e);
             }
-             // on ajoute nos entités a notre tableau 
+            // on ajoute nos entités a notre tableau 
             entities.add(e);
         }
         System.out.println("entity :" + e);
-         System.out.println("les entites : "+entities);
+        System.out.println("les entites : " + entities);
         return entities;
     }
 
