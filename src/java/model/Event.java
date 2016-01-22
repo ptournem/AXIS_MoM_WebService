@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Event extends Entity{
     public PropertyAdmin dateOfEvent;
-    public PropertyAdmin typeOfevent;
+  //  public PropertyAdmin typeOfevent;
     public PropertyAdmin location;
     public PropertyAdmin description;
 
@@ -25,7 +25,7 @@ public class Event extends Entity{
 
 	list.add(new Property(this.dateOfEvent.getName(), this.dateOfEvent.getValue_locale(), this.dateOfEvent.getType(), this.dateOfEvent.getEntity_locale()));
         list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
-       list.add(new Property(this.typeOfevent.getName(),this.typeOfevent.getValue_locale(),this.typeOfevent.getType(),this.typeOfevent.getEntity_locale()));
+     //  list.add(new Property(this.typeOfevent.getName(),this.typeOfevent.getValue_locale(),this.typeOfevent.getType(),this.typeOfevent.getEntity_locale()));
         list.add(new Property(this.description.getName(),this.description.getValue_locale(),this.description.getType(),this.description.getEntity_locale()));
 	Property[] ret = new Property[list.size()];
 	return (Property[]) list.toArray(ret);
@@ -36,7 +36,7 @@ public class Event extends Entity{
 
 	list.add(this.dateOfEvent);
         list.add(this.location);
-        list.add(this.typeOfevent);
+      //  list.add(this.typeOfevent);
         list.add(this.description);
 	
 	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
