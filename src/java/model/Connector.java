@@ -46,7 +46,7 @@ public class Connector {
 //        
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
-        Entity e = new Entity("http://dbpedia.org/resource/Jacques-Louis_David", null, null, null);
+        Entity e = new Entity("http://dbpedia.org/resource/France", null, null, "location");
         // String uri = e.getURI().toString();
         entityBrowser(e);
         // String test = "Racine";
@@ -156,31 +156,32 @@ public class Connector {
         ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
         Model m = lodQuery(uri, "http://dbpedia.org/ontology/abstract", "?o");
-        tProp = searchPropertyFromModel(m, tProp, "description");
+        tProp = searchPropertyFromModel(m, tProp, null);
+        //System.out.println("le type :"+e.getType().toString());
         switch (e.getType()) {
             case "person":
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfBirth", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person");
+                tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfDeath", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person");
+                tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/birthPlace", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person");
+                tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/property/mother", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
                 m = lodQuery(uri, "http://dbpedia.org/property/father", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
                 m = lodQuery(uri, "http://dbpedia.org/ontology/restingPlace", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person");
+                tProp = searchPropertyFromModel(m, tProp, "location");
                 break;
             case "object":
                 m = lodQuery(uri, "http://dbpedia.org/property/artist", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "object");
+                tProp = searchPropertyFromModel(m, tProp, "person");
                 m = lodQuery(uri, "http://dbpedia.org/property/author", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "object");
+                tProp = searchPropertyFromModel(m, tProp, "person");
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "object");
+                tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "object");
+                tProp = searchPropertyFromModel(m, tProp, "location");
                 break;
             case "location":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
@@ -188,18 +189,31 @@ public class Connector {
                 m = lodQuery(uri, "http://dbpedia.org/ontology/country", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/ontology/postalCode", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                  m = lodQuery(uri, "http://dbpedia.org/ontology/yearMeanC", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                m = lodQuery(uri, "http://dbpedia.org/ontology/language", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                   m = lodQuery(uri, "http://dbpedia.org/property/leaderName", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
                 break;
             case "event":
                 
                 break;
             case "organisation":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "organisation");
+                tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "organisation");
+                tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/introduced", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "organisation");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                m = lodQuery(uri, "http://dbpedia.org/property/managerClub", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+                m = lodQuery(uri, "http://dbpedia.org/property/mayor", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+               m = lodQuery(uri, "http://dbpedia.org/property/leaderName", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+                
                 break;
             case "activity":
                 
@@ -207,9 +221,9 @@ public class Connector {
         }
         
 
-//        for (int i = 0; i < tProp.size(); i++) {
-//            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
-//        }
+        for (int i = 0; i < tProp.size(); i++) {
+            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
+        }
         return tProp;
     }
 
@@ -243,10 +257,15 @@ public class Connector {
                     break;
                     
                     // le maire d'une organisation de type ville
-                    
+                       case "http://dbpedia.org/ontology/language":
+                    p2.setName("language");
+                    break;  
                    case "http://dbpedia.org/ontology/mayor":
                     p2.setName("mayor");
                     break;  
+                   case "http://dbpedia.org/property/leaderName":
+                    p2.setName("leader");
+                    break; 
                          // le chef d'une organisation
                     
                    case "http://dbpedia.org/ontology/managerClub ":
@@ -296,8 +315,12 @@ public class Connector {
                 case "http://dbpedia.org/property/location":
                     p2.setName("location");
                     break;
-                case "http://dbpedia.org/property/introduced":
+                        case "http://dbpedia.org/property/introduced":
                     p2.setName("dateOfCreation");
+                    break;
+     
+                      case "http://dbpedia.org/ontology/yearMeanC":
+                    p2.setName("tempMean");
                     break;
                 default:
                     p2.setName("default");
@@ -387,45 +410,45 @@ public class Connector {
                 // si le predicat est un type
                 case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
                     String typ = stmt.getObject().toString();
-                    if (typ.contains("Object")) {
-                        e.setType("object");
-                    }
-                    if (typ.contains("Event")) {
-                        e.setType("event");
-                    }
-                    if (typ.contains("Person")) {
-                        e.setType("person");
-                    }
-                    if (typ.contains("location") || typ.contains("Place") || typ.contains("State")) {
-                        e.setType("location");
-                    }
-                    if (typ.contains("Activity")) {
-                        e.setType("activity");
-                    }
                     if (typ.contains("Organisation") || (typ.contains("Museum"))) {
                         e.setType("organisation");
+                    }
+                    else if (typ.contains("Event")) {
+                        e.setType("event");
+                    }
+                    else if (typ.contains("Person")) {
+                        e.setType("person");
+                    }
+                    else if (typ.contains("location") || typ.contains("Place") || typ.contains("State")) {
+                        e.setType("location");
+                    }
+                   else if (typ.contains("Activity")) {
+                        e.setType("activity");
+                    }
+                    else {
+                        e.setType("object");
                     }
 
                     break;
                 case "http://dbpedia.org/property/type":
                     String typ2 = stmt.getObject().toString();
-                    if (typ2.contains("Object")) {
-                        e.setType("object");
+                  if (typ2.contains("Organisation") || (typ2.contains("Museum"))) {
+                        e.setType("organisation");
                     }
-                    if (typ2.contains("Event")) {
+                    else if (typ2.contains("Event")) {
                         e.setType("event");
                     }
-                    if (typ2.contains("Person")) {
+                    else if (typ2.contains("Person")) {
                         e.setType("person");
                     }
-                    if (typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State")) {
+                    else if (typ2.contains("location") || typ2.contains("Place") || typ2.contains("State")) {
                         e.setType("location");
                     }
-                    if (typ2.contains("Activity")) {
+                   else if (typ2.contains("Activity")) {
                         e.setType("activity");
                     }
-                    if (typ2.contains("Organisation") || typ2.contains("Museum")) {
-                        e.setType("organisation");
+                    else {
+                        e.setType("object");
                     }
 
                     break;
