@@ -46,7 +46,7 @@ public class Connector {
 //        
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
-        Entity e = new Entity("http://dbpedia.org/resource/Paris", null, null, null);
+        Entity e = new Entity("http://dbpedia.org/resource/Jacques-Louis_David", null, null, null);
         // String uri = e.getURI().toString();
         entityBrowser(e);
         // String test = "Racine";
@@ -54,6 +54,7 @@ public class Connector {
         // selectlodFromEntity(e);
         // e = selectlodFromEntity(e);
         //System.out.println(e);
+        //Auguste_Rodin
 
     }
 
@@ -161,6 +162,8 @@ public class Connector {
         tProp = searchPropertyFromModel(m, tProp);
         m = lodQuery(uri, "http://dbpedia.org/ontology/birthPlace", "?o");
         tProp = searchPropertyFromModel(m, tProp);
+           m = lodQuery(uri, "http://dbpedia.org/property/birthPlace", "?o");
+        tProp = searchPropertyFromModel(m, tProp);
         m = lodQuery(uri, "http://dbpedia.org/ontology/abstract", "?o");
         tProp = searchPropertyFromModel(m, tProp);
         m = lodQuery(uri, "http://dbpedia.org/property/mother", "?o");
@@ -203,12 +206,25 @@ public class Connector {
                 case "http://dbpedia.org/property/author":
                     p2.setName("author");
                     break;
+                    // les travaux de la personne
+                      case "http://dbpedia.org/property/works":
+                    p2.setName("isAuthorOf");
+                    break;
                 case "http://dbpedia.org/property/dateOfBirth":
                     p2.setName("birthdate");
                     break;
-//                   case "http://dbpedia.org/ontology/birthDate":
-//                    p2.setName("birthdate");
-//                    break;
+                    
+                    // le maire d'une organisation de type ville
+                    
+                   case "http://dbpedia.org/ontology/mayor":
+                    p2.setName("mayor");
+                    break;  
+                         // le chef d'une organisation
+                    
+                   case "http://dbpedia.org/ontology/managerClub ":
+                    p2.setName("manager");
+                    break;  
+                       
                 case "http://dbpedia.org/property/dateOfDeath":
                     p2.setName("deathdate");
                     break;
@@ -246,20 +262,22 @@ public class Connector {
                 case "http://dbpedia.org/ontology/postalCode":
                     p2.setName("postalCode");
                     break;
-                case "http://dbpedia.org/property/birthPlace":
-                    p2.setName("birthPlace");
-                    break;
                 case "http://dbpedia.org/ontology/location":
                     p2.setName("location");
                     break;
                 case "http://dbpedia.org/property/location":
                     p2.setName("location");
                     break;
+                    
+                    // dans le cas des organisation c'est origin qui indique la location
+                      case "http://dbpedia.org/property/origin":
+                    p2.setName("mayor");
+                    break;  
                 default:
                     p2.setName("default");
                     break;
             }
-            p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", ""));
+            p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en",""));
 
             if (object.isResource()) {
                 p2.setType("uri");
