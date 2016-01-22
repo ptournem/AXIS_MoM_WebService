@@ -125,8 +125,7 @@ public class Connector {
                         + "}", s, p, o));
 
         ResultSet rs = qe.execSelect();
-        
-        //qe.close(); IMPOSSIBLE car sinon rs est vide
+        //qe.close(); //IMPOSSIBLE car sinon rs est vide
         return rs;
     }
 
