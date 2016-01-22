@@ -46,6 +46,7 @@ public class TestWS {
         
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
         
+        Entity bourgeois = new Entity("Les Bourgeois de Calais", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG/250px-Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG", "object");
         Entity leonard = new Entity("Léonard Da Vinci", "http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "person");
         Entity caterina = new Entity("Caterina Da Vinci", "https://pbs.twimg.com/profile_images/514575733126365185/u_xPRRKq_400x400.jpeg", "person");
         Entity antonio = new Entity("Antonio Da Vinci", "https://s-media-cache-ak0.pinimg.com/736x/b8/d7/51/b8d7512c624b786baad3ab1bfa3f0163.jpg", "person");
@@ -59,6 +60,14 @@ public class TestWS {
         Entity vinciDB = new Entity();
         vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
         vinciDB.constructEntity();
+        
+        Entity rodinDB = new Entity();
+        rodinDB.setURI("http://dbpedia.org/resource/Auguste_Rodin");
+        rodinDB.constructEntity();
+        
+        
+        bourgeois = ws.AddEntity(bourgeois);
+        lierEntity(ws, bourgeois, "author", rodinDB);
         
         //création Léonard Da Vinci
         leonard = ws.AddEntity(leonard);
