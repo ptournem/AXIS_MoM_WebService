@@ -288,6 +288,7 @@ public List<List> browseModel(Resource resource, String predicate){
                 }
         }
         }
+        System.out.println("fin");
     }
     
     public void insertName(Property p) {
