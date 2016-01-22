@@ -300,21 +300,22 @@ public class TestWS {
 
         
         Entity napDB = new Entity();
-        napDB.setURI("http://dbpedia.org/resource/Napoleon");
+        napDB.setURI("http://dbpedia.org/resource/Paris");
         napDB.constructEntity();
-        
+        System.out.println(">>>>>>>>>>>>>>>>>\n\n\n"+napDB+"\n\n\n<<<<<<<<<<<<<<<<<");
         Entity nap = testAddEntity("nap.jpg", "nap", "person");
         
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
         
-        Person obj2 = new Person();
+        Place obj2 = new Place();
         
         
         lierEntity(ws, nap, "sameas", napDB);
         
-        obj2.setURI(nap.getURI());
+        obj2.setURI(napDB.getURI());
         obj2.constructEntity();
-        obj2.constructPerson();
+        System.out.println((Entity) obj2);
+        obj2.constructPlace();
         
 
         System.out.println("obj = "+obj2);

@@ -119,6 +119,16 @@ public class Place extends Entity{
                         this.region.setValue_dbpedia(n.getValue());
                     }
                     break;
+                case "description":
+                    this.description.setType(n.getType());
+                    if(this.getURI().contains("dbpedia")){
+                        this.description.setEntity_locale(n.getEnt());
+                        this.description.setValue_locale(n.getValue());
+                    }else {
+                        this.description.setEntity_dbpedia(n.getEnt());
+                        this.description.setValue_dbpedia(n.getValue());
+                    }
+                    break;
             }
             
         }}
@@ -244,6 +254,11 @@ public class Place extends Entity{
     
     public void insertPostalCode(Property p) {
         insert(this.getURI(), "dbont:postalCode", p.getValue(), p.getType());
+    }
+
+    @Override
+    public String toString() {
+        return "Place{" + "postalCode=" + postalCode + ", \nregion=" + region + ", \ncountry=" + country + ", \ndescription=" + description + ", \nbirthPlaceOf=" + birthPlaceOf + ", \nlocationOf=" + locationOf + ", \nsameAs=" + sameAs + '}';
     }
     
 

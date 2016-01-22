@@ -161,7 +161,7 @@ public class Connector {
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfDeath", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/birthPlace", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null);
+                tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/mother", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
                 m = lodQuery(uri, "http://dbpedia.org/property/father", "?o");
@@ -237,6 +237,7 @@ public class Connector {
 //            System.out.println("Subject :" + subject.toString());
 //            System.out.println("Object:" + object.toString());
 //            System.out.println("----------------------");
+            System.out.println("<<<<<<<<<<<<<<"+p);
             switch (p) {
                 case "http://dbpedia.org/property/artist":
                     p2.setName("author");
@@ -253,18 +254,18 @@ public class Connector {
                     break;
                     
                     // le maire d'une organisation de type ville
-                       case "http://dbpedia.org/ontology/language":
+                case "http://dbpedia.org/ontology/language":
                     p2.setName("language");
                     break;  
-                   case "http://dbpedia.org/ontology/mayor":
+                case "http://dbpedia.org/ontology/mayor":
                     p2.setName("mayor");
                     break;  
-                   case "http://dbpedia.org/property/leaderName":
+                case "http://dbpedia.org/property/leaderName":
                     p2.setName("leader");
                     break; 
                          // le chef d'une organisation
                     
-                   case "http://dbpedia.org/ontology/managerClub ":
+                case "http://dbpedia.org/ontology/managerClub ":
                     p2.setName("manager");
                     break;  
                        
@@ -303,7 +304,7 @@ public class Connector {
                     p2.setName("region");
                     break;
                 case "http://dbpedia.org/ontology/postalCode":
-                    p2.setName("postalCode");
+                    p2.setName("postalcode");
                     break;
                 case "http://dbpedia.org/ontology/location":
                     p2.setName("location");
@@ -420,9 +421,8 @@ public class Connector {
                    else if (typ.contains("Activity")) {
                         e.setType("activity");
                     }
-                    else {
+                    if(e.getType()==null)
                         e.setType("object");
-                    }
 
                     break;
                 case "http://dbpedia.org/property/type":
@@ -442,7 +442,7 @@ public class Connector {
                    else if (typ2.contains("Activity")) {
                         e.setType("activity");
                     }
-                    else {
+                    if(e.getType()==null) {
                         e.setType("object");
                     }
 
