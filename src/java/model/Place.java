@@ -46,7 +46,7 @@ public PropertyAdmin locationOf;
         this.postalCode = getPlacePropertyAdmin("postalCode");
         this.region = getPlacePropertyAdmin("region");
         
-        ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
+        ArrayList<Property> p = getPropertiesMapFromLod(this);
         if(p != null){
         Iterator<Property> it = p.iterator();
         while(it.hasNext()){

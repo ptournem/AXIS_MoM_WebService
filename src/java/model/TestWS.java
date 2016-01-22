@@ -36,8 +36,8 @@ public class TestWS {
 //        testLoadEntityProperties();
 
 //        testAll();
-        //testLoadEntityProperties();
-        testFonctionnel();
+        testLoadEntityProperties();
+//        testFonctionnel();
      
     }
     
@@ -302,7 +302,6 @@ public class TestWS {
         Entity e = new Entity();
         e.setURI("http://dbpedia.org/resource/Napoleon");
         obj2.setURI(e.getURI());
-        e.constructEntity();
         obj2.constructEntity();
         obj2.constructPerson();
         

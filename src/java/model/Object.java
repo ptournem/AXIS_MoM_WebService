@@ -66,7 +66,7 @@ public class Object extends Entity {
         this.author = getObjectPropertyAdmin("author");
         this.location = getObjectPropertyAdmin("location");
         this.description = getObjectPropertyAdmin("description");
-        ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
+        ArrayList<Property> p = getPropertiesMapFromLod(this);
         if(p != null){
         Iterator<Property> it = p.iterator();
             while(it.hasNext()){

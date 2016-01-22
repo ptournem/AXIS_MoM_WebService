@@ -75,9 +75,11 @@ public class Person extends Entity {
         this.isAuthorOf = getPersonPropertyAdmin("isAuthorOf");
         this.restInPlace = getPersonPropertyAdmin("restinplace");
         this.description = getPersonPropertyAdmin("description");
-        
+        System.out.println("type:"+this.getType());
         String testuri = this.getURI();
-        ArrayList<Property> p = getPropertiesMapFromLod(this.getURI());
+        String type = this.getType();
+        String type1 = this.getType();
+        ArrayList<Property> p = getPropertiesMapFromLod(this);
         if(p != null){
         Iterator<Property> it = p.iterator();
         while(it.hasNext()){

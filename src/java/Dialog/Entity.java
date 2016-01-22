@@ -183,29 +183,26 @@ public List<List> browseModel(Resource resource, String predicate){
         return l2;
     }
     
-    public ArrayList<Property> getPropertiesMapFromLod(String uri){
-        if(uri.contains("dbpedia")){
-            Entity e =new Entity();
-            e.setURI(uri);
+    public ArrayList<Property> getPropertiesMapFromLod(Entity e){
+        if(e.getURI().contains("dbpedia")){
             return entityBrowser(e);
         }
         String newUri = null;
-        ResultSet rs = selectFromEntity("<"+uri+">", "?p", "?o");
+        ResultSet rs = selectFromEntity("<"+e.getURI()+">", "?p", "?o");
         
         while(rs.hasNext()){
             QuerySolution qs = rs.nextSolution();
             if(qs.get("p").toString().contains("sameAs")){
                 newUri = qs.get("o").toString();
-                Entity e =new Entity();
-                e.setURI(newUri);
-                return entityBrowser(e);
+                Entity e1 =new Entity();
+                e1.setURI(newUri);
+                return entityBrowser(e1);
             }
         }
         return null;
     }
     public void constructEntity() {
         if(this.URI.contains("dbpedia")){
-            String testuri = this.URI;
             selectlodFromEntity(this);
         }else{
         Model m = selectFromEntity(this.URI);
