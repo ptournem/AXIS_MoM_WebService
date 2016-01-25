@@ -223,8 +223,15 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e2.setType("object");
 	e2.setURI("coca");
         
+        Entity e3 = new Entity();
+	e3.setImage("http://smallbites.andybellatti.com/wp-content/uploads/2009/08/176.jpg");
+	e3.setName("Redbull");
+	e3.setType("object");
+	e3.setURI("redbull");
+        
         Entity[] tab = null;
         tab[0] = e2;
+        tab[1] = e3;
 	p2.setEntity_locale(tab);
 
 	Entity e1 = new Entity();
