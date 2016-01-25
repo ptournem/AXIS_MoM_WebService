@@ -411,6 +411,8 @@ public class Connector {
         e = searchFromModel(m, e);
         m = lodQuery(uri, "http://dbpedia.org/ontology/birthName", "?o");
         e = searchFromModel(m, e);
+           m = lodQuery(uri, "http://dbpedia.org/ontology/birthName", "?o");
+        e = searchFromModel(m, e);
 
       //  System.out.println("l'entité : "+e);
         return e;
@@ -476,9 +478,14 @@ public class Connector {
 
                 case "http://www.w3.org/2000/01/rdf-schema#label":
                     String test = stmt.getObject().asLiteral().getLanguage();
-                    if (test.equals("fr")) {
+                        switch(test){
+                        case "fr": 
                         e.setName(object.toString().replace("@fr", ""));
-                    }
+                        break;
+                        case "en":
+                         e.setName(object.toString().replace("@en", ""));
+                        break;
+                        }
                     break;
                 case "http://dbpedia.org/ontology/alias":
                     e.setName(object.toString().replace("@en", ""));
