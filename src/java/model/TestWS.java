@@ -58,7 +58,7 @@ public class TestWS {
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
         
         Entity bourgeois = new Entity("Les Bourgeois de Calais", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG/250px-Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG", "object");
-        Entity leonard = new Entity("Léonard Da Vinci", "http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "person");
+        Entity leonard = new Entity("Léonard Da Vincii", "http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "person");
         Entity caterina = new Entity("Caterina Da Vinci", "https://pbs.twimg.com/profile_images/514575733126365185/u_xPRRKq_400x400.jpeg", "person");
         Entity antonio = new Entity("Antonio Da Vinci", "https://s-media-cache-ak0.pinimg.com/736x/b8/d7/51/b8d7512c624b786baad3ab1bfa3f0163.jpg", "person");
         Entity amboise = new Entity("Amboise", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ch%C3%A2teau_d'Amboise_07.jpg/220px-Ch%C3%A2teau_d'Amboise_07.jpg", "location");
@@ -153,7 +153,8 @@ public class TestWS {
     
     
     public static void lierEntity(AXIS_MoM_WS ws, Entity e1, String s, Entity e2) {
-        Property p = new Property(s, null, "uri", e2);
+        
+        Property p = new Property(s, null, "uri", null);
         ws.SetEntityProperty(e1, p, e2);
     }
     
@@ -181,7 +182,10 @@ public class TestWS {
 	p1.setName("sameas");
 	p1.setValue(null);
 	p1.setType("uri");
-        p1.setEnt(e2);
+        
+        Entity[] tab = null;
+        tab[0] = e2;
+        p1.setEnt(tab);
         
         Entity e = testAddEntity("http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "Leonard de Vinci", "person");
         
@@ -205,7 +209,8 @@ public class TestWS {
         p4.setName("birthplace");
         p4.setType("uri");
         p4.setValue(null);
-        p4.setEnt(e3);
+        tab[0] = e3;
+        p4.setEnt(tab);
         
         Person per = new Person();
         per.setImage(e.getImage());
@@ -226,7 +231,9 @@ public class TestWS {
         p5.setName("mother");
         p5.setType("uri");
         p5.setValue(null);
-        p5.setEnt(e4);
+        
+        tab[0] = e4;
+        p5.setEnt(tab);
         //fin ajout de la mother
         
         //ajout du pere
@@ -241,7 +248,8 @@ public class TestWS {
         p6.setName("father");
         p6.setType("uri");
         p6.setValue(null);
-        p6.setEnt(e5);
+        tab[0] = e5;
+        p6.setEnt(tab);
         //fin ajout du pere
         
         //ajout du restinplace
@@ -256,7 +264,8 @@ public class TestWS {
         p7.setName("restinplace");
         p7.setType("uri");
         p7.setValue(null);
-        p7.setEnt(e6);
+        tab[0] = e6;
+        p7.setEnt(tab);
         //fin ajout du restinplace
         
         
@@ -281,7 +290,8 @@ public class TestWS {
         p9.setName("isauthorof");
         p9.setType("uri");
         p9.setValue(null);
-        p9.setEnt(e7);
+        tab[0] = e7;
+        p9.setEnt(tab);
         
         Property p10 = new Property();
         p10.setName("description");
@@ -396,7 +406,10 @@ public class TestWS {
 	p2.setName("author");
 	p2.setValue(null);
 	p2.setType("uri");
-        p2.setEnt(e1);
+        
+        Entity[] tab = null;
+        tab[0] = e1;
+        p2.setEnt(tab);
         
 //        Entity e3 = new Entity();
 //        e3.setURI("http://dbpedia.org/resource/Martin_Luther_King,_Jr.");
@@ -420,13 +433,17 @@ public class TestWS {
 	p22.setName("location");
 	p22.setValue(null);
 	p22.setType("uri");
-        p22.setEnt(e11);
+        
+        tab[0] = e11;
+        p22.setEnt(tab);
         
         Property p33 = new Property();
 	p33.setName("location");
 	p33.setValue(null);
         p33.setType("uri");
-	p33.setEnt(new Entity("http://dbpedia.com/Paris", "Pariss", "paris.jpg", "location"));
+        
+        tab[0] = new Entity("http://dbpedia.com/Paris", "Pariss", "paris.jpg", "location");
+	p33.setEnt(tab);
         
         
         
@@ -460,13 +477,18 @@ public class TestWS {
 	p2.setName("birthplace");
 	p2.setValue(null);
 	p2.setType("uri");
-        p2.setEnt(e1);
+        
+        Entity[] tab = null;
+        tab[0] = e1;
+        p2.setEnt(tab);
         
         Property p3 = new Property();
 	p3.setName("birthplace");
 	p3.setValue(null);
         p3.setType("uri");
-	p3.setEnt(new Entity("http://dbpedia.com/blabla", "blabla", "bla.jpg", "aaaaaa"));
+        
+        tab[0] = new Entity("http://dbpedia.com/blabla", "blabla", "bla.jpg", "aaaaaa");
+	p3.setEnt(tab);
         
         Property p4 = new Property();
 	p4.setName("deathdate");

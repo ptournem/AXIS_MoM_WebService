@@ -293,7 +293,7 @@ public List<List> browseModel(Resource resource, String predicate){
     }
     
     public void insertSameAs(Property p) {
-        insert(this.URI, "owl:sameAs", p.getEnt().getURI());
+        insert(this.URI, "owl:sameAs", p.getEnt()[0].getURI());
     }
     
     public void insertDescription(Property p) {
@@ -336,7 +336,7 @@ public List<List> browseModel(Resource resource, String predicate){
         
         String type = p.getType();
         if(p.getType().equals("uri")) {
-            if(p.getEnt().getURI().contains("dbpedia")) {
+            if(p.getEnt()[0].getURI().contains("dbpedia")) {
                 return "dbpedia";
             }
             else {

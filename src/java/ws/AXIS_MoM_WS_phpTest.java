@@ -65,7 +65,10 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e2.setName("Coca");
 	e2.setType("object");
 	e2.setURI("coca");
-	p2.setEnt(e2);
+        
+        Entity[] tab = null;
+        tab[0] = e2;
+	p2.setEnt(tab);
 	list.add(p2);
 
 	Property p3 = new Property();
@@ -76,7 +79,9 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e3.setName("Américain");
 	e3.setType("organisation");
 	e3.setURI("USA");
-	p3.setEnt(e3);
+        
+        tab[0] = e3;
+	p3.setEnt(tab);
 	list.add(p3);
 
 	Property p4 = new Property();
@@ -87,7 +92,8 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e4.setName("Coretta Scott King");
 	e4.setType("person");
 	e4.setURI("CSK");
-	p4.setEnt(e4);
+        tab[0] = e4;
+	p4.setEnt(tab);
 	list.add(p4);
 
 	Property[] ret = new Property[list.size()];
@@ -216,14 +222,18 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e2.setName("Coca");
 	e2.setType("object");
 	e2.setURI("coca");
-	p2.setEntity_locale(e2);
+        
+        Entity[] tab = null;
+        tab[0] = e2;
+	p2.setEntity_locale(tab);
 
 	Entity e1 = new Entity();
 	e1.setImage("http://www.sushitime-france.fr/wp-content/uploads/2015/01/canette-coca-33cl.jpg");
 	e1.setName("Coca Dbpedia");
 	e1.setType("object");
 	e1.setURI("coca");
-	p2.setEntity_dbpedia(e1);
+        tab[0] = e1;
+	p2.setEntity_dbpedia(tab);
 	list.add(p2);
 
 	PropertyAdmin[] ret = new PropertyAdmin[list.size()];

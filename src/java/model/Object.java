@@ -130,12 +130,12 @@ public class Object extends Entity {
                 uri1 = insert("rdf:type", "axis-datamodel:Place");
                 insert(this.getURI(), "axis-datamodel:takePlaceIn", uri1);
                 insert(uri1, "axis-datamodel:isAPlaceOfObject", this.getURI());
-                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
                 
             case "our":
-                insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt().getURI());
-                insert(p.getEnt().getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
+                insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
+                insert(p.getEnt()[0].getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;
                 
             case "literal":
@@ -156,12 +156,12 @@ public class Object extends Entity {
                 uri1 = insert("rdf:type", "axis-datamodel:PhysicalPerson");
                 insert(this.getURI(), "axis-datamodel:isPerformedBy", uri1);
                 insert(uri1, "axis-datamodel:performs", this.getURI());
-                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
                 
             case "our":
-                insert(this.getURI(), "axis-datamodel:isPerformedBy", p.getEnt().getURI());
-                insert(p.getEnt().getURI(), "axis-datamodel:performs", this.getURI());
+                insert(this.getURI(), "axis-datamodel:isPerformedBy", p.getEnt()[0].getURI());
+                insert(p.getEnt()[0].getURI(), "axis-datamodel:performs", this.getURI());
                 break;
                 
             case "literal":

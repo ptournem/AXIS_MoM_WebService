@@ -40,7 +40,10 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
         Place pla = new Place();
         e.constructEntity();
         
-        p.setEnt(valueEntity);
+        Entity[] tab = null;
+        tab[0] = valueEntity;
+        
+        p.setEnt(tab);
         boolean ret = false;
         switch (p.getName()) {
 	    case "author":

@@ -10,9 +10,9 @@ public class Property {
     String name;
     String value;
     String type;
-    Entity ent;
+    Entity[] ent;
 
-    public Property(String name, String value, String type, Entity ent) {
+    public Property(String name, String value, String type, Entity[] ent) {
 	this.name = name;
 	this.value = value;
         this.type = type;
@@ -46,11 +46,11 @@ public class Property {
 	this.type = type;
     }
 
-    public Entity getEnt() {
+    public Entity[] getEnt() {
 	return ent;
     }
 
-    public void setEnt(Entity ent) {
+    public void setEnt(Entity[] ent) {
 	this.ent = ent;
     }
 

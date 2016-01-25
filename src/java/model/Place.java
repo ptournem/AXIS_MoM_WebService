@@ -171,11 +171,11 @@ public class Place extends Entity{
 	    case "dbpedia":
                 uri1 = insert("rdf:type", "axis-datamodel:Place");
                 insert(this.getURI(), "dbont:country", uri1);
-                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
                 
             case "our":
-                insert(this.getURI(), "dbont:country", p.getEnt().getURI());
+                insert(this.getURI(), "dbont:country", p.getEnt()[0].getURI());
                 break;
                 
             case "literal":
@@ -192,11 +192,11 @@ public class Place extends Entity{
 	    case "dbpedia":
                 uri1 = insert("rdf:type", "axis-datamodel:Place");
                 insert(this.getURI(), "dbont:region", uri1);
-                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
                 
             case "our":
-                insert(this.getURI(), "dbont:region", p.getEnt().getURI());
+                insert(this.getURI(), "dbont:region", p.getEnt()[0].getURI());
                 break;
                 
             case "literal":
@@ -214,12 +214,12 @@ public class Place extends Entity{
                 uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
                 insert(this.getURI(), "axis-datamodel:isAPlaceOfObject", uri1);
                 insert(uri1, "axis-datamodel:takePlaceIn", this.getURI());
-                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
                 
             case "our":
-                insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt().getURI());
-                insert(p.getEnt().getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
+                insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
+                insert(p.getEnt()[0].getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;
                 
             case "literal":
@@ -237,11 +237,11 @@ public class Place extends Entity{
 	    case "dbpedia":
                 uri1 = insert("rdf:type", "axis-datamodel:Person");
                 insert(this.getURI(), "dbont:birthPlace", uri1);
-                insert(uri1, "owl:sameAs", p.getEnt().getURI());
+                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
                 
             case "our":
-                insert(this.getURI(), "dbont:birthPlace", p.getEnt().getURI());
+                insert(this.getURI(), "dbont:birthPlace", p.getEnt()[0].getURI());
                 break;
                 
             case "literal":

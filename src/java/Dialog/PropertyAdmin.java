@@ -5,8 +5,8 @@ public class PropertyAdmin {
     private String name;
     private String value_locale;
     private String value_dbpedia;
-    private Entity entity_locale;
-    private Entity entity_dbpedia;
+    private Entity[] entity_locale;
+    private Entity[] entity_dbpedia;
     private String type;
 
     public PropertyAdmin() {
@@ -44,19 +44,19 @@ public class PropertyAdmin {
 	this.value_dbpedia = value_dbpedia;
     }
 
-    public Entity getEntity_locale() {
+    public Entity[] getEntity_locale() {
 	return entity_locale;
     }
 
-    public void setEntity_locale(Entity entity_locale) {
+    public void setEntity_locale(Entity[] entity_locale) {
 	this.entity_locale = entity_locale;
     }
 
-    public Entity getEntity_dbpedia() {
+    public Entity[] getEntity_dbpedia() {
 	return entity_dbpedia;
     }
 
-    public void setEntity_dbpedia(Entity entity_dbpedia) {
+    public void setEntity_dbpedia(Entity[] entity_dbpedia) {
 	this.entity_dbpedia = entity_dbpedia;
     }
 
