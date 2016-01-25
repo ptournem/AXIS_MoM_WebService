@@ -44,11 +44,11 @@ public class Connector {
 //        
 //        Model m = loadModels("test");
 //        System.out.println(m.toString());
-        Entity e = new Entity("http://dbpedia.org/resource/France", null, null, "location");
-        // String uri = e.getURI().toString();
-        entityBrowser(e);
-        // String test = "Racine";
-        // selectlodFromKeyWord(test);
+//        Entity e = new Entity("http://dbpedia.org/resource/Racine", null, null, "Person");
+//        // String uri = e.getURI().toString();
+//       entityBrowser(e);
+         String test = "Racine";
+         selectlodFromKeyWord(test);
         // selectlodFromEntity(e);
         // e = selectlodFromEntity(e);
         //System.out.println(e);
@@ -291,6 +291,9 @@ public class Connector {
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
                     break;
+                   case "http://dbpedia.org/ontology/wikiPageDisambiguates":
+                    p2.setName("sameas");
+                    break; 
                 case "http://dbpedia.org/property/mother":
                     p2.setName("mother");
                     break;
@@ -347,6 +350,25 @@ public class Connector {
         }
 
         return tProp;
+    }
+ private static Model lodQueryAmbigious (String s) {
+        String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
+                + "PREFIX dbp: <http://dbpedia.org/property/>"
+                + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
+                + "PREFIX dbr: <http://dbpedia.org/resource/>"
+                + "PREFIX type: <http://dbpedia.org/class/yago/>"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
+                + "construct where {<http://dbpedia.org/resource/"+s+"> dbont:wikiPageDisambiguates ?o}";
+        Query DBquery = QueryFactory.create(DBQueryString);
+        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
+
+        Model m = qDBexec.execConstruct();
+
+        qDBexec.close();
+        return m;
     }
 
     private static Model lodQuery(String s, String p, String o) {
@@ -479,43 +501,29 @@ public class Connector {
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         // l'URI est externe, et fait donc référence à un lien dbpedia, freebase...
         ArrayList<Entity> entities = new ArrayList<>();
-
-        Model m = lodQuery("http://dbpedia.org/resource/" + keyword, "?p", "?o");
-
+        Model m = lodQueryAmbigious(keyword);
         StmtIterator iter = m.listStatements();
-        Entity e = new Entity();
+        System.out.println("iter"+iter.toString());
         while (iter.hasNext()) {
 
             Statement stmt = (Statement) iter.next();
-            Resource subject = stmt.getSubject();
+          //  System.out.println("stmt"+stmt.toString());
+          //  Resource subject = stmt.getSubject();
+            
             org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
-            RDFNode object = stmt.getObject();
-
-            // 
-//            System.out.println("Predicate :" + p);
-//            System.out.println("Subject :" + subject);
-//            System.out.println("Object:" + object);
-            e.setURI(subject.toString());
-            // System.out.println("----------------------------");
-            // on ajoute l'uri qui sera notre sujet à l'entité
-            // System.out.println("uri : "+e.getURI());
-            // on vérifie les prédicats
-            if (p.contains("wikiPageDisambiguates")) {
-                Resource r2 = stmt.getResource();
-                String rString = r2.toString().substring(28);
-                String rString2 = new String(rString.getBytes(), Charset.forName("UTF-8"));
-                // System.out.println("r2 :"+rString2);
-                selectlodFromKeyWord(rString2);
-                // System.out.println("wikiPageDisambiguates:"+r2);
-            } else {
-                searchFromModel(m, e);
-            }
-            // on ajoute nos entités a notre tableau 
-            entities.add(e);
+            Entity e = new Entity();
+          RDFNode object = stmt.getObject();
+          String uri = object.toString();
+            e.setURI(uri);
+            Entity e2 = selectlodFromEntity(e);
+            entities.add(e2);
+            
         }
-        System.out.println("entity :" + e);
-        System.out.println("les entites : " + entities);
+     
+     for (int i = 0; i < entities.size(); i++) {
+            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+        }
         return entities;
     }
 
