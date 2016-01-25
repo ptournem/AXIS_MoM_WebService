@@ -183,7 +183,7 @@ public class TestWS {
 	p1.setValue(null);
 	p1.setType("uri");
         
-        Entity[] tab = null;
+        Entity[] tab = new Entity[1];
         tab[0] = e2;
         p1.setEnt(tab);
         
@@ -407,7 +407,7 @@ public class TestWS {
 	p2.setValue(null);
 	p2.setType("uri");
         
-        Entity[] tab = null;
+        Entity[] tab = new Entity[1];
         tab[0] = e1;
         p2.setEnt(tab);
         
@@ -478,7 +478,7 @@ public class TestWS {
 	p2.setValue(null);
 	p2.setType("uri");
         
-        Entity[] tab = null;
+        Entity[] tab = new Entity[1];
         tab[0] = e1;
         p2.setEnt(tab);
         
