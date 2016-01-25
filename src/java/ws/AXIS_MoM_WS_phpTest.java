@@ -72,7 +72,7 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e5.setType("object");
 	e5.setURI("redbull");
         
-        Entity[] tab = null;
+        Entity[] tab = new Entity[2];
         tab[0] = e2;
         tab[1] = e5;
 	p2.setEnt(tab);
@@ -236,7 +236,7 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e3.setType("object");
 	e3.setURI("redbull");
         
-        Entity[] tab = null;
+        Entity[] tab = new Entity[2];
         tab[0] = e2;
         tab[1] = e3;
 	p2.setEntity_locale(tab);
