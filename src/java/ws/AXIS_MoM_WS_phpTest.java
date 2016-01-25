@@ -66,8 +66,15 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e2.setType("object");
 	e2.setURI("coca");
         
+        Entity e5 = new Entity();
+	e5.setImage("http://smallbites.andybellatti.com/wp-content/uploads/2009/08/176.jpg");
+	e5.setName("Redbull");
+	e5.setType("object");
+	e5.setURI("redbull");
+        
         Entity[] tab = null;
         tab[0] = e2;
+        tab[1] = e5;
 	p2.setEnt(tab);
 	list.add(p2);
 
