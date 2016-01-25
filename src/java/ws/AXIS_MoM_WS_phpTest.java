@@ -80,15 +80,16 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 
 	Property p3 = new Property();
 	p3.setName("Est de nationalité");
-	p3.setType("URI");
+	p3.setType("uri");
 	Entity e3 = new Entity();
 	e3.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/320px-Flag_of_the_United_States_%28Pantone%29.svg.png");
 	e3.setName("Américain");
 	e3.setType("organisation");
 	e3.setURI("USA");
         
-        tab[0] = e3;
-	p3.setEnt(tab);
+        Entity[] tab2 = new Entity[1];
+        tab2[0] = e3;
+	p3.setEnt(tab2);
 	list.add(p3);
 
 	Property p4 = new Property();
@@ -99,8 +100,10 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e4.setName("Coretta Scott King");
 	e4.setType("person");
 	e4.setURI("CSK");
-        tab[0] = e4;
-	p4.setEnt(tab);
+        
+        Entity[] tab3 = new Entity[1];
+        tab3[0] = e4;
+	p4.setEnt(tab3);
 	list.add(p4);
 
 	Property[] ret = new Property[list.size()];
@@ -246,8 +249,10 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	e1.setName("Coca Dbpedia");
 	e1.setType("object");
 	e1.setURI("coca");
-        tab[0] = e1;
-	p2.setEntity_dbpedia(tab);
+        
+        Entity[] tab2 = new Entity[1];
+        tab2[0] = e1;
+	p2.setEntity_dbpedia(tab2);
 	list.add(p2);
 
 	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
