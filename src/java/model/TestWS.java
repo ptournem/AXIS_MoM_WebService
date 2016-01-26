@@ -147,6 +147,8 @@ public class TestWS {
         
         //lier Léonard de vinci => father => Antonio
         lierEntity(ws, leonard, "father", antonio);
+        lierEntity(ws, leonard, "father", caterina);
+        lierEntity(ws, leonard, "father", rodinDB);
         
         //création Amboise
         amboise = ws.AddEntity(amboise);

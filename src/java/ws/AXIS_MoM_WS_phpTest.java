@@ -39,7 +39,7 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
     }
 
     @Override
-    public Boolean RemoveEntityObjectProperty(Entity e, Property p, Entity valueEntity) {
+    public Boolean RemoveEntityProperty(Entity e, Property p, Entity valueEntity, String valueText) {
 	return true;
     }
 

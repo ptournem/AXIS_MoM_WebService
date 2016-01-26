@@ -56,7 +56,12 @@ public class Property {
 
     @Override
     public String toString() {
-        return "Property{\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue=\u001B[0m" + value + ",\u001B[34mtype=\u001B[0m" + type + ", \u001B[34ment=\u001B[0m" + ent + '}';
+        String tabE = "";
+        for (int i = 0; i < ent.length; i++) {
+            tabE += this.ent[i]+" - ";
+        }
+        return "Property{\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue=\u001B[0m" + value + ",\u001B[34mtype=\u001B[0m" + type + ", \u001B[34ment=\u001B[0m" + tabE + '}';
     }
+
 
 }

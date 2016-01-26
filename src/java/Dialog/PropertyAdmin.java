@@ -73,7 +73,17 @@ public class PropertyAdmin {
     
     @Override
     public String toString() {
-        return "PropertyAdmin{" + "\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue_locale=\u001B[0m" + value_locale + ", \u001B[34mvalue_dbpedia=\u001B[0m" + value_dbpedia + ", \u001B[34mentity_locale=\u001B[0m" + entity_locale + ", \u001B[34mentity_dbpedia=\u001B[0m" + entity_dbpedia + ", \u001B[34mtype=\u001B[0m" + type + '}';
+        String tabE = "";
+        for (int i = 0; i < entity_dbpedia.length; i++) {
+            tabE += this.entity_dbpedia[i]+" - ";
+        }
+        
+        String tabE2 = "";
+        for (int i = 0; i < entity_locale.length; i++) {
+            tabE2 += this.entity_locale[i]+" - ";
+        }
+        
+        return "PropertyAdmin{" + "\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue_locale=\u001B[0m" + value_locale + ", \u001B[34mvalue_dbpedia=\u001B[0m" + value_dbpedia + ", \u001B[34mentity_locale=\u001B[0m" + tabE2 + ", \u001B[34mentity_dbpedia=\u001B[0m" + tabE + ", \u001B[34mtype=\u001B[0m" + type + '}';
     }
 
 }

@@ -30,14 +30,14 @@ public class Person extends Entity {
     public Property[] getPropertiesPerson() {
         ArrayList<Property> list = new ArrayList<Property>();
 
-	list.add(new Property(this.birthDate.getName(), this.birthDate.getValue_locale(), this.birthDate.getType(), this.birthDate.getEntity_locale()));
-        list.add(new Property(this.deathDate.getName(), this.deathDate.getValue_locale(), this.deathDate.getType(), this.deathDate.getEntity_locale()));
-        list.add(new Property(this.placeOfBirth.getName(), this.placeOfBirth.getValue_locale(), this.placeOfBirth.getType(), this.placeOfBirth.getEntity_locale()));
-	list.add(new Property(this.mother.getName(), this.mother.getValue_locale(), this.mother.getType(), this.mother.getEntity_locale()));
-        list.add(new Property(this.father.getName(), this.father.getValue_locale(), this.father.getType(), this.father.getEntity_locale()));
-        list.add(new Property(this.isAuthorOf.getName(), this.isAuthorOf.getValue_locale(), this.isAuthorOf.getType(), this.isAuthorOf.getEntity_locale()));
-        list.add(new Property(this.restInPlace.getName(), this.restInPlace.getValue_locale(), this.restInPlace.getType(), this.restInPlace.getEntity_locale()));
-        list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getType(), this.description.getEntity_locale()));
+	if(!this.birthDate.getName().isEmpty()) list.add(new Property(this.birthDate.getName(), this.birthDate.getValue_locale(), this.birthDate.getType(), this.birthDate.getEntity_locale()));
+        if(!this.deathDate.getName().isEmpty()) list.add(new Property(this.deathDate.getName(), this.deathDate.getValue_locale(), this.deathDate.getType(), this.deathDate.getEntity_locale()));
+        if(!this.placeOfBirth.getName().isEmpty()) list.add(new Property(this.placeOfBirth.getName(), this.placeOfBirth.getValue_locale(), this.placeOfBirth.getType(), this.placeOfBirth.getEntity_locale()));
+	if(!this.mother.getName().isEmpty()) list.add(new Property(this.mother.getName(), this.mother.getValue_locale(), this.mother.getType(), this.mother.getEntity_locale()));
+        if(!this.father.getName().isEmpty()) list.add(new Property(this.father.getName(), this.father.getValue_locale(), this.father.getType(), this.father.getEntity_locale()));
+        if(!this.isAuthorOf.getName().isEmpty()) list.add(new Property(this.isAuthorOf.getName(), this.isAuthorOf.getValue_locale(), this.isAuthorOf.getType(), this.isAuthorOf.getEntity_locale()));
+        if(!this.restInPlace.getName().isEmpty()) list.add(new Property(this.restInPlace.getName(), this.restInPlace.getValue_locale(), this.restInPlace.getType(), this.restInPlace.getEntity_locale()));
+        if(!this.description.getName().isEmpty()) list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getType(), this.description.getEntity_locale()));
 	Property[] ret = new Property[list.size()];
 	return (Property[]) list.toArray(ret);
     }

@@ -170,8 +170,86 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     }
 
     @Override
-    public Boolean RemoveEntityObjectProperty(Entity e, Property p, Entity valueEntity) {
-	return true;
+    public Boolean RemoveEntityProperty(Entity e, Property p, Entity valueEntity, String valueText) {
+        
+        boolean ret;
+        switch (p.getName()) {
+	    case "author":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "sameas":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "description":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "location":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "image":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "name":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "birthdate":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "deathdate":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "restinplace":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "mother":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "father":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "isauthorof":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "birthplace":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "birthplaceof":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "postalcode":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "region":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "country":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            case "locationof":
+                e.delete("prop author", valueEntity.getURI());
+                ret = true;
+                break;
+            default:
+                return false;
+        }
+	return ret;
     }
 
     @Override
