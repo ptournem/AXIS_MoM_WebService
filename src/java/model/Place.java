@@ -49,7 +49,7 @@ public class Place extends Entity{
         list.add(this.country);
         list.add(this.description);
         list.add(this.birthPlaceOf);
-	 list.add(this.locationOf);
+	list.add(this.locationOf);
 	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
 	return (PropertyAdmin[]) list.toArray(ret);
     }
