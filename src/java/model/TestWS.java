@@ -8,6 +8,7 @@ package model;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
+import java.util.ArrayList;
 import ws.AXIS_MoM_WS;
 
 /**
@@ -106,6 +107,8 @@ public class TestWS {
         
         //lier Léonard de vinci => father => Antonio
         lierEntity(ws, leonard, "father", antonio);
+        lierEntity(ws, leonard, "father", caterina);
+        lierEntity(ws, leonard, "father", rodinDB);
         
         //création Amboise
         amboise = ws.AddEntity(amboise);

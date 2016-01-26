@@ -433,6 +433,10 @@ public List<List> browseModel(Resource resource, String predicate){
         
     }
 
+    public boolean delete(String prop, String uri2) {
+        
+        return true;
+    }
     @Override
     public String toString() {
         return "Entity{" + "URI=" + URI + ", name=" + name + ", image=" + image + ", type=" + type + '}';
