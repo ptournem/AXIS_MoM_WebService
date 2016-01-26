@@ -59,7 +59,7 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 
 	Property p2 = new Property();
 	p2.setName("Aime");
-	p2.setType("URI");
+	p2.setType("uri");
 	Entity e2 = new Entity();
 	e2.setImage("http://t2.uccdn.com/fr/images/2/0/5/img_comment_ouvrir_une_canette_de_coca_secouee_6502_orig.jpg");
 	e2.setName("Coca");
@@ -94,7 +94,7 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 
 	Property p4 = new Property();
 	p4.setName("Conjoint");
-	p4.setType("URI");
+	p4.setType("uri");
 	Entity e4 = new Entity();
 	e4.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Martin_Luther_King_Jr_NYWTS_5.jpg/440px-Martin_Luther_King_Jr_NYWTS_5.jpg");
 	e4.setName("Coretta Scott King");
@@ -225,7 +225,7 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 
 	PropertyAdmin p2 = new PropertyAdmin();
 	p2.setName("Apprécie");
-	p2.setType("URI");
+	p2.setType("uri");
 
 	Entity e2 = new Entity();
 	e2.setImage("http://t2.uccdn.com/fr/images/2/0/5/img_comment_ouvrir_une_canette_de_coca_secouee_6502_orig.jpg");
