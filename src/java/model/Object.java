@@ -178,7 +178,10 @@ public class Object extends Entity {
     public String toString() {
         return "Object{" + "location=" + location + ", author=" + author + ", sameAs=" + sameAs + ", description=" + description + '}';
     }
-
+    
+    public String superString(){
+        return super.toString();
+    }
     
     
 
