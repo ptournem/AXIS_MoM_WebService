@@ -27,10 +27,9 @@ public class TestWS {
 //        testObject();
 //            testRecherche();
 //        testLoadEntityProperties();
-
 //        testAll();
         //testLoadEntityProperties();
-        testFonctionnel();
+//        testFonctionnel();
         //testPropertiesDbpedia();
      
         //System.out.println("\u001B[35mtest\u001B[1mtest\u001B[35mtest");

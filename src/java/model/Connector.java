@@ -17,8 +17,10 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import Dialog.Entity;
+import Dialog.Property;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
@@ -47,8 +49,8 @@ public class Connector {
 //        Entity e = new Entity("http://dbpedia.org/resource/Racine", null, null, "Person");
 //        // String uri = e.getURI().toString();
 //       entityBrowser(e);
-         String test = "Racine";
-         selectlodFromKeyWord(test);
+        String test = "Racine";
+        selectlodFromKeyWord(test);
         // selectlodFromEntity(e);
         // e = selectlodFromEntity(e);
         //System.out.println(e);
@@ -75,7 +77,6 @@ public class Connector {
 
         Model constructModel = qe.execConstruct();
 
-       
         qe.close();
         return constructModel;
     }
@@ -179,6 +180,10 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location");
+                m = lodQuery(uri, "http://dbpedia.org/property/city", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location");
+                m = lodQuery(uri, "http://dbpedia.org/property/museum", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location");
                 break;
             case "location":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
@@ -187,15 +192,15 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/ontology/postalCode", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
-                  m = lodQuery(uri, "http://dbpedia.org/ontology/yearMeanC", "?o");
+                m = lodQuery(uri, "http://dbpedia.org/ontology/yearMeanC", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/language", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
-                   m = lodQuery(uri, "http://dbpedia.org/property/leaderName", "?o");
+                m = lodQuery(uri, "http://dbpedia.org/property/leaderName", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
                 break;
             case "event":
-                
+
                 break;
             case "organisation":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
@@ -208,15 +213,14 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person");
                 m = lodQuery(uri, "http://dbpedia.org/property/mayor", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
-               m = lodQuery(uri, "http://dbpedia.org/property/leaderName", "?o");
+                m = lodQuery(uri, "http://dbpedia.org/property/leaderName", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
-                
+
                 break;
             case "activity":
-                
+
                 break;
         }
-        
 
         for (int i = 0; i < tProp.size(); i++) {
             System.out.println("prop n°" + i + "  :  " + tProp.get(i));
@@ -226,8 +230,10 @@ public class Connector {
 
     public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp, String type) {
         StmtIterator iter = m.listStatements();
+        ArrayList<Entity> ale = new ArrayList<Entity>();
+        int setted = 0;
+        Dialog.Property p2 = new Dialog.Property(null, null, null, null);
         while (iter.hasNext()) {
-            Dialog.Property p2 = new Dialog.Property(null, null, null, null);
             Statement stmt = (Statement) iter.next();
 //          System.out.println("test : "+stmt.asTriple().toString());
             org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
@@ -245,30 +251,30 @@ public class Connector {
                 case "http://dbpedia.org/property/author":
                     p2.setName("author");
                     break;
-                    // les travaux de la personne
-                      case "http://dbpedia.org/property/works":
+                // les travaux de la personne
+                case "http://dbpedia.org/property/works":
                     p2.setName("isAuthorOf");
                     break;
                 case "http://dbpedia.org/property/dateOfBirth":
                     p2.setName("birthdate");
                     break;
-                    
-                    // le maire d'une organisation de type ville
+
+                // le maire d'une organisation de type ville
                 case "http://dbpedia.org/ontology/language":
                     p2.setName("language");
-                    break;  
+                    break;
                 case "http://dbpedia.org/ontology/mayor":
                     p2.setName("mayor");
-                    break;  
+                    break;
                 case "http://dbpedia.org/property/leaderName":
                     p2.setName("leader");
-                    break; 
-                         // le chef d'une organisation
-                    
+                    break;
+                // le chef d'une organisation
+
                 case "http://dbpedia.org/ontology/managerClub ":
                     p2.setName("manager");
-                    break;  
-                       
+                    break;
+
                 case "http://dbpedia.org/property/dateOfDeath":
                     p2.setName("deathdate");
                     break;
@@ -281,9 +287,12 @@ public class Connector {
                 case "http://dbpedia.org/ontology/abstract":
                     String test = stmt.getObject().asLiteral().getLanguage();
                     if (test.equals("fr")) {
+                        p2.setEnt(null);
                         p2.setName(object.asLiteral().getString());
+                        System.out.println(object.asLiteral().getString());
                         p2.setName("description");
-                    } else {
+                        p2.setValue(object.asLiteral().getString());
+                    } else if(p2.getType()==null){
                         p2.setName("default");
                     }
 
@@ -291,9 +300,9 @@ public class Connector {
                 case "http://www.w3.org/2002/07/owl#sameAs":
                     p2.setName("sameas");
                     break;
-                   case "http://dbpedia.org/ontology/wikiPageDisambiguates":
+                case "http://dbpedia.org/ontology/wikiPageDisambiguates":
                     p2.setName("sameas");
-                    break; 
+                    break;
                 case "http://dbpedia.org/property/mother":
                     p2.setName("mother");
                     break;
@@ -315,43 +324,98 @@ public class Connector {
                 case "http://dbpedia.org/property/location":
                     p2.setName("location");
                     break;
-                        case "http://dbpedia.org/property/introduced":
+                case "http://dbpedia.org/property/city":
+                    p2.setName("location");
+                    break;
+                case "http://dbpedia.org/property/museum":
+                    p2.setName("location");
+                    break;
+                case "http://dbpedia.org/property/introduced":
                     p2.setName("dateOfCreation");
                     break;
-     
-                      case "http://dbpedia.org/ontology/yearMeanC":
+
+                case "http://dbpedia.org/ontology/yearMeanC":
                     p2.setName("tempMean");
                     break;
                 default:
                     p2.setName("default");
                     break;
             }
-            p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en",""));
-
+            
             if (object.isResource()) {
                 p2.setType("uri");
                 String uri2 = object.toString();
                 Entity e2 = new Entity(uri2, "", "", type);
-                p2.setEnt(selectlodFromEntity(e2));
+                ale.add(selectlodFromEntity(e2));
+                Entity[] ret = new Entity[ale.size()];
+                p2.setEnt((Entity[]) ale.toArray(ret));
+
             } else {
                 p2.setType("fr");
                 p2.setEnt(null);
+                if(p2.getValue() == null)
+                    p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en", ""));
+//                tProp.add(p2);
             }
+            System.out.println("p>>" + p+"; p2>>>"+p2);
             if (!p2.getName().contains("default")) {
-//                System.out.println("--------------------");
-//                System.out.println("entity :" + p2.getEnt());
-//                System.out.println("name :" + p2.getName());
-//                System.out.println("type :" + p2.getType());
-//                System.out.println("value :" + p2.getValue());  
-//                System.out.println("--------------------");
-                tProp.add(p2);
+////                System.out.println("--------------------");
+////                System.out.println("entity :" + p2.getEnt());
+////                System.out.println("name :" + p2.getName());
+////                System.out.println("type :" + p2.getType());
+////                System.out.println("value :" + p2.getValue());  
+////                System.out.println("--------------------");
+                int s = tProp.size();
+                if(s==0){
+                    tProp.add(p2);
+                }else{
+                    int index = -1;
+                    for (int i = 0; i < s; i++) {
+                        if (tProp.get(i).getName() == p2.getName()) {
+                            System.out.println("name>>>>>"+p2.getName());
+                            index =i;
+                        }
+                    }
+                    if(index != -1){
+                        if (!tProp.get(index).getType().toString().equals("uri") ) {
+                            tProp.get(index).setValue(p2.getValue());
+                            tProp.get(index).setType(p2.getType());
+                            tProp.get(index).setName(p2.getName());
+                            tProp.get(index).setEnt(p2.getEnt());
+                        } else {
+                            System.out.println("else2");
+                            tProp.get(index).setType(p2.getType());
+                            tProp.get(index).setName(p2.getName());
+                            tProp.get(index).setValue(null);
+                            ArrayList<Entity> al = new ArrayList<Entity>();
+                            
+                            int s1 = tProp.get(index).getEnt().length;
+                            if(setted==0){
+                                for (int j = 0; j < s1; j++) {
+                                    al.add(tProp.get(index).getEnt()[j]);
+                                }
+                            }
+                            
+                            for (int j = 0; j < s1; j++) {
+                                al.add(p2.getEnt()[j]);
+                            }
+                            Entity [] ent =new Entity[al.size()];
+                            tProp.get(index).setEnt((Entity[]) al.toArray(ent));
+                        }
+                    }else{
+                        tProp.add(p2);
+                        setted = 1;
+                    }
+                }
             }
 
         }
 
+//        tProp.add(p2);
         return tProp;
     }
- private static Model lodQueryAmbigious (String s) {
+
+    private static Model lodQueryAmbigious(String s) {
         String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
                 + "PREFIX dbp: <http://dbpedia.org/property/>"
                 + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
@@ -361,7 +425,7 @@ public class Connector {
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                 + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "construct where {<http://dbpedia.org/resource/"+s+"> dbont:wikiPageDisambiguates ?o}";
+                + "construct where {<http://dbpedia.org/resource/" + s + "> dbont:wikiPageDisambiguates ?o}";
         Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
@@ -396,7 +460,7 @@ public class Connector {
         String uri = e.getURI();
         Model m = lodQuery(uri, "http://dbpedia.org/ontology/thumbnail", "?o");
         e = searchFromModel(m, e);
-        if(e.getType() == null){
+        if (e.getType() == null) {
             m = lodQuery(uri, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "?o");
             e = searchFromModel(m, e);
             if (e.getType() == null) {
@@ -404,17 +468,17 @@ public class Connector {
                 e = searchFromModel(m, e);
             }
         }
-        
+
         m = lodQuery(uri, "http://www.w3.org/2000/01/rdf-schema#label", "?o");
         e = searchFromModel(m, e);
         m = lodQuery(uri, "http://dbpedia.org/ontology/alias", "?o");
         e = searchFromModel(m, e);
         m = lodQuery(uri, "http://dbpedia.org/ontology/birthName", "?o");
         e = searchFromModel(m, e);
-           m = lodQuery(uri, "http://dbpedia.org/ontology/birthName", "?o");
+        m = lodQuery(uri, "http://dbpedia.org/ontology/birthName", "?o");
         e = searchFromModel(m, e);
 
-      //  System.out.println("l'entité : "+e);
+        //  System.out.println("l'entité : "+e);
         return e;
     }
 
@@ -433,41 +497,34 @@ public class Connector {
                     String typ = stmt.getObject().toString();
                     if (typ.contains("Organisation") || (typ.contains("Museum"))) {
                         e.setType("organisation");
-                    }
-                    else if (typ.contains("Event")) {
+                    } else if (typ.contains("Event")) {
                         e.setType("event");
-                    }
-                    else if (typ.contains("Person")) {
+                    } else if (typ.contains("Person")) {
                         e.setType("person");
-                    }
-                    else if (typ.contains("location") || typ.contains("Place") || typ.contains("State")) {
+                    } else if (typ.contains("location") || typ.contains("Place") || typ.contains("State")) {
                         e.setType("location");
-                    }
-                   else if (typ.contains("Activity")) {
+                    } else if (typ.contains("Activity")) {
                         e.setType("activity");
                     }
-                    if(e.getType()==null)
+                    if (e.getType() == null) {
                         e.setType("object");
+                    }
 
                     break;
                 case "http://dbpedia.org/property/type":
                     String typ2 = stmt.getObject().toString();
-                  if (typ2.contains("Organisation") || (typ2.contains("Museum"))) {
+                    if (typ2.contains("Organisation") || (typ2.contains("Museum"))) {
                         e.setType("organisation");
-                    }
-                    else if (typ2.contains("Event")) {
+                    } else if (typ2.contains("Event")) {
                         e.setType("event");
-                    }
-                    else if (typ2.contains("Person")) {
+                    } else if (typ2.contains("Person")) {
                         e.setType("person");
-                    }
-                    else if (typ2.contains("location") || typ2.contains("Place") || typ2.contains("State")) {
+                    } else if (typ2.contains("location") || typ2.contains("Place") || typ2.contains("State")) {
                         e.setType("location");
-                    }
-                   else if (typ2.contains("Activity")) {
+                    } else if (typ2.contains("Activity")) {
                         e.setType("activity");
                     }
-                    if(e.getType()==null) {
+                    if (e.getType() == null) {
                         e.setType("object");
                     }
 
@@ -478,14 +535,14 @@ public class Connector {
 
                 case "http://www.w3.org/2000/01/rdf-schema#label":
                     String test = stmt.getObject().asLiteral().getLanguage();
-                        switch(test){
-                        case "fr": 
-                        e.setName(object.toString().replace("@fr", ""));
-                        break;
+                    switch (test) {
+                        case "fr":
+                            e.setName(object.toString().replace("@fr", ""));
+                            break;
                         case "en":
-                         e.setName(object.toString().replace("@en", ""));
-                        break;
-                        }
+                            e.setName(object.toString().replace("@en", ""));
+                            break;
+                    }
                     break;
                 case "http://dbpedia.org/ontology/alias":
                     e.setName(object.toString().replace("@en", ""));
@@ -510,25 +567,25 @@ public class Connector {
         ArrayList<Entity> entities = new ArrayList<>();
         Model m = lodQueryAmbigious(keyword);
         StmtIterator iter = m.listStatements();
-        System.out.println("iter"+iter.toString());
+        System.out.println("iter" + iter.toString());
         while (iter.hasNext()) {
 
             Statement stmt = (Statement) iter.next();
-          //  System.out.println("stmt"+stmt.toString());
-          //  Resource subject = stmt.getSubject();
-            
+            //  System.out.println("stmt"+stmt.toString());
+            //  Resource subject = stmt.getSubject();
+
             org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
             Entity e = new Entity();
-          RDFNode object = stmt.getObject();
-          String uri = object.toString();
+            RDFNode object = stmt.getObject();
+            String uri = object.toString();
             e.setURI(uri);
             Entity e2 = selectlodFromEntity(e);
             entities.add(e2);
-            
+
         }
-     
-     for (int i = 0; i < entities.size(); i++) {
+
+        for (int i = 0; i < entities.size(); i++) {
             System.out.println("entiity n°" + i + "  :  " + entities.get(i));
         }
         return entities;
@@ -538,18 +595,13 @@ public class Connector {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
-                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                + "select ?o where {?s axis-datamodel:uses ?o ." +
-"	?s rdf:type axis-datamodel:Entity}"));
+                        "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                        + "select ?o where {?s axis-datamodel:uses ?o ."
+                        + "	?s rdf:type axis-datamodel:Entity}"));
 
-
-        
         ResultSet rs = qe.execSelect();
-        
-        
-        
-        
+
         List<QuerySolution> mList = null;
         mList = ResultSetFormatter.toList(rs);
         qe.close();
