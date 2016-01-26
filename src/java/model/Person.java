@@ -158,7 +158,6 @@ public class Person extends Entity {
             }
             
         }}
-        System.out.println("fin");
     }
     
     public PropertyAdmin getPersonPropertyAdmin(String propertyName){

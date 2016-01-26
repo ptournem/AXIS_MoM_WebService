@@ -288,7 +288,6 @@ public class Entity {
                 }
             }
         }
-        System.out.println("fin");
     }
 
     public void insertName(Property p) {
@@ -375,18 +374,17 @@ public class Entity {
                 List<List> l2 = browseModel(resource, propertyName);
                 if (!l2.isEmpty()) {
                     Iterator<List> itt = l2.listIterator();
+                    int i = 0;
                     while (itt.hasNext()) {
                         String nextUri = itt.next().get(2).toString();
-//                    l2.get(0).get(2).toString()
                         ResultSet rset = selectFromEntity("?s", "axis-datamodel:uses", "<" + nextUri + ">");
                         if (rset.hasNext()) {
-                            while (rset.hasNext()) {
                                 Entity e = new Entity();
-                                e.setURI(l2.get(0).get(2).toString());
+                                e.setURI(l2.get(i).get(2).toString());
                                 e.constructEntity();
                                 ale.add(e);
                                 pa.setType("uri");
-                            }
+                                i=i+1;
                         } else {
                             ResultSet rs = selectFromEntity("<" + nextUri + ">", "?p", "?o");
                             while (rs.hasNext()) {

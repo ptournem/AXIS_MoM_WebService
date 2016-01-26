@@ -8,6 +8,7 @@ package model;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
+import java.util.ArrayList;
 import ws.AXIS_MoM_WS;
 
 /**
@@ -27,6 +28,47 @@ public class TestWS {
 //        testObject();
 //            testRecherche();
 //        testLoadEntityProperties();
+        Entity e1 = testAddEntity("paris.jpg", "Paris", "location");
+        Entity e2 = testAddEntity("france.jpg", "France", "location");
+        Entity e3 = testAddEntity("test.jpg", "Jean", "person");
+        
+        Person per = new Person();
+        per.setURI(e3.getURI());
+        
+        
+        Property p1 = new Property();
+	p1.setName("birthplace");
+	p1.setValue(null);
+	p1.setType("uri");
+        ArrayList<Entity> ale = new ArrayList<Entity> ();
+        ale.add(e1);
+        Entity [] eTab = new Entity[ale.size()];
+        
+        
+        Property p2 = new Property();
+	p2.setName("birthplace");
+	p2.setValue(null);
+	p2.setType("uri");
+        ArrayList<Entity> ale1 = new ArrayList<Entity> ();
+        ale1.add(e2);
+        Entity [] eTab1 = new Entity[ale1.size()];
+        
+        
+        p1.setEnt((Entity []) ale.toArray(eTab));
+        p2.setEnt((Entity []) ale1.toArray(eTab1));
+        
+        per.insertPlaceOfBirth(p1);
+        per.insertPlaceOfBirth(p2);
+        
+        Person per1 = new Person();
+        per1.setURI(e3.getURI());
+        per1.constructEntity();
+        per1.constructPerson();
+        System.out.println("per1>>>>"+per1);
+        
+        for (int i = 0; i < per1.placeOfBirth.getEntity_locale().length; i++) {
+            System.out.println("placeOfBirth>>>>>"+per1.placeOfBirth.getEntity_locale()[i]);
+        }
 //        testAll();
         //testLoadEntityProperties();
 //        testFonctionnel();
