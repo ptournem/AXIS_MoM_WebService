@@ -22,6 +22,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import static org.apache.commons.lang3.StringUtils.capitalize;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
@@ -49,7 +50,7 @@ public class Connector {
 //        Entity e = new Entity("http://dbpedia.org/resource/Racine", null, null, "Person");
 //        // String uri = e.getURI().toString();
 //       entityBrowser(e);
-        String test = "Racine";
+        String test = "RACINE";
         selectlodFromKeyWord(test);
         // selectlodFromEntity(e);
         // e = selectlodFromEntity(e);
@@ -475,7 +476,7 @@ public class Connector {
         e = searchFromModel(m, e);
         m = lodQuery(uri, "http://dbpedia.org/ontology/birthName", "?o");
         e = searchFromModel(m, e);
-        m = lodQuery(uri, "http://dbpedia.org/ontology/birthName", "?o");
+        m = lodQuery(uri, "http://dbpedia.org/ontology/birthname", "?o");
         e = searchFromModel(m, e);
 
         //  System.out.println("l'entité : "+e);
@@ -561,21 +562,20 @@ public class Connector {
 
     public static ArrayList<Entity> selectlodFromKeyWord(String keyword) {
         //riad
-
+        
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         // l'URI est externe, et fait donc référence à un lien dbpedia, freebase...
         ArrayList<Entity> entities = new ArrayList<>();
+       // String capKeyword = capitalize(keyword);
+        keyword = keyword.substring(0,1).toUpperCase() + keyword.substring(1).toLowerCase();
         Model m = lodQueryAmbigious(keyword);
         StmtIterator iter = m.listStatements();
-        System.out.println("iter" + iter.toString());
+       // System.out.println("iter" + iter.toString());
         while (iter.hasNext()) {
 
             Statement stmt = (Statement) iter.next();
             //  System.out.println("stmt"+stmt.toString());
-            //  Resource subject = stmt.getSubject();
-
-            org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
-            String p = predicate.toString();
+ 
             Entity e = new Entity();
             RDFNode object = stmt.getObject();
             String uri = object.toString();
