@@ -278,18 +278,22 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     @Override
     public Entity[] SearchOurEntitiesFromText(String needle) {
 
-	String [] tabEntities = selectAllEntitiesURI();
+	Entity[] tabEntities = selectAllEntitiesURI();
         ArrayList<Entity> tab = new ArrayList<Entity>();
 
         needle = needle.toLowerCase().replaceAll(" ", "");
         for(int i =0; i<tabEntities.length; i++) {
-            Entity e = new Entity();
-            e.setURI(tabEntities[i]);
-            e.constructEntity();
-
-            if(e.getName() != null) {
-                if(e.getName().toLowerCase().replaceAll(" ", "").contains(needle))
+//            Entity e = new Entity();
+//            e.setURI(tabEntities[i]);
+//            e.constructEntity();
+//            e.setName("leo");
+            if(tabEntities[i].getName() != null) {
+                if(tabEntities[i].getName().toLowerCase().replaceAll(" ", "").contains(needle)) {
+                    Entity e = new Entity();
+                    e.setURI(tabEntities[i].getURI());
+                    e.constructEntity();
                     tab.add(e);
+                }
             }
         }
 

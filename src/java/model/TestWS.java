@@ -31,7 +31,7 @@ public class TestWS {
         //testConstructEntity();
 //        testPerson();
 //        testObject();
-//            testRecherche();
+           //testRecherche();
 //        testLoadEntityProperties();
 //        Entity e1 = testAddEntity("paris.jpg", "Paris", "location");
 //        Entity e2 = testAddEntity("france.jpg", "France", "location");
@@ -77,6 +77,7 @@ public class TestWS {
 //        testAll();
         //testLoadEntityProperties();
         testFonctionnel(true);
+        //testRecherche();
         //testPropertiesDbpedia();
      
         //testInference();

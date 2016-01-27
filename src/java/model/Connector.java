@@ -602,30 +602,45 @@ public class Connector {
         return entities;
     }
 
-    public static String[] selectAllEntitiesURI() {
+    public static Entity[] selectAllEntitiesURI() {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                         + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                        + "select ?o where {?s axis-datamodel:uses ?o ."
-                        + "	?s rdf:type axis-datamodel:Entity}"));
+                        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                        + "select ?o ?n where {?s axis-datamodel:uses ?o ."
+                        + "	?s rdf:type axis-datamodel:Entity ."
+                        + "     ?o rdfs:label ?n}"));
 
         ResultSet rs = qe.execSelect();
 
-        List<QuerySolution> mList = null;
-        mList = ResultSetFormatter.toList(rs);
-        qe.close();
-        ArrayList<String> tab = new ArrayList<>();
-
-        //System.out.println("mlist size = "+mList.size());
-        for (int i = 0; i < mList.size(); i++) {
-            //System.out.println(mList.get(i).getResource("o").toString());
-            tab.add(mList.get(i).getResource("o").toString());
+        ArrayList<Entity> tab = new ArrayList<>();
+        //List<QuerySolution> mList = null;
+        while(rs.hasNext()){
+            QuerySolution n = rs.next();
+            Entity e = new Entity();
+            e.setURI(n.get("o").asResource().toString());
+            e.setName(n.get("n").asLiteral().toString());
+            
+            //n.get("n").
+            tab.add(e);
         }
+        //mList = ResultSetFormatter.toList(rs);
+        qe.close();
+        
+//
+//        //System.out.println("mlist size = "+mList.size());
+//        for (int i = 0; i < mList.size(); i++) {
+//            //System.out.println(mList.get(i).getResource("o").toString());
+//            Entity e = new Entity();
+//            e.setURI(mList.get(i).getResource("o").toString());
+//            e.setName(mList.get(i).getResource("n").toString());
+//            tab.add(e);
+//        }
 
-        String[] ret = new String[tab.size()];
-        return (String[]) tab.toArray(ret);
+        Entity[] ret = new Entity[tab.size()];
+        return (Entity[]) tab.toArray(ret);
     }
 
     public static String insert(String p, String o) { //robine
