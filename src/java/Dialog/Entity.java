@@ -457,12 +457,9 @@ public class Entity {
                                     ResultSet rst = selectFromEntity("<" + nextUri + ">", "owl:sameAs", "?o");
                                     if (rst.hasNext()) {
                                         e.setURI(rst.nextSolution().get("o").toString());
+//                                        System.out.println("URI:"+e.URI);
                                     }
-                                    e.setName(selectlodFromEntity(e).getName());
-                                    e.setImage(selectlodFromEntity(e).getImage());
-                                    e.setType(selectlodFromEntity(e).getType());
-                                    ale.add(e);
-                                    //                            pa.setEntity_locale(e);
+                                    ale.add(selectlodFromEntity(e));
                                     pa.setValue_locale(null);
                                     pa.setEntity_dbpedia(null);
                                     pa.setValue_dbpedia(null);

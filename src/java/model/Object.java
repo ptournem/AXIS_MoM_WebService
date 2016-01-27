@@ -113,7 +113,7 @@ public class Object extends Entity {
                 pa.setName(propertyName);
                 break;
             case "location":
-                pa = getPropertyAdmin("takePlaceIn", "entity");
+                pa = getPropertyAdmin("takesPlaceIn", "entity");
                 pa.setName(propertyName);
                 break;
             case "description":
