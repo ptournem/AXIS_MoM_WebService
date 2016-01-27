@@ -107,19 +107,18 @@ public class Object extends Entity {
 
     public PropertyAdmin getObjectPropertyAdmin(String propertyName) {
         PropertyAdmin pa = new PropertyAdmin();
-        pa.setName(propertyName);
         switch (propertyName) {
             case "author":
                 pa = getPropertyAdmin("isPerformedBy", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "location":
                 pa = getPropertyAdmin("takePlaceIn", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "description":
                 pa = getPropertyAdmin("Description", "literal");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
         }
         return pa;

@@ -77,7 +77,6 @@ public class Place extends Entity {
             this.region.setName("region");
         }
         if (this.getURI().contains("dbpedia") || getdbpedia == true) {
-            System.out.println("uri:"+this.getURI());
             ArrayList<Property> p = getPropertiesMapFromLod(this);
             if (p != null) {
                 Iterator<Property> it = p.iterator();
@@ -153,31 +152,30 @@ public class Place extends Entity {
 
     public PropertyAdmin getPlacePropertyAdmin(String propertyName) {
         PropertyAdmin pa = new PropertyAdmin();
-        pa.setName(propertyName);
         switch (propertyName) {
             case "country":
                 pa = getPropertyAdmin("country", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "region":
                 pa = getPropertyAdmin("region", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "description":
                 pa = getPropertyAdmin("Description", "literal");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "locationof":
                 pa = getPropertyAdmin("isAPlaceOfObject", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "birthplaceof":
                 pa = getPropertyAdmin("birthPlace", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "postalcode":
                 pa = getPropertyAdmin("postalCode", "literal");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
         }
         return pa;

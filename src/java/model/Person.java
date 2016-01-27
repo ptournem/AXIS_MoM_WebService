@@ -202,40 +202,39 @@ public class Person extends Entity {
     public PropertyAdmin getPersonPropertyAdmin(String propertyName) {
 
         PropertyAdmin pa = new PropertyAdmin();
-        pa.setName(propertyName);
         switch (propertyName) {
             case "birthdate":
                 pa = getPropertyAdmin("birthDate", "literal");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "deathdate":
                 pa = getPropertyAdmin("deathDate", "literal");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "birthplace":
                 pa = getPropertyAdmin("birthPlace", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "mother":
                 pa = getPropertyAdmin("mother", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "father":
                 pa = getPropertyAdmin("father", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "isAuthorOf":
                 pa = getPropertyAdmin("performs", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
             case "restinplace":
                 pa = getPropertyAdmin("restInPlace", "entity");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
 
             case "description":
                 pa = getPropertyAdmin("Description", "literal");
-//                pa.setName(propertyName);
+                pa.setName(propertyName);
                 break;
         }
 

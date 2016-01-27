@@ -215,7 +215,6 @@ public class TestWS {
             Entity vinciDB = new Entity();
             vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
             vinciDB.constructEntity();
-            System.out.println("type:"+vinciDB.getType());
             Entity rodinDB = new Entity();
             rodinDB.setURI("http://dbpedia.org/resource/Auguste_Rodin");
             rodinDB.constructEntity();
