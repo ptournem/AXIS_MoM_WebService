@@ -37,7 +37,7 @@ import org.apache.jena.update.UpdateAction;
  * @author APP-Riad.belmahi
  */
 public class Connector {
-
+    
     public static void main(String args[]) {
         //test
 
@@ -153,6 +153,9 @@ public class Connector {
 
     // méthode pour supprimer des charactéres
     public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
+        
+        long startTime = System.currentTimeMillis();
+        
         ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
         Model m = lodQuery(uri, "http://dbpedia.org/ontology/abstract", "?o");
@@ -224,9 +227,12 @@ public class Connector {
                 break;
         }
 
-        for (int i = 0; i < tProp.size(); i++) {
-            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
-        }
+//        for (int i = 0; i < tProp.size(); i++) {
+//            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
+//        }
+        
+        long endTime = System.currentTimeMillis();
+        System.out.println("_____ FIN FONCTION SELECTLODENTITY: "+(endTime-startTime));
         return tProp;
     }
 
@@ -291,7 +297,7 @@ public class Connector {
                     if (test.equals("fr")) {
                         p2.setEnt(null);
                         p2.setName(object.asLiteral().getString());
-                        System.out.println(object.asLiteral().getString());
+                        //System.out.println(object.asLiteral().getString());
                         p2.setName("description");
                         p2.setValue(object.asLiteral().getString());
                     } else if(p2.getType()==null){
@@ -359,7 +365,7 @@ public class Connector {
                     p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en", ""));
 //                tProp.add(p2);
             }
-            System.out.println("p>>" + p+"; p2>>>"+p2);
+            //System.out.println("p>>" + p+"; p2>>>"+p2);
             if (!p2.getName().contains("default")) {
 ////                System.out.println("--------------------");
 ////                System.out.println("entity :" + p2.getEnt());
@@ -374,7 +380,7 @@ public class Connector {
                     int index = -1;
                     for (int i = 0; i < s; i++) {
                         if (tProp.get(i).getName() == p2.getName()) {
-                            System.out.println("name>>>>>"+p2.getName());
+                            //System.out.println("name>>>>>"+p2.getName());
                             index =i;
                         }
                     }
@@ -385,7 +391,7 @@ public class Connector {
                             tProp.get(index).setName(p2.getName());
                             tProp.get(index).setEnt(p2.getEnt());
                         } else {
-                            System.out.println("else2");
+                            //System.out.println("else2");
                             tProp.get(index).setType(p2.getType());
                             tProp.get(index).setName(p2.getName());
                             tProp.get(index).setValue(null);
@@ -459,6 +465,8 @@ public class Connector {
 
     public static Entity selectlodFromEntity(Entity e) {
 
+        //long startTime = System.currentTimeMillis();
+        
         String uri = e.getURI();
         Model m = lodQuery(uri, "http://dbpedia.org/ontology/thumbnail", "?o");
         e = searchFromModel(m, e);
@@ -480,6 +488,8 @@ public class Connector {
         m = lodQuery(uri, "http://dbpedia.org/ontology/birthname", "?o");
         e = searchFromModel(m, e);
 
+        //long endTime = System.currentTimeMillis();
+        //System.out.println("_____ FIN FONCTION SELECTLODENTITY: "+(endTime-startTime));
         //  System.out.println("l'entité : "+e);
         return e;
     }
@@ -586,9 +596,9 @@ public class Connector {
 
         }
 
-        for (int i = 0; i < entities.size(); i++) {
-            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-        }
+//        for (int i = 0; i < entities.size(); i++) {
+//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+//        }
         return entities;
     }
 
@@ -610,7 +620,7 @@ public class Connector {
 
         //System.out.println("mlist size = "+mList.size());
         for (int i = 0; i < mList.size(); i++) {
-            System.out.println(mList.get(i).getResource("o").toString());
+            //System.out.println(mList.get(i).getResource("o").toString());
             tab.add(mList.get(i).getResource("o").toString());
         }
 
@@ -632,7 +642,7 @@ public class Connector {
                 + ".}";
 
         String id = UUID.randomUUID().toString();
-        System.out.println(String.format("Adding %s", id));
+        //System.out.println(String.format("Adding %s", id));
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
                 UpdateFactory.create(String.format(req, id, p, o)),
                 "http://localhost:3030/ds/update");

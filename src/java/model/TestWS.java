@@ -76,7 +76,7 @@ public class TestWS {
 //        }
 //        testAll();
         //testLoadEntityProperties();
-        testFonctionnel(false);
+        testFonctionnel(true);
         //testPropertiesDbpedia();
      
         //testInference();
