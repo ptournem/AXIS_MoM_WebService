@@ -84,12 +84,20 @@ public class TestWS {
         
 //        AXIS_MoM_WS ws = new AXIS_MoM_WS();
 //        Entity leonard = new Entity();
-//        leonard.setURI("http://titan.be/axis-poc2015/1965cce4-1969-4f63-9e4d-2c6bed7102cf");
+//        leonard.setURI("http://titan.be/axis-poc2015/5e1a737f-4f8e-421e-b6fe-2324a4bad28c");
 //        leonard.constructEntity();
 //        Property[] props = ws.LoadEntityProperties(leonard);
-//        for(int i=0; i<props.length;i++) {
-//            System.out.println(" - Property["+i+"] : "+props[i]);
-//        }
+//
+//        System.out.println(" - Property[4] : "+props[4]);
+//        
+//        System.out.println("_______");
+//        Entity leonard2 = new Entity();
+//        leonard2.setURI("http://titan.be/axis-poc2015/5e1a737f-4f8e-421e-b6fe-2324a4bad28c");
+//        leonard2.constructEntity();
+//        Property[] props2 = ws.LoadEntityProperties(leonard2);
+//
+//        System.out.println(" - Property[4] : "+props2[4]); 
+        
     }
     
     
@@ -177,6 +185,7 @@ public class TestWS {
         antonio = ws.AddEntity(antonio);
         
         //lier Léonard de vinci => father => Antonio
+
         lierEntity(ws, leonard, "father", antonio);
         lierEntity(ws, leonard, "father", caterina);
         
@@ -203,8 +212,7 @@ public class TestWS {
         
         
         
-        Property[] props = ws.LoadEntityProperties(leonard);
-        PropertyAdmin[] propsAdmin = ws.GetAllPropertiesAdmin(leonard);
+        
         
         System.out.println("\n\n\n_______________");
         
@@ -233,7 +241,8 @@ public class TestWS {
         }
         
         
-        
+        Property[] props = ws.LoadEntityProperties(leonard);
+        PropertyAdmin[] propsAdmin = ws.GetAllPropertiesAdmin(leonard);
         
         System.out.println("\nProperty Leonard (type Person) :");
         for(int i=0; i<props.length;i++) {
@@ -245,19 +254,14 @@ public class TestWS {
             System.out.println(" - PropertyAdmin["+i+"] : "+propsAdmin[i]);
         }
         
-        System.out.println(" ------- Leonard URI : "+leonard.getURI());
-        System.out.println(" ------- Caterina URI : "+caterina.getURI());
-//        System.out.println(" ------- Amboise URI : "+amboise.getURI());
-        leonard.delete("dbont:mother", caterina.getURI());
+        //leonard.delete("dbont:mother", caterina.getURI());
         
-        Property[] props3 = ws.LoadEntityProperties(leonard);
-        
-        System.out.println("\nProperty Leonard (type Person) :");
-        for(int i=0; i<props3.length;i++) {
-            System.out.println(" - Property["+i+"] : "+props3[i]);
-        }
-        
-        
+//        Property[] props3 = ws.LoadEntityProperties(leonard);
+//        
+//        System.out.println("\nProperty Leonard (type Person) :");
+//        for(int i=0; i<props3.length;i++) {
+//            System.out.println(" - Property["+i+"] : "+props3[i]);
+//        } 
         
     }
     
