@@ -47,7 +47,7 @@ public class semantics {
                 Person p = new Person();
                 p.setURI(e.getURI());
                 p.constructEntity();
-                p.constructPerson();
+                p.constructPerson(false);
                 tab = p.getPropertiesPerson();
 		break;
 	    case "event":
@@ -61,14 +61,14 @@ public class semantics {
                 Object o = new Object();
                 o.setURI(e.getURI());
                 o.constructEntity();
-                o.constructObject();
+                o.constructObject(false);
                 tab = o.getPropertiesObject();
 		break;
             case "location":
                 Place pl = new Place();
                 pl.setURI(e.getURI());
                 pl.constructEntity();
-                pl.constructPlace();
+                pl.constructPlace(false);
                 tab = pl.getPropertiesPlace();
 		break;
 	    default:
@@ -91,7 +91,7 @@ public class semantics {
                 Person p = new Person();
                 p.setURI(e.getURI());
                 p.constructEntity();
-                p.constructPerson();
+                p.constructPerson(true);
                 tab = p.getPropertiesAdminPerson();
 		break;
 	    case "event":
@@ -105,14 +105,14 @@ public class semantics {
                 Object o = new Object();
                 o.setURI(e.getURI());
                 o.constructEntity();
-                o.constructObject();
+                o.constructObject(true);
                 tab = o.getPropertiesAdminObject();
 		break;
             case "location":
                 Place pl = new Place();
                 pl.setURI(e.getURI());
                 pl.constructEntity();
-                pl.constructPlace();
+                pl.constructPlace(true);
                 tab = pl.getPropertiesAdminPlace();
 		break;
 

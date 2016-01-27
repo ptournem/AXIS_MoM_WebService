@@ -128,7 +128,7 @@ public class TestWS {
         Place pla = new Place();
         pla.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
         pla.constructEntity();
-        pla.constructPlace();
+        pla.constructPlace(true);
         
         System.out.println("Entity : "+e);
         System.out.println("Place : "+pla);
@@ -216,7 +216,6 @@ public class TestWS {
             Entity vinciDB = new Entity();
             vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
             vinciDB.constructEntity();
-
             Entity rodinDB = new Entity();
             rodinDB.setURI("http://dbpedia.org/resource/Auguste_Rodin");
             rodinDB.constructEntity();
@@ -427,7 +426,7 @@ public class TestWS {
         Person per1 = new Person();
         per1.setURI(per.getURI());
         per1.constructEntity();
-        per1.constructPerson();
+        per1.constructPerson(true);
         System.out.println(per1);
         System.out.println(e);
         
@@ -468,7 +467,7 @@ public class TestWS {
         obj2.setURI(napDB.getURI());
         obj2.constructEntity();
         System.out.println((Entity) obj2);
-        obj2.constructPlace();
+        obj2.constructPlace(true);
         
 
         System.out.println("obj = "+obj2);
@@ -571,7 +570,7 @@ public class TestWS {
         obj1.setURI(obj.getURI());
         obj1.constructEntity();
         System.out.println(obj1.getName()+":"+obj1.getImage()+":"+obj1.getType()+":"+obj1.getURI());
-        obj1.constructObject();
+        obj1.constructObject(false);
         System.out.println(obj1);
     
     }
@@ -619,7 +618,7 @@ public class TestWS {
         Person per1 = new Person();
         per1.setURI(per.getURI());
         per1.constructEntity();
-        per1.constructPerson();
+        per1.constructPerson(false);
         System.out.println(per1);
         
         //PropertyAdmin[] props = obj.getPropertiesObject();

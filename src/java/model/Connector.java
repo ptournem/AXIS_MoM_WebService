@@ -153,8 +153,8 @@ public class Connector {
 
     // méthode pour supprimer des charactéres
     public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
-        
-        long startTime = System.currentTimeMillis();
+//        
+//        long startTime = System.currentTimeMillis();
         
         ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
@@ -230,9 +230,9 @@ public class Connector {
 //        for (int i = 0; i < tProp.size(); i++) {
 //            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
 //        }
-        
-        long endTime = System.currentTimeMillis();
-        System.out.println("_____ FIN FONCTION SELECTLODENTITY: "+(endTime-startTime));
+//        
+//        long endTime = System.currentTimeMillis();
+//        System.out.println("_____ FIN FONCTION SELECTLODENTITY: "+(endTime-startTime));
         return tProp;
     }
 
