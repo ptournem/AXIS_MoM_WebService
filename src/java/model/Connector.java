@@ -692,8 +692,26 @@ public class Connector {
         return true;
     }
 
-    public static boolean delete(String s, String p, String o) {
-        //pas prio
+    public static boolean deleteLinkEntity(String s, String p, String o) {
+        String req = "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                + "PREFIX poc: <http://titan.be/axis-poc2015/>"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                + "PREFIX schema: <https://schema.org/>"
+                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
+                + "DELETE WHERE { "
+                + "<%s>"
+                + " %s "
+                + "<%s>"
+                + ".}";
+        
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(s, p, o)),
+                "http://localhost:3030/ds/update");
+
+        upp.execute();
+
         return true;
     }
 

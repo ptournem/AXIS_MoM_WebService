@@ -442,7 +442,7 @@ public class Entity {
     }
 
     public boolean delete(String prop, String uri2) {
-        
+        deleteLinkEntity(this.URI, prop, uri2);
         return true;
     }
     @Override
