@@ -56,7 +56,7 @@ public class Property {
 
     @Override
     public String toString() {
-        String tabE = "null";
+        String tabE = "";
         if(this.ent != null) {
             for (int i = 0; i < ent.length; i++) {
                 tabE += this.ent[i]+" - ";

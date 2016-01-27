@@ -49,8 +49,8 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
         switch (p.getName()) {
 	    case "author":
                 obj.setURI(e.getURI());
-                obj.constructEntity();
-                obj.constructObject();
+//                obj.constructEntity();
+//                obj.constructObject();
                 obj.insertAuthor(p);
                 ret = true;
                 break;
@@ -64,8 +64,8 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "location":
                 obj.setURI(e.getURI());
-                obj.constructEntity();
-                obj.constructObject();
+//                obj.constructEntity();
+//                obj.constructObject();
                 obj.insertLocation(p);
                 ret = true;
                 break;
@@ -79,85 +79,85 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "birthdate":
                 pers.setURI(e.getURI());
-                pers.constructEntity();
-                pers.constructPerson();
+//                pers.constructEntity();
+//                pers.constructPerson();
                 pers.insertBirthDate(p);
                 ret = true;
                 break;
             case "deathdate":
                 pers.setURI(e.getURI());
-                pers.constructEntity();
-                pers.constructPerson();
+//                pers.constructEntity();
+//                pers.constructPerson();
                 pers.insertDeathDate(p);
                 ret = true;
                 break;
             case "restinplace":
                 pers.setURI(e.getURI());
-                pers.constructEntity();
-                pers.constructPerson();
+//                pers.constructEntity();
+//                pers.constructPerson();
                 pers.insertRestInPlace(p);
                 ret = true;
                 break;
             case "mother":
                 pers.setURI(e.getURI());
-                pers.constructEntity();
-                pers.constructPerson();
+//                pers.constructEntity();
+//                pers.constructPerson();
                 pers.insertMother(p);
                 ret = true;
                 break;
             case "father":
                 pers.setURI(e.getURI());
-                pers.constructEntity();
-                pers.constructPerson();
+//                pers.constructEntity();
+//                pers.constructPerson();
                 pers.insertFather(p);
                 ret = true;
                 break;
             case "isauthorof":
                 pers.setURI(e.getURI());
-                pers.constructEntity();
-                pers.constructPerson();
+//                pers.constructEntity();
+//                pers.constructPerson();
                 pers.insertIsAuthorOf(p);
                 ret = true;
                 break;
             case "birthplace":
                 pers.setURI(e.getURI());
-                pers.constructEntity();
-                pers.constructPerson();
+//                pers.constructEntity();
+//                pers.constructPerson();
                 pers.insertPlaceOfBirth(p);
                 ret = true;
                 break;
             case "birthplaceof":
                 pla.setURI(e.getURI());
-                pla.constructEntity();
-                pla.constructPlace();
+//                pla.constructEntity();
+//                pla.constructPlace();
                 pla.insertBirthPlaceOf(p);
                 ret = true;
                 break;
             case "postalcode":
                 pla.setURI(e.getURI());
-                pla.constructEntity();
-                pla.constructPlace();
+//                pla.constructEntity();
+//                pla.constructPlace();
                 pla.insertPostalCode(p);
                 ret = true;
                 break;
             case "region":
                 pla.setURI(e.getURI());
-                pla.constructEntity();
-                pla.constructPlace();
+//                pla.constructEntity();
+//                pla.constructPlace();
                 pla.insertRegion(p);
                 ret = true;
                 break;
             case "country":
                 pla.setURI(e.getURI());
-                pla.constructEntity();
-                pla.constructPlace();
+//                pla.constructEntity();
+//                pla.constructPlace();
                 pla.insertCountry(p);
                 ret = true;
                 break;
             case "locationof":
                 pla.setURI(e.getURI());
-                pla.constructEntity();
-                pla.constructPlace();
+//                pla.constructEntity();
+//                pla.constructPlace();
                 pla.insertLocationOf(p);
                 ret = true;
                 break;

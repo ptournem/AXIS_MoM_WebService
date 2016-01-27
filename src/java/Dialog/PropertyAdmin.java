@@ -73,14 +73,14 @@ public class PropertyAdmin {
     
     @Override
     public String toString() {
-        String tabE = "null";
+        String tabE = "";
         if(entity_dbpedia != null) {
             for (int i = 0; i < entity_dbpedia.length; i++) {
                 tabE += this.entity_dbpedia[i]+" - ";
             }
         }
         
-        String tabE2 = "null";
+        String tabE2 = "";
         if(entity_locale != null) {
             for (int i = 0; i < entity_locale.length; i++) {
                 tabE2 += this.entity_locale[i]+" - ";
