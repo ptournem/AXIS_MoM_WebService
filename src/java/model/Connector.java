@@ -30,6 +30,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.update.UpdateAction;
 
 /**
  *
@@ -701,16 +702,17 @@ public class Connector {
                 + "PREFIX schema: <https://schema.org/>"
                 + "PREFIX dbont: <http://dbpedia.org/ontology/>"
                 + "DELETE WHERE { "
-                + "<%s>"
-                + " %s "
-                + "<%s>"
-                + ".}";
+                + " <%s> %s <%s> "
+                + "}";
+        
         
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
-                UpdateFactory.create(String.format(s, p, o)),
+                UpdateFactory.create(String.format(req, s, p, o)),
                 "http://localhost:3030/ds/update");
 
         upp.execute();
+        
+        
 
         return true;
     }

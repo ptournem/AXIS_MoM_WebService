@@ -76,10 +76,19 @@ public class TestWS {
 //        }
 //        testAll();
         //testLoadEntityProperties();
-        testFonctionnel();
+        testFonctionnel(false);
         //testPropertiesDbpedia();
      
         //testInference();
+        
+//        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+//        Entity leonard = new Entity();
+//        leonard.setURI("http://titan.be/axis-poc2015/1965cce4-1969-4f63-9e4d-2c6bed7102cf");
+//        leonard.constructEntity();
+//        Property[] props = ws.LoadEntityProperties(leonard);
+//        for(int i=0; i<props.length;i++) {
+//            System.out.println(" - Property["+i+"] : "+props[i]);
+//        }
     }
     
     
@@ -127,7 +136,7 @@ public class TestWS {
     }
     
     
-    public static void testFonctionnel() {
+    public static void testFonctionnel(boolean dbpedia) {
         
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
         
@@ -138,27 +147,16 @@ public class TestWS {
         Entity amboise = new Entity("Amboise", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ch%C3%A2teau_d'Amboise_07.jpg/220px-Ch%C3%A2teau_d'Amboise_07.jpg", "location");
         Entity joconde = new Entity("La Joconde", "https://download.vikidia.org/vikidia/fr/images/thumb/1/13/La_gioconda.jpg/200px-La_gioconda.jpg", "object");
 
-        Entity leonardDB = new Entity();
-        leonardDB.setURI("http://dbpedia.org/resource/Leonardo_da_Vinci");
-        leonardDB.constructEntity();
-        
-        Entity vinciDB = new Entity();
-        vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
-        vinciDB.constructEntity();
-        
-        Entity rodinDB = new Entity();
-        rodinDB.setURI("http://dbpedia.org/resource/Auguste_Rodin");
-        rodinDB.constructEntity();
         
         
         bourgeois = ws.AddEntity(bourgeois);
-        lierEntity(ws, bourgeois, "author", rodinDB);
+        
         
         //création Léonard Da Vinci
         leonard = ws.AddEntity(leonard);
         
         //ajouter Léonard Da vinci => sameas => dbpedia
-        lierEntity(ws, leonard, "sameas", leonardDB);
+        
         
         //ajouter Léonard Da vinci => birthdate => String
         lierEntity(ws, leonard, "birthdate", "21-01");
@@ -166,8 +164,7 @@ public class TestWS {
         //ajouter Léonard Da vinci => deathdate => String
         lierEntity(ws, leonard, "deathdate", "21-05");
         
-        //ajouter Léonard Da vinci => birthplace => dbpedia
-        lierEntity(ws, leonard, "birthplace", vinciDB);
+        
         
         //création Caterina Da Vinci
         caterina = ws.AddEntity(caterina);
@@ -181,7 +178,7 @@ public class TestWS {
         //lier Léonard de vinci => father => Antonio
         lierEntity(ws, leonard, "father", antonio);
         lierEntity(ws, leonard, "father", caterina);
-        lierEntity(ws, leonard, "father", rodinDB);
+        
         
         //création Amboise
         amboise = ws.AddEntity(amboise);
@@ -196,6 +193,7 @@ public class TestWS {
         //création Joconde
         joconde = ws.AddEntity(joconde);
         
+        
         //ajouter Joconde => description => String
         lierEntity(ws, joconde, "description", "La Joconde est un super tableau");
         
@@ -205,10 +203,37 @@ public class TestWS {
         
         
         Property[] props = ws.LoadEntityProperties(leonard);
-        Property[] props2 = ws.LoadEntityProperties(vinciDB);
         PropertyAdmin[] propsAdmin = ws.GetAllPropertiesAdmin(leonard);
         
         System.out.println("\n\n\n_______________");
+        
+        if(dbpedia) {
+            Entity leonardDB = new Entity();
+            leonardDB.setURI("http://dbpedia.org/resource/Leonardo_da_Vinci");
+            leonardDB.constructEntity();
+
+            Entity vinciDB = new Entity();
+            vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
+            vinciDB.constructEntity();
+
+            Entity rodinDB = new Entity();
+            rodinDB.setURI("http://dbpedia.org/resource/Auguste_Rodin");
+            rodinDB.constructEntity();
+
+            lierEntity(ws, bourgeois, "author", rodinDB);
+            lierEntity(ws, leonard, "birthplace", vinciDB);
+            lierEntity(ws, leonard, "father", rodinDB);
+            lierEntity(ws, leonard, "sameas", leonardDB);
+            Property[] props2 = ws.LoadEntityProperties(vinciDB);
+            
+            System.out.println("\nProperty Vinci (URI Dbpedia) :");
+            for(int i=0; i<props2.length;i++) {
+                System.out.println(" - Property["+i+"] : "+props2[i]);
+            }
+        }
+        
+        
+        
         
         System.out.println("\nProperty Leonard (type Person) :");
         for(int i=0; i<props.length;i++) {
@@ -220,17 +245,19 @@ public class TestWS {
             System.out.println(" - PropertyAdmin["+i+"] : "+propsAdmin[i]);
         }
         
-        System.out.println("\nProperty Vinci (URI Dbpedia) :");
-        for(int i=0; i<props2.length;i++) {
-            System.out.println(" - Property["+i+"] : "+props2[i]);
-        }
+        System.out.println(" ------- Leonard URI : "+leonard.getURI());
+        System.out.println(" ------- Caterina URI : "+caterina.getURI());
+//        System.out.println(" ------- Amboise URI : "+amboise.getURI());
+        leonard.delete("dbont:mother", caterina.getURI());
         
-        //leonard.delete("mother", caterina.getURI());
+        Property[] props3 = ws.LoadEntityProperties(leonard);
         
         System.out.println("\nProperty Leonard (type Person) :");
-        for(int i=0; i<props.length;i++) {
-            System.out.println(" - Property["+i+"] : "+props[i]);
+        for(int i=0; i<props3.length;i++) {
+            System.out.println(" - Property["+i+"] : "+props3[i]);
         }
+        
+        
         
     }
     
