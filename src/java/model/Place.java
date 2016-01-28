@@ -55,13 +55,20 @@ public class Place extends Entity {
 
     public void constructPlace(boolean getdbpedia) {
         if (!this.getURI().contains("dbpedia")) {
-            this.birthPlaceOf = getPlacePropertyAdmin("birthplaceof");
-            this.country = getPlacePropertyAdmin("country");
-            this.description = getPlacePropertyAdmin("description");
+//            this.birthPlaceOf = getPlacePropertyAdmin("birthplaceof");
+//            this.country = getPlacePropertyAdmin("country");
+//            this.description = getPlacePropertyAdmin("description");
+//
+//            this.locationOf = getPlacePropertyAdmin("locationof");
+//            this.postalCode = getPlacePropertyAdmin("postalcode");
+//            this.region = getPlacePropertyAdmin("region");
+            this.birthPlaceOf = getPropertyAdmin("birthplaceof", "dbont:birthPlace");
+            this.country = getPropertyAdmin("country", "dbont:country");
+            this.description = getPropertyAdmin("description", "rdf:Description");
 
-            this.locationOf = getPlacePropertyAdmin("locationof");
-            this.postalCode = getPlacePropertyAdmin("postalcode");
-            this.region = getPlacePropertyAdmin("region");
+            this.locationOf = getPropertyAdmin("locationof", "axis-datamodel:isAPlaceOfObject");
+            this.postalCode = getPropertyAdmin("postalcode", "dbont:postalCode");
+            this.region = getPropertyAdmin("region", "dbont:region");
         }else{
             this.birthPlaceOf = new PropertyAdmin();
             this.birthPlaceOf.setName("birthplaceof");
@@ -150,36 +157,36 @@ public class Place extends Entity {
         }
     }
 
-    public PropertyAdmin getPlacePropertyAdmin(String propertyName) {
-        PropertyAdmin pa = new PropertyAdmin();
-        switch (propertyName) {
-            case "country":
-                pa = getPropertyAdmin("country", "entity");
-                pa.setName(propertyName);
-                break;
-            case "region":
-                pa = getPropertyAdmin("region", "entity");
-                pa.setName(propertyName);
-                break;
-            case "description":
-                pa = getPropertyAdmin("Description", "literal");
-                pa.setName(propertyName);
-                break;
-            case "locationof":
-                pa = getPropertyAdmin("isAPlaceOfObject", "entity");
-                pa.setName(propertyName);
-                break;
-            case "birthplaceof":
-                pa = getPropertyAdmin("birthPlace", "entity");
-                pa.setName(propertyName);
-                break;
-            case "postalcode":
-                pa = getPropertyAdmin("postalCode", "literal");
-                pa.setName(propertyName);
-                break;
-        }
-        return pa;
-    }
+//    public PropertyAdmin getPlacePropertyAdmin(String propertyName) {
+//        PropertyAdmin pa = new PropertyAdmin();
+//        switch (propertyName) {
+//            case "country":
+//                pa = getPropertyAdmin("country", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "region":
+//                pa = getPropertyAdmin("region", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "description":
+//                pa = getPropertyAdmin("Description", "literal");
+//                pa.setName(propertyName);
+//                break;
+//            case "locationof":
+//                pa = getPropertyAdmin("isAPlaceOfObject", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "birthplaceof":
+//                pa = getPropertyAdmin("birthPlace", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "postalcode":
+//                pa = getPropertyAdmin("postalCode", "literal");
+//                pa.setName(propertyName);
+//                break;
+//        }
+//        return pa;
+//    }
 
     public void insertCountry(Property p) {
         String uri1 = null;

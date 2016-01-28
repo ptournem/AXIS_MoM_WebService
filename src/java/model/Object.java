@@ -50,9 +50,12 @@ public class Object extends Entity {
 
     public void constructObject(boolean getdbpedia) {
         if (!this.getURI().contains("dbpedia")) {
-            this.author = getObjectPropertyAdmin("author");
-            this.location = getObjectPropertyAdmin("location");
-            this.description = getObjectPropertyAdmin("description");
+//            this.author = getObjectPropertyAdmin("author");
+//            this.location = getObjectPropertyAdmin("location");
+//            this.description = getObjectPropertyAdmin("description");
+            this.author = getPropertyAdmin("author", "axis-datamodel:isPerformedBy");
+            this.location = getPropertyAdmin("location", "axis-datamodel:takePlaceIn");
+            this.description = getPropertyAdmin("description", "rdf:Description");
         } else {
             this.author = new PropertyAdmin();
             this.author.setName("author");
@@ -105,24 +108,24 @@ public class Object extends Entity {
 
     }
 
-    public PropertyAdmin getObjectPropertyAdmin(String propertyName) {
-        PropertyAdmin pa = new PropertyAdmin();
-        switch (propertyName) {
-            case "author":
-                pa = getPropertyAdmin("isPerformedBy", "entity");
-                pa.setName(propertyName);
-                break;
-            case "location":
-                pa = getPropertyAdmin("takesPlaceIn", "entity");
-                pa.setName(propertyName);
-                break;
-            case "description":
-                pa = getPropertyAdmin("Description", "literal");
-                pa.setName(propertyName);
-                break;
-        }
-        return pa;
-    }
+//    public PropertyAdmin getObjectPropertyAdmin(String propertyName) {
+//        PropertyAdmin pa = new PropertyAdmin();
+//        switch (propertyName) {
+//            case "author":
+//                pa = getPropertyAdmin("isPerformedBy", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "location":
+//                pa = getPropertyAdmin("takesPlaceIn", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "description":
+//                pa = getPropertyAdmin("Description", "literal");
+//                pa.setName(propertyName);
+//                break;
+//        }
+//        return pa;
+//    }
 
     public void insertDateCreation(Property p) {
 
