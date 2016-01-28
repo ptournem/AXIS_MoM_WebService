@@ -52,9 +52,11 @@ public class Event extends Entity{
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
 	    case "dbpedia":
-                uri1 = insert("rdf:type", "axis-datamodel:Place");
-                insert(this.getURI(), "axis-datamodel:takesPlaceIn", uri1);
-                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
+                insert(this.getURI(), "axis-datamodel:takesPlaceIn", p.getEnt()[0].getURI());
+                insert(p.getEnt()[0].getURI(), "axis-datamodel:isThePlaceOfEvent", this.getURI());
+//                uri1 = insert("rdf:type", "axis-datamodel:Place");
+//                insert(this.getURI(), "axis-datamodel:takesPlaceIn", uri1);
+//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
                 
             case "our":
