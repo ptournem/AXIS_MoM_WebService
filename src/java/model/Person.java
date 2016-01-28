@@ -82,15 +82,24 @@ public class Person extends Entity {
 
     public void constructPerson(boolean getdbpedia) {
         if (!this.getURI().contains("dbpedia")) {
-            this.placeOfBirth = getPersonPropertyAdmin("birthplace", "dbont:birthPlace");
-            this.birthDate = getPersonPropertyAdmin("birthdate", "schema:birthDate");
-            this.deathDate = getPersonPropertyAdmin("deathdate", "schema:deathDate");
-            this.mother = getPersonPropertyAdmin("mother", "dbont:mother");
-            this.father = getPersonPropertyAdmin("father", "dbont:father");
-            this.isAuthorOf = getPersonPropertyAdmin("isAuthorOf", "axis-datamodel:performs");
-            this.restInPlace = getPersonPropertyAdmin("restinplace", "dbont:restInPlace");
-            this.description = getPersonPropertyAdmin("description", "rdf:Description");
-            this.sameAs = getPersonPropertyAdmin("sameAs", "owl:sameAs");
+//            this.placeOfBirth = getPersonPropertyAdmin("birthplace");
+//            this.birthDate = getPersonPropertyAdmin("birthdate");
+//            this.deathDate = getPersonPropertyAdmin("deathdate");
+//            this.mother = getPersonPropertyAdmin("mother");
+//            this.father = getPersonPropertyAdmin("father");
+//            this.isAuthorOf = getPersonPropertyAdmin("isAuthorOf");
+//            this.restInPlace = getPersonPropertyAdmin("restinplace");
+//            this.description = getPersonPropertyAdmin("description");
+//            this.sameAs = getPersonPropertyAdmin("sameAs");
+            this.placeOfBirth = getPropertyAdmin("birthplace", "dbont:birthPlace");
+            this.birthDate = getPropertyAdmin("birthdate", "schema:birthDate");
+            this.deathDate = getPropertyAdmin("deathdate", "schema:deathDate");
+            this.mother = getPropertyAdmin("mother", "dbont:mother");
+            this.father = getPropertyAdmin("father", "dbont:father");
+            this.isAuthorOf = getPropertyAdmin("isAuthorOf", "axis-datamodel:performs");
+            this.restInPlace = getPropertyAdmin("restinplace", "dbont:restInPlace");
+            this.description = getPropertyAdmin("description", "rdf:Description");
+            this.sameAs = getPropertyAdmin("sameAs", "owl:sameAs");
         } else {
             this.birthDate = new PropertyAdmin();
             this.birthDate.setName("birthdate");
@@ -204,120 +213,47 @@ public class Person extends Entity {
         }
     }
 
-    public PropertyAdmin getPersonPropertyAdmin(String propertyName, String p) {
-        String req = String.format("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-                + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-                + "prefix owl: <http://www.w3.org/2002/07/owl#> "
-                + "prefix poc: <http://titan.be/axis-poc2015/> "
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-                + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX schema: <https://schema.org/>"
-                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
-                + "select ?var where {?s axis-datamodel:uses <%s> ."
-                + "?s rdf:type axis-datamodel:Entity ."
-                + "<%s> %s ?var "
-                + "}", this.getURI(), this.getURI(), p);
-
-        String req2 = "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-                + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-                + "prefix owl: <http://www.w3.org/2002/07/owl#> "
-                + "prefix poc: <http://titan.be/axis-poc2015/> "
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-                + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX schema: <https://schema.org/>"
-                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
-                + "select * where { <%s> owl:sameAs ?o"
-                + "}";
-
-        QueryExecution qe = QueryExecutionFactory.sparqlService(
-                "http://localhost:3030/ds/query", req);
-
-        ResultSet rs = qe.execSelect();
-        PropertyAdmin pa = new PropertyAdmin();
-        ArrayList<Entity> ale = new ArrayList<Entity>();
-        while (rs.hasNext()) {
-            QuerySolution n = rs.next();
-            pa.setName(propertyName);
-            if (n.get("var").isResource()) {
-                Entity e = new Entity();
-                QueryExecution qe1 = QueryExecutionFactory.sparqlService(
-                        "http://localhost:3030/ds/query", String.format(req2, n.get("var").asResource().getURI()));
-                ResultSet rs1 = qe1.execSelect();
-                if (rs1.hasNext()) {
-                    e.setURI(rs1.next().get("o").asResource().getURI());
-                    e.constructEntity();
-                    ale.add(e);
-                    pa.setType("uri");
-                    qe1.close();
-                } else {
-                    e.setURI(n.get("var").asResource().getURI());
-                    e.constructEntity();
-                    ale.add(e);
-                    pa.setType("uri");
-                }
-            }
-            if (n.get("var").isLiteral()) {
-                if (pa == null) {
-                    pa.setType("fr");
-                    pa.setValue_locale(n.get("var").asLiteral().getString());
-                }
-            }
-
-        }
-        if (!ale.isEmpty()) {
-            Entity[] ret = new Entity[ale.size()];
-            pa.setEntity_locale((Entity[]) ale.toArray(ret));
-            qe.close();
-            return pa;
-        }
-
-        qe.close();
-        return pa;
-    }
-
-    public PropertyAdmin getPersonPropertyAdmin1(String propertyName) {
-
-        PropertyAdmin pa = new PropertyAdmin();
-        switch (propertyName) {
-            case "birthdate":
-                pa = getPropertyAdmin("birthDate", "literal");
-                pa.setName(propertyName);
-                break;
-            case "deathdate":
-                pa = getPropertyAdmin("deathDate", "literal");
-                pa.setName(propertyName);
-                break;
-            case "birthplace":
-                pa = getPropertyAdmin("birthPlace", "entity");
-                pa.setName(propertyName);
-                break;
-            case "mother":
-                pa = getPropertyAdmin("mother", "entity");
-                pa.setName(propertyName);
-                break;
-            case "father":
-                pa = getPropertyAdmin("father", "entity");
-                pa.setName(propertyName);
-                break;
-            case "isAuthorOf":
-                pa = getPropertyAdmin("performs", "entity");
-                pa.setName(propertyName);
-                break;
-            case "restinplace":
-                pa = getPropertyAdmin("restInPlace", "entity");
-                pa.setName(propertyName);
-                break;
-
-            case "description":
-                pa = getPropertyAdmin("Description", "literal");
-                pa.setName(propertyName);
-                break;
-        }
-
-        return pa;
-    }
+//    public PropertyAdmin getPersonPropertyAdmin(String propertyName) {
+//
+//        PropertyAdmin pa = new PropertyAdmin();
+//        switch (propertyName) {
+//            case "birthdate":
+//                pa = getPropertyAdmin("birthDate", "literal");
+//                pa.setName(propertyName);
+//                break;
+//            case "deathdate":
+//                pa = getPropertyAdmin("deathDate", "literal");
+//                pa.setName(propertyName);
+//                break;
+//            case "birthplace":
+//                pa = getPropertyAdmin("birthPlace", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "mother":
+//                pa = getPropertyAdmin("mother", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "father":
+//                pa = getPropertyAdmin("father", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "isAuthorOf":
+//                pa = getPropertyAdmin("performs", "entity");
+//                pa.setName(propertyName);
+//                break;
+//            case "restinplace":
+//                pa = getPropertyAdmin("restInPlace", "entity");
+//                pa.setName(propertyName);
+//                break;
+//
+//            case "description":
+//                pa = getPropertyAdmin("Description", "literal");
+//                pa.setName(propertyName);
+//                break;
+//        }
+//
+//        return pa;
+//    }
 
     public void insertBirthDate(Property p) {
         insert(this.getURI(), "schema:birthDate", p.getValue(), p.getType());
