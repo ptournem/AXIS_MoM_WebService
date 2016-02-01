@@ -119,21 +119,38 @@ public class Entity {
                 uri = insert("rdf:type", "axis-datamodel:PhysicalPerson");
                 insert(mainURI, "axis-datamodel:uses", uri);
                 this.setURI(uri);
+                
+                String uri3 = insert("rdf:type", "axis-datamodel:RegOfAgent");
+                insert(uri, "axis-datamodel:hasRepresentation", uri3);
+                
                 break;
             case "event":
                 uri = insert("rdf:type", "axis-datamodel:Event");
                 insert(mainURI, "axis-datamodel:uses", uri);
                 this.setURI(uri);
+                
+                String uri4 = insert("rdf:type", "axis-datamodel:RegOfEvent");
+                insert(uri, "axis-datamodel:hasRepresentation", uri4);
+                
                 break;
             case "object":
                 uri = insert("rdf:type", "axis-datamodel:PhysicalObject");
                 insert(mainURI, "axis-datamodel:uses", uri);
+                
+                String uri5 = insert("rdf:type", "axis-datamodel:EmbodimentOfObject");
+                insert(uri, "axis-datamodel:hasRepresentation", uri5);
+                
+                        
                 this.setURI(uri);
                 break;
             case "location":
                 uri = insert("rdf:type", "axis-datamodel:Place");
                 insert(mainURI, "axis-datamodel:uses", uri);
                 this.setURI(uri);
+                
+                String uri6 = insert("rdf:type", "axis-datamodel:RegOfPlace");
+                insert(uri, "axis-datamodel:hasRepresentation", uri6);
+                
                 break;
 //              case "activity":
 //                  uri = insert("rdf:type", "axis:RegOfPhysicalPerson");
@@ -148,6 +165,12 @@ public class Entity {
 
         this.insertName(new Property("name", this.getName(), "fr", null));
         this.insertImage(new Property("image", this.getImage(), "fr", null));
+        
+        String uri7 = insert("rdf:type", "axis-datamodel:Document");
+        insert(uri, "axis-datamodel:hasRepresentation", uri7);
+        
+        
+        
         //insert(e.getURI(), "rdfs:label", e.getName(), "fr");
         return this;
     }
@@ -352,7 +375,7 @@ public class Entity {
 //    }
 
     public void insertName(Property p) {
-        insert(this.URI, "rdfs:label", p.getValue(), "fr");
+        insert(selectRegOfEntity(this.URI, "Document"), "rdfs:label", p.getValue(), "fr");
     }
 
     public void insertSameAs(Property p) {
@@ -360,7 +383,7 @@ public class Entity {
     }
 
     public void insertDescription(Property p) {
-        insert(this.URI, "rdf:Description", p.getValue(), "fr");
+        insert(selectRegOfEntity(this.URI, "Document"), "rdf:Description", p.getValue(), "fr");
     }
 
     public void insertImage(Property p) {
@@ -368,8 +391,6 @@ public class Entity {
         String uri1 = insert("rdf:type", "axis-datamodel:RegOfPhotoItem");
         String uri2 = insert("rdf:type", "axis-datamodel:Location");
         String uri3 = insert("rdf:type", "axis-datamodel:EmbodimentOfImageFile");
-
-        insert(this.URI, "axis-datamodel:hasRepresentation", uri1);
 
         insert(uri1, "axis-datamodel:isARepresentationOf", this.URI);
 

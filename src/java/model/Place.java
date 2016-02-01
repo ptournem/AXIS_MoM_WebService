@@ -11,6 +11,7 @@ import Dialog.PropertyAdmin;
 import java.util.ArrayList;
 import java.util.Iterator;
 import static model.Connector.insert;
+import static model.Connector.selectRegOfEntity;
 
 /**
  *
@@ -192,19 +193,19 @@ public class Place extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(this.getURI(), "dbont:country", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:country", p.getEnt()[0].getURI());
 //                uri1 = insert("rdf:type", "axis-datamodel:Place");
 //                insert(this.getURI(), "dbont:country", uri1);
 //                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(this.getURI(), "dbont:country", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:country", p.getEnt()[0].getURI());
                 break;
 
             case "literal":
                 uri1 = insert("rdf:type", "axis-datamodel:Place");
-                insert(this.getURI(), "dbont:country", uri1);
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:country", uri1);
                 insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
         }
@@ -214,19 +215,19 @@ public class Place extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(this.getURI(), "dbont:region", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:region", p.getEnt()[0].getURI());
 //                uri1 = insert("rdf:type", "axis-datamodel:Place");
 //                insert(this.getURI(), "dbont:region", uri1);
 //                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(this.getURI(), "dbont:region", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:region", p.getEnt()[0].getURI());
                 break;
 
             case "literal":
                 uri1 = insert("rdf:type", "axis-datamodel:Place");
-                insert(this.getURI(), "dbont:region", uri1);
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:region", uri1);
                 insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
         }
@@ -236,7 +237,7 @@ public class Place extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
                 insert(p.getEnt()[0].getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
 //                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
 //                insert(this.getURI(), "axis-datamodel:isAPlaceOfObject", uri1);
@@ -245,13 +246,13 @@ public class Place extends Entity {
                 break;
 
             case "our":
-                insert(this.getURI(), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
                 insert(p.getEnt()[0].getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;
 
             case "literal":
                 uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
-                insert(this.getURI(), "axis-datamodel:isAPlaceOfObject", uri1);
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", uri1);
                 insert(uri1, "axis-datamodel:takePlaceIn", this.getURI());
                 insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
@@ -262,26 +263,26 @@ public class Place extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(this.getURI(), "dbont:birthPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlace", p.getEnt()[0].getURI());
 //                uri1 = insert("rdf:type", "axis-datamodel:Person");
 //                insert(this.getURI(), "dbont:birthPlace", uri1);
 //                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(this.getURI(), "dbont:birthPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlace", p.getEnt()[0].getURI());
                 break;
 
             case "literal":
                 uri1 = insert("rdf:type", "axis-datamodel:Person");
-                insert(this.getURI(), "dbont:birthPlace", uri1);
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlace", uri1);
                 insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
         }
     }
 
     public void insertPostalCode(Property p) {
-        insert(this.getURI(), "dbont:postalCode", p.getValue(), p.getType());
+        insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:postalCode", p.getValue(), p.getType());
     }
 
     @Override
