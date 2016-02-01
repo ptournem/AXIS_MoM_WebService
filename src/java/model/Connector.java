@@ -714,7 +714,7 @@ public class Connector {
     }
     
     public static String selectRegOfEntity(String entity, String regof) {
-        String uri = "test";
+        String uri = "null";
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
@@ -724,31 +724,15 @@ public class Connector {
                         + "	?ret rdf:type axis-datamodel:%s ", entity, regof));
 
         ResultSet rs = qe.execSelect();
-
-        ArrayList<Entity> tab = new ArrayList<>();
-        //List<QuerySolution> mList = null;
-        while(rs.hasNext()){
-            QuerySolution n = rs.next();
-            Entity e = new Entity();
-            e.setURI(n.get("ret").asResource().toString());
-            
-            //n.get("n").
-            tab.add(e);
-        }
-        //mList = ResultSetFormatter.toList(rs);
-        qe.close();
         
-//
-//        //System.out.println("mlist size = "+mList.size());
-//        for (int i = 0; i < mList.size(); i++) {
-//            //System.out.println(mList.get(i).getResource("o").toString());
-//            Entity e = new Entity();
-//            e.setURI(mList.get(i).getResource("o").toString());
-//            e.setName(mList.get(i).getResource("n").toString());
-//            tab.add(e);
-//        }
-
+        if(rs.hasNext()) {
+            QuerySolution qs = rs.next();
+            uri = qs.get("ret").toString();
+        }
+        
+        qe.close();
         return uri;
+
     }
 
     public static boolean update(String s, String p, String o) {

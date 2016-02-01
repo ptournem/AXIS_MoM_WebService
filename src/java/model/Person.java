@@ -270,30 +270,30 @@ public class Person extends Entity {
 //    }
 
     public void insertBirthDate(Property p) {
-        insert(this.getURI(), "schema:birthDate", p.getValue(), p.getType());
+        insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "schema:birthDate", p.getValue(), p.getType());
     }
 
     public void insertDeathDate(Property p) {
-        insert(this.getURI(), "schema:deathDate", p.getValue(), p.getType());
+        insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "schema:deathDate", p.getValue(), p.getType());
     }
 
     public void insertPlaceOfBirth(Property p) {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(this.getURI(), "dbont:birthPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:birthPlace", p.getEnt()[0].getURI());
 //                uri1 = insert("rdf:type", "axis-datamodel:Place");
 //                insert(this.getURI(), "dbont:birthPlace", uri1);
 //                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(this.getURI(), "dbont:birthPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:birthPlace", p.getEnt()[0].getURI());
                 break;
 
             case "literal":
                 uri1 = insert("rdf:type", "axis-datamodel:Place");
-                insert(this.getURI(), "dbont:birthPlace", uri1);
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:birthPlace", uri1);
                 insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
         }
@@ -303,7 +303,7 @@ public class Person extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(this.getURI(), "dbont:mother", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:mother", p.getEnt()[0].getURI());
                 insert(p.getEnt()[0].getURI(), "dbont:child", this.getURI());
                 
 //                uri1 = insert("rdf:type", "axis-datamodel:Person");
@@ -313,13 +313,13 @@ public class Person extends Entity {
                 break;
 
             case "our":
-                insert(this.getURI(), "dbont:mother", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:mother", p.getEnt()[0].getURI());
                 insert(p.getEnt()[0].getURI(), "dbont:child", this.getURI());
                 break;
 
             case "literal":
                 uri1 = insert("rdf:type", "axis-datamodel:Person");
-                insert(this.getURI(), "dbont:mother", uri1);
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:mother", uri1);
                 insert(uri1, "dbont:child", this.getURI());
                 insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
@@ -330,7 +330,7 @@ public class Person extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(this.getURI(), "dbont:father", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:father", p.getEnt()[0].getURI());
                 insert(p.getEnt()[0].getURI(), "dbont:child", this.getURI());
                 
 //                uri1 = insert("rdf:type", "axis-datamodel:Person");
@@ -340,13 +340,13 @@ public class Person extends Entity {
                 break;
 
             case "our":
-                insert(this.getURI(), "dbont:father", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:father", p.getEnt()[0].getURI());
                 insert(p.getEnt()[0].getURI(), "dbont:child", this.getURI());
                 break;
 
             case "literal":
                 uri1 = insert("rdf:type", "axis-datamodel:Person");
-                insert(this.getURI(), "dbont:father", uri1);
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:father", uri1);
                 insert(uri1, "dbont:child", this.getURI());
                 insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
@@ -357,19 +357,19 @@ public class Person extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(this.getURI(), "dbont:restInPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:restInPlace", p.getEnt()[0].getURI());
 //                uri1 = insert("rdf:type", "axis-datamodel:Place");
 //                insert(this.getURI(), "dbont:restInPlace", uri1);
 //                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(this.getURI(), "dbont:restInPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:restInPlace", p.getEnt()[0].getURI());
                 break;
 
             case "literal":
                 uri1 = insert("rdf:type", "axis-datamodel:Place");
-                insert(this.getURI(), "dbont:restInPlace", uri1);
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:restInPlace", uri1);
                 insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
         }
@@ -379,7 +379,7 @@ public class Person extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(this.getURI(), "axis-datamodel:performs", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", p.getEnt()[0].getURI());
                 insert(p.getEnt()[0].getURI(), "axis-datamodel:isPerformedBy", this.getURI());
 //                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
 //                insert(this.getURI(), "axis-datamodel:performs", uri1);
@@ -388,13 +388,13 @@ public class Person extends Entity {
                 break;
 
             case "our":
-                insert(this.getURI(), "axis-datamodel:performs", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", p.getEnt()[0].getURI());
                 insert(p.getEnt()[0].getURI(), "axis-datamodel:isPerformedBy", this.getURI());
                 break;
 
             case "literal":
                 uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
-                insert(this.getURI(), "axis-datamodel:performs", uri1);
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", uri1);
                 insert(uri1, "axis-datamodel:isPerformedBy", this.getURI());
                 insert(uri1, "rdfs:label", p.getValue(), p.getType());
                 break;
