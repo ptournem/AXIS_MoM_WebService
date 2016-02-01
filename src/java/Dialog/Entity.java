@@ -593,8 +593,8 @@ public class Entity {
 //
 //    }
 
-    public boolean delete(String prop, String uri2) {
-        deleteLinkEntity(this.URI, prop, uri2);
+    public boolean delete(String uri, String prop, String uri2) {
+        deleteLinkEntity(uri, prop, uri2);
         return true;
     }
 

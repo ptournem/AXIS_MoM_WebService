@@ -14,6 +14,7 @@ import control.semantics;
 import java.util.ArrayList;
 import javax.jws.WebService;
 import static model.Connector.selectAllEntitiesURI;
+import static model.Connector.selectRegOfEntity;
 import model.Person;
 import model.Object;
 import model.Place;
@@ -174,60 +175,76 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
         
         boolean ret = false;
         String property = "null";
+        String regof = "null";
+        
         switch (p.getName()) {
 	    case "author":
                 property = "axis-datamodel:performs";
+                regof = "EmbodimentOfObject";
                 break;
             case "sameas":
-                property = "owl:sameAs";
+                e.delete(e.getURI(), "owl:sameAs", "<"+valueEntity.getURI()+">");
                 break;
             case "description":
                 property = "rdf:Description";
+                regof = "Document";
                 break;
             case "location":
                 property = "axis-datamodel:takePlaceIn";
+                regof = "EmbodimentOfObject";
                 break;
             case "birthdate":
                 property = "schema:birthDate";
+                regof = "RegOfAgent";
                 break;
             case "deathdate":
                 property = "schema:deathDate";
+                regof = "RegOfAgent";
                 break;
             case "restinplace":
-                property = "null";
+                property = "dbont:restInPlace";
+                regof = "RegOfAgent";
                 break;
             case "mother":
-                property = "null";
+                property = "dbont:mother";
+                regof = "RegOfAgent";
                 break;
             case "father":
-                property = "null";
+                property = "dbont:father";
+                regof = "RegOfAgent";
                 break;
             case "isauthorof":
-                property = "null";
+                property = "axis-datamodel:isPerformedBy";
+                regof = "RegOfAgent";
                 break;
             case "birthplace":
-                property = "null";
-                break;
-            case "birthplaceof":
-                property = "null";
+                property = "dbont:birthPlace";
+                regof = "RegOfAgent";
                 break;
             case "postalcode":
-                property = "null";
+                property = "dbont:postalCode";
+                regof = "RegOfPlace";
                 break;
             case "region":
-                property = "null";
+                property = "dbont:region";
+                regof = "RegOfPlace";
                 break;
             case "country":
-                property = "null";
+                property = "dbont:country";
+                regof = "RegOfPlace";
                 break;
             case "locationof":
-                property = "null";
+                property = "axis-datamodel:isAPlaceOfObject";
+                regof = "RegOfPlace";
                 break;
             default:
                 return false;
         }
         
-        e.delete(property, valueEntity.getURI());
+        if(valueEntity.getURI().isEmpty())
+            e.delete(selectRegOfEntity(e.getURI(), "Document"), property, "?o");
+        else
+            e.delete(selectRegOfEntity(e.getURI(), regof), property, "<"+valueEntity.getURI()+">");
         
 	return ret;
     }
