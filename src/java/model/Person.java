@@ -103,6 +103,9 @@ public class Person extends Entity {
 //            this.restInPlace = getPersonPropertyAdmin("restinplace");
 //            this.description = getPersonPropertyAdmin("description");
 //            this.sameAs = getPersonPropertyAdmin("sameAs");
+            String req = "select ?var where {?s axis-datamodel:uses <%s> ."
+                + "?s rdf:type axis-datamodel:Entity ."
+                + "<%s> %s ?var ";
             this.placeOfBirth = getPropertyAdmin("birthplace", "dbont:birthPlace");
             this.birthDate = getPropertyAdmin("birthdate", "schema:birthDate");
             this.deathDate = getPropertyAdmin("deathdate", "schema:deathDate");

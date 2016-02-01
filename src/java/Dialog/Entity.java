@@ -159,42 +159,42 @@ public class Entity {
                 break;
         }
 
-        this.insertName(new Property("name", this.getName(), "fr", null));
-        this.insertImage(new Property("image", this.getImage(), "fr", null));
         
         String uri7 = insert("rdf:type", "axis-datamodel:Document");
         insert(uri, "axis-datamodel:hasRepresentation", uri7);
         
+        this.insertName(new Property("name", this.getName(), "fr", null));
+        this.insertImage(new Property("image", this.getImage(), "fr", null));
         
         
         //insert(e.getURI(), "rdfs:label", e.getName(), "fr");
         return this;
     }
 
-    public List<List> browseModel(Resource resource, String predicate) {
-
-        List<List> l2 = new ArrayList<List>();
-        StmtIterator stmtit = resource.listProperties();
-        while (stmtit.hasNext()) {
-            Statement stmt = stmtit.nextStatement();
-            if (stmt.getPredicate().getLocalName().equals(predicate)) {
-                if (stmt.getObject().isLiteral()) {
-                    List l = new ArrayList();
-                    l.add(stmt.getSubject().toString());
-                    l.add(stmt.getPredicate().toString());
-                    l.add(stmt.getObject().asLiteral().getString());
-                    l2.add(l);
-                } else {
-                    List l = new LinkedList();
-                    l.add(stmt.getSubject().toString());
-                    l.add(stmt.getPredicate().toString());
-                    l.add(stmt.getObject().toString());
-                    l2.add(l);
-                }
-            }
-        }
-        return l2;
-    }
+//    public List<List> browseModel(Resource resource, String predicate) {
+//
+//        List<List> l2 = new ArrayList<List>();
+//        StmtIterator stmtit = resource.listProperties();
+//        while (stmtit.hasNext()) {
+//            Statement stmt = stmtit.nextStatement();
+//            if (stmt.getPredicate().getLocalName().equals(predicate)) {
+//                if (stmt.getObject().isLiteral()) {
+//                    List l = new ArrayList();
+//                    l.add(stmt.getSubject().toString());
+//                    l.add(stmt.getPredicate().toString());
+//                    l.add(stmt.getObject().asLiteral().getString());
+//                    l2.add(l);
+//                } else {
+//                    List l = new LinkedList();
+//                    l.add(stmt.getSubject().toString());
+//                    l.add(stmt.getPredicate().toString());
+//                    l.add(stmt.getObject().toString());
+//                    l2.add(l);
+//                }
+//            }
+//        }
+//        return l2;
+//    }
 
     public ArrayList<Property> getPropertiesMapFromLod(Entity e) {
         if (e.getURI().contains("dbpedia")) {
@@ -273,103 +273,6 @@ public class Entity {
             qe.close();
         }
     }
-//    public void constructEntity() {
-//        if (this.URI.contains("dbpedia")) {
-//            selectlodFromEntity(this);
-//        } else {
-//            Model m = selectFromEntity(this.URI);
-//            Resource resource = m.getResource(this.URI);
-//
-//            List<List> l = browseModel(resource, "uses");
-//
-//            m = selectFromEntityWithPredicat(this.URI, "axis-datamodel:uses");
-//            if (m.isEmpty()) {
-//                l = browseModel(resource, "label");
-//                if (!l.isEmpty()) {
-//                    this.name = (String) l.get(0).get(2);
-//                }
-//                l = browseModel(resource, "type");
-//                if (!l.isEmpty()) {
-//                    String type = (String) l.get(0).get(2);
-//                    if (type.contains("PhysicalPerson")) {
-//                        this.type = "person";
-//                    }
-//                    if (type.contains("Event")) {
-//                        this.type = "event";
-//                    }
-//                    if (type.contains("PhysicalObject")) {
-//                        this.type = "object";
-//                    }
-//                    if (type.contains("Place")) {
-//                        this.type = "location";
-//                    }
-//                    if (type.contains("MoralPerson")) {
-//                        this.type = "organisation";
-//                    }
-//                    //        if(type.contains(""))
-//                    //            this.type = "activity";
-//                }
-//                ResultSet rs = selectFromEntity("?s", "axis-datamodel:uses", "<" + this.URI + ">");
-//                if (rs.hasNext()) {
-//                    String newUri = rs.nextSolution().get("s").toString();
-//                    m = selectFromEntity(newUri);
-//                    resource = m.getResource(newUri);
-//                    l = browseModel(resource, "uses");
-//                    m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
-//                }
-//            }
-//            Iterator it = l.iterator();
-//            while (it.hasNext()) {
-//                List list = (List) it.next();
-//                resource = m.getResource(list.get(2).toString());
-//                l = browseModel(resource, "label");
-//                if (!l.isEmpty()) {
-//                    this.name = (String) l.get(0).get(2);
-//                }
-//                l = browseModel(resource, "type");
-//                if (!l.isEmpty()) {
-//                    String type = (String) l.get(0).get(2);
-//                    if (type.contains("PhysicalPerson")) {
-//                        this.type = "person";
-//                    }
-//                    if (type.contains("Event")) {
-//                        this.type = "event";
-//                    }
-//                    if (type.contains("PhysicalObject")) {
-//                        this.type = "object";
-//                    }
-//                    if (type.contains("Place")) {
-//                        this.type = "location";
-//                    }
-//                    if (type.contains("MoralPerson")) {
-//                        this.type = "organisation";
-//                    }
-//                    //        if(type.contains(""))
-//                    //            this.type = "activity";
-//                }
-//                List l1 = browseModel(resource, "hasRepresentation");
-//                Iterator it1 = l1.iterator();
-//                if (!l1.isEmpty()) {
-//                    while (it1.hasNext()) {
-//                        List o = (List) it1.next();
-//                        Model m1 = selectFromEntityWithPredicat(o.get(2).toString(), "axis-datamodel:hasExpression");
-//
-//                        Iterator itt = m1.listSubjects();
-//                        while (itt.hasNext()) {
-//                            Resource re = m1.getResource(itt.next().toString());
-//                            List<List> l2 = browseModel(re, "type");
-//                            if (!l2.isEmpty()) {
-//                                if (l2.get(0).get(2).toString().contains("EmbodimentOfImageFile")) {
-//                                    List<List> l3 = browseModel(re, "fileName");
-//                                    this.image = l3.get(0).get(2).toString();
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     public void insertName(Property p) {
         insert(selectRegOfEntity(this.URI, "Document"), "rdfs:label", p.getValue(), "fr");
@@ -426,7 +329,7 @@ public class Entity {
         }
     }
 
-    public PropertyAdmin getPropertyAdmin(String propertyName, String p) {
+    public PropertyAdmin getPropertyAdmin(String propertyName, String requete) {
         String req = String.format("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
                 + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                 + "prefix owl: <http://www.w3.org/2002/07/owl#> "
@@ -436,49 +339,24 @@ public class Entity {
                 + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX schema: <https://schema.org/>"
                 + "PREFIX dbont: <http://dbpedia.org/ontology/>"
-                + "select ?var where {?s axis-datamodel:uses <%s> ."
-                + "?s rdf:type axis-datamodel:Entity ."
-                + "<%s> %s ?var "
-                + "}", this.getURI(), this.getURI(), p);
-
-//        String req2 = "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-//                + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-//                + "prefix owl: <http://www.w3.org/2002/07/owl#> "
-//                + "prefix poc: <http://titan.be/axis-poc2015/> "
-//                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-//                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-//                + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-//                + "PREFIX schema: <https://schema.org/>"
-//                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
-//                + "select * where { <%s> owl:sameAs ?o"
-//                + "}";
-
+                + "%s"
+                + "}", this.getURI(), this.getURI(), requete);
+        
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", req);
 
         ResultSet rs = qe.execSelect();
         PropertyAdmin pa = new PropertyAdmin();
-        ArrayList<Entity> ale = new ArrayList<Entity>();
+        ArrayList<Entity> ale = new ArrayList<>();
         while (rs.hasNext()) {
             QuerySolution n = rs.next();
             pa.setName(propertyName);
             if (n.get("var").isResource()) {
                 Entity e = new Entity();
-//                QueryExecution qe1 = QueryExecutionFactory.sparqlService(
-//                        "http://localhost:3030/ds/query", String.format(req2, n.get("var").asResource().getURI()));
-//                ResultSet rs1 = qe1.execSelect();
-//                if (rs1.hasNext()) {
-//                    e.setURI(rs1.next().get("o").asResource().getURI());
-//                    e.constructEntity();
-//                    ale.add(e);
-//                    pa.setType("uri");
-//                    qe1.close();
-//                } else {
                     e.setURI(n.get("var").asResource().getURI());
                     e.constructEntity();
                     ale.add(e);
                     pa.setType("uri");
-//                }
             }
             if (n.get("var").isLiteral()) {
                     pa.setType("fr");
@@ -496,97 +374,6 @@ public class Entity {
         qe.close();
         return pa;
     }
-    
-//    public PropertyAdmin getPropertyAdmin(String propertyName, String type) {
-//        PropertyAdmin pa = new PropertyAdmin();
-//        ArrayList<Entity> ale = new ArrayList<Entity>();
-//        Model m = selectFromEntity(this.getURI());
-//        Resource resource = m.getResource(this.getURI());
-//        List l = browseModel(resource, "uses");
-//
-//        m = selectFromEntityWithPredicat(this.getURI(), "axis-datamodel:uses");
-//        if (m.isEmpty()) {
-//            ResultSet rs = selectFromEntity("?s", "axis-datamodel:uses", "<" + this.getURI() + ">");
-//            if (rs.hasNext()) {
-//                String newUri = rs.nextSolution().get("s").toString();
-//                m = selectFromEntity(newUri);
-//                resource = m.getResource(newUri);
-//                l = browseModel(resource, "uses");
-//                m = selectFromEntityWithPredicat(newUri, "axis-datamodel:uses");
-//            }
-//        }
-//        Iterator it = l.iterator();
-//
-//        if (type.equals("entity")) {
-//            while (it.hasNext()) {
-//                List list = (List) it.next();
-//                resource = m.getResource(list.get(2).toString());
-//                List<List> l2 = browseModel(resource, propertyName);
-//                if (!l2.isEmpty()) {
-//                    Iterator<List> itt = l2.listIterator();
-//                    int i = 0;
-//                    while (itt.hasNext()) {
-//                        String nextUri = itt.next().get(2).toString();
-//                        ResultSet rset = selectFromEntity("?s", "axis-datamodel:uses", "<" + nextUri + ">");
-//                        if (rset.hasNext()) {
-//                            Entity e = new Entity();
-//                            e.setURI(l2.get(i).get(2).toString());
-//                            e.constructEntity();
-//                            ale.add(e);
-//                            pa.setType("uri");
-//                            i = i + 1;
-//                        } else {
-//                            ResultSet rs = selectFromEntity("<" + nextUri + ">", "?p", "?o");
-//                            while (rs.hasNext()) {
-//                                QuerySolution qs = rs.nextSolution();
-//                                String nextSol = qs.get("p").toString();
-//                                if (nextSol.contains("sameAs")) {
-//                                    pa.setType("uri");
-//                                    Entity e = new Entity();
-//                                    ResultSet rst = selectFromEntity("<" + nextUri + ">", "owl:sameAs", "?o");
-//                                    if (rst.hasNext()) {
-//                                        e.setURI(rst.nextSolution().get("o").toString());
-////                                        System.out.println("URI:"+e.URI);
-//                                    }
-//                                    ale.add(selectlodFromEntity(e));
-//                                    pa.setValue_locale(null);
-//                                    pa.setEntity_dbpedia(null);
-//                                    pa.setValue_dbpedia(null);
-//                                } else {
-//                                    if (qs.get("o").isLiteral()) {
-//                                        Literal aut = qs.get("o").asLiteral();
-//                                        pa.setType(aut.getLanguage());
-//                                        pa.setValue_locale(aut.getString());
-//                                        pa.setEntity_locale(null);
-//
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        } else if (type.equals("literal") || (pa.getEntity_dbpedia() == null && pa.getEntity_locale() == null)) {
-//            java.lang.Object o = null;
-//            if (it.hasNext()) {
-//                o = it.next();
-//                List list = (List) o;
-//                resource = m.getResource(list.get(2).toString());
-//                StmtIterator p = resource.listProperties();
-//                while (p.hasNext()) {
-//                    Statement n = p.nextStatement();
-//                    if (n.getPredicate().toString().contains(propertyName)) {
-//                        pa.setType(n.getLiteral().getLanguage());
-//                        pa.setValue_locale(n.getLiteral().getString());
-//                    }
-//                }
-//            }
-//        }
-//        Entity[] ret = new Entity[ale.size()];
-//        pa.setEntity_locale((Entity[]) ale.toArray(ret));
-//        return pa;
-//
-//    }
 
     public boolean delete(String prop, String uri2) {
         deleteLinkEntity(this.URI, prop, uri2);
