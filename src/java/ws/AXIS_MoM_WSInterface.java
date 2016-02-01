@@ -55,7 +55,7 @@ public interface AXIS_MoM_WSInterface {
      * @return
      */
     @WebMethod(operationName = "RemoveEntityObjectProperty")
-    Boolean RemoveEntityProperty(@WebParam(name = "e") Entity e, @WebParam(name = "p") Property p, @WebParam(name = "valueEntity") Entity valueEntity, @WebParam(name = "valueText") String valueText);
+    Boolean RemoveEntityProperty(@WebParam(name = "e") Entity e, @WebParam(name = "p") Property p, @WebParam(name = "valueEntity") Entity valueEntity);
 
     /**
      * Remove la property p d'une entité e et l'entité e

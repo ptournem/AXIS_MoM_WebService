@@ -159,9 +159,13 @@ public class Entity {
                 break;
         }
 
-        
         String uri7 = insert("rdf:type", "axis-datamodel:Document");
         insert(uri, "axis-datamodel:hasRepresentation", uri7);
+        
+        this.insertName(new Property("name", this.getName(), "fr", null));
+        this.insertImage(new Property("image", this.getImage(), "fr", null));
+        
+        
         
         this.insertName(new Property("name", this.getName(), "fr", null));
         this.insertImage(new Property("image", this.getImage(), "fr", null));
@@ -375,8 +379,8 @@ public class Entity {
         return pa;
     }
 
-    public boolean delete(String prop, String uri2) {
-        deleteLinkEntity(this.URI, prop, uri2);
+    public boolean delete(String uri, String prop, String uri2) {
+        deleteLinkEntity(uri, prop, uri2);
         return true;
     }
 

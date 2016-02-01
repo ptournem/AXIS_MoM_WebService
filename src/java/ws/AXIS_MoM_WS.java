@@ -14,6 +14,7 @@ import control.semantics;
 import java.util.ArrayList;
 import javax.jws.WebService;
 import static model.Connector.selectAllEntitiesURI;
+import static model.Connector.selectRegOfEntity;
 import model.Person;
 import model.Object;
 import model.Place;
@@ -170,85 +171,81 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     }
 
     @Override
-    public Boolean RemoveEntityProperty(Entity e, Property p, Entity valueEntity, String valueText) {
+    public Boolean RemoveEntityProperty(Entity e, Property p, Entity valueEntity) {
         
-        boolean ret;
+        boolean ret = false;
+        String property = "null";
+        String regof = "null";
+        
         switch (p.getName()) {
 	    case "author":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "axis-datamodel:performs";
+                regof = "EmbodimentOfObject";
                 break;
             case "sameas":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                e.delete(e.getURI(), "owl:sameAs", "<"+valueEntity.getURI()+">");
                 break;
             case "description":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "rdf:Description";
+                regof = "Document";
                 break;
             case "location":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
-                break;
-            case "image":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
-                break;
-            case "name":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "axis-datamodel:takePlaceIn";
+                regof = "EmbodimentOfObject";
                 break;
             case "birthdate":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "schema:birthDate";
+                regof = "RegOfAgent";
                 break;
             case "deathdate":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "schema:deathDate";
+                regof = "RegOfAgent";
                 break;
             case "restinplace":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "dbont:restInPlace";
+                regof = "RegOfAgent";
                 break;
             case "mother":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "dbont:mother";
+                regof = "RegOfAgent";
                 break;
             case "father":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "dbont:father";
+                regof = "RegOfAgent";
                 break;
             case "isauthorof":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "axis-datamodel:isPerformedBy";
+                regof = "RegOfAgent";
                 break;
             case "birthplace":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
-                break;
-            case "birthplaceof":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "dbont:birthPlace";
+                regof = "RegOfAgent";
                 break;
             case "postalcode":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "dbont:postalCode";
+                regof = "RegOfPlace";
                 break;
             case "region":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "dbont:region";
+                regof = "RegOfPlace";
                 break;
             case "country":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "dbont:country";
+                regof = "RegOfPlace";
                 break;
             case "locationof":
-                e.delete("prop author", valueEntity.getURI());
-                ret = true;
+                property = "axis-datamodel:isAPlaceOfObject";
+                regof = "RegOfPlace";
                 break;
             default:
                 return false;
         }
+        
+        if(valueEntity.getURI().isEmpty())
+            e.delete(selectRegOfEntity(e.getURI(), "Document"), property, "?o");
+        else
+            e.delete(selectRegOfEntity(e.getURI(), regof), property, "<"+valueEntity.getURI()+">");
+        
 	return ret;
     }
 

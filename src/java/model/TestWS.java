@@ -184,14 +184,17 @@ public class TestWS {
         //création de Antonio Da Vinci
         antonio = ws.AddEntity(antonio);
         
+        
+        //création Amboise
+        amboise = ws.AddEntity(amboise);
+        
         //lier Léonard de vinci => father => Antonio
 
         lierEntity(ws, leonard, "father", antonio);
         lierEntity(ws, leonard, "father", caterina);
+        lierEntity(ws, leonard, "father", amboise);
         
         
-        //création Amboise
-        amboise = ws.AddEntity(amboise);
         
         //lier Léonard Da vinci => restinplace => Amboise
         lierEntity(ws, leonard, "restinplace", amboise);
@@ -210,8 +213,10 @@ public class TestWS {
         //lier Léonard Da vinci => isauthorof => Joconde
         lierEntity(ws, leonard, "isauthorof", joconde);
         
+        Property p = new Property("father", null, "uri", null);
+        ws.RemoveEntityProperty(leonard, p, amboise);
         
-        
+        System.out.println("URI leonard : "+leonard.getURI());
         
         
         System.out.println("\n\n\n_______________");

@@ -715,6 +715,7 @@ public class Connector {
     
     public static String selectRegOfEntity(String entity, String regof) {
         String uri = "null";
+
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
@@ -741,6 +742,7 @@ public class Connector {
     }
 
     public static boolean deleteLinkEntity(String s, String p, String o) {
+
         String req = "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX poc: <http://titan.be/axis-poc2015/>"
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
@@ -749,7 +751,7 @@ public class Connector {
                 + "PREFIX schema: <https://schema.org/>"
                 + "PREFIX dbont: <http://dbpedia.org/ontology/>"
                 + "DELETE WHERE { "
-                + " <%s> %s <%s> "
+                + " <%s> %s %s "
                 + "}";
         
         
