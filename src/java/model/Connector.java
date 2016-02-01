@@ -715,13 +715,14 @@ public class Connector {
     
     public static String selectRegOfEntity(String entity, String regof) {
         String uri = "null";
+
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                         + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                         + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                        + "select ?ret where {%s axis-datamodel:hasRepresentation ?ret ."
-                        + "	?ret rdf:type axis-datamodel:%s ", entity, regof));
+                        + "select ?ret where {<%s> axis-datamodel:hasRepresentation ?ret ."
+                        + "	?ret rdf:type axis-datamodel:%s }", entity, regof));
 
         ResultSet rs = qe.execSelect();
         
