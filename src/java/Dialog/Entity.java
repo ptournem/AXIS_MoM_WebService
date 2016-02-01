@@ -166,11 +166,6 @@ public class Entity {
         this.insertImage(new Property("image", this.getImage(), "fr", null));
         
         
-        
-        this.insertName(new Property("name", this.getName(), "fr", null));
-        this.insertImage(new Property("image", this.getImage(), "fr", null));
-        
-        
         //insert(e.getURI(), "rdfs:label", e.getName(), "fr");
         return this;
     }
