@@ -6,7 +6,6 @@
 package Dialog;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import static model.Connector.*;
@@ -14,14 +13,9 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.Literal;
-import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
 
 public class Entity {
 
@@ -112,7 +106,9 @@ public class Entity {
 
     public Entity AddEntity() {
         String mainURI = insert("rdf:type", "axis-datamodel:Entity");
-
+        String AFP = insert("rdf:type", "axis-datamodel:AFP");
+        insert(AFP,"axis-datamodel:declaresTheExistenceOf", mainURI);
+        insert(mainURI,"axis-datamodel:isDeclaredBy", AFP);
         String uri = null;
         switch (this.type) {
             case "person":
@@ -212,11 +208,12 @@ public class Entity {
                     + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                     + "select ?name ?image ?type where {?s axis-datamodel:uses <%s> ."
                     + "                   	?s rdf:type axis-datamodel:Entity ."
-                    + "					<%s> rdfs:label ?name ."
+//                    + "					<%s> rdfs:label ?name ."
                     + "					<%s> axis-datamodel:hasRepresentation ?reg ."
-                    + "  					?reg axis-datamodel:hasExpression ?emb ."
-                    + "  					?emb axis-datamodel:fileName ?image ."
-                    + "  					<%s> rdf:type ?type"
+                    + "                                 ?reg rdfs:label ?name ."
+                    + "  				?reg axis-datamodel:hasExpression ?emb ."
+                    + "  				?emb axis-datamodel:fileName ?image ."
+                    + "  				<%s> rdf:type ?type"
                     + "					}", this.URI, this.URI, this.URI, this.URI);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", req);

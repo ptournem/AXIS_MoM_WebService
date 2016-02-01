@@ -111,7 +111,7 @@ public class Person extends Entity {
             this.isAuthorOf = getPropertyAdmin("isAuthorOf", "axis-datamodel:performs");
             this.restInPlace = getPropertyAdmin("restinplace", "dbont:restInPlace");
             this.description = getPropertyAdmin("description", "rdf:Description");
-            this.sameAs = getPropertyAdmin("sameAs", "owl:sameAs");
+            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
         } else {
             this.birthDate = new PropertyAdmin();
             this.birthDate.setName("birthdate");
@@ -129,6 +129,8 @@ public class Person extends Entity {
             this.restInPlace.setName("restinplace");
             this.description = new PropertyAdmin();
             this.description.setName("description");
+            this.sameAs = new PropertyAdmin();
+            this.sameAs.setName("sameas");
         }
         if (this.getURI().contains("dbpedia") || getdbpedia == true) {
             ArrayList<Property> p = getPropertiesMapFromLod(this);

@@ -65,10 +65,10 @@ public class Place extends Entity {
             this.birthPlaceOf = getPropertyAdmin("birthplaceof", "dbont:birthPlace");
             this.country = getPropertyAdmin("country", "dbont:country");
             this.description = getPropertyAdmin("description", "rdf:Description");
-
             this.locationOf = getPropertyAdmin("locationof", "axis-datamodel:isAPlaceOfObject");
             this.postalCode = getPropertyAdmin("postalcode", "dbont:postalCode");
             this.region = getPropertyAdmin("region", "dbont:region");
+            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
         }else{
             this.birthPlaceOf = new PropertyAdmin();
             this.birthPlaceOf.setName("birthplaceof");

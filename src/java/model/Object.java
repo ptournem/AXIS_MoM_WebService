@@ -56,6 +56,7 @@ public class Object extends Entity {
             this.author = getPropertyAdmin("author", "axis-datamodel:isPerformedBy");
             this.location = getPropertyAdmin("location", "axis-datamodel:takePlaceIn");
             this.description = getPropertyAdmin("description", "rdf:Description");
+            this.sameAs = getPropertyAdmin("description", "owl:sameAs");
         } else {
             this.author = new PropertyAdmin();
             this.author.setName("author");
