@@ -107,46 +107,45 @@ public class Entity {
     public Entity AddEntity() {
         String mainURI = insert("rdf:type", "axis-datamodel:Entity");
         String AFP = insert("rdf:type", "axis-datamodel:AFP");
-        insert(AFP,"axis-datamodel:declaresTheExistenceOf", mainURI);
-        insert(mainURI,"axis-datamodel:isDeclaredBy", AFP);
+        insert(AFP, "axis-datamodel:declaresTheExistenceOf", mainURI);
+        insert(mainURI, "axis-datamodel:isDeclaredBy", AFP);
         String uri = null;
         switch (this.type) {
             case "person":
                 uri = insert("rdf:type", "axis-datamodel:PhysicalPerson");
                 insert(mainURI, "axis-datamodel:uses", uri);
                 this.setURI(uri);
-                
+
                 String uri3 = insert("rdf:type", "axis-datamodel:RegOfAgent");
                 insert(uri, "axis-datamodel:hasRepresentation", uri3);
-                
+
                 break;
             case "event":
                 uri = insert("rdf:type", "axis-datamodel:Event");
                 insert(mainURI, "axis-datamodel:uses", uri);
                 this.setURI(uri);
-                
+
                 String uri4 = insert("rdf:type", "axis-datamodel:RegOfEvent");
                 insert(uri, "axis-datamodel:hasRepresentation", uri4);
-                
+
                 break;
             case "object":
                 uri = insert("rdf:type", "axis-datamodel:PhysicalObject");
                 insert(mainURI, "axis-datamodel:uses", uri);
-                
+
                 String uri5 = insert("rdf:type", "axis-datamodel:EmbodimentOfObject");
                 insert(uri, "axis-datamodel:hasRepresentation", uri5);
-                
-                        
+
                 this.setURI(uri);
                 break;
             case "location":
                 uri = insert("rdf:type", "axis-datamodel:Place");
                 insert(mainURI, "axis-datamodel:uses", uri);
                 this.setURI(uri);
-                
+
                 String uri6 = insert("rdf:type", "axis-datamodel:RegOfPlace");
                 insert(uri, "axis-datamodel:hasRepresentation", uri6);
-                
+
                 break;
 //              case "activity":
 //                  uri = insert("rdf:type", "axis:RegOfPhysicalPerson");
@@ -161,15 +160,13 @@ public class Entity {
 
         String uri7 = insert("rdf:type", "axis-datamodel:Document");
         insert(uri, "axis-datamodel:hasRepresentation", uri7);
-        
+
         String uri8 = insert("rdf:type", "axis-datamodel:RegOfInformationItem");
         insert(uri, "axis-datamodel:hasRepresentation", uri8);
-        
-        
+
         this.insertName(new Property("name", this.getName(), "fr", null));
         this.insertImage(new Property("image", this.getImage(), "fr", null));
-        
-        
+
         //insert(e.getURI(), "rdfs:label", e.getName(), "fr");
         return this;
     }
@@ -198,7 +195,6 @@ public class Entity {
 //        }
 //        return l2;
 //    }
-
     public ArrayList<Property> getPropertiesMapFromLod(Entity e) {
         if (e.getURI().contains("dbpedia")) {
             return entityBrowser(e);
@@ -223,23 +219,18 @@ public class Entity {
         if (this.URI.contains("dbpedia")) {
             selectlodFromEntity(this);
         } else {
-            String req = String.format("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-                    + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-                    + "prefix owl: <http://www.w3.org/2002/07/owl#> "
-                    + "prefix axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#> "
-                    + "prefix poc: <http://titan.be/axis-poc2015/> "
-                    + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-                    + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-                    + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+            String req = String.format($PREFIXS
                     + " select ?name ?image ?type where {"
                     + " values ?uri {<%s>}"
                     + " ?s axis-datamodel:uses ?uri ."
                     + " ?s rdf:type axis-datamodel:Entity ."
+                    + " ?uri axis-datamodel:hasRepresentation ?doc ."
+                    + " ?doc a axis-datamodel:Document ."
                     + " ?uri axis-datamodel:hasRepresentation ?reg ."
-                    + " ?reg rdfs:label ?name ."
                     + " ?reg axis-datamodel:hasExpression ?emb ."
                     + " ?emb axis-datamodel:fileName ?image ."
-                    + " ?uri rdf:type ?type"
+                    + " ?uri a ?type ."
+                    + " ?doc rdfs:label ?name."
                     + " }", this.URI);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", req);
@@ -264,13 +255,12 @@ public class Entity {
                 if (type.contains("MoralPerson")) {
                     this.type = "organisation";
                 }
-                    //        if(type.contains(""))
+                //        if(type.contains(""))
                 //            this.type = "activity";
 //                System.out.println("image:"+n.get("image").asLiteral().getString());
                 this.image = n.get("image").asLiteral().getString();
 //                System.out.println("name:"+n.get("name").asLiteral().getString());
                 this.name = n.get("name").asLiteral().getString();
-                
 
             }
             qe.close();
@@ -296,7 +286,7 @@ public class Entity {
         String uri3 = insert("rdf:type", "axis-datamodel:EmbodimentOfImageFile");
 
         insert(this.URI, "axis-datamodel:hasRepresentation", uri1);
-        
+
         insert(uri1, "axis-datamodel:isARepresentationOf", this.URI);
 
         insert(uri3, "axis-datamodel:fileName", p.getValue(), "file");
@@ -348,7 +338,7 @@ public class Entity {
                 + "?s rdf:type axis-datamodel:Entity ."
                 + "<%s> %s ?var "
                 + "}", this.getURI(), this.getURI(), p);
-        
+
         PropertyAdmin pa;
         try (QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", req)) {
@@ -369,13 +359,14 @@ public class Entity {
                     pa.setType("fr");
                     pa.setValue_locale(n.get("var").asLiteral().getString());
                 }
-                
-            }   if (!ale.isEmpty()) {
+
+            }
+            if (!ale.isEmpty()) {
                 Entity[] ret = new Entity[ale.size()];
                 pa.setEntity_locale((Entity[]) ale.toArray(ret));
                 qe.close();
-            return pa;
-        }
+                return pa;
+            }
         }
         return pa;
     }
