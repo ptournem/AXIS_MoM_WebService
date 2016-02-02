@@ -148,16 +148,7 @@ public class Person extends Entity {
         this.sameAs = new PropertyAdmin();
         this.sameAs.setName("sameas");
         if (!this.getURI().contains("dbpedia")) {
-            System.out.println("uri:" + this.getURI());
-            String req = String.format(" prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                    + " prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                    + " prefix owl: <http://www.w3.org/2002/07/owl#>"
-                    + " prefix poc: <http://titan.be/axis-poc2015/>"
-                    + " PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                    + " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                    + " PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.4#>"
-                    + " PREFIX dbont: <http://dbpedia.org/ontology/>"
-                    + " PREFIX schema: <https://schema.org/>"
+            String req = String.format($PREFIXS
                     + " select ?description ?deathdate ?birthdate "
                     + " (group_concat(?mother;separator=\"&&&&\") as ?mothers)"
                     + " (group_concat(?restinplace;separator=\"&&&&\") as ?restinplaces) "
@@ -190,7 +181,6 @@ public class Person extends Entity {
             ResultSet rs = qe.execSelect();
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
-                System.out.println("rep:" + rep);
                 if (rep.get("description") != null) {
                     this.description.setValue_locale(rep.get("description").asLiteral().getString());
                     this.description.setType(rep.get("description").asLiteral().getLanguage());
