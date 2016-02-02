@@ -149,7 +149,7 @@ public class TestWS {
         Entity antonio = new Entity("Antonio Da Vinci", "https://s-media-cache-ak0.pinimg.com/736x/b8/d7/51/b8d7512c624b786baad3ab1bfa3f0163.jpg", "person");
         Entity amboise = new Entity("Amboise", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ch%C3%A2teau_d'Amboise_07.jpg/220px-Ch%C3%A2teau_d'Amboise_07.jpg", "location");
         Entity joconde = new Entity("La Joconde", "https://download.vikidia.org/vikidia/fr/images/thumb/1/13/La_gioconda.jpg/200px-La_gioconda.jpg", "object");
-
+        Entity louvre = new Entity("Musée du Louvre", "https://upload.wikimedia.org/wikipedia/en/4/42/Louvre_Pyramid.jpg", "place");
         bourgeois = ws.AddEntity(bourgeois);
 
         //création Léonard Da Vinci
@@ -187,7 +187,9 @@ public class TestWS {
 
         //création Joconde
         joconde = ws.AddEntity(joconde);
-
+        louvre = ws.AddEntity(louvre);
+        
+        lierEntity(ws, joconde, "location", louvre);
         //ajouter Joconde => description => String
         lierEntity(ws, joconde, "description", "La Joconde est un super tableau");
 
@@ -212,11 +214,17 @@ public class TestWS {
             Entity rodinDB = new Entity();
             rodinDB.setURI("http://dbpedia.org/resource/Auguste_Rodin");
             rodinDB.constructEntity();
-
+            
+            Entity louvreDB = new Entity();
+            louvreDB.setURI("http://dbpedia.org/resource/Louvre");
+            louvreDB.constructEntity();
+            
+            
             lierEntity(ws, bourgeois, "author", rodinDB);
             lierEntity(ws, leonard, "birthplace", vinciDB);
             lierEntity(ws, leonard, "father", rodinDB);
             lierEntity(ws, leonard, "sameas", leonardDB);
+            lierEntity(ws, louvre, "sameas", louvreDB);
             Property[] props2 = ws.LoadEntityProperties(vinciDB);
 
             System.out.println("\nProperty Vinci (URI Dbpedia) :");

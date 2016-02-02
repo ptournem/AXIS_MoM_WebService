@@ -45,7 +45,7 @@ public class Object extends Entity {
 
         list.add(this.author);
         list.add(this.location);
-        //list.add(this.sameAs);
+        list.add(this.sameAs);
         list.add(this.description);
         //list.add(this.dateCreation);
 
@@ -61,7 +61,7 @@ public class Object extends Entity {
             this.author = getPropertyAdmin("author", "axis-datamodel:isPerformedBy");
             this.location = getPropertyAdmin("location", "axis-datamodel:takePlaceIn");
             this.description = getPropertyAdmin("description", "rdf:Description");
-            this.sameAs = getPropertyAdmin("description", "owl:sameAs");
+            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
         } else {
             this.author = new PropertyAdmin();
             this.author.setName("author");
