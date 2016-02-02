@@ -22,7 +22,7 @@ public class TestWS {
     public static long endTime;
 
     public static void main(String args[]) {
-        testFonctionnel(false);
+        testFonctionnel(true);
         //deleteAll();
         
         //testComments();
@@ -202,7 +202,7 @@ public class TestWS {
         lierEntity(ws, joconde, "location", louvre);
         //ajouter Joconde => description => String
         lierEntity(ws, joconde, "description", "La Joconde est un super tableau");
-
+        lierEntity(ws, joconde, "author", leonard);
         //lier Léonard Da vinci => isauthorof => Joconde
         lierEntity(ws, leonard, "isauthorof", joconde);
         lierEntity(ws, leonard, "birthplace", vinci);
@@ -254,12 +254,23 @@ public class TestWS {
 
         Property[] props = ws.LoadEntityProperties(leonard);
         PropertyAdmin[] propsAdmin = ws.GetAllPropertiesAdmin(leonard);
-
+        PropertyAdmin[] propsVinci = ws.GetAllPropertiesAdmin(vinci);
+        PropertyAdmin[] propsJoconde = ws.GetAllPropertiesAdmin(joconde);
         System.out.println("\nProperty Leonard (type Person) :");
         for (int i = 0; i < props.length; i++) {
             System.out.println(" - Property[" + i + "] : " + props[i]);
         }
 
+        System.out.println("\nPropertyAdmin Vinci (type Place) :");
+        for (int i = 0; i < propsVinci.length; i++) {
+            System.out.println(" - Property[" + i + "] : " + propsVinci[i]);
+        }
+        
+        System.out.println("\nPropertyAdmin Joconde (type Object) :");
+        for (int i = 0; i < propsJoconde.length; i++) {
+            System.out.println(" - Property[" + i + "] : " + propsJoconde[i]);
+        }
+        
         System.out.println("\nPropertyAdmin Leonard (type Person) :");
         for (int i = 0; i < propsAdmin.length; i++) {
             System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);

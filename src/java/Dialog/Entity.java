@@ -269,7 +269,6 @@ public class Entity {
     }
 
     public void insertSameAs(Property p) {
-        System.out.println("sameas:"+p.getEnt()[0].getURI());
         insert(this.URI, "owl:sameAs", p.getEnt()[0].getURI());
     }
 
