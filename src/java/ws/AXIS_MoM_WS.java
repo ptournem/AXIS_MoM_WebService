@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.jws.WebService;
 import static model.Connector.selectAllEntitiesURI;
 import static model.Connector.selectRegOfEntity;
+import static model.Connector.selectAllComments;
 import model.Person;
 import model.Object;
 import model.Place;
@@ -23,7 +24,7 @@ import model.Place;
 @WebService(serviceName = "AXIS_MoM_WS", endpointInterface = "ws.AXIS_MoM_WSInterface")
 public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     
-    public String testTabResults;
+
 
     @Override
     public Entity AddEntity(Entity e) {
@@ -321,14 +322,15 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     }
 
     @Override
-    public Comment AddComment(Comment c) {
-	double URI = (Math.random() * 1000);
-	c.setURI(URI + "");
+    public Comment AddComment(Comment c, Entity e) {
+        c.setEntity(e);
+        c = c.insertComment();
 	return c;
     }
 
     @Override
     public Boolean GrantComment(Comment c) {
+        
 	return true;
     }
 
@@ -338,81 +340,37 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     }
 
     @Override
+    public Boolean DenyComment(Comment c) {
+	return true;
+    }
+    
+    @Override
     public Comment[] LoadComment(Entity e) {
-	ArrayList<Comment> list = new ArrayList<>();
-
-	Comment c1 = new Comment();
-	c1.setAuthorName("Babibel");
-	c1.setEmail("babibel@gmail.com");
-	c1.setComment("Très belle oeuvre");
-	list.add(c1);
-
-	Comment c2 = new Comment();
-	c2.setAuthorName("Babibel");
-	c2.setEmail("babibel@gmail.com");
-	c2.setComment("Très belle oeuvre");
-	list.add(c2);
-
-	Comment[] ret = new Comment[list.size()];
-	return list.toArray(ret);
+        
+        Comment[] tab;
+        if(e == null)
+            tab = selectAllComments();
+        else
+            tab = selectAllComments(e);
+	
+        return tab;
     }
 
     @Override
     public Entity[] GetAllEntities() {
         
         return this.SearchOurEntitiesFromText("");
-//	ArrayList<Entity> list = new ArrayList<>();
-//
-//	Entity e1 = new Entity();
-//	e1.setImage("http://1.1.1.2/bmi/static.ladepeche.fr/content/media/image/zoom/2011/03/07/603056.jpg");
-//	e1.setName("gros bouffon coco");
-//	e1.setURI("coca");
-//	e1.setType("object");
-//	list.add(e1);
-//
-//	Entity e2 = new Entity();
-//	e2.setImage("http://1.1.1.1/bmi/cp91279.biography.com/1000509261001/1000509261001_1891997649001_History-Bill-Clinton-on-MLK-SF.jpg");
-//	e2.setName("salut beau gosse");
-//	e2.setURI("MLK");
-//	e2.setType("person");
-//	list.add(e2);
-//
-//	Entity[] ret = new Entity[list.size()];
-//	return (Entity[]) list.toArray(ret);
     }
 
     @Override
     public PropertyAdmin[] GetAllPropertiesAdmin(Entity e) {
         
-        //System.out.println(e.getURI());
         e.constructEntity();
-        
-        
         semantics ctrl = new semantics();
         PropertyAdmin[] tab = ctrl.getAllPropertiesAdminFromEntity(e);
-        
-//        for(int i=0;i<tab.length;i++) {
-//            PropertyAdmin ptest = tab[i];
-//            System.out.println("valeur = "+ptest);
-//        }
+
         return tab;
-//	ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
-//	PropertyAdmin p1 = new PropertyAdmin();
-//	p1.setName("author");
-//	p1.setValue_locale("");
-//	p1.setValue_dbpedia("");
-//	p1.setType("");
-//	list.add(p1);
-//
-//	PropertyAdmin p2 = new PropertyAdmin();
-//	p2.setName("location");
-//	p2.setValue_locale("");
-//	p2.setValue_dbpedia("");
-//	p2.setType("");
-//	list.add(p2);
-//
-//	PropertyAdmin[] ret = new PropertyAdmin[list.size()];
-//	return (PropertyAdmin[]) list.toArray(ret);
+
     }
 
     @Override

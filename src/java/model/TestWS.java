@@ -5,6 +5,7 @@
  */
 package model;
 
+import Dialog.Comment;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
@@ -26,108 +27,9 @@ public class TestWS {
     public static long endTime;
     
     public static void main(String args[]) {
-
-        //System.out.println("test");
-        //testConstructEntity();
-//        testPerson();
-//        testObject();
-           //testRecherche();
-//        testLoadEntityProperties();
-//        Entity e1 = testAddEntity("paris.jpg", "Paris", "location");
-//        Entity e2 = testAddEntity("france.jpg", "France", "location");
-//        Entity e3 = testAddEntity("test.jpg", "Jean", "person");
-//        
-//        Person per = new Person();
-//        per.setURI(e3.getURI());
-//        
-//        
-//        Property p1 = new Property();
-//	p1.setName("birthplace");
-//	p1.setValue(null);
-//	p1.setType("uri");
-//        ArrayList<Entity> ale = new ArrayList<Entity> ();
-//        ale.add(e1);
-//        Entity [] eTab = new Entity[ale.size()];
-//        
-//        
-//        Property p2 = new Property();
-//	p2.setName("birthplace");
-//	p2.setValue(null);
-//	p2.setType("uri");
-//        ArrayList<Entity> ale1 = new ArrayList<Entity> ();
-//        ale1.add(e2);
-//        Entity [] eTab1 = new Entity[ale1.size()];
-//        
-//        
-//        p1.setEnt((Entity []) ale.toArray(eTab));
-//        p2.setEnt((Entity []) ale1.toArray(eTab1));
-//        
-//        per.insertPlaceOfBirth(p1);
-//        per.insertPlaceOfBirth(p2);
-//        
-//        Person per1 = new Person();
-//        per1.setURI(e3.getURI());
-//        per1.constructEntity();
-//        per1.constructPerson();
-//        System.out.println("per1>>>>"+per1);
-//        
-//        for (int i = 0; i < per1.placeOfBirth.getEntity_locale().length; i++) {
-//            System.out.println("placeOfBirth>>>>>"+per1.placeOfBirth.getEntity_locale()[i]);
-//        }
-//        testAll();
-        //testLoadEntityProperties();
         testFonctionnel(true);
-        //testRecherche();
-        //testPropertiesDbpedia();
-     
-        //testInference();
-        
-//        AXIS_MoM_WS ws = new AXIS_MoM_WS();
-//        Entity leonard = new Entity();
-//        leonard.setURI("http://titan.be/axis-poc2015/5e1a737f-4f8e-421e-b6fe-2324a4bad28c");
-//        leonard.constructEntity();
-//        Property[] props = ws.LoadEntityProperties(leonard);
-//
-//        System.out.println(" - Property[4] : "+props[4]);
-//        
-//        System.out.println("_______");
-//        Entity leonard2 = new Entity();
-//        leonard2.setURI("http://titan.be/axis-poc2015/5e1a737f-4f8e-421e-b6fe-2324a4bad28c");
-//        leonard2.constructEntity();
-//        Property[] props2 = ws.LoadEntityProperties(leonard2);
-//
-//        System.out.println(" - Property[4] : "+props2[4]); 
-        
     }
-    
-    
-    public static void testInference() {
-        Entity leonard = new Entity("Léonard Da Vincii", "http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "person");
-        leonard.AddEntity();
-        String uri = leonard.getURI();
-        QueryExecution qe = QueryExecutionFactory.sparqlService(
-                //                "http://localhost:3030/ds/query", String.format(
-                //                "PREFIX poc: <http://titan.be/axis-poc2015/>" +
-                //                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-                //                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>" +
-                //                "construct {%s ?p ?o}" +
-                //                "WHERE { ?s ?p ?o }", uri));
-                //        
-                "http://localhost:3030/ds/query", String.format(
-                        "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                        + "construct{?s ?p ?o}"
-                        + "WHERE { ?s ?p ?o . {"
-                        + "SELECT * WHERE {"
-                        + "<%s> ?p ?o }"
-                        + "} }", uri));
 
-        Model m = qe.execConstruct();
-        
-        System.out.println(m.getResource("label"));
-        
-        System.out.println(m.getProperty("label"));
-        qe.close();
-    }
     public static void testPropertiesDbpedia() {
         Entity e = new Entity();
         e.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
@@ -645,6 +547,15 @@ public class TestWS {
         //System.out.println("test");
         for(int i=0; i<tab.length;i++) {
             System.out.println("Entity trouvée : "+tab[i]);
+        }
+    }
+    
+    public static void testRechercheComments() {
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        Comment[] tab = ws.LoadComment(null);
+        //System.out.println("test");
+        for(int i=0; i<tab.length;i++) {
+            System.out.println("Comment trouvée : "+tab[i]);
         }
     }
 }

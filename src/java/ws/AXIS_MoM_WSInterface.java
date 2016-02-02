@@ -104,7 +104,7 @@ public interface AXIS_MoM_WSInterface {
      * @return
      */
     @WebMethod(operationName = "AddComment")
-    Comment AddComment(@WebParam(name = "c") Comment c);
+    Comment AddComment(@WebParam(name = "c") Comment c, @WebParam(name = "e") Entity e);
 
     /**
      * Approuve un commentaire c
@@ -124,6 +124,9 @@ public interface AXIS_MoM_WSInterface {
     @WebMethod(operationName = "RemoveComment")
     Boolean RemoveComment(@WebParam(name = "c") Comment c);
 
+    @WebMethod(operationName = "DenyComment")
+    Boolean DenyComment(@WebParam(name = "c") Comment c);
+    
     /**
      * Charge les commentaire d'une entité e
      *
@@ -133,6 +136,7 @@ public interface AXIS_MoM_WSInterface {
     @WebMethod(operationName = "LoadComment")
     Comment[] LoadComment(@WebParam(name = "e") Entity e);
 
+    
     /**
      * Renvoie tous les entities de la base locale
      *

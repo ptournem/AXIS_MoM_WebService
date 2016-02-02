@@ -5,6 +5,7 @@
  */
 package model;
 
+import Dialog.Comment;
 import java.util.UUID;
 import org.apache.jena.query.DatasetAccessor;
 import org.apache.jena.query.DatasetAccessorFactory;
@@ -38,25 +39,22 @@ import org.apache.jena.update.UpdateAction;
  */
 public class Connector {
     
+    public static String $PREFIXS = "PREFIX poc: <http://titan.be/axis-poc2015/>"
+                        + " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
+                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                        + "PREFIX dbont: <http://dbpedia.org/ontology/> "
+                        + "PREFIX dbp: <http://dbpedia.org/property/>"
+                        + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
+                        + "PREFIX dbr: <http://dbpedia.org/resource/>"
+                        + "PREFIX type: <http://dbpedia.org/class/yago/>"
+                        + "PREFIX schema: <https://schema.org/> ";
+    
     public static void main(String args[]) {
-        //test
 
-//        System.out.println("main");
-//        
-//        String myUID = insert("Entity", "RegOfPhysicalPerson");
-//        insert(myUID, "label", "Martin Luther King", "fr");
-//        
-//        Model m = loadModels("test");
-//        System.out.println(m.toString());
-//        Entity e = new Entity("http://dbpedia.org/resource/Racine", null, null, "Person");
-//        // String uri = e.getURI().toString();
-//       entityBrowser(e);
         String test = "RACINE";
         selectlodFromKeyWord(test);
-        // selectlodFromEntity(e);
-        // e = selectlodFromEntity(e);
-        //System.out.println(e);
-        //Auguste_Rodin
 
     }
 
@@ -74,8 +72,7 @@ public class Connector {
     public static Model executeQueryConstruct(String str) {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
-                "http://localhost:3030/ds/query", " PREFIX axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#> "
-                + str);
+                "http://localhost:3030/ds/query", $PREFIXS+ str);
 
         Model constructModel = qe.execConstruct();
 
@@ -86,19 +83,8 @@ public class Connector {
     public static Model selectFromEntity(String uri) { //robine
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
-                //                "http://localhost:3030/ds/query", String.format(
-                //                "PREFIX poc: <http://titan.be/axis-poc2015/>" +
-                //                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-                //                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>" +
-                //                "construct {%s ?p ?o}" +
-                //                "WHERE { ?s ?p ?o }", uri));
-                //        
                 "http://localhost:3030/ds/query", String.format(
-                        "PREFIX poc: <http://titan.be/axis-poc2015/>"
-                        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                        $PREFIXS
                         + "construct{?s ?p ?o}"
                         + "WHERE { ?s ?p ?o . {"
                         + "SELECT * WHERE {"
@@ -115,11 +101,7 @@ public class Connector {
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
-                        "PREFIX poc: <http://titan.be/axis-poc2015/>"
-                        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                        $PREFIXS
                         + "SELECT ?s ?p ?o "
                         + "WHERE {"
                         + "  %s %s %s "
@@ -134,11 +116,7 @@ public class Connector {
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
-                        "PREFIX poc: <http://titan.be/axis-poc2015/>"
-                        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                        + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+                        $PREFIXS
                         + "construct{?s ?p ?o}"
                         + "WHERE { ?s ?p ?o . {"
                         + "SELECT * WHERE {"
@@ -424,14 +402,7 @@ public class Connector {
     }
 
     private static Model lodQueryAmbigious(String s) {
-        String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
-                + "PREFIX dbp: <http://dbpedia.org/property/>"
-                + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
-                + "PREFIX dbr: <http://dbpedia.org/resource/>"
-                + "PREFIX type: <http://dbpedia.org/class/yago/>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+        String DBQueryString = $PREFIXS
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<http://dbpedia.org/resource/" + s + "> dbont:wikiPageDisambiguates ?o}";
         Query DBquery = QueryFactory.create(DBQueryString);
@@ -444,14 +415,7 @@ public class Connector {
     }
 
     private static Model lodQuery(String s, String p, String o) {
-        String DBQueryString = "PREFIX dbont: <http://dbpedia.org/ontology/> "
-                + "PREFIX dbp: <http://dbpedia.org/property/>"
-                + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
-                + "PREFIX dbr: <http://dbpedia.org/resource/>"
-                + "PREFIX type: <http://dbpedia.org/class/yago/>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+        String DBQueryString = $PREFIXS
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<" + s + "> <" + p + "> " + o + "}";
         Query DBquery = QueryFactory.create(DBQueryString);
@@ -606,9 +570,7 @@ public class Connector {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
-                        "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                        $PREFIXS
                         + "select ?o ?n where {?s axis-datamodel:uses ?o ."
                         + "	?s rdf:type axis-datamodel:Entity ."
                         + "     ?o rdfs:label ?n}"));
@@ -642,14 +604,59 @@ public class Connector {
         Entity[] ret = new Entity[tab.size()];
         return (Entity[]) tab.toArray(ret);
     }
+    
+    public static Comment[] selectAllComments(Entity e) {
+        
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", String.format(
+                        $PREFIXS
+                        + "select ?c where {<%s> axis-datamodel:hasRepresentation ?c ."
+                        + "	?c rdf:type axis-datamodel:Comments ."), e.getURI());
+
+        ResultSet rs = qe.execSelect();
+        ArrayList<Comment> tab = new ArrayList<>();
+        
+        while(rs.hasNext()){
+            QuerySolution n = rs.next();
+            Comment c = new Comment();
+            c.setId(n.get("c").asResource().toString());
+            tab.add(c);
+        }
+        
+        qe.close();
+        
+
+        Comment[] ret = new Comment[tab.size()];
+        return (Comment[]) tab.toArray(ret);
+    }
+    
+    public static Comment[] selectAllComments() {
+        
+        QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", String.format(
+                        $PREFIXS
+                        + "select ?e ?c where {?e axis-datamodel:hasRepresentation ?c ."
+                        + "	?c rdf:type axis-datamodel:Comments ."));
+
+        ResultSet rs = qe.execSelect();
+        ArrayList<Comment> tab = new ArrayList<>();
+        
+        while(rs.hasNext()){
+            QuerySolution n = rs.next();
+            Comment c = new Comment();
+            c.setId(n.get("c").asResource().toString());
+            tab.add(c);
+        }
+        
+        qe.close();
+        
+
+        Comment[] ret = new Comment[tab.size()];
+        return (Comment[]) tab.toArray(ret);
+    }
 
     public static String insert(String p, String o) { //robine
-        String req = "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX poc: <http://titan.be/axis-poc2015/>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
+        String req = $PREFIXS
                 + "INSERT DATA { "
                 + " poc:%s "
                 + " %s "
@@ -666,12 +673,7 @@ public class Connector {
     }
 
     public static boolean insert(String s, String p, String o) { //robine
-        String req = "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX poc: <http://titan.be/axis-poc2015/>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
+        String req = $PREFIXS
                 + "INSERT DATA { "
                 + "<%s>"
                 + " %s "
@@ -687,13 +689,7 @@ public class Connector {
     }
 
     public static boolean insert(String s, String p, String o, String lang) { //robine
-        String req = "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX poc: <http://titan.be/axis-poc2015/>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX schema: <https://schema.org/>"
-                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
+        String req = $PREFIXS
                 + "INSERT DATA { "
                 + "<%s>"
                 + " %s "
@@ -718,9 +714,7 @@ public class Connector {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
-                        "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                        + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
+                        $PREFIXS
                         + "select ?ret where {<%s> axis-datamodel:hasRepresentation ?ret ."
                         + "	?ret rdf:type axis-datamodel:%s }", entity, regof));
 
@@ -735,6 +729,8 @@ public class Connector {
         return uri;
 
     }
+    
+    
 
     public static boolean update(String s, String p, String o) {
         //pas prio
@@ -743,13 +739,7 @@ public class Connector {
 
     public static boolean deleteLinkEntity(String s, String p, String o) {
 
-        String req = "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX poc: <http://titan.be/axis-poc2015/>"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
-                + "PREFIX schema: <https://schema.org/>"
-                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
+        String req = $PREFIXS
                 + "DELETE WHERE { "
                 + " <%s> %s %s "
                 + "}";

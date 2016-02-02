@@ -155,9 +155,8 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
     }
 
     @Override
-    public Comment AddComment(Comment c) {
+    public Comment AddComment(Comment c, Entity e) {
 	double URI = (Math.random() * 1000);
-	c.setURI(URI + "");
 	return c;
     }
 
@@ -171,6 +170,11 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
 	return true;
     }
 
+    @Override
+    public Boolean DenyComment(Comment c) {
+	return true;
+    }
+    
     @Override
     public Comment[] LoadComment(Entity e) {
 	ArrayList<Comment> list = new ArrayList<>();
