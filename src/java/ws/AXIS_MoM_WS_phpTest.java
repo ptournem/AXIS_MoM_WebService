@@ -166,7 +166,7 @@ public class AXIS_MoM_WS_phpTest implements AXIS_MoM_WSInterface {
     }
 
     @Override
-    public Boolean RemoveComment(Comment c) {
+    public Boolean RemoveComment(Comment c, Entity e) {
 	return true;
     }
 

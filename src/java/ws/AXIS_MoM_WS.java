@@ -330,17 +330,19 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     @Override
     public Boolean GrantComment(Comment c) {
-        
+        c.changeValided(true);
 	return true;
     }
 
     @Override
-    public Boolean RemoveComment(Comment c) {
-	return true;
+    public Boolean RemoveComment(Comment c, Entity e) {
+        c.setEntity(e);
+        return c.deleteComment();
     }
 
     @Override
     public Boolean DenyComment(Comment c) {
+        c.changeValided(false);
 	return true;
     }
     

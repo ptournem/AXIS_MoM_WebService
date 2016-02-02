@@ -27,7 +27,8 @@ public class TestWS {
     public static long endTime;
     
     public static void main(String args[]) {
-        testFonctionnel(true);
+        //testFonctionnel(true);
+        testComments();
     }
 
     public static void testPropertiesDbpedia() {
@@ -551,11 +552,43 @@ public class TestWS {
     }
     
     public static void testRechercheComments() {
+        
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        
         Comment[] tab = ws.LoadComment(null);
         //System.out.println("test");
         for(int i=0; i<tab.length;i++) {
             System.out.println("Comment trouvée : "+tab[i]);
         }
+    }
+    
+    public static void testComments() {
+        
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        
+        Entity joconde = new Entity("La Joconde", "https://download.vikidia.org/vikidia/fr/images/thumb/1/13/La_gioconda.jpg/200px-La_gioconda.jpg", "object");
+        
+        joconde = ws.AddEntity(joconde);
+        
+        Comment c = new Comment(null, "loan", "loan@loan.com", "super tableau", false, "02-02-2016", joconde);
+        c = ws.AddComment(c, joconde);
+        
+        Comment[] tab = ws.LoadComment(null);
+        //System.out.println("test");
+        for(int i=0; i<tab.length;i++) {
+            System.out.println("Comment trouvée : "+tab[i]);
+        }
+        
+        System.out.println("----");
+        ws.GrantComment(c);
+        ws.RemoveComment(c, joconde);
+        
+        Comment[] tab2 = ws.LoadComment(joconde);
+        //System.out.println("test");
+        for(int i=0; i<tab2.length;i++) {
+            System.out.println("Comment trouvée : "+tab2[i]);
+        }
+        
+        
     }
 }

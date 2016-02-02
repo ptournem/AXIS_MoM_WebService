@@ -162,6 +162,10 @@ public class Entity {
         String uri7 = insert("rdf:type", "axis-datamodel:Document");
         insert(uri, "axis-datamodel:hasRepresentation", uri7);
         
+        String uri8 = insert("rdf:type", "axis-datamodel:RegOfInformationItem");
+        insert(uri, "axis-datamodel:hasRepresentation", uri8);
+        
+        
         this.insertName(new Property("name", this.getName(), "fr", null));
         this.insertImage(new Property("image", this.getImage(), "fr", null));
         

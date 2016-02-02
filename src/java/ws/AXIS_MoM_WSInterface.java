@@ -122,7 +122,7 @@ public interface AXIS_MoM_WSInterface {
      * @return
      */
     @WebMethod(operationName = "RemoveComment")
-    Boolean RemoveComment(@WebParam(name = "c") Comment c);
+    Boolean RemoveComment(@WebParam(name = "c") Comment c, @WebParam(name = "e") Entity e);
 
     @WebMethod(operationName = "DenyComment")
     Boolean DenyComment(@WebParam(name = "c") Comment c);

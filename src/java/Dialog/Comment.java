@@ -88,23 +88,32 @@ public class Comment {
 
     
     public Comment insertComment() {
-        String uri = insert("rdf:type", "axis-datamodel:Comments");
+        String uri = insert("rdf:type", "axis-datamodel:Comment");
         
-        insert(this.getEntity().getURI(), "axis-datamodel:hasRepresentation", uri);
+        insert(selectRegOfEntity(this.getEntity().getURI(), "RegOfInformationItem"), "axis-datamodel:hasComment", uri);
+        insert(uri, "axis-datamodel:isCommentOf", selectRegOfEntity(this.getEntity().getURI(), "RegOfInformationItem"));
         
-        insert(uri, "author", this.authorName, "fr");
-        insert(uri, "comment", this.comment, "fr");
-        insert(uri, "createDt", this.createDt, "fr");
-        insert(uri, "email", this.email, "fr");
-        insert(uri, "id", this.id, "fr");
-        insert(uri, "validated", "false", "fr");
+        insert(uri, "axis-datamodel:creator", this.authorName, "fr");
+        insert(uri, "axis-datamodel:content", this.comment, "fr");
+        insert(uri, "axis-datamodel:creationDate", this.createDt, "fr");
+        insert(uri, "axis-datamodel:email", this.email, "fr");
+        insert(uri, "axis-datamodel:id", uri, "fr");
+        insert(uri, "axis-datamodel:validate", "false", "fr");
+        
+        this.setId(uri);
         
         return this;
     }
     
+    public boolean deleteComment() {
+        String uriC = "<"+this.getId()+">";
+        deleteLinkEntity(selectRegOfEntity(this.getEntity().getURI(), "RegOfInformationItem"), "axis-datamodel:hasComment", uriC);
+        return true;
+    }
+    
     public boolean changeValided(boolean b) {
-        deleteLinkEntity(this.id, "validated", "?o");
-        insert(this.id, "validated", Boolean.toString(b), "fr");
+        deleteLinkEntity(this.id, "axis-datamodel:validate", "?o");
+        insert(this.id, "axis-datamodel:validate", Boolean.toString(b), "fr");
         return true;
     }
 
@@ -112,7 +121,4 @@ public class Comment {
     public String toString() {
         return "Comment{" + "id=" + id + ", authorName=" + authorName + ", email=" + email + ", comment=" + comment + ", validated=" + validated + ", createDt=" + createDt + ", entity=" + entity + '}';
     }
-    
-    
-
 }

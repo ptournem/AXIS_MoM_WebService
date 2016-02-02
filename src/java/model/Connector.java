@@ -41,7 +41,7 @@ public class Connector {
     
     public static String $PREFIXS = "PREFIX poc: <http://titan.be/axis-poc2015/>"
                         + " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                        + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.4#>"
                         + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                         + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                         + "PREFIX dbont: <http://dbpedia.org/ontology/> "
@@ -610,9 +610,16 @@ public class Connector {
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         $PREFIXS
-                        + "select ?c where {<%s> axis-datamodel:hasRepresentation ?c ."
-                        + "	?c rdf:type axis-datamodel:Comments ."), e.getURI());
-
+                        + "select ?c ?creator ?content ?creationDate ?validate ?email where {<%s> axis-datamodel:hasRepresentation ?regof ."
+                        + "     ?regof rdf:type axis-datamodel:RegOfInformationItem ."
+                        + "     ?regof axis-datamodel:hasComment ?c ."
+                        + "	?c rdf:type axis-datamodel:Comment ."
+                        + "     ?c axis-datamodel:creator ?creator ."
+                        + "     ?c axis-datamodel:content ?content ."
+                        + "     ?c axis-datamodel:creationDate ?creationDate ."
+                        + "     ?c axis-datamodel:validate ?validate ."
+                        + "     ?c axis-datamodel:email ?email}", e.getURI()));
+           
         ResultSet rs = qe.execSelect();
         ArrayList<Comment> tab = new ArrayList<>();
         
@@ -620,6 +627,12 @@ public class Connector {
             QuerySolution n = rs.next();
             Comment c = new Comment();
             c.setId(n.get("c").asResource().toString());
+            c.setAuthorName(n.get("creator").asLiteral().getString());
+            c.setComment(n.get("content").asLiteral().getString());
+            c.setEmail(n.get("email").asLiteral().getString());
+            c.setCreateDt(n.get("creationDate").asLiteral().getString());
+            c.setValidated(Boolean.valueOf(n.get("validate").asLiteral().getString()));
+            c.setEntity(e);
             tab.add(c);
         }
         
@@ -635,8 +648,15 @@ public class Connector {
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         $PREFIXS
-                        + "select ?e ?c where {?e axis-datamodel:hasRepresentation ?c ."
-                        + "	?c rdf:type axis-datamodel:Comments ."));
+                        + "select ?e ?c ?creator ?content ?creationDate ?validate ?email where {?e axis-datamodel:hasRepresentation ?regof ."
+                        + "     ?regof rdf:type axis-datamodel:RegOfInformationItem ."
+                        + "     ?regof axis-datamodel:hasComment ?c ."
+                        + "	?c rdf:type axis-datamodel:Comment ."
+                        + "?c axis-datamodel:creator ?creator ."
+                        + "?c axis-datamodel:content ?content ."
+                        + "?c axis-datamodel:creationDate ?creationDate ."
+                        + "?c axis-datamodel:validate ?validate ."
+                        + "?c axis-datamodel:email ?email}"));
 
         ResultSet rs = qe.execSelect();
         ArrayList<Comment> tab = new ArrayList<>();
@@ -645,6 +665,15 @@ public class Connector {
             QuerySolution n = rs.next();
             Comment c = new Comment();
             c.setId(n.get("c").asResource().toString());
+            c.setAuthorName(n.get("creator").asLiteral().getString());
+            c.setComment(n.get("content").asLiteral().getString());
+            c.setEmail(n.get("email").asLiteral().getString());
+            c.setCreateDt(n.get("creationDate").asLiteral().getString());
+            c.setValidated(Boolean.valueOf(n.get("validate").asLiteral().getString()));
+            Entity e = new Entity();
+            e.setURI(n.get("e").asResource().toString());
+            e.constructEntity();
+            c.setEntity(e);
             tab.add(c);
         }
         
