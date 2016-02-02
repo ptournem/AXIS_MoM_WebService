@@ -11,6 +11,12 @@ import Dialog.PropertyAdmin;
 import java.util.ArrayList;
 import static model.Connector.*;
 import java.util.Iterator;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 
 /**
  *
@@ -54,84 +60,194 @@ public class Object extends Entity {
     }
 
     public void constructObject(boolean getdbpedia) {
+        this.author = new PropertyAdmin();
+        this.author.setName("author");
+        this.location = new PropertyAdmin();
+        this.location.setName("location");
+        this.description = new PropertyAdmin();
+        this.description.setName("description");
         if (!this.getURI().contains("dbpedia")) {
-//            this.author = getObjectPropertyAdmin("author");
-//            this.location = getObjectPropertyAdmin("location");
-//            this.description = getObjectPropertyAdmin("description");
-            this.author = getPropertyAdmin("author", "axis-datamodel:isPerformedBy");
-            this.location = getPropertyAdmin("location", "axis-datamodel:takePlaceIn");
-            this.description = getPropertyAdmin("description", "rdf:Description");
-            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
-        } else {
-            this.author = new PropertyAdmin();
-            this.author.setName("author");
-            this.location = new PropertyAdmin();
-            this.location.setName("location");
-            this.description = new PropertyAdmin();
-            this.description.setName("description");
-        }
-        if (this.getURI().contains("dbpedia") || getdbpedia == true) {
-            ArrayList<Property> p = getPropertiesMapFromLod(this);
-            if (p != null) {
-                Iterator<Property> it = p.iterator();
-                while (it.hasNext()) {
-                    Property n = it.next();
-                    switch (n.getName()) {
-                        case "author":
-                            this.author.setType(n.getType());
-                            if (this.getURI().contains("dbpedia")) {
-                                this.author.setEntity_locale(n.getEnt());
-                                this.author.setValue_locale(n.getValue());
-                            } else {
-                                this.author.setEntity_dbpedia(n.getEnt());
-                                this.author.setValue_dbpedia(n.getValue());
-                            }
-                            break;
-                        case "location":
-                            this.location.setType(n.getType());
-                            if (this.getURI().contains("dbpedia")) {
-                                this.location.setEntity_locale(n.getEnt());
-                                this.location.setValue_locale(n.getValue());
-                            } else {
-                                this.location.setEntity_dbpedia(n.getEnt());
-                                this.location.setValue_dbpedia(n.getValue());
-                            }
-                            break;
-                        case "description":
-                            this.description.setType(n.getType());
-                            if (this.getURI().contains("dbpedia")) {
-                                this.description.setEntity_locale(n.getEnt());
-                                this.description.setValue_locale(n.getValue());
-                            } else {
-                                this.description.setEntity_dbpedia(n.getEnt());
-                                this.description.setValue_dbpedia(n.getValue());
-                            }
-                            break;
+            String req = String.format($PREFIXS
+                    + " select ?description  (group_concat(?location; separator=\"&&&&\") as ?locations) "
+                    + " (group_concat(distinct ?author;separator=\"&&&&\") as ?authors) "
+                    + " (group_concat(distinct ?same;separator=\"&&&&\") as ?sameas) where {"
+                    + " values ?uri { <%s> }"
+                    + " ?e axis-datamodel:uses ?uri ."
+                    + " ?e a axis-datamodel:Entity ."
+                    + " ?uri axis-datamodel:hasRepresentation ?reg ."
+                    + " ?reg a axis-datamodel:RegOfObjectItem ."
+                    + " ?uri axis-datamodel:hasRepresentation ?doc ."
+                    + " ?doc a axis-datamodel:Document .  "
+                    + " optional{ ?doc rdf:Description ?description .}"
+                    + " optional{ ?uri owl:sameAs ?same .}"
+                    + " optional{ ?uri axis-datamodel:isPerformedBy ?author .}"
+                    + " optional{ ?reg axis-datamodel:takePlaceIn ?location .}"
+                    + " } group by ?description", this.getURI());
+            Query query = QueryFactory.create(req);
+            QueryExecution qe = QueryExecutionFactory.sparqlService(
+                    "http://localhost:3030/ds/query", query);
+
+            ResultSet rs = qe.execSelect();
+            if (rs.hasNext()) {
+                QuerySolution rep = rs.next();
+                if (rep.get("description") != null) {
+                    this.description.setValue_locale(rep.get("description").asLiteral().getString());
+                    this.description.setType(rep.get("description").asLiteral().getLanguage());
+                }
+                if (rep.get("author") != null) {
+                    Entity[] t = getEntityTab(rep.get("author").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.author.setValue_locale(rep.get("author").asLiteral().getString());
+                        this.author.setType("uri");
+                    } else {
+                        this.author.setEntity_locale(t);
+                        this.author.setType("fr");
+                    }
+                }
+                if (rep.get("location") != null) {
+                    Entity[] t = getEntityTab(rep.get("location").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.location.setValue_locale(rep.get("location").asLiteral().getString());
+                        this.location.setType("uri");
+                    } else {
+                        this.location.setEntity_locale(t);
+                        this.location.setType("fr");
+                    }
+                }
+                if (rep.get("sameas") != null) {
+                    Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
+                        this.sameAs.setType("uri");
+                    } else {
+                        this.sameAs.setEntity_locale(t);
+                        this.sameAs.setType("fr");
+                    }
+                }
+
+            }
+            if (this.getURI().contains("dbpedia") || getdbpedia == true) {
+                ArrayList<Property> p = getPropertiesMapFromLod(this);
+                if (p != null) {
+                    Iterator<Property> it = p.iterator();
+                    while (it.hasNext()) {
+                        Property n = it.next();
+                        switch (n.getName()) {
+                            case "author":
+                                this.author.setType(n.getType());
+                                if (this.getURI().contains("dbpedia")) {
+                                    this.author.setEntity_locale(n.getEnt());
+                                    this.author.setValue_locale(n.getValue());
+                                } else {
+                                    this.author.setEntity_dbpedia(n.getEnt());
+                                    this.author.setValue_dbpedia(n.getValue());
+                                }
+                                break;
+                            case "location":
+                                this.location.setType(n.getType());
+                                if (this.getURI().contains("dbpedia")) {
+                                    this.location.setEntity_locale(n.getEnt());
+                                    this.location.setValue_locale(n.getValue());
+                                } else {
+                                    this.location.setEntity_dbpedia(n.getEnt());
+                                    this.location.setValue_dbpedia(n.getValue());
+                                }
+                                break;
+                            case "description":
+                                this.description.setType(n.getType());
+                                if (this.getURI().contains("dbpedia")) {
+                                    this.description.setEntity_locale(n.getEnt());
+                                    this.description.setValue_locale(n.getValue());
+                                } else {
+                                    this.description.setEntity_dbpedia(n.getEnt());
+                                    this.description.setValue_dbpedia(n.getValue());
+                                }
+                                break;
+                        }
                     }
                 }
             }
+
         }
-
     }
-
-//    public PropertyAdmin getObjectPropertyAdmin(String propertyName) {
-//        PropertyAdmin pa = new PropertyAdmin();
-//        switch (propertyName) {
-//            case "author":
-//                pa = getPropertyAdmin("isPerformedBy", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "location":
-//                pa = getPropertyAdmin("takesPlaceIn", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "description":
-//                pa = getPropertyAdmin("Description", "literal");
-//                pa.setName(propertyName);
-//                break;
-//        }
-//        return pa;
-//    }
+        //    public void constructObject(boolean getdbpedia) {
+    //        if (!this.getURI().contains("dbpedia")) {
+    ////            this.author = getObjectPropertyAdmin("author");
+    ////            this.location = getObjectPropertyAdmin("location");
+    ////            this.description = getObjectPropertyAdmin("description");
+    //            this.author = getPropertyAdmin("author", "axis-datamodel:isPerformedBy");
+    //            this.location = getPropertyAdmin("location", "axis-datamodel:takePlaceIn");
+    //            this.description = getPropertyAdmin("description", "rdf:Description");
+    //            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
+    //        } else {
+    //            this.author = new PropertyAdmin();
+    //            this.author.setName("author");
+    //            this.location = new PropertyAdmin();
+    //            this.location.setName("location");
+    //            this.description = new PropertyAdmin();
+    //            this.description.setName("description");
+    //        }
+    //        if (this.getURI().contains("dbpedia") || getdbpedia == true) {
+    //            ArrayList<Property> p = getPropertiesMapFromLod(this);
+    //            if (p != null) {
+    //                Iterator<Property> it = p.iterator();
+    //                while (it.hasNext()) {
+    //                    Property n = it.next();
+    //                    switch (n.getName()) {
+    //                        case "author":
+    //                            this.author.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.author.setEntity_locale(n.getEnt());
+    //                                this.author.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.author.setEntity_dbpedia(n.getEnt());
+    //                                this.author.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                        case "location":
+    //                            this.location.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.location.setEntity_locale(n.getEnt());
+    //                                this.location.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.location.setEntity_dbpedia(n.getEnt());
+    //                                this.location.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                        case "description":
+    //                            this.description.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.description.setEntity_locale(n.getEnt());
+    //                                this.description.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.description.setEntity_dbpedia(n.getEnt());
+    //                                this.description.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //
+    //    }
+    //    public PropertyAdmin getObjectPropertyAdmin(String propertyName) {
+    //        PropertyAdmin pa = new PropertyAdmin();
+    //        switch (propertyName) {
+    //            case "author":
+    //                pa = getPropertyAdmin("isPerformedBy", "entity");
+    //                pa.setName(propertyName);
+    //                break;
+    //            case "location":
+    //                pa = getPropertyAdmin("takesPlaceIn", "entity");
+    //                pa.setName(propertyName);
+    //                break;
+    //            case "description":
+    //                pa = getPropertyAdmin("Description", "literal");
+    //                pa.setName(propertyName);
+    //                break;
+    //        }
+    //        return pa;
+    //    }
 
     public void insertDateCreation(Property p) {
 

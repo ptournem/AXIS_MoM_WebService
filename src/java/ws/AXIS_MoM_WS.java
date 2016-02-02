@@ -261,7 +261,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
         
         
         e.constructEntity();
-        
+        System.out.println("e:"+e);
 //        Object obj = new Object();
 //        obj.setURI(e.getURI());
 //        obj.constructObject();

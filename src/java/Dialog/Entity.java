@@ -6,6 +6,8 @@
 package Dialog;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import static model.Connector.*;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -267,6 +269,7 @@ public class Entity {
     }
 
     public void insertSameAs(Property p) {
+        System.out.println("sameas:"+p.getEnt()[0].getURI());
         insert(this.URI, "owl:sameAs", p.getEnt()[0].getURI());
     }
 
@@ -320,15 +323,7 @@ public class Entity {
     }
 
     public PropertyAdmin getPropertyAdmin(String propertyName, String p) {
-        String req = String.format("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-                + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-                + "prefix owl: <http://www.w3.org/2002/07/owl#> "
-                + "prefix poc: <http://titan.be/axis-poc2015/> "
-                + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
-                + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                + "PREFIX schema: <https://schema.org/>"
-                + "PREFIX dbont: <http://dbpedia.org/ontology/>"
+        String req = String.format($PREFIXS
                 + "select ?var where {?s axis-datamodel:uses <%s> ."
                 + "?s rdf:type axis-datamodel:Entity ."
                 + "<%s> %s ?var "
@@ -370,7 +365,40 @@ public class Entity {
         deleteLinkEntity(uri, prop, uri2);
         return true;
     }
+    
+    public Entity[] getEntityTab(String Uri) {
+        Entity e = new Entity();
+        ArrayList<Entity> ale = new ArrayList<>();
+        e.setURI(Uri);
+        e.constructEntity();
+        ale.add(e);
+        Entity[] ret = new Entity[ale.size()];
+        return (Entity[]) ale.toArray(ret);
+    }
 
+    public Entity[] getEntityTab(String[] tab) {
+        
+        ArrayList<Entity> ale = new ArrayList<>();
+        ArrayList list = new ArrayList();
+        for (int i = 0; i < tab.length; i++) {
+            list.add(tab[i]);
+        }
+        Set set = new HashSet();
+        set.addAll(list);
+        ArrayList distinctList = new ArrayList(set);
+        java.lang.Object[] myArray = distinctList.toArray();
+        for (int i = 0; i < myArray.length; i++) {
+            if (myArray[i].toString().contains("http")) {
+                Entity e = new Entity();
+                e.setURI(myArray[i].toString());
+                e.constructEntity();
+                ale.add(e);
+            }
+        }
+        Entity[] ret = new Entity[ale.size()];
+        return (Entity[]) ale.toArray(ret);
+    }
+    
     @Override
     public String toString() {
         return "Entity{" + "URI=" + URI + ", name=" + name + ", image=" + image + ", type=" + type + '}';

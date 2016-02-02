@@ -146,8 +146,16 @@ public class TestWS {
         Entity amboise = new Entity("Amboise", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ch%C3%A2teau_d'Amboise_07.jpg/220px-Ch%C3%A2teau_d'Amboise_07.jpg", "location");
         Entity joconde = new Entity("La Joconde", "https://download.vikidia.org/vikidia/fr/images/thumb/1/13/La_gioconda.jpg/200px-La_gioconda.jpg", "object");
         Entity louvre = new Entity("Musée du Louvre", "https://upload.wikimedia.org/wikipedia/en/4/42/Louvre_Pyramid.jpg", "location");
-        bourgeois = ws.AddEntity(bourgeois);
 
+        Entity vinci = new Entity("Vinci", "http://www.lepoint.fr/images/2011/03/22/italie-unita-274376-jpg_165194.JPG", "location");
+        Entity italie = new Entity("Italie", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/langfr-225px-Flag_of_Italy.svg.png", "location");
+        Entity toscane = new Entity("Toscane", "http://www.franceinfo.fr/sites/default/files/2013/06/22/1036825/images/principale/yes.jpg", "location");
+        
+        bourgeois = ws.AddEntity(bourgeois);
+        vinci = ws.AddEntity(vinci);
+        italie = ws.AddEntity(italie);
+        toscane = ws.AddEntity(toscane);
+        
         //création Léonard Da Vinci
         leonard = ws.AddEntity(leonard);
 
@@ -177,7 +185,13 @@ public class TestWS {
 
         //lier Léonard Da vinci => restinplace => Amboise
         lierEntity(ws, leonard, "restinplace", amboise);
-
+        lierEntity(ws, leonard, "birthplace", vinci);
+        lierEntity(ws, vinci, "country", italie);
+        lierEntity(ws, vinci, "region", toscane);
+        lierEntity(ws, vinci, "birthplaceof", leonard);
+        lierEntity(ws, vinci, "postalcode", "50059");
+        lierEntity(ws, vinci, "locationof", leonard);
+        lierEntity(ws, vinci, "description", "Vinci est une commune dans la ville métropolitaine de Florence en Toscane (Italie).");
         //ajouter Léonard Da vinci => description => String
         lierEntity(ws, leonard, "description", "Léonard Da Vinci est un super artiste");
 
@@ -191,7 +205,7 @@ public class TestWS {
 
         //lier Léonard Da vinci => isauthorof => Joconde
         lierEntity(ws, leonard, "isauthorof", joconde);
-
+        lierEntity(ws, leonard, "birthplace", vinci);
         Property p = new Property("father", null, "uri", null);
         ws.RemoveEntityProperty(leonard, p, amboise);
 
@@ -209,6 +223,7 @@ public class TestWS {
             Entity vinciDB = new Entity();
             vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
             vinciDB.constructEntity();
+            
             Entity rodinDB = new Entity();
             rodinDB.setURI("http://dbpedia.org/resource/Auguste_Rodin");
             rodinDB.constructEntity();
@@ -217,12 +232,18 @@ public class TestWS {
             louvreDB.setURI("http://dbpedia.org/resource/Louvre");
             louvreDB.constructEntity();
             
+            Entity jocondeDB = new Entity();
+            jocondeDB.setURI("http://dbpedia.org/resource/I,_Mona_Lisa");
+            jocondeDB.constructEntity();
+            
             
             lierEntity(ws, bourgeois, "author", rodinDB);
-            lierEntity(ws, leonard, "birthplace", vinciDB);
+//            lierEntity(ws, leonard, "birthplace", vinciDB);
             lierEntity(ws, leonard, "father", rodinDB);
             lierEntity(ws, leonard, "sameas", leonardDB);
+            lierEntity(ws, joconde, "sameas", jocondeDB);
             lierEntity(ws, louvre, "sameas", louvreDB);
+            lierEntity(ws, vinci, "sameas", vinciDB);
             Property[] props2 = ws.LoadEntityProperties(vinciDB);
 
             System.out.println("\nProperty Vinci (URI Dbpedia) :");
