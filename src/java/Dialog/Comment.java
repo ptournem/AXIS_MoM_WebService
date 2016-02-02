@@ -5,7 +5,6 @@
  */
 package Dialog;
 
-import static model.Connector.insert;
 import static model.Connector.*;
 
 public class Comment {
