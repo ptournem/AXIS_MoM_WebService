@@ -128,7 +128,7 @@ public class Entity {
                 uri = insert("rdf:type", "axis-datamodel:PhysicalObject");
                 insert(mainURI, "axis-datamodel:uses", uri);
 
-                String uri5 = insert("rdf:type", "axis-datamodel:EmbodimentOfObject");
+                String uri5 = insert("rdf:type", "axis-datamodel:RegOfObjectItem");
                 insert(uri, "axis-datamodel:hasRepresentation", uri5);
 
                 this.setURI(uri);
