@@ -5,6 +5,9 @@
  */
 package Dialog;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import static model.Connector.*;
 
 public class Comment {
@@ -87,6 +90,10 @@ public class Comment {
 
     
     public Comment insertComment() {
+        Date actuelle = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String dat = dateFormat.format(actuelle);
+        
         String uri = insert("rdf:type", "axis-datamodel:Comment");
         
         insert(selectRegOfEntity(this.getEntity().getURI(), "RegOfInformationItem"), "axis-datamodel:hasComment", uri);
@@ -94,7 +101,8 @@ public class Comment {
         
         insert(uri, "axis-datamodel:creator", this.authorName, "fr");
         insert(uri, "axis-datamodel:content", this.comment, "fr");
-        insert(uri, "axis-datamodel:creationDate", this.createDt, "fr");
+        
+        insert(uri, "axis-datamodel:creationDate", dat, "fr");
         insert(uri, "axis-datamodel:email", this.email, "fr");
         insert(uri, "axis-datamodel:id", uri, "fr");
         insert(uri, "axis-datamodel:validate", "false", "fr");

@@ -16,6 +16,7 @@ import javax.jws.WebService;
 import static model.Connector.selectAllEntitiesURI;
 import static model.Connector.selectRegOfEntity;
 import static model.Connector.selectAllComments;
+import static model.Connector.selectlodFromKeyWord;
 import model.Person;
 import model.Object;
 import model.Place;
@@ -281,10 +282,6 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
         needle = needle.toLowerCase().replaceAll(" ", "");
         for(int i =0; i<tabEntities.length; i++) {
-//            Entity e = new Entity();
-//            e.setURI(tabEntities[i]);
-//            e.constructEntity();
-//            e.setName("leo");
             if(tabEntities[i].getName() != null) {
                 if(tabEntities[i].getName().toLowerCase().replaceAll(" ", "").contains(needle)) {
                     Entity e = new Entity();
@@ -301,24 +298,9 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     @Override
     public Entity[] SearchAllEntitiesFromText(String needle) {
-	ArrayList<Entity> list = new ArrayList<>();
-
-	Entity e1 = new Entity();
-	e1.setImage("http://1.1.1.2/bmi/static.ladepeche.fr/content/media/image/zoom/2011/03/07/603056.jpg");
-	e1.setName("Canette de coca");
-	e1.setURI("coca");
-	e1.setType("object");
-	list.add(e1);
-
-	Entity e2 = new Entity();
-	e2.setImage("http://1.1.1.1/bmi/cp91279.biography.com/1000509261001/1000509261001_1891997649001_History-Bill-Clinton-on-MLK-SF.jpg");
-	e2.setName("Martin Luther King");
-	e2.setURI("MLK");
-	e2.setType("person");
-	list.add(e2);
-
-	Entity[] ret = new Entity[list.size()];
-	return (Entity[]) list.toArray(ret);
+        ArrayList<Entity> tab = selectlodFromKeyWord(needle);
+        Entity[] ret = new Entity[tab.size()];
+	return (Entity[]) tab.toArray(ret);
     }
 
     @Override

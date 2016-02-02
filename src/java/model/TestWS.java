@@ -9,6 +9,7 @@ import Dialog.Comment;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
+import static model.Connector.deleteAll;
 import ws.AXIS_MoM_WS;
 
 /**
@@ -22,6 +23,8 @@ public class TestWS {
 
     public static void main(String args[]) {
         testFonctionnel(false);
+        //deleteAll();
+        
         //testComments();
         //testFonctionnel(true);
 //        testComments();
@@ -132,6 +135,8 @@ public class TestWS {
 
     public static void testFonctionnel(boolean dbpedia) {
 
+        deleteAll();
+        
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
 
         Entity bourgeois = new Entity("Les Bourgeois de Calais", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG/250px-Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG", "object");
@@ -140,7 +145,7 @@ public class TestWS {
         Entity antonio = new Entity("Antonio Da Vinci", "https://s-media-cache-ak0.pinimg.com/736x/b8/d7/51/b8d7512c624b786baad3ab1bfa3f0163.jpg", "person");
         Entity amboise = new Entity("Amboise", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ch%C3%A2teau_d'Amboise_07.jpg/220px-Ch%C3%A2teau_d'Amboise_07.jpg", "location");
         Entity joconde = new Entity("La Joconde", "https://download.vikidia.org/vikidia/fr/images/thumb/1/13/La_gioconda.jpg/200px-La_gioconda.jpg", "object");
-        Entity louvre = new Entity("Musée du Louvre", "https://upload.wikimedia.org/wikipedia/en/4/42/Louvre_Pyramid.jpg", "place");
+        Entity louvre = new Entity("Musée du Louvre", "https://upload.wikimedia.org/wikipedia/en/4/42/Louvre_Pyramid.jpg", "location");
         bourgeois = ws.AddEntity(bourgeois);
 
         //création Léonard Da Vinci
@@ -248,6 +253,7 @@ public class TestWS {
 //        } 
     }
 
+    
     public static void lierEntity(AXIS_MoM_WS ws, Entity e1, String s, Entity e2) {
 
         Property p = new Property(s, null, "uri", null);

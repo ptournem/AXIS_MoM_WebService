@@ -762,21 +762,28 @@ public class Connector {
     }
 
     public static boolean deleteLinkEntity(String s, String p, String o) {
-
         String req = $PREFIXS
                 + "DELETE WHERE { "
                 + " <%s> %s %s "
                 + "}";
-        
-        
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
                 UpdateFactory.create(String.format(req, s, p, o)),
                 "http://localhost:3030/ds/update");
 
         upp.execute();
-        
-        
+        return true;
+    }
+    
+    public static boolean deleteAll() {
+        String req = $PREFIXS
+                + "DELETE WHERE { "
+                + " ?s rdf:type axis-datamodel:Entity . "
+                + " ?s axis-datamodel:uses ?o}";
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(req)),
+                "http://localhost:3030/ds/update");
 
+        upp.execute();
         return true;
     }
 
