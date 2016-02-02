@@ -73,13 +73,16 @@ public class Place extends Entity {
         this.postalCode.setName("postalcode");
         this.region = new PropertyAdmin();
         this.region.setName("region");
+        this.sameAs = new PropertyAdmin();
+        this.sameAs.setName("region");
+        
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format(Connector.$PREFIXS
                     + "select ?description ?postalcode (group_concat(?country; separator=\"&&&&\") as ?countries) "
                     + " (group_concat(?region; separator=\"&&&&\") as ?regions) "
                     + " (group_concat(?birthpof; separator=\"&&&&\") as ?birthplaceof) "
                     + " (group_concat(?locof;separator=\"&&&&\") as ?locationof) "
-                    + " (group_concat(distinct ?same;separator=\"&&&&\") as ?sameas) where {"
+                    + " (group_concat(?same;separator=\"&&&&\") as ?sameas) where {"
                     + " values ?uri { <%s> }"
                     + "  ?e axis-datamodel:uses ?uri ."
                     + " ?e a axis-datamodel:Entity ."
@@ -106,7 +109,6 @@ public class Place extends Entity {
             ResultSet rs = qe.execSelect();
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
-                System.out.println("rep:" + rep);
                 if (rep.get("description") != null) {
                     this.description.setValue_locale(rep.get("description").asLiteral().getString());
                     this.description.setType(rep.get("description").asLiteral().getLanguage());
@@ -119,53 +121,54 @@ public class Place extends Entity {
                     Entity[] t = getEntityTab(rep.get("countries").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.country.setValue_locale(rep.get("countries").asLiteral().getString());
-                        this.country.setType("uri");
+                        this.country.setType("fr");
                     } else {
                         this.country.setEntity_locale(t);
-                        this.country.setType("fr");
+                        this.country.setType("uri");
                     }
                 }
                 if (rep.get("birthplaceof") != null) {
                     Entity[] t = getEntityTab(rep.get("birthplaceof").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.birthPlaceOf.setValue_locale(rep.get("birthplaceof").asLiteral().getString());
-                        this.birthPlaceOf.setType("uri");
+                        this.birthPlaceOf.setType("fr");
                     } else {
                         this.birthPlaceOf.setEntity_locale(t);
-                        this.birthPlaceOf.setType("fr");
+                        this.birthPlaceOf.setType("uri");
                     }
                 }
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
-                        this.sameAs.setType("uri");
+                        this.sameAs.setType("fr");
                     } else {
                         this.sameAs.setEntity_locale(t);
-                        this.sameAs.setType("fr");
+                        this.sameAs.setType("uri");
                     }
                 }
                 if (rep.get("locationof") != null) {
                     Entity[] t = getEntityTab(rep.get("locationof").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.locationOf.setValue_locale(rep.get("locationof").asLiteral().getString());
-                        this.locationOf.setType("uri");
+                        this.locationOf.setType("fr");
                     } else {
                         this.locationOf.setEntity_locale(t);
-                        this.locationOf.setType("fr");
+                        this.locationOf.setType("uri");
                     }
                 }
                 if (rep.get("regions") != null) {
                     Entity[] t = getEntityTab(rep.get("regions").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.region.setValue_locale(rep.get("regions").asLiteral().getString());
-                        this.region.setType("uri");
+                        this.region.setType("fr");
                     } else {
                         this.region.setEntity_locale(t);
-                        this.region.setType("fr");
+                        this.region.setType("uri");
                     }
                 }
             }
+            qe.close();
         }
         if (this.getURI().contains("dbpedia") || getdbpedia == true) {
             ArrayList<Property> p = getPropertiesMapFromLod(this);

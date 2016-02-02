@@ -164,33 +164,68 @@ public class Person extends Entity {
                     this.deathDate.setValue_locale(rep.get("deathdate").asLiteral().getString());
                     this.deathDate.setType("fr");
                 }
-                
                 if (rep.get("mothers") != null) {
-                    this.mother.setType("uri");
-                    this.mother.setEntity_locale(getEntityTab(rep.get("mothers").asLiteral().getString().split("&&&&")));
+                    Entity[] t = getEntityTab(rep.get("mothers").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.mother.setValue_locale(rep.get("mothers").asLiteral().getString());
+                        this.mother.setType("fr");
+                    } else {
+                        this.mother.setEntity_locale(t);
+                        this.mother.setType("uri");
+                    }
                 }
                 if (rep.get("sameas") != null) {
-                    this.sameAs.setType("uri");
-                    this.sameAs.setEntity_locale(getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&")));
+                    Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
+                        this.sameAs.setType("fr");
+                    } else {
+                        this.sameAs.setEntity_locale(t);
+                        this.sameAs.setType("uri");
+                    }
                 }
                 if (rep.get("fathers") != null) {
-                    this.father.setType("uri");
-                    this.father.setEntity_locale(getEntityTab(rep.get("fathers").asLiteral().getString().split("&&&&")));
+                    Entity[] t = getEntityTab(rep.get("fathers").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.father.setValue_locale(rep.get("fathers").asLiteral().getString());
+                        this.father.setType("fr");
+                    } else {
+                        this.father.setEntity_locale(t);
+                        this.father.setType("uri");
+                    }
                 }
                 if (rep.get("birthplaces") != null) {
-                    this.placeOfBirth.setType("uri");
-                    this.placeOfBirth.setEntity_locale(getEntityTab(rep.get("birthplaces").asLiteral().getString().split("&&&&")));
-                    
+                    Entity[] t = getEntityTab(rep.get("birthplaces").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.placeOfBirth.setValue_locale(rep.get("birthplaces").asLiteral().getString());
+                        this.placeOfBirth.setType("fr");
+                    } else {
+                        this.placeOfBirth.setEntity_locale(t);
+                        this.placeOfBirth.setType("uri");
+                    }
                 }
                 if (rep.get("restinplaces") != null) {
-                    this.restInPlace.setType("uri");
-                    this.restInPlace.setEntity_locale(getEntityTab(rep.get("restinplaces").asLiteral().getString().split("&&&&")));
+                    Entity[] t = getEntityTab(rep.get("restinplaces").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.restInPlace.setValue_locale(rep.get("restinplaces").asLiteral().getString());
+                        this.restInPlace.setType("fr");
+                    } else {
+                        this.restInPlace.setEntity_locale(t);
+                        this.restInPlace.setType("uri");
+                    }
                 }
                 if (rep.get("isauthorofs") != null) {
-                    this.isAuthorOf.setType("uri");
-                    this.isAuthorOf.setEntity_locale(getEntityTab(rep.get("isauthorofs").asLiteral().getString().split("&&&&")));
+                    Entity[] t = getEntityTab(rep.get("isauthorofs").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.isAuthorOf.setValue_locale(rep.get("isauthorofs").asLiteral().getString());
+                        this.isAuthorOf.setType("fr");
+                    } else {
+                        this.isAuthorOf.setEntity_locale(t);
+                        this.isAuthorOf.setType("uri");
+                    }
                 }
             }
+            qe.close();
         }
         if (this.getURI().contains("dbpedia") || getdbpedia == true) {
             ArrayList<Property> p = getPropertiesMapFromLod(this);
