@@ -12,6 +12,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import static model.Connector.insert;
 import static model.Connector.selectRegOfEntity;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
 
 /**
  *
@@ -55,34 +61,111 @@ public class Place extends Entity {
     }
 
     public void constructPlace(boolean getdbpedia) {
+        this.birthPlaceOf = new PropertyAdmin();
+        this.birthPlaceOf.setName("birthplaceof");
+        this.country = new PropertyAdmin();
+        this.country.setName("country");
+        this.description = new PropertyAdmin();
+        this.description.setName("description");
+        this.locationOf = new PropertyAdmin();
+        this.locationOf.setName("locationof");
+        this.postalCode = new PropertyAdmin();
+        this.postalCode.setName("postalcode");
+        this.region = new PropertyAdmin();
+        this.region.setName("region");
         if (!this.getURI().contains("dbpedia")) {
-//            this.birthPlaceOf = getPlacePropertyAdmin("birthplaceof");
-//            this.country = getPlacePropertyAdmin("country");
-//            this.description = getPlacePropertyAdmin("description");
-//
-//            this.locationOf = getPlacePropertyAdmin("locationof");
-//            this.postalCode = getPlacePropertyAdmin("postalcode");
-//            this.region = getPlacePropertyAdmin("region");
-            this.birthPlaceOf = getPropertyAdmin("birthplaceof", "dbont:birthPlace");
-            this.country = getPropertyAdmin("country", "dbont:country");
-            this.description = getPropertyAdmin("description", "rdf:Description");
-            this.locationOf = getPropertyAdmin("locationof", "axis-datamodel:isAPlaceOfObject");
-            this.postalCode = getPropertyAdmin("postalcode", "dbont:postalCode");
-            this.region = getPropertyAdmin("region", "dbont:region");
-            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
-        }else{
-            this.birthPlaceOf = new PropertyAdmin();
-            this.birthPlaceOf.setName("birthplaceof");
-            this.country = new PropertyAdmin();
-            this.country.setName("country");
-            this.description = new PropertyAdmin();
-            this.description.setName("description");
-            this.locationOf = new PropertyAdmin();
-            this.locationOf.setName("locationof");
-            this.postalCode = new PropertyAdmin();
-            this.postalCode.setName("postalcode");
-            this.region = new PropertyAdmin();
-            this.region.setName("region");
+            String req = String.format(Connector.$PREFIXS
+                    + "select ?description ?postalcode (group_concat(?country; separator=\"&&&&\") as ?countries) "
+                    + " (group_concat(?region; separator=\"&&&&\") as ?regions) "
+                    + " (group_concat(?birthpof; separator=\"&&&&\") as ?birthplaceof) "
+                    + " (group_concat(?locof;separator=\"&&&&\") as ?locationof) "
+                    + " (group_concat(distinct ?same;separator=\"&&&&\") as ?sameas) where {"
+                    + " values ?uri { <%s> }"
+                    + "  ?e axis-datamodel:uses ?uri ."
+                    + " ?e a axis-datamodel:Entity ."
+                    + "optional{ "
+                    + "    ?uri axis-datamodel:hasRepresentation ?reg ."
+                    + "    ?reg a axis-datamodel:RegOfPlace ."
+                    + "    optional{ ?reg dbont:country ?country . }"
+                    + "    optional{ ?reg dbont:region ?region . }"
+                    + "    optional{ ?reg dbont:birthPlace ?birthpof . }"
+                    + "    optional{ ?reg dbont:postalCode ?postalcode . }"
+                    + "    optional{ ?reg axis-datamodel:takePlaceIn ?locof . }"
+                    + "  }"
+                    + "optional{"
+                    + "	?uri axis-datamodel:hasRepresentation ?doc ."
+                    + "    ?doc a axis-datamodel:Document . "
+                    + "    optional{ ?doc rdf:Description ?description . }"
+                    + "  }"
+                    + "optional{ ?uri owl:sameAs ?same .}"
+                    + "} group by ?description ?postalcode", this.getURI());
+            Query query = QueryFactory.create(req);
+            QueryExecution qe = QueryExecutionFactory.sparqlService(
+                    "http://localhost:3030/ds/query", query);
+
+            ResultSet rs = qe.execSelect();
+            if (rs.hasNext()) {
+                QuerySolution rep = rs.next();
+                System.out.println("rep:" + rep);
+                if (rep.get("description") != null) {
+                    this.description.setValue_locale(rep.get("description").asLiteral().getString());
+                    this.description.setType(rep.get("description").asLiteral().getLanguage());
+                }
+                if (rep.get("postalcode") != null) {
+                    this.postalCode.setValue_locale(rep.get("postalcode").asLiteral().getString());
+                    this.postalCode.setType(rep.get("postalcode").asLiteral().getLanguage());
+                }
+                if (rep.get("countries") != null) {
+                    Entity[] t = getEntityTab(rep.get("countries").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.country.setValue_locale(rep.get("countries").asLiteral().getString());
+                        this.country.setType("uri");
+                    } else {
+                        this.country.setEntity_locale(t);
+                        this.country.setType("fr");
+                    }
+                }
+                if (rep.get("birthplaceof") != null) {
+                    Entity[] t = getEntityTab(rep.get("birthplaceof").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.birthPlaceOf.setValue_locale(rep.get("birthplaceof").asLiteral().getString());
+                        this.birthPlaceOf.setType("uri");
+                    } else {
+                        this.birthPlaceOf.setEntity_locale(t);
+                        this.birthPlaceOf.setType("fr");
+                    }
+                }
+                if (rep.get("sameas") != null) {
+                    Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
+                        this.sameAs.setType("uri");
+                    } else {
+                        this.sameAs.setEntity_locale(t);
+                        this.sameAs.setType("fr");
+                    }
+                }
+                if (rep.get("locationof") != null) {
+                    Entity[] t = getEntityTab(rep.get("locationof").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.locationOf.setValue_locale(rep.get("locationof").asLiteral().getString());
+                        this.locationOf.setType("uri");
+                    } else {
+                        this.locationOf.setEntity_locale(t);
+                        this.locationOf.setType("fr");
+                    }
+                }
+                if (rep.get("regions") != null) {
+                    Entity[] t = getEntityTab(rep.get("regions").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.region.setValue_locale(rep.get("regions").asLiteral().getString());
+                        this.region.setType("uri");
+                    } else {
+                        this.region.setEntity_locale(t);
+                        this.region.setType("fr");
+                    }
+                }
+            }
         }
         if (this.getURI().contains("dbpedia") || getdbpedia == true) {
             ArrayList<Property> p = getPropertiesMapFromLod(this);
@@ -158,6 +241,109 @@ public class Place extends Entity {
         }
     }
 
+//    public void constructPlace(boolean getdbpedia) {
+//        if (!this.getURI().contains("dbpedia")) {
+////            this.birthPlaceOf = getPlacePropertyAdmin("birthplaceof");
+////            this.country = getPlacePropertyAdmin("country");
+////            this.description = getPlacePropertyAdmin("description");
+////
+////            this.locationOf = getPlacePropertyAdmin("locationof");
+////            this.postalCode = getPlacePropertyAdmin("postalcode");
+////            this.region = getPlacePropertyAdmin("region");
+//            this.birthPlaceOf = getPropertyAdmin("birthplaceof", "dbont:birthPlace");
+//            this.country = getPropertyAdmin("country", "dbont:country");
+//            this.description = getPropertyAdmin("description", "rdf:Description");
+//            this.locationOf = getPropertyAdmin("locationof", "axis-datamodel:isAPlaceOfObject");
+//            this.postalCode = getPropertyAdmin("postalcode", "dbont:postalCode");
+//            this.region = getPropertyAdmin("region", "dbont:region");
+//            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
+//        }else{
+//            this.birthPlaceOf = new PropertyAdmin();
+//            this.birthPlaceOf.setName("birthplaceof");
+//            this.country = new PropertyAdmin();
+//            this.country.setName("country");
+//            this.description = new PropertyAdmin();
+//            this.description.setName("description");
+//            this.locationOf = new PropertyAdmin();
+//            this.locationOf.setName("locationof");
+//            this.postalCode = new PropertyAdmin();
+//            this.postalCode.setName("postalcode");
+//            this.region = new PropertyAdmin();
+//            this.region.setName("region");
+//        }
+//        if (this.getURI().contains("dbpedia") || getdbpedia == true) {
+//            ArrayList<Property> p = getPropertiesMapFromLod(this);
+//            if (p != null) {
+//                Iterator<Property> it = p.iterator();
+//                while (it.hasNext()) {
+//                    Property n = it.next();
+//                    switch (n.getName()) {
+//                        case "birthplaceof":
+//                            this.birthPlaceOf.setType(n.getType());
+//                            if (this.getURI().contains("dbpedia")) {
+//                                this.birthPlaceOf.setEntity_locale(n.getEnt());
+//                                this.birthPlaceOf.setValue_locale(n.getValue());
+//                            } else {
+//                                this.birthPlaceOf.setEntity_dbpedia(n.getEnt());
+//                                this.birthPlaceOf.setValue_dbpedia(n.getValue());
+//                            }
+//                            break;
+//                        case "country":
+//                            this.country.setType(n.getType());
+//                            if (this.getURI().contains("dbpedia")) {
+//                                this.country.setEntity_locale(n.getEnt());
+//                                this.country.setValue_locale(n.getValue());
+//                            } else {
+//                                this.country.setEntity_dbpedia(n.getEnt());
+//                                this.country.setValue_dbpedia(n.getValue());
+//                            }
+//                            break;
+//                        case "locationof":
+//                            this.locationOf.setType(n.getType());
+//                            if (this.getURI().contains("dbpedia")) {
+//                                this.locationOf.setEntity_locale(n.getEnt());
+//                                this.locationOf.setValue_locale(n.getValue());
+//                            } else {
+//                                this.locationOf.setEntity_dbpedia(n.getEnt());
+//                                this.locationOf.setValue_dbpedia(n.getValue());
+//                            }
+//                            break;
+//                        case "postalcode":
+//                            this.postalCode.setType(n.getType());
+//                            if (this.getURI().contains("dbpedia")) {
+//                                this.postalCode.setEntity_locale(n.getEnt());
+//                                this.postalCode.setValue_locale(n.getValue());
+//                            } else {
+//                                this.postalCode.setEntity_dbpedia(n.getEnt());
+//                                this.postalCode.setValue_dbpedia(n.getValue());
+//                            }
+//                            break;
+//                        case "region":
+//                            this.region.setType(n.getType());
+//                            if (this.getURI().contains("dbpedia")) {
+//                                this.region.setEntity_locale(n.getEnt());
+//                                this.region.setValue_locale(n.getValue());
+//                            } else {
+//                                this.region.setEntity_dbpedia(n.getEnt());
+//                                this.region.setValue_dbpedia(n.getValue());
+//                            }
+//                            break;
+//                        case "description":
+//                            this.description.setType(n.getType());
+//                            if (this.getURI().contains("dbpedia")) {
+//                                this.description.setEntity_locale(n.getEnt());
+//                                this.description.setValue_locale(n.getValue());
+//                            } else {
+//                                this.description.setEntity_dbpedia(n.getEnt());
+//                                this.description.setValue_dbpedia(n.getValue());
+//                            }
+//                            break;
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 //    public PropertyAdmin getPlacePropertyAdmin(String propertyName) {
 //        PropertyAdmin pa = new PropertyAdmin();
 //        switch (propertyName) {
@@ -188,7 +374,6 @@ public class Place extends Entity {
 //        }
 //        return pa;
 //    }
-
     public void insertCountry(Property p) {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {

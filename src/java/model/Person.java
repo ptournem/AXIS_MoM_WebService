@@ -96,38 +96,6 @@ public class Person extends Entity {
         return (PropertyAdmin[]) list.toArray(ret);
     }
 
-    public Entity[] getEntityTab(String Uri) {
-        Entity e = new Entity();
-        ArrayList<Entity> ale = new ArrayList<>();
-        e.setURI(Uri);
-        e.constructEntity();
-        ale.add(e);
-        Entity[] ret = new Entity[ale.size()];
-        return (Entity[]) ale.toArray(ret);
-    }
-
-    public Entity[] getEntityTab(String[] tab) {
-        Entity e = new Entity();
-        ArrayList<Entity> ale = new ArrayList<>();
-        ArrayList list = new ArrayList();
-        for (int i = 0; i < tab.length; i++) {
-            list.add(tab[i]);
-        }
-        Set set = new HashSet();
-        set.addAll(list);
-        ArrayList distinctList = new ArrayList(set);
-        java.lang.Object[] myArray = distinctList.toArray();
-        for (int i = 0; i < myArray.length; i++) {
-            if (myArray[i].toString().contains("http")) {
-                e.setURI(myArray[i].toString());
-                e.constructEntity();
-                ale.add(e);
-            }
-        }
-        Entity[] ret = new Entity[ale.size()];
-        return (Entity[]) ale.toArray(ret);
-    }
-
     public void constructPerson(boolean getdbpedia) {
         this.birthDate = new PropertyAdmin();
         this.birthDate.setName("birthdate");
@@ -159,20 +127,23 @@ public class Person extends Entity {
                     + " values ?uri { <%s> }"
                     + " ?e axis-datamodel:uses ?uri ."
                     + " ?e a axis-datamodel:Entity ."
+                    + " optional{ "
                     + " ?uri axis-datamodel:hasRepresentation ?reg ."
                     + " ?reg a axis-datamodel:RegOfAgent."
-                    + " ?uri axis-datamodel:hasRepresentation ?doc ."
-                    + " ?doc a axis-datamodel:Document .  "
                     + " optional{ ?reg dbont:father ?father .}"
                     + " optional{ ?reg dbont:mother ?mother .}"
-                    + " optional{ ?doc rdf:Description ?description .}"
                     + " optional{ ?reg dbont:birthPlace ?birthplace .}"
                     + " optional{ ?reg schema:birthDate ?birthdate .}"
-                    + " optional{ ?reg dbont:birthPlace ?birthplace .}"
                     + " optional{ ?reg schema:deathDate ?deathdate .}"
-                    + " optional{ ?uri owl:sameAs ?same .}"
                     + " optional{ ?reg dbont:restInPlace ?restinplace .}"
                     + " optional{ ?reg axis-datamodel:performs ?isauthorof .}"
+                    + " }"
+                    + " optional{ "
+                    + " ?uri axis-datamodel:hasRepresentation ?doc ."
+                    + " ?doc a axis-datamodel:Document .  "
+                    + " optional{ ?doc rdf:Description ?description .}"
+                    + " }"
+                    + " optional{ ?uri owl:sameAs ?same .}"
                     + " } group by  ?deathdate ?birthdate ?description ", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
@@ -191,8 +162,9 @@ public class Person extends Entity {
                 }
                 if (rep.get("deathdate") != null) {
                     this.deathDate.setValue_locale(rep.get("deathdate").asLiteral().getString());
+                    this.deathDate.setType("fr");
                 }
-                this.deathDate.setType("fr");
+                
                 if (rep.get("mothers") != null) {
                     this.mother.setType("uri");
                     this.mother.setEntity_locale(getEntityTab(rep.get("mothers").asLiteral().getString().split("&&&&")));
@@ -208,6 +180,7 @@ public class Person extends Entity {
                 if (rep.get("birthplaces") != null) {
                     this.placeOfBirth.setType("uri");
                     this.placeOfBirth.setEntity_locale(getEntityTab(rep.get("birthplaces").asLiteral().getString().split("&&&&")));
+                    
                 }
                 if (rep.get("restinplaces") != null) {
                     this.restInPlace.setType("uri");
