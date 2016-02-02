@@ -891,6 +891,12 @@
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Comment"/>
   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#email">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >email</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Comment"/>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#graphicHeightResolution">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfGraphicFile"/>
