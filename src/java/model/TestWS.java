@@ -30,6 +30,8 @@ public class TestWS {
     public static long endTime;
 
     public static void main(String args[]) {
+        testFonctionnel(true);
+        //testComments();
         //testFonctionnel(true);
 //        testComments();
 
@@ -82,7 +84,7 @@ public class TestWS {
 //        }
 //        testAll();
         //testLoadEntityProperties();
-        testFonctionnel(true);
+//        testFonctionnel(true);
 //        String s = "test;http://dbpedia.org/resource/Vinci,_Tuscany;http://dbpedia.org/resource/Vinci,_Tuscany;http://dbpedia.org/resource/Vinci,_Tuscany";
 //        
 //        ArrayList list = new ArrayList() ;
@@ -142,7 +144,7 @@ public class TestWS {
         AXIS_MoM_WS ws = new AXIS_MoM_WS();
 
         Entity bourgeois = new Entity("Les Bourgeois de Calais", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG/250px-Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG", "object");
-        Entity leonard = new Entity("Léonard Da Vincii", "http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "person");
+        Entity leonard = new Entity("Léonard Da Vinci", "http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "person");
         Entity caterina = new Entity("Caterina Da Vinci", "https://pbs.twimg.com/profile_images/514575733126365185/u_xPRRKq_400x400.jpeg", "person");
         Entity antonio = new Entity("Antonio Da Vinci", "https://s-media-cache-ak0.pinimg.com/736x/b8/d7/51/b8d7512c624b786baad3ab1bfa3f0163.jpg", "person");
         Entity amboise = new Entity("Amboise", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ch%C3%A2teau_d'Amboise_07.jpg/220px-Ch%C3%A2teau_d'Amboise_07.jpg", "location");

@@ -295,6 +295,8 @@ public class Entity {
         String uri2 = insert("rdf:type", "axis-datamodel:Location");
         String uri3 = insert("rdf:type", "axis-datamodel:EmbodimentOfImageFile");
 
+        insert(this.URI, "axis-datamodel:hasRepresentation", uri1);
+        
         insert(uri1, "axis-datamodel:isARepresentationOf", this.URI);
 
         insert(uri3, "axis-datamodel:fileName", p.getValue(), "file");
