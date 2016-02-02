@@ -1,77 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-
-<!DOCTYPE rdf:RDF [
-    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
-    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
-    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
-    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
-    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
-    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
-    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-    <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#" >
-    <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#" >
-]>
-
-
-<rdf:RDF xmlns="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3#"
-     xml:base="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3"
-     xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
-     xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
-     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <owl:Ontology rdf:about="">
-        <dc:contributor rdf:datatype="&xsd;string"
-            >Guillaume Rachez</dc:contributor>
-        <dc:contributor rdf:datatype="&xsd;string">Guy Mar&#233;chal</dc:contributor>
-        <dc:contributor rdf:datatype="&xsd;string">Roger Roberts</dc:contributor>
-        <dc:date rdf:datatype="&xsd;string">2015-07-06</dc:date>
-        <dc:description xml:lang="en"
-            >This ontology defines the concepts for AXIS-CSRM interoperability model. 
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xml:base="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3">
+  <owl:Ontology rdf:about="">
+    <rdfs:label xml:lang="en">AXIS-CSRM Interoperability model</rdfs:label>
+    <dc:description xml:lang="en">This ontology defines the concepts for AXIS-CSRM interoperability model. 
     It introduces the key concepts Autonomous Resource Domain (ARE), InterOperability Window (IOW) and P-Autonomous eXchange Entity (P-AXE).</dc:description>
-        <dc:language xml:lang="en">English</dc:language>
-        <rdfs:label xml:lang="en"
-            >AXIS-CSRM Interoperability model</rdfs:label>
-        <owl:imports rdf:resource="http://protege.stanford.edu/plugins/owl/dc/protege-dc.owl"/>
-    </owl:Ontology>
-    <owl:Class rdf:ID="ARD">
-        <rdfs:label xml:lang="en"
-            >Autonomous Resource Domain</rdfs:label>
-    </owl:Class>
-    <owl:Class rdf:ID="AXE">
-        <rdfs:label xml:lang="en"
-            >Autonomous eXchange Entity</rdfs:label>
-    </owl:Class>
-    <owl:Class rdf:ID="AXEProfile">
-        <rdfs:label xml:lang="en">AXE Profile</rdfs:label>
-    </owl:Class>
-    <owl:Class rdf:ID="ClientARD">
-        <rdfs:subClassOf rdf:resource="#ARD"/>
-        <rdfs:label xml:lang="en"
-            >Client Autonomous Resource Domain</rdfs:label>
-    </owl:Class>
-    <owl:Class rdf:ID="ConfigurationManagementService">
-        <rdfs:subClassOf rdf:resource="#ARD"/>
-        <rdfs:label xml:lang="en"
-            >Configuration management service</rdfs:label>
-    </owl:Class>
-    <owl:Class rdf:ID="IdentificationService">
-        <rdfs:subClassOf rdf:resource="#ConfigurationManagementService"/>
-        <rdfs:label xml:lang="en"
-            >Identification service</rdfs:label>
-    </owl:Class>
-    <owl:Class rdf:ID="IOW">
-        <rdfs:label xml:lang="en"
-            >Interoperability Wicket</rdfs:label>
-    </owl:Class>
-    <owl:Class rdf:ID="ResolvingService">
-        <rdfs:subClassOf rdf:resource="#ConfigurationManagementService"/>
-        <rdfs:label xml:lang="en"
-            >Resolving service</rdfs:label>
-    </owl:Class>
+    <dc:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Roger Roberts</dc:contributor>
+    <dc:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Guy Maréchal</dc:contributor>
+    <dc:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Guillaume Rachez</dc:contributor>
+    <dc:date rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >2015-07-06</dc:date>
+    <owl:imports rdf:resource="http://protege.stanford.edu/plugins/owl/dc/protege-dc.owl"/>
+    <dc:language xml:lang="en">English</dc:language>
+  </owl:Ontology>
+  <owl:Class rdf:ID="ResolvingService">
+    <rdfs:label xml:lang="en">Resolving service</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ConfigurationManagementService"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AXEProfile">
+    <rdfs:label xml:lang="en">AXE Profile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ClientARD">
+    <rdfs:label xml:lang="en">Client Autonomous Resource Domain</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ARD"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#ConfigurationManagementService">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ARD"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Configuration management service</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AXE">
+    <rdfs:label xml:lang="en">Autonomous eXchange Entity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IOW">
+    <rdfs:label xml:lang="en">Interoperability Wicket</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IdentificationService">
+    <rdfs:subClassOf rdf:resource="#ConfigurationManagementService"/>
+    <rdfs:label xml:lang="en">Identification service</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#ARD">
+    <rdfs:label xml:lang="en">Autonomous Resource Domain</rdfs:label>
+  </owl:Class>
 </rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.5, Build 663)  http://protege.stanford.edu -->
