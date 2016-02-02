@@ -5,7 +5,7 @@
     xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:p2="http://purl.org/dc/elements/1.1/#"
-    xmlns:axis-interopera="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3#"
+    xmlns:axis-interopera="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.4#"
     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
     xmlns:cidoc-crm="http://www.cidoc-crm.org/cidoc-crm/"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -13,7 +13,7 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns="http://titan.be/axis-csrm/datamodel/ontology/0.3#"
+    xmlns="http://titan.be/axis-csrm/datamodel/ontology/0.4#"
   xml:base="http://titan.be/axis-csrm/datamodel/ontology/0.4">
   <owl:Ontology rdf:about="">
     <dc:contributor rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
@@ -39,1075 +39,1075 @@
     <owl:imports rdf:resource="http://www.cidoc-crm.org/cidoc-crm/"/>
     <owl:imports rdf:resource="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3"/>
   </owl:Ontology>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfObject">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfObject">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Embodiment"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Embodiment"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfFile">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfFile">
     <rdfs:label xml:lang="en">Embodiment of file</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Embodiment"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Embodiment"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Onte">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Onte">
     <rdfs:label xml:lang="en">Onte</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfObjectItem">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfObjectItem">
     <rdfs:label xml:lang="en">Registration of O-Item</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfItem"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfItem"/>
     </rdfs:subClassOf>
     <dc:description xml:lang="en">Registration of a physical object.</dc:description>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#SchemeTechnology">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#SchemeTechnology">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Scheme technology</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Moment">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Moment">
     <rdfs:label xml:lang="en">Moment</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#TemporalConcept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#TemporalConcept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfInformationItem">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfInformationItem">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfItem"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfItem"/>
     </rdfs:subClassOf>
     <dc:description xml:lang="en">Registration of an Information Item</dc:description>
     <rdfs:label xml:lang="en">Registration of IT-Item</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaUnifiedPoint">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaUnifiedPoint">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaFragment"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaFragment"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Media unified point</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#SemanticModellingTechnology">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#SemanticModellingTechnology">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ModellingTechnology"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ModellingTechnology"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Semantic modelling technology</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#CMS">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#CMS">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredPrescriptiveDocument">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredPrescriptiveDocument">
     <rdfs:label xml:lang="en">Structured prescriptive document</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredDocument"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredDocument"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent">
     <owl:equivalentClass rdf:resource="http://dbpedia.org/ontology/Event"/>
     <owl:equivalentClass rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E5_Event"/>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Registration of Event</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfItem">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfItem">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Registration of item</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredTextualDocument">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredTextualDocument">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredStaticDocument"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredStaticDocument"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Structured Textual document</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaUnifiedSegmentStart">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaUnifiedSegmentStart">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaFragment"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaFragment"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Media unified segment start</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfCountry">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfCountry">
     <rdfs:label xml:lang="en">Registration of country</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPlace"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPlace"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Role">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Role">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Role</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Thema">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Thema">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Expression">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Expression">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Agent">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Agent">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Agent</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfTextualItem">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfTextualItem">
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:allValuesFrom>
-          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfTextualFile"/>
+          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfTextualFile"/>
         </owl:allValuesFrom>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasExpression"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasExpression"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfInformationItem"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfInformationItem"/>
     <rdfs:label xml:lang="en">Reg of textual item</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Country">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Country">
     <rdfs:label xml:lang="en">Country</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Place"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Place"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfVideoItem">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfVideoItem">
     <rdfs:label xml:lang="en">Reg of video item</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasExpression"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasExpression"/>
         </owl:onProperty>
         <owl:allValuesFrom>
-          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfVideoFile"/>
+          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfVideoFile"/>
         </owl:allValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfInformationItem"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfInformationItem"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#OperatingBase">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#OperatingBase">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Operating base</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaUnifiedSegment">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaUnifiedSegment">
     <rdfs:label xml:lang="en">Media unified segment</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaFragment"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaFragment"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredDocument">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredDocument">
     <rdfs:label xml:lang="en">Structured document</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ModelOfItem">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ModelOfItem">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Model of item</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Work">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Work">
     <rdfs:label xml:lang="en">Work</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Item">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Item">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Item</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfGraphicFile">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfGraphicFile">
     <rdfs:label xml:lang="en">Embodiment of graphic file</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfFile"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfFile"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#CatalogOfItem">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#CatalogOfItem">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Catalog of item</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ModellingTechnology">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ModellingTechnology">
     <rdfs:label xml:lang="en">modelling technology</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#SchemeTechnology"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#SchemeTechnology"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Structure">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Structure">
     <rdfs:label xml:lang="en">Structure</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaUnifiedZone">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaUnifiedZone">
     <rdfs:label xml:lang="en">Media unified zone</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaFragment"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaFragment"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Location">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Location">
     <rdfs:label xml:lang="en">Location</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Register">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Register">
     <rdfs:label xml:lang="en">Register</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ARE">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ARE">
     <rdfs:label xml:lang="en">ARE</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#IdentificationTechnology">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#IdentificationTechnology">
     <rdfs:label xml:lang="en">identification technology</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#SchemeTechnology"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#SchemeTechnology"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Rights">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Rights">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Taxonomy">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Taxonomy">
     <rdfs:label xml:lang="en">Taxonomy</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP">
     <dc:description xml:lang="en">Axis Foot Print is the resource declaring the existence of any resource.</dc:description>
     <rdfs:label xml:lang="en">AFP</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#SyncTag">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Structure"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#SyncTag">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Structure"/>
     <rdfs:label xml:lang="en">Synchronisation tag</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Profile">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Profile">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Profile</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#LabellingTechnology">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#LabellingTechnology">
     <rdfs:label xml:lang="en">Labelling Technology</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#SchemeTechnology"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#SchemeTechnology"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Ontology">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Ontology">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Ontology</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#TemporalConcept">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#TemporalConcept">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ECMO">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ECMO">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EditorialStructuringObject"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EditorialStructuringObject"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Editorial structuring object configuration management</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Monument">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Monument">
     <rdfs:label xml:lang="en">Monument</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Place"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Place"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfAudioItem">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfAudioItem">
     <rdfs:label xml:lang="en">Reg of audio item</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfInformationItem"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfInformationItem"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasExpression"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasExpression"/>
         </owl:onProperty>
         <owl:allValuesFrom>
-          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfAudioFile"/>
+          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfAudioFile"/>
         </owl:allValuesFrom>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ESOStructureInner">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ESOStructureInner">
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:allValuesFrom>
-          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#DocumentFragment"/>
+          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#DocumentFragment"/>
         </owl:allValuesFrom>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#uses"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#uses"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EditorialStructuringObject"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EditorialStructuringObject"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Editorial structuring object inner</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Settlement">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Settlement">
     <rdfs:label xml:lang="en">Settlement</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Place"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Place"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#PhysicalPerson">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Agent"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#PhysicalPerson">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Agent"/>
     <rdfs:label xml:lang="en">Physical person</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPhotoItem">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPhotoItem">
     <rdfs:label xml:lang="en">Reg of photo item</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfInformationItem"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfInformationItem"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:allValuesFrom>
-          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfImageFile"/>
+          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfImageFile"/>
         </owl:allValuesFrom>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasExpression"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasExpression"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaFragment">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaFragment">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#DocumentFragment"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#DocumentFragment"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Media fragment</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Embodiment">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Embodiment">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Embodiment</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPhysicalPerson">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPhysicalPerson">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfAgent"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfAgent"/>
     </rdfs:subClassOf>
     <owl:equivalentClass rdf:resource="http://dbpedia.org/ontology/Person"/>
     <owl:equivalentClass>
       <rdf:Description rdf:about="http://www.cidoc-crm.org/cidoc-crm/E21_Person">
-        <owl:equivalentClass rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPhysicalPerson"/>
+        <owl:equivalentClass rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPhysicalPerson"/>
       </rdf:Description>
     </owl:equivalentClass>
     <rdfs:label xml:lang="en">Reg of Physical person</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfAudioFile">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfFile"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfAudioFile">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfFile"/>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:allValuesFrom rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfAudioItem"/>
+        <owl:allValuesFrom rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfAudioItem"/>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#expresses"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#expresses"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Embodiment of audio file</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfImageFile">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfImageFile">
     <rdfs:label xml:lang="en">Embodiment of image file</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#expresses"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#expresses"/>
         </owl:onProperty>
-        <owl:allValuesFrom rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPhotoItem"/>
+        <owl:allValuesFrom rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPhotoItem"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfGraphicFile"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfGraphicFile"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#FinaleStateMachine">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredPrescriptiveDocument"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#FinaleStateMachine">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredPrescriptiveDocument"/>
     <rdfs:label xml:lang="en">Finale state machine</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfSettlement">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfSettlement">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPlace"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPlace"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Registration of settlement</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Place">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Place">
     <rdfs:label xml:lang="en">Place</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#PhysicalObject">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#PhysicalObject">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Physical object</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#TrackMediaFragment">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaFragment"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#TrackMediaFragment">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaFragment"/>
     <rdfs:label xml:lang="en">Track media fragment</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EditorialStructuringObject">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EditorialStructuringObject">
     <rdfs:label xml:lang="en">Editorial structuring object</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Structure"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Structure"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfMonument">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfMonument">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPlace"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPlace"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Registration of monument</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfMoralPerson">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfMoralPerson">
     <rdfs:label xml:lang="en">Registration of moral person</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfAgent"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfAgent"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Edito">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Edito">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Thesaurus">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Thesaurus">
     <rdfs:label xml:lang="en">Thesaurus</rdfs:label>
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#TypeOfThing">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#TypeOfThing">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Type of thing</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfVideoFile">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfVideoFile">
     <rdfs:label xml:lang="en">Embodiment of video file</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
-        <owl:allValuesFrom rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfVideoItem"/>
+        <owl:allValuesFrom rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfVideoItem"/>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#expresses"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#expresses"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfFile"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfFile"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Onte"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Onte"/>
     <rdfs:label xml:lang="en">Entity</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredStaticDocument">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredDocument"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredStaticDocument">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredDocument"/>
     <rdfs:label xml:lang="en">Structured static document</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Comment">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfInformationItem"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Comment">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfInformationItem"/>
     <dc:creator rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     ></dc:creator>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Edidata">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Edidata">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#KnowledgeBase">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#KnowledgeBase">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
     <rdfs:label xml:lang="en">Knowledge base</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#CataloguingTechnology">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#SchemeTechnology"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#CataloguingTechnology">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#SchemeTechnology"/>
     <rdfs:label xml:lang="en">Cataloguing technology</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Manifestation">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Manifestation">
     <rdfs:subClassOf>
-      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     </rdfs:subClassOf>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ResolvingTechnology">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ResolvingTechnology">
     <rdfs:label xml:lang="en">Resolving technology</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#SchemeTechnology"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#SchemeTechnology"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ESOStructureOuter">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ESOStructureOuter">
     <rdfs:label xml:lang="en">Editorial structuring object outer</rdfs:label>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:allValuesFrom>
-          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ESOEntity"/>
+          <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ESOEntity"/>
         </owl:allValuesFrom>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#uses"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#uses"/>
         </owl:onProperty>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EditorialStructuringObject"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EditorialStructuringObject"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MoralPerson">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MoralPerson">
     <rdfs:label xml:lang="en">Moral person</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Agent"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Agent"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document">
     <rdfs:label xml:lang="en">Document</rdfs:label>
     <owl:equivalentClass>
       <rdf:Description rdf:about="http://www.cidoc-crm.org/cidoc-crm/E31_Document">
-        <owl:equivalentClass rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
+        <owl:equivalentClass rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
       </rdf:Description>
     </owl:equivalentClass>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Onte"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Onte"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfAgent">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfAgent">
     <rdfs:label xml:lang="en">Registration of agent</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPlace">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPlace">
     <rdfs:label xml:lang="en">Registration of place</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
     <owl:equivalentClass rdf:resource="http://dbpedia.org/ontology/Place"/>
     <owl:equivalentClass rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#DocumentFragment">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#DocumentFragment">
     <rdfs:label xml:lang="en">Document fragment</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Structure"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Structure"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Period">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#TemporalConcept"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Period">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#TemporalConcept"/>
     <rdfs:label xml:lang="en">Period</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Sentence">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#DocumentFragment"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Sentence">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#DocumentFragment"/>
     <rdfs:label xml:lang="en">Sentence</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Machine">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Machine">
     <rdfs:label xml:lang="en">Machine</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Agent"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Agent"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaUnifiedSegmentEnd">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaUnifiedSegmentEnd">
     <rdfs:label xml:lang="en">Media unified segment end</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaFragment"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaFragment"/>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ESOEntity">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EditorialStructuringObject"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ESOEntity">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EditorialStructuringObject"/>
     <rdfs:label xml:lang="en">Editorial structuring object entity</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfTextualFile">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfTextualFile">
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#expresses"/>
+          <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#expresses"/>
         </owl:onProperty>
-        <owl:allValuesFrom rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfTextualItem"/>
+        <owl:allValuesFrom rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfTextualItem"/>
       </owl:Restriction>
     </rdfs:subClassOf>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfFile"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfFile"/>
     <rdfs:label xml:lang="en">Embodiment of textual file</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#GlobalModellingTechnology">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#ModellingTechnology"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#GlobalModellingTechnology">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#ModellingTechnology"/>
     <rdfs:label xml:lang="en">Global modelling technology</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Onte"/>
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Onte"/>
     <rdfs:label xml:lang="en">Concept</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Event">
+  <owl:Class rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Event">
     <rdfs:label xml:lang="en">Registration of Event</rdfs:label>
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#TemporalConcept"/>
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#TemporalConcept"/>
   </owl:Class>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasRepresentation">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasRepresentation">
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isARepresentationOf"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isARepresentationOf"/>
     </owl:inverseOf>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
     <rdfs:label xml:lang="en">has representation</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#usesResolver">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#usesResolver">
     <rdfs:label xml:lang="en">uses resolver</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#ResolvingTechnology"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#ResolvingTechnology"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasLocation">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasLocation">
     <rdfs:label xml:lang="en">has location</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Embodiment"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Location"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Embodiment"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Location"/>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#locates"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#locates"/>
     </owl:inverseOf>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#owns">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#owns">
     <rdfs:label xml:lang="en">owns</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isStructuredBy">
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Structure"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isStructuredBy">
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Structure"/>
     <rdfs:label xml:lang="en">is structured by</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredDocument"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredDocument"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isComposedOf">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isComposedOf">
     <rdfs:label xml:lang="en">is composed of</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isAComponentOf"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isAComponentOf"/>
     </owl:inverseOf>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasExpression">
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Embodiment"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasExpression">
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Embodiment"/>
     <rdfs:label xml:lang="en">has expression</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfItem"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfItem"/>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#expresses"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#expresses"/>
     </owl:inverseOf>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isAbout">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isAbout">
     <rdfs:label xml:lang="en">intangible object</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isInEvent"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isInEvent"/>
     </owl:inverseOf>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#typeOfThing">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#TypeOfThing"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#typeOfThing">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#TypeOfThing"/>
     <rdfs:label xml:lang="en">type of thing</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#mentions">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#mentions">
     <rdfs:label xml:lang="en">mentions</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isMentionedIn"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isMentionedIn"/>
     </owl:inverseOf>
     <rdfs:subPropertyOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#tags"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#tags"/>
     </rdfs:subPropertyOf>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#takesPlaceIn">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#takesPlaceIn">
     <rdfs:label xml:lang="en">takes place in</rdfs:label>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isThePlaceOfEvent"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isThePlaceOfEvent"/>
     </owl:inverseOf>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPlace"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPlace"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isDeclaredBy">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isDeclaredBy">
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#declaresTheExistenceOf"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#declaresTheExistenceOf"/>
     </owl:inverseOf>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Onte"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Onte"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP"/>
     <rdfs:label xml:lang="en">is declared by</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isARepresentationOf">
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasRepresentation"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isARepresentationOf">
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasRepresentation"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
     <rdfs:label xml:lang="en">is a representation of</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#tags">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#tags">
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isTaggedBy"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isTaggedBy"/>
     </owl:inverseOf>
     <rdfs:label xml:lang="en">tags</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#DocumentFragment"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#DocumentFragment"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isDefinedByStructure">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredDocument"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Structure"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isDefinedByStructure">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredDocument"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Structure"/>
     <rdfs:label xml:lang="en">is defined by structure</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#declaresTheExistenceOf">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#declaresTheExistenceOf">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
     <rdfs:label xml:lang="en">declares the existence of</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Onte"/>
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#isDeclaredBy"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Onte"/>
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#isDeclaredBy"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#displays">
-    <rdfs:subPropertyOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#tags"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaUnifiedZone"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#displays">
+    <rdfs:subPropertyOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#tags"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaUnifiedZone"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isDisplayedIn"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isDisplayedIn"/>
     </owl:inverseOf>
     <rdfs:label xml:lang="en">displays</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasParticipant">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasParticipant">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#participatesInEvent"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#participatesInEvent"/>
     </owl:inverseOf>
     <rdfs:label xml:lang="en">has participant</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfAgent"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfAgent"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#participatesInEvent">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfAgent"/>
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasParticipant"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#participatesInEvent">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfAgent"/>
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasParticipant"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
     <rdfs:label xml:lang="en">participates in event</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isMentionedIn">
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#mentions"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Document"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isMentionedIn">
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#mentions"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Document"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
     <rdfs:subPropertyOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isTaggedBy"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isTaggedBy"/>
     </rdfs:subPropertyOf>
     <rdfs:label xml:lang="en">is mentionned in</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isLabelledBy">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isLabelledBy">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP"/>
     <rdfs:label xml:lang="en">is labelled by</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#LabellingTechnology"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#LabellingTechnology"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isDisplayedIn">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isDisplayedIn">
     <rdfs:subPropertyOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isTaggedBy"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isTaggedBy"/>
     </rdfs:subPropertyOf>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaUnifiedZone"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaUnifiedZone"/>
     <rdfs:label xml:lang="en">is displayed in</rdfs:label>
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#displays"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#displays"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isThePlaceOfEvent">
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#takesPlaceIn"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPlace"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isThePlaceOfEvent">
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#takesPlaceIn"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPlace"/>
     <rdfs:label xml:lang="en">is the place of event</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isResponsibleOf">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfAgent"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isResponsibleOf">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfAgent"/>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasResponsible"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasResponsible"/>
     </owl:inverseOf>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#ARE"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#ARE"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasResponsible">
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#isResponsibleOf"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#ARE"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfAgent"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasResponsible">
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#isResponsibleOf"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#ARE"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfAgent"/>
     <rdfs:label xml:lang="en">has responsible</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasComment">
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Comment"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfInformationItem"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasComment">
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Comment"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfInformationItem"/>
     <dc:creator xml:lang="fr">create the comment</dc:creator>
     <owl:inverseOf>
-      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isCommentOf"/>
+      <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isCommentOf"/>
     </owl:inverseOf>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#expresses">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Embodiment"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#expresses">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Embodiment"/>
     <rdfs:label xml:lang="en">expresses</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfItem"/>
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasExpression"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfItem"/>
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasExpression"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isTaggedBy">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isTaggedBy">
     <rdfs:label xml:lang="en">is tagged by</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#DocumentFragment"/>
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#tags"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#DocumentFragment"/>
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#tags"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#usesIdentificationSystem">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#usesIdentificationSystem">
     <rdfs:label xml:lang="en">uses identification system</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#ARE"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#IdentificationTechnology"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#ARE"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#IdentificationTechnology"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isCommentOf">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfInformationItem"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isCommentOf">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfInformationItem"/>
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >is comment of</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Comment"/>
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasComment"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Comment"/>
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasComment"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#uses">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#uses">
     <rdfs:label xml:lang="en">uses</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Onte"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Onte"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isIdentifiedBy">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#IdentificationTechnology"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isIdentifiedBy">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#IdentificationTechnology"/>
     <rdfs:label xml:lang="en">is identified by</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isAComponentOf">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#isComposedOf"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isAComponentOf">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#isComposedOf"/>
     <rdfs:label xml:lang="en">is a component of</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isRepresentedBy">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isRepresentedBy">
     <rdfs:label xml:lang="en">is represented by</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#ModellingTechnology"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#ModellingTechnology"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isInEvent">
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#isAbout"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isInEvent">
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#isAbout"/>
     <rdfs:label xml:lang="en">is in event</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Element"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfEvent"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Element"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfEvent"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#locates">
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#locates">
     <rdfs:label xml:lang="en">locates</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Location"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Embodiment"/>
-    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasLocation"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Location"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Embodiment"/>
+    <owl:inverseOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasLocation"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#isCataloguedAs">
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#CataloguingTechnology"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#isCataloguedAs">
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#CataloguingTechnology"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP"/>
     <rdfs:label xml:lang="en">is catalogued as</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasStructuredDescription">
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredDocument"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfItem"/>
+  <owl:ObjectProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasStructuredDescription">
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredDocument"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfItem"/>
     <rdfs:label xml:lang="en">has structured textual description</rdfs:label>
   </owl:ObjectProperty>
-  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#socialNetwork">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Onte"/>
+  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#socialNetwork">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Onte"/>
     <rdfs:label xml:lang="en">social network</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#id">
+  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#id">
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >id</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Comment"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Comment"/>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#graphicHeightResolution">
+  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#graphicHeightResolution">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfGraphicFile"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfGraphicFile"/>
     <rdfs:label xml:lang="en">graphic height resolution</rdfs:label>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#graphicWidthResolution">
+  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#graphicWidthResolution">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     <rdfs:label xml:lang="en">graphic width resolution</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfGraphicFile"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfGraphicFile"/>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#validate">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Comment"/>
+  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#validate">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Comment"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:label xml:lang="en">validate</rdfs:label>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#position">
+  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#position">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:label xml:lang="en">position</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#MediaFragment"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#MediaFragment"/>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#modelName">
+  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#modelName">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:label xml:lang="en">model name</rdfs:label>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hyperlink">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Location"/>
+  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hyperlink">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Location"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:label xml:lang="en">hyperlink</rdfs:label>
   </owl:DatatypeProperty>
-  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#content">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Comment"/>
+  <owl:DatatypeProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#content">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Comment"/>
     <rdfs:label xml:lang="fr">content</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#creationDate">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#creationDate">
     <rdfs:label xml:lang="en">creation date</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Onte"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Onte"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#starts">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#starts">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#DocumentFragment"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#DocumentFragment"/>
     <rdfs:label xml:lang="en">starts</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#ESOStructureInner"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#ESOStructureInner"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#fileSize">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#fileSize">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfFile"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfFile"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
     <rdfs:label xml:lang="en">file size</rdfs:label>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#graphicPixelsHeight">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#graphicPixelsHeight">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfGraphicFile"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfGraphicFile"/>
     <rdfs:label xml:lang="en">graphic pixels height</rdfs:label>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasSource">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasSource">
     <rdfs:label xml:lang="en">has source</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:range>
-      <rdf:Description rdf:about="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3#ARD">
-        <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+      <rdf:Description rdf:about="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.4#ARD">
+        <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
       </rdf:Description>
     </rdfs:range>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#AFP"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#AFP"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#next">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#next">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:label xml:lang="en">next</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#DocumentFragment"/>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#DocumentFragment"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#DocumentFragment"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#DocumentFragment"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#focalDepth">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#focalDepth">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:label xml:lang="en">focal depth</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPhotoItem"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPhotoItem"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#attendance">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#attendance">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:label xml:lang="en">attendance</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Event"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Event"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#hasFileFormat">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#hasFileFormat">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:label xml:lang="en">has file format</rdfs:label>
-    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#GlobalModellingTechnology"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfFile"/>
+    <rdfs:range rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#GlobalModellingTechnology"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfFile"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#date">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#date">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
     <rdfs:label xml:lang="en">date</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Event"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Event"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#fileName">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#fileName">
     <rdfs:label xml:lang="en">file name</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfFile"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfFile"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#resourceRootUri">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#resourceRootUri">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#ARE"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#ARE"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:label xml:lang="en">resource root uri</rdfs:label>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ISOspeed">
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPhotoItem"/>
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ISOspeed">
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPhotoItem"/>
     <rdfs:label xml:lang="en">ISO speed</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#shutterSpeed">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#shutterSpeed">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
     <rdfs:label xml:lang="en">shutter speed</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPhotoItem"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPhotoItem"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#aperture">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#aperture">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:label xml:lang="en">aperture</rdfs:label>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#RegOfPhotoItem"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#RegOfPhotoItem"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#colorDepth">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#colorDepth">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     <rdfs:label xml:lang="en">color depth</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfGraphicFile"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfGraphicFile"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#graphicPixelsWidth">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#graphicPixelsWidth">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     <rdfs:label xml:lang="en">graphic pixels width</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#EmbodimentOfGraphicFile"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#EmbodimentOfGraphicFile"/>
   </owl:FunctionalProperty>
-  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#coordinates">
+  <owl:FunctionalProperty rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#coordinates">
     <rdfs:label xml:lang="en">coordinates</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Location"/>
+    <rdfs:domain rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Location"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:FunctionalProperty>
-  <IdentificationTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#UMID">
+  <IdentificationTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#UMID">
     <rdfs:label xml:lang="en">UMID</rdfs:label>
   </IdentificationTechnology>
-  <IdentificationTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#UUID">
+  <IdentificationTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#UUID">
     <rdfs:label xml:lang="en">UUID</rdfs:label>
   </IdentificationTechnology>
-  <SemanticModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EBUCore">
+  <SemanticModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EBUCore">
     <rdfs:label xml:lang="en">EBU core</rdfs:label>
   </SemanticModellingTechnology>
-  <GlobalModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#JPEG">
+  <GlobalModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#JPEG">
     <rdfs:label xml:lang="en">JPEG</rdfs:label>
   </GlobalModellingTechnology>
-  <CataloguingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#EIDR">
+  <CataloguingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#EIDR">
     <rdfs:label xml:lang="en">EIDR</rdfs:label>
   </CataloguingTechnology>
-  <rdf:Description rdf:about="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3#AXEProfile">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+  <rdf:Description rdf:about="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.4#AXEProfile">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
   </rdf:Description>
-  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#StructuredModelingTechnology">
+  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#StructuredModelingTechnology">
     <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >Structured modeling technology</rdfs:label>
   </TypeOfThing>
-  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ITSemanticStructured">
+  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ITSemanticStructured">
     <rdfs:label xml:lang="en">IT semantic structured</rdfs:label>
   </TypeOfThing>
-  <IdentificationTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ISB">
+  <IdentificationTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ISB">
     <rdfs:label xml:lang="en">ISB</rdfs:label>
   </IdentificationTechnology>
-  <rdf:Description rdf:about="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3#IOW">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Concept"/>
+  <rdf:Description rdf:about="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.4#IOW">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Concept"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.3#AXE">
-    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.3#Entity"/>
+  <rdf:Description rdf:about="http://titan.be/axis-csrm/interoperabilitymodel/ontology/0.4#AXE">
+    <rdfs:subClassOf rdf:resource="http://titan.be/axis-csrm/datamodel/ontology/0.4#Entity"/>
   </rdf:Description>
-  <SemanticModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Geonames">
+  <SemanticModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Geonames">
     <rdfs:label xml:lang="en">Geonames</rdfs:label>
   </SemanticModellingTechnology>
-  <SemanticModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Gate">
+  <SemanticModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Gate">
     <rdfs:label xml:lang="en">Gate</rdfs:label>
   </SemanticModellingTechnology>
-  <GlobalModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#MP3">
+  <GlobalModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#MP3">
     <rdfs:label xml:lang="en">MP3</rdfs:label>
   </GlobalModellingTechnology>
-  <LabellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#PDF417">
+  <LabellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#PDF417">
     <rdfs:label xml:lang="en">PDF-417</rdfs:label>
   </LabellingTechnology>
-  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ITGlobal">
+  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ITGlobal">
     <rdfs:label xml:lang="en">IT global</rdfs:label>
   </TypeOfThing>
-  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#NaturalObject">
+  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#NaturalObject">
     <rdfs:label xml:lang="en">Natural object</rdfs:label>
   </TypeOfThing>
-  <CataloguingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#DublinCore">
+  <CataloguingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#DublinCore">
     <rdfs:label xml:lang="en">Dublin Core</rdfs:label>
   </CataloguingTechnology>
-  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#NonStructuredModellingTechnology">
+  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#NonStructuredModellingTechnology">
     <rdfs:label xml:lang="en">Non structured modelling technology</rdfs:label>
   </TypeOfThing>
-  <LabellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#QRCode">
+  <LabellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#QRCode">
     <rdfs:label xml:lang="en">QR code</rdfs:label>
   </LabellingTechnology>
-  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#IntangibleObject">
+  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#IntangibleObject">
     <rdfs:label xml:lang="en">Intangible object</rdfs:label>
   </TypeOfThing>
-  <CataloguingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#URN">
+  <CataloguingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#URN">
     <rdfs:label xml:lang="en">URN</rdfs:label>
   </CataloguingTechnology>
-  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#ArtefactObject">
+  <TypeOfThing rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#ArtefactObject">
     <rdfs:label xml:lang="en">Artefact object</rdfs:label>
   </TypeOfThing>
-  <SemanticModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.3#Axis_Root">
+  <SemanticModellingTechnology rdf:about="http://titan.be/axis-csrm/datamodel/ontology/0.4#Axis_Root">
     <rdfs:label xml:lang="en">AXIS root</rdfs:label>
   </SemanticModellingTechnology>
 </rdf:RDF>
