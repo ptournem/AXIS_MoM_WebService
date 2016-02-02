@@ -5,6 +5,7 @@
  */
 package model;
 
+import Dialog.Comment;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
@@ -29,6 +30,8 @@ public class TestWS {
     public static long endTime;
 
     public static void main(String args[]) {
+        //testFonctionnel(true);
+//        testComments();
 
         //System.out.println("test");
         //testConstructEntity();
@@ -118,35 +121,7 @@ public class TestWS {
 //
 //        System.out.println(" - Property[4] : "+props2[4]); 
     }
-
-    public static void testInference() {
-        Entity leonard = new Entity("Léonard Da Vincii", "http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard.jpg", "person");
-        leonard.AddEntity();
-        String uri = leonard.getURI();
-        QueryExecution qe = QueryExecutionFactory.sparqlService(
-                //                "http://localhost:3030/ds/query", String.format(
-                //                "PREFIX poc: <http://titan.be/axis-poc2015/>" +
-                //                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-                //                "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.2#>" +
-                //                "construct {%s ?p ?o}" +
-                //                "WHERE { ?s ?p ?o }", uri));
-                //        
-                "http://localhost:3030/ds/query", String.format(
-                        "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                        + "construct{?s ?p ?o}"
-                        + "WHERE { ?s ?p ?o . {"
-                        + "SELECT * WHERE {"
-                        + "<%s> ?p ?o }"
-                        + "} }", uri));
-
-        Model m = qe.execConstruct();
-
-        System.out.println(m.getResource("label"));
-
-        System.out.println(m.getProperty("label"));
-        qe.close();
-    }
-
+    
     public static void testPropertiesDbpedia() {
         Entity e = new Entity();
         e.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
@@ -634,5 +609,46 @@ public class TestWS {
         for (int i = 0; i < tab.length; i++) {
             System.out.println("Entity trouvée : " + tab[i]);
         }
+    }
+    
+    public static void testRechercheComments() {
+        
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        
+        Comment[] tab = ws.LoadComment(null);
+        //System.out.println("test");
+        for(int i=0; i<tab.length;i++) {
+            System.out.println("Comment trouvée : "+tab[i]);
+        }
+    }
+    
+    public static void testComments() {
+        
+        AXIS_MoM_WS ws = new AXIS_MoM_WS();
+        
+        Entity joconde = new Entity("La Joconde", "https://download.vikidia.org/vikidia/fr/images/thumb/1/13/La_gioconda.jpg/200px-La_gioconda.jpg", "object");
+        
+        joconde = ws.AddEntity(joconde);
+        
+        Comment c = new Comment(null, "loan", "loan@loan.com", "super tableau", false, "02-02-2016", joconde);
+        c = ws.AddComment(c, joconde);
+        
+        Comment[] tab = ws.LoadComment(null);
+        //System.out.println("test");
+        for(int i=0; i<tab.length;i++) {
+            System.out.println("Comment trouvée : "+tab[i]);
+        }
+        
+        System.out.println("----");
+        ws.GrantComment(c);
+        ws.RemoveComment(c, joconde);
+        
+        Comment[] tab2 = ws.LoadComment(joconde);
+        //System.out.println("test");
+        for(int i=0; i<tab2.length;i++) {
+            System.out.println("Comment trouvée : "+tab2[i]);
+        }
+        
+        
     }
 }

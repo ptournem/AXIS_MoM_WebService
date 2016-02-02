@@ -152,11 +152,10 @@ public class Person extends Entity {
             String req = String.format(" prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                     + " prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
                     + " prefix owl: <http://www.w3.org/2002/07/owl#>"
-                    + " prefix axis: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                     + " prefix poc: <http://titan.be/axis-poc2015/>"
                     + " PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
                     + " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
-                    + " PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
+                    + " PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.4#>"
                     + " PREFIX dbont: <http://dbpedia.org/ontology/>"
                     + " PREFIX schema: <https://schema.org/>"
                     + " select ?description ?deathdate ?birthdate "
@@ -191,27 +190,43 @@ public class Person extends Entity {
             ResultSet rs = qe.execSelect();
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
-                this.description.setValue_locale(rep.get("description").asLiteral().getString());
-                this.description.setType(rep.get("description").asLiteral().getLanguage());
-                this.birthDate.setType("fr");
-                this.birthDate.setValue_locale(rep.get("birthdate").asLiteral().getString());
-                this.deathDate.setValue_locale(rep.get("deathdate").asLiteral().getString());
-                this.deathDate.setType("fr");
-                this.mother.setType("uri");
-                this.mother.setEntity_locale(getEntityTab(rep.get("mothers").asLiteral().getString().split("&&&&")));
-                this.sameAs.setType("uri");
-                this.sameAs.setEntity_locale(getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&")));
-                this.father.setType("uri");
-                for (int i = 0; i < rep.get("fathers").asLiteral().getString().split("&&&&").length; i++) {
-                    System.out.println("father:" + rep.get("fathers").asLiteral().getString().split("&&&&")[i]);
+                System.out.println("rep:" + rep);
+                if (rep.get("description") != null) {
+                    this.description.setValue_locale(rep.get("description").asLiteral().getString());
+                    this.description.setType(rep.get("description").asLiteral().getLanguage());
                 }
-                this.father.setEntity_locale(getEntityTab(rep.get("fathers").asLiteral().getString().split("&&&&")));
-                this.placeOfBirth.setType("uri");
-                this.placeOfBirth.setEntity_locale(getEntityTab(rep.get("birthplaces").asLiteral().getString().split("&&&&")));
-                this.restInPlace.setType("uri");
-                this.restInPlace.setEntity_locale(getEntityTab(rep.get("restinplaces").asLiteral().getString().split("&&&&")));
-                this.isAuthorOf.setType("uri");
-                this.isAuthorOf.setEntity_locale(getEntityTab(rep.get("isauthorofs").asLiteral().getString().split("&&&&")));
+                if (rep.get("birthdate") != null) {
+                    this.birthDate.setType("fr");
+                    this.birthDate.setValue_locale(rep.get("birthdate").asLiteral().getString());
+                }
+                if (rep.get("deathdate") != null) {
+                    this.deathDate.setValue_locale(rep.get("deathdate").asLiteral().getString());
+                }
+                this.deathDate.setType("fr");
+                if (rep.get("mothers") != null) {
+                    this.mother.setType("uri");
+                    this.mother.setEntity_locale(getEntityTab(rep.get("mothers").asLiteral().getString().split("&&&&")));
+                }
+                if (rep.get("sameas") != null) {
+                    this.sameAs.setType("uri");
+                    this.sameAs.setEntity_locale(getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&")));
+                }
+                if (rep.get("fathers") != null) {
+                    this.father.setType("uri");
+                    this.father.setEntity_locale(getEntityTab(rep.get("fathers").asLiteral().getString().split("&&&&")));
+                }
+                if (rep.get("birthplaces") != null) {
+                    this.placeOfBirth.setType("uri");
+                    this.placeOfBirth.setEntity_locale(getEntityTab(rep.get("birthplaces").asLiteral().getString().split("&&&&")));
+                }
+                if (rep.get("restinplaces") != null) {
+                    this.restInPlace.setType("uri");
+                    this.restInPlace.setEntity_locale(getEntityTab(rep.get("restinplaces").asLiteral().getString().split("&&&&")));
+                }
+                if (rep.get("isauthorofs") != null) {
+                    this.isAuthorOf.setType("uri");
+                    this.isAuthorOf.setEntity_locale(getEntityTab(rep.get("isauthorofs").asLiteral().getString().split("&&&&")));
+                }
             }
         }
         if (this.getURI().contains("dbpedia") || getdbpedia == true) {
@@ -308,182 +323,182 @@ public class Person extends Entity {
             }
         }
     }
+        //    public void constructPerson(boolean getdbpedia) {
+    //        if (!this.getURI().contains("dbpedia")) {
+    ////            this.placeOfBirth = getPersonPropertyAdmin("birthplace");
+    ////            this.birthDate = getPersonPropertyAdmin("birthdate");
+    ////            this.deathDate = getPersonPropertyAdmin("deathdate");
+    ////            this.mother = getPersonPropertyAdmin("mother");
+    ////            this.father = getPersonPropertyAdmin("father");
+    ////            this.isAuthorOf = getPersonPropertyAdmin("isAuthorOf");
+    ////            this.restInPlace = getPersonPropertyAdmin("restinplace");
+    ////            this.description = getPersonPropertyAdmin("description");
+    ////            this.sameAs = getPersonPropertyAdmin("sameAs");
+    //            this.placeOfBirth = getPropertyAdmin("birthplace", "dbont:birthPlace");
+    //            this.birthDate = getPropertyAdmin("birthdate", "schema:birthDate");
+    //            this.deathDate = getPropertyAdmin("deathdate", "schema:deathDate");
+    //            this.mother = getPropertyAdmin("mother", "dbont:mother");
+    //            this.father = getPropertyAdmin("father", "dbont:father");
+    //            this.isAuthorOf = getPropertyAdmin("isAuthorOf", "axis-datamodel:performs");
+    //            this.restInPlace = getPropertyAdmin("restinplace", "dbont:restInPlace");
+    //            this.description = getPropertyAdmin("description", "rdf:Description");
+    //            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
+    //        } else {
+    //            this.birthDate = new PropertyAdmin();
+    //            this.birthDate.setName("birthdate");
+    //            this.placeOfBirth = new PropertyAdmin();
+    //            this.placeOfBirth.setName("birthplace");
+    //            this.deathDate = new PropertyAdmin();
+    //            this.deathDate.setName("deathdate");
+    //            this.mother = new PropertyAdmin();
+    //            this.mother.setName("mother");
+    //            this.father = new PropertyAdmin();
+    //            this.father.setName("father");
+    //            this.isAuthorOf = new PropertyAdmin();
+    //            this.isAuthorOf.setName("isAuthorOf");
+    //            this.restInPlace = new PropertyAdmin();
+    //            this.restInPlace.setName("restinplace");
+    //            this.description = new PropertyAdmin();
+    //            this.description.setName("description");
+    //            this.sameAs = new PropertyAdmin();
+    //            this.sameAs.setName("sameas");
+    //        }
+    //        if (this.getURI().contains("dbpedia") || getdbpedia == true) {
+    //            ArrayList<Property> p = getPropertiesMapFromLod(this);
+    //            if (p != null) {
+    //                Iterator<Property> it = p.iterator();
+    //                while (it.hasNext()) {
+    //                    Property n = it.next();
+    //                    switch (n.getName()) {
+    //                        case "birthdate":
+    //                            this.birthDate.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.birthDate.setEntity_locale(n.getEnt());
+    //                                this.birthDate.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.birthDate.setEntity_dbpedia(n.getEnt());
+    //                                this.birthDate.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                        case "deathdate":
+    //                            this.birthDate.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.deathDate.setEntity_locale(n.getEnt());
+    //                                this.deathDate.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.deathDate.setEntity_dbpedia(n.getEnt());
+    //                                this.deathDate.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                        case "birthplace":
+    //                            this.placeOfBirth.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.placeOfBirth.setEntity_locale(n.getEnt());
+    //                                this.placeOfBirth.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.placeOfBirth.setEntity_dbpedia(n.getEnt());
+    //                                this.placeOfBirth.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                        case "description":
+    //                            this.description.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.description.setEntity_locale(n.getEnt());
+    //                                this.description.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.description.setEntity_dbpedia(n.getEnt());
+    //                                this.description.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                        case "mother":
+    //                            this.mother.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.mother.setEntity_locale(n.getEnt());
+    //                                this.mother.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.mother.setEntity_dbpedia(n.getEnt());
+    //                                this.mother.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                        case "father":
+    //                            this.father.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.father.setEntity_locale(n.getEnt());
+    //                                this.father.setValue_locale(n.getValue());
+    //
+    //                            } else {
+    //                                this.father.setEntity_dbpedia(n.getEnt());
+    //                                this.father.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                        case "restinplace":
+    //                            this.restInPlace.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.restInPlace.setEntity_locale(n.getEnt());
+    //                                this.restInPlace.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.restInPlace.setEntity_dbpedia(n.getEnt());
+    //                                this.restInPlace.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                        case "isAuthorOf":
+    //                            this.isAuthorOf.setType(n.getType());
+    //                            if (this.getURI().contains("dbpedia")) {
+    //                                this.isAuthorOf.setEntity_locale(n.getEnt());
+    //                                this.isAuthorOf.setValue_locale(n.getValue());
+    //                            } else {
+    //                                this.isAuthorOf.setEntity_dbpedia(n.getEnt());
+    //                                this.isAuthorOf.setValue_dbpedia(n.getValue());
+    //                            }
+    //                            break;
+    //                    }
+    //
+    //                }
+    //            }
+    //        }
+    //    }
+    //    public PropertyAdmin getPersonPropertyAdmin(String propertyName) {
+    //
+    //        PropertyAdmin pa = new PropertyAdmin();
+    //        switch (propertyName) {
+    //            case "birthdate":
+    //                pa = getPropertyAdmin("birthDate", "literal");
+    //                pa.setName(propertyName);
+    //                break;
+    //            case "deathdate":
+    //                pa = getPropertyAdmin("deathDate", "literal");
+    //                pa.setName(propertyName);
+    //                break;
+    //            case "birthplace":
+    //                pa = getPropertyAdmin("birthPlace", "entity");
+    //                pa.setName(propertyName);
+    //                break;
+    //            case "mother":
+    //                pa = getPropertyAdmin("mother", "entity");
+    //                pa.setName(propertyName);
+    //                break;
+    //            case "father":
+    //                pa = getPropertyAdmin("father", "entity");
+    //                pa.setName(propertyName);
+    //                break;
+    //            case "isAuthorOf":
+    //                pa = getPropertyAdmin("performs", "entity");
+    //                pa.setName(propertyName);
+    //                break;
+    //            case "restinplace":
+    //                pa = getPropertyAdmin("restInPlace", "entity");
+    //                pa.setName(propertyName);
+    //                break;
+    //
+    //            case "description":
+    //                pa = getPropertyAdmin("Description", "literal");
+    //                pa.setName(propertyName);
+    //                break;
+    //        }
+    //
+    //        return pa;
+    //    }
 
-//    public void constructPerson(boolean getdbpedia) {
-//        if (!this.getURI().contains("dbpedia")) {
-////            this.placeOfBirth = getPersonPropertyAdmin("birthplace");
-////            this.birthDate = getPersonPropertyAdmin("birthdate");
-////            this.deathDate = getPersonPropertyAdmin("deathdate");
-////            this.mother = getPersonPropertyAdmin("mother");
-////            this.father = getPersonPropertyAdmin("father");
-////            this.isAuthorOf = getPersonPropertyAdmin("isAuthorOf");
-////            this.restInPlace = getPersonPropertyAdmin("restinplace");
-////            this.description = getPersonPropertyAdmin("description");
-////            this.sameAs = getPersonPropertyAdmin("sameAs");
-//            this.placeOfBirth = getPropertyAdmin("birthplace", "dbont:birthPlace");
-//            this.birthDate = getPropertyAdmin("birthdate", "schema:birthDate");
-//            this.deathDate = getPropertyAdmin("deathdate", "schema:deathDate");
-//            this.mother = getPropertyAdmin("mother", "dbont:mother");
-//            this.father = getPropertyAdmin("father", "dbont:father");
-//            this.isAuthorOf = getPropertyAdmin("isAuthorOf", "axis-datamodel:performs");
-//            this.restInPlace = getPropertyAdmin("restinplace", "dbont:restInPlace");
-//            this.description = getPropertyAdmin("description", "rdf:Description");
-//            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
-//        } else {
-//            this.birthDate = new PropertyAdmin();
-//            this.birthDate.setName("birthdate");
-//            this.placeOfBirth = new PropertyAdmin();
-//            this.placeOfBirth.setName("birthplace");
-//            this.deathDate = new PropertyAdmin();
-//            this.deathDate.setName("deathdate");
-//            this.mother = new PropertyAdmin();
-//            this.mother.setName("mother");
-//            this.father = new PropertyAdmin();
-//            this.father.setName("father");
-//            this.isAuthorOf = new PropertyAdmin();
-//            this.isAuthorOf.setName("isAuthorOf");
-//            this.restInPlace = new PropertyAdmin();
-//            this.restInPlace.setName("restinplace");
-//            this.description = new PropertyAdmin();
-//            this.description.setName("description");
-//            this.sameAs = new PropertyAdmin();
-//            this.sameAs.setName("sameas");
-//        }
-//        if (this.getURI().contains("dbpedia") || getdbpedia == true) {
-//            ArrayList<Property> p = getPropertiesMapFromLod(this);
-//            if (p != null) {
-//                Iterator<Property> it = p.iterator();
-//                while (it.hasNext()) {
-//                    Property n = it.next();
-//                    switch (n.getName()) {
-//                        case "birthdate":
-//                            this.birthDate.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.birthDate.setEntity_locale(n.getEnt());
-//                                this.birthDate.setValue_locale(n.getValue());
-//                            } else {
-//                                this.birthDate.setEntity_dbpedia(n.getEnt());
-//                                this.birthDate.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "deathdate":
-//                            this.birthDate.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.deathDate.setEntity_locale(n.getEnt());
-//                                this.deathDate.setValue_locale(n.getValue());
-//                            } else {
-//                                this.deathDate.setEntity_dbpedia(n.getEnt());
-//                                this.deathDate.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "birthplace":
-//                            this.placeOfBirth.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.placeOfBirth.setEntity_locale(n.getEnt());
-//                                this.placeOfBirth.setValue_locale(n.getValue());
-//                            } else {
-//                                this.placeOfBirth.setEntity_dbpedia(n.getEnt());
-//                                this.placeOfBirth.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "description":
-//                            this.description.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.description.setEntity_locale(n.getEnt());
-//                                this.description.setValue_locale(n.getValue());
-//                            } else {
-//                                this.description.setEntity_dbpedia(n.getEnt());
-//                                this.description.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "mother":
-//                            this.mother.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.mother.setEntity_locale(n.getEnt());
-//                                this.mother.setValue_locale(n.getValue());
-//                            } else {
-//                                this.mother.setEntity_dbpedia(n.getEnt());
-//                                this.mother.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "father":
-//                            this.father.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.father.setEntity_locale(n.getEnt());
-//                                this.father.setValue_locale(n.getValue());
-//
-//                            } else {
-//                                this.father.setEntity_dbpedia(n.getEnt());
-//                                this.father.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "restinplace":
-//                            this.restInPlace.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.restInPlace.setEntity_locale(n.getEnt());
-//                                this.restInPlace.setValue_locale(n.getValue());
-//                            } else {
-//                                this.restInPlace.setEntity_dbpedia(n.getEnt());
-//                                this.restInPlace.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "isAuthorOf":
-//                            this.isAuthorOf.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.isAuthorOf.setEntity_locale(n.getEnt());
-//                                this.isAuthorOf.setValue_locale(n.getValue());
-//                            } else {
-//                                this.isAuthorOf.setEntity_dbpedia(n.getEnt());
-//                                this.isAuthorOf.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
-//    public PropertyAdmin getPersonPropertyAdmin(String propertyName) {
-//
-//        PropertyAdmin pa = new PropertyAdmin();
-//        switch (propertyName) {
-//            case "birthdate":
-//                pa = getPropertyAdmin("birthDate", "literal");
-//                pa.setName(propertyName);
-//                break;
-//            case "deathdate":
-//                pa = getPropertyAdmin("deathDate", "literal");
-//                pa.setName(propertyName);
-//                break;
-//            case "birthplace":
-//                pa = getPropertyAdmin("birthPlace", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "mother":
-//                pa = getPropertyAdmin("mother", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "father":
-//                pa = getPropertyAdmin("father", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "isAuthorOf":
-//                pa = getPropertyAdmin("performs", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "restinplace":
-//                pa = getPropertyAdmin("restInPlace", "entity");
-//                pa.setName(propertyName);
-//                break;
-//
-//            case "description":
-//                pa = getPropertyAdmin("Description", "literal");
-//                pa.setName(propertyName);
-//                break;
-//        }
-//
-//        return pa;
-//    }
     public void insertBirthDate(Property p) {
         insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "schema:birthDate", p.getValue(), p.getType());
     }
