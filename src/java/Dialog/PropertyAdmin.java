@@ -62,14 +62,6 @@ public class PropertyAdmin {
 	this.entity_dbpedia = entity_dbpedia;
     }
     
-    public void addEntity_locale(Entity e) {
-	ArrayList<Entity> ale = new ArrayList<Entity> ();
-    }
-    
-    public void addEntity_dbpedia(Entity e) {
-	this.value_locale = value_locale;
-    }
-    
     
     @Override
     public String toString() {

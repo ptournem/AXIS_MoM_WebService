@@ -219,7 +219,6 @@ public class Entity {
         if (this.URI.contains("dbpedia")) {
             selectlodFromEntity(this);
         } else {
-
             String req = String.format("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
                     + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                     + "prefix owl: <http://www.w3.org/2002/07/owl#> "
@@ -228,15 +227,16 @@ public class Entity {
                     + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
                     + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                     + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
-                    + "select ?name ?image ?type where {?s axis-datamodel:uses <%s> ."
-                    + "                   	?s rdf:type axis-datamodel:Entity ."
-//                    + "					<%s> rdfs:label ?name ."
-                    + "					<%s> axis-datamodel:hasRepresentation ?reg ."
-                    + "                                 ?reg rdfs:label ?name ."
-                    + "  				?reg axis-datamodel:hasExpression ?emb ."
-                    + "  				?emb axis-datamodel:fileName ?image ."
-                    + "  				<%s> rdf:type ?type"
-                    + "					}", this.URI, this.URI, this.URI, this.URI);
+                    + " select ?name ?image ?type where {"
+                    + " values ?uri {<%s>}"
+                    + " ?s axis-datamodel:uses ?uri ."
+                    + " ?s rdf:type axis-datamodel:Entity ."
+                    + " ?uri axis-datamodel:hasRepresentation ?reg ."
+                    + " ?reg rdfs:label ?name ."
+                    + " ?reg axis-datamodel:hasExpression ?emb ."
+                    + " ?emb axis-datamodel:fileName ?image ."
+                    + " ?uri rdf:type ?type"
+                    + " }", this.URI);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", req);
 
@@ -328,7 +328,7 @@ public class Entity {
         }
     }
 
-    public PropertyAdmin getPropertyAdmin(String propertyName, String requete) {
+    public PropertyAdmin getPropertyAdmin(String propertyName, String p) {
         String req = String.format("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> "
                 + "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> "
                 + "prefix owl: <http://www.w3.org/2002/07/owl#> "
@@ -338,39 +338,39 @@ public class Entity {
                 + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.3#>"
                 + "PREFIX schema: <https://schema.org/>"
                 + "PREFIX dbont: <http://dbpedia.org/ontology/>"
-                + "%s"
-                + "}", this.getURI(), this.getURI(), requete);
+                + "select ?var where {?s axis-datamodel:uses <%s> ."
+                + "?s rdf:type axis-datamodel:Entity ."
+                + "<%s> %s ?var "
+                + "}", this.getURI(), this.getURI(), p);
         
-        QueryExecution qe = QueryExecutionFactory.sparqlService(
-                "http://localhost:3030/ds/query", req);
-
-        ResultSet rs = qe.execSelect();
-        PropertyAdmin pa = new PropertyAdmin();
-        ArrayList<Entity> ale = new ArrayList<>();
-        while (rs.hasNext()) {
-            QuerySolution n = rs.next();
-            pa.setName(propertyName);
-            if (n.get("var").isResource()) {
-                Entity e = new Entity();
+        PropertyAdmin pa;
+        try (QueryExecution qe = QueryExecutionFactory.sparqlService(
+                "http://localhost:3030/ds/query", req)) {
+            ResultSet rs = qe.execSelect();
+            pa = new PropertyAdmin();
+            ArrayList<Entity> ale = new ArrayList<>();
+            while (rs.hasNext()) {
+                QuerySolution n = rs.next();
+                pa.setName(propertyName);
+                if (n.get("var").isResource()) {
+                    Entity e = new Entity();
                     e.setURI(n.get("var").asResource().getURI());
                     e.constructEntity();
                     ale.add(e);
                     pa.setType("uri");
-            }
-            if (n.get("var").isLiteral()) {
+                }
+                if (n.get("var").isLiteral()) {
                     pa.setType("fr");
                     pa.setValue_locale(n.get("var").asLiteral().getString());
-            }
-
-        }
-        if (!ale.isEmpty()) {
-            Entity[] ret = new Entity[ale.size()];
-            pa.setEntity_locale((Entity[]) ale.toArray(ret));
-            qe.close();
+                }
+                
+            }   if (!ale.isEmpty()) {
+                Entity[] ret = new Entity[ale.size()];
+                pa.setEntity_locale((Entity[]) ale.toArray(ret));
+                qe.close();
             return pa;
         }
-
-        qe.close();
+        }
         return pa;
     }
 
