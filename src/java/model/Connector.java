@@ -573,7 +573,9 @@ public class Connector {
                         $PREFIXS
                         + "select ?o ?n where {?s axis-datamodel:uses ?o ."
                         + "	?s rdf:type axis-datamodel:Entity ."
-                        + "     ?o rdfs:label ?n}"));
+                        + "	?o axis-datamodel:hasRepresentation ?d ."
+                        + "	?d rdf:type axis-datamodel:Document ."
+                        + "     ?d rdfs:label ?n}"));
 
         ResultSet rs = qe.execSelect();
 
@@ -632,6 +634,7 @@ public class Connector {
             c.setEmail(n.get("email").asLiteral().getString());
             c.setCreateDt(n.get("creationDate").asLiteral().getString());
             c.setValidated(Boolean.valueOf(n.get("validate").asLiteral().getString()));
+            e.constructEntity();
             c.setEntity(e);
             tab.add(c);
         }
