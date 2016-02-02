@@ -9,15 +9,6 @@ import Dialog.Comment;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import org.apache.jena.assembler.JA;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.QueryExecutionFactory;
-import org.apache.jena.rdf.model.InfModel;
-import org.apache.jena.rdf.model.Model;
 import ws.AXIS_MoM_WS;
 
 /**
@@ -30,7 +21,7 @@ public class TestWS {
     public static long endTime;
 
     public static void main(String args[]) {
-        testFonctionnel(true);
+        testFonctionnel(false);
         //testComments();
         //testFonctionnel(true);
 //        testComments();
@@ -198,7 +189,9 @@ public class TestWS {
         ws.RemoveEntityProperty(leonard, p, amboise);
 
         System.out.println("URI leonard : " + leonard.getURI());
-
+        joconde = ws.GetEntity(joconde);
+        System.out.println(joconde);
+        
         System.out.println("\n\n\n_______________");
 
         if (dbpedia) {
