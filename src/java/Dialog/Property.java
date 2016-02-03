@@ -10,16 +10,26 @@ public class Property {
     String name;
     String value;
     String type;
+    String lang;
     Entity[] ent;
 
-    public Property(String name, String value, String type, Entity[] ent) {
+    public Property(String name, String value, Entity[] ent, String type, String lang) {
 	this.name = name;
 	this.value = value;
         this.type = type;
         this.ent = ent;
+        this.lang = lang;
     }
 
     public Property() {
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public String getName() {

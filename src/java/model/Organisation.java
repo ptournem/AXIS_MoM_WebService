@@ -27,9 +27,9 @@ public class Organisation extends Entity {
         ArrayList<Property> list = new ArrayList<Property>();
 //        entityBrowser(this.getURI()
 	//list.add(new Property(this.typeOfOrganisation.getName(), this.typeOfOrganisation.getValue_locale(), this.typeOfOrganisation.getType(), this.typeOfOrganisation.getEntity_locale()));
-        list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
-        list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getType(), this.description.getEntity_locale()));
-        list.add(new Property(this.dateOfCreation.getName(), this.dateOfCreation.getValue_locale(), this.dateOfCreation.getType(), this.dateOfCreation.getEntity_locale()));
+        list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getEntity_locale(), this.location.getType(), this.location.getLang()));
+        list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getEntity_locale(), this.description.getType(), this.description.getLang()));
+        list.add(new Property(this.dateOfCreation.getName(), this.dateOfCreation.getValue_locale(), this.dateOfCreation.getEntity_locale(), this.dateOfCreation.getType(),this.dateOfCreation.getLang()));
         //list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
 	
 	Property[] ret = new Property[list.size()];

@@ -33,13 +33,13 @@ public class Object extends Entity {
         ArrayList<Property> list = new ArrayList<Property>();
 //        entityBrowser(this.getURI()
         if (!this.author.getName().isEmpty()) {
-            list.add(new Property(this.author.getName(), this.author.getValue_locale(), this.author.getType(), this.author.getEntity_locale()));
+            list.add(new Property(this.author.getName(), this.author.getValue_locale(),  this.author.getEntity_locale(), this.author.getType(), this.author.getLang()));
         }
         if (!this.location.getName().isEmpty()) {
-            list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
+            list.add(new Property(this.location.getName(), this.location.getValue_locale(),  this.location.getEntity_locale(), this.location.getType(), this.location.getLang()));
         }
         if (!this.description.getName().isEmpty()) {
-            list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getType(), this.description.getEntity_locale()));
+            list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getEntity_locale(), this.description.getType(),this.description.getLang()));
         }
         //list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
         Property[] ret = new Property[list.size()];
@@ -94,36 +94,43 @@ public class Object extends Entity {
                 QuerySolution rep = rs.next();
                 if (rep.get("description") != null) {
                     this.description.setValue_locale(rep.get("description").asLiteral().getString());
-                    this.description.setType(rep.get("description").asLiteral().getLanguage());
+                    this.description.setLang(rep.get("description").asLiteral().getLanguage());
+                    this.description.setType("string");
                 }
                 if (rep.get("authors") != null) {
                     Entity[] t = getEntityTab(rep.get("authors").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.author.setValue_locale(rep.get("authors").asLiteral().getString());
-                        this.author.setType("fr");
+                        this.author.setType("string");
+                        this.author.setLang(rep.get("authors").asLiteral().getLanguage());
                     } else {
                         this.author.setEntity_locale(t);
                         this.author.setType("uri");
+                        this.author.setLang("fr");
                     }
                 }
                 if (rep.get("locations") != null) {
                     Entity[] t = getEntityTab(rep.get("locations").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.location.setValue_locale(rep.get("locations").asLiteral().getString());
-                        this.location.setType("fr");
+                        this.location.setType("string");
+                        this.location.setLang(rep.get("locations").asLiteral().getLanguage());
                     } else {
                         this.location.setEntity_locale(t);
                         this.location.setType("uri");
+                        this.location.setLang("fr");
                     }
                 }
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
-                        this.sameAs.setType("fr");
+                        this.sameAs.setType("string");
+                        this.sameAs.setLang(rep.get("sameas").asLiteral().getLanguage());
                     } else {
                         this.sameAs.setEntity_locale(t);
                         this.sameAs.setType("uri");
+                        this.sameAs.setLang("fr");
                     }
                 }
             }
@@ -171,85 +178,7 @@ public class Object extends Entity {
             }
         }
     }
-    //    public void constructObject(boolean getdbpedia) {
-    //        if (!this.getURI().contains("dbpedia")) {
-    ////            this.author = getObjectPropertyAdmin("author");
-    ////            this.location = getObjectPropertyAdmin("location");
-    ////            this.description = getObjectPropertyAdmin("description");
-    //            this.author = getPropertyAdmin("author", "axis-datamodel:isPerformedBy");
-    //            this.location = getPropertyAdmin("location", "axis-datamodel:takePlaceIn");
-    //            this.description = getPropertyAdmin("description", "rdf:Description");
-    //            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
-    //        } else {
-    //            this.author = new PropertyAdmin();
-    //            this.author.setName("author");
-    //            this.location = new PropertyAdmin();
-    //            this.location.setName("location");
-    //            this.description = new PropertyAdmin();
-    //            this.description.setName("description");
-    //        }
-    //        if (this.getURI().contains("dbpedia") || getdbpedia == true) {
-    //            ArrayList<Property> p = getPropertiesMapFromLod(this);
-    //            if (p != null) {
-    //                Iterator<Property> it = p.iterator();
-    //                while (it.hasNext()) {
-    //                    Property n = it.next();
-    //                    switch (n.getName()) {
-    //                        case "author":
-    //                            this.author.setType(n.getType());
-    //                            if (this.getURI().contains("dbpedia")) {
-    //                                this.author.setEntity_locale(n.getEnt());
-    //                                this.author.setValue_locale(n.getValue());
-    //                            } else {
-    //                                this.author.setEntity_dbpedia(n.getEnt());
-    //                                this.author.setValue_dbpedia(n.getValue());
-    //                            }
-    //                            break;
-    //                        case "location":
-    //                            this.location.setType(n.getType());
-    //                            if (this.getURI().contains("dbpedia")) {
-    //                                this.location.setEntity_locale(n.getEnt());
-    //                                this.location.setValue_locale(n.getValue());
-    //                            } else {
-    //                                this.location.setEntity_dbpedia(n.getEnt());
-    //                                this.location.setValue_dbpedia(n.getValue());
-    //                            }
-    //                            break;
-    //                        case "description":
-    //                            this.description.setType(n.getType());
-    //                            if (this.getURI().contains("dbpedia")) {
-    //                                this.description.setEntity_locale(n.getEnt());
-    //                                this.description.setValue_locale(n.getValue());
-    //                            } else {
-    //                                this.description.setEntity_dbpedia(n.getEnt());
-    //                                this.description.setValue_dbpedia(n.getValue());
-    //                            }
-    //                            break;
-    //                    }
-    //                }
-    //            }
-    //        }
-    //
-    //    }
-    //    public PropertyAdmin getObjectPropertyAdmin(String propertyName) {
-    //        PropertyAdmin pa = new PropertyAdmin();
-    //        switch (propertyName) {
-    //            case "author":
-    //                pa = getPropertyAdmin("isPerformedBy", "entity");
-    //                pa.setName(propertyName);
-    //                break;
-    //            case "location":
-    //                pa = getPropertyAdmin("takesPlaceIn", "entity");
-    //                pa.setName(propertyName);
-    //                break;
-    //            case "description":
-    //                pa = getPropertyAdmin("Description", "literal");
-    //                pa.setName(propertyName);
-    //                break;
-    //        }
-    //        return pa;
-    //    }
-
+    
     public void insertDateCreation(Property p) {
 
     }

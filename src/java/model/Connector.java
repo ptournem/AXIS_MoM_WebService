@@ -211,7 +211,7 @@ public class Connector {
         StmtIterator iter = m.listStatements();
         ArrayList<Entity> ale = new ArrayList<Entity>();
         int setted = 0;
-        Dialog.Property p2 = new Dialog.Property(null, null, null, null);
+        Dialog.Property p2 = new Dialog.Property(null, null, null, null, null);
         while (iter.hasNext()) {
             Statement stmt = (Statement) iter.next();
 //          System.out.println("test : "+stmt.asTriple().toString());
@@ -323,6 +323,7 @@ public class Connector {
             
             if (object.isResource()) {
                 p2.setType("uri");
+                p2.setLang("fr");
                 String uri2 = object.toString();
                 Entity e2 = new Entity(uri2, "", "", type);
                 ale.add(selectlodFromEntity(e2));
@@ -330,7 +331,8 @@ public class Connector {
                 p2.setEnt((Entity[]) ale.toArray(ret));
 
             } else {
-                p2.setType("fr");
+                p2.setType("string");
+                p2.setLang("fr");
                 p2.setEnt(null);
                 if(p2.getValue() == null)
                     p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en", ""));

@@ -26,7 +26,7 @@ public class TestWS {
         //deleteAll();
         
         //testComments();
-        //testFonctionnel(true);
+        testFonctionnel(false);
 //        testComments();
 
         //System.out.println("test");
@@ -206,7 +206,7 @@ public class TestWS {
         //lier Léonard Da vinci => isauthorof => Joconde
         lierEntity(ws, leonard, "isauthorof", joconde);
         lierEntity(ws, leonard, "birthplace", vinci);
-        Property p = new Property("father", null, "uri", null);
+        Property p = new Property("father", null, null, "uri", "fr");
         ws.RemoveEntityProperty(leonard, p, amboise);
 
         System.out.println("URI leonard : " + leonard.getURI());
@@ -288,12 +288,12 @@ public class TestWS {
     
     public static void lierEntity(AXIS_MoM_WS ws, Entity e1, String s, Entity e2) {
 
-        Property p = new Property(s, null, "uri", null);
+        Property p = new Property(s, null, null, "uri", "fr");
         ws.SetEntityProperty(e1, p, e2);
     }
 
     public static void lierEntity(AXIS_MoM_WS ws, Entity e1, String s, String val) {
-        Property p = new Property(s, val, "fr", null);
+        Property p = new Property(s, val, null, "string", "fr");
         ws.SetEntityProperty(e1, p, null);
     }
 

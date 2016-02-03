@@ -23,7 +23,7 @@ public class Activity extends Entity {
     public Property[] getPropertiesActivity() {
         ArrayList<Property> list = new ArrayList<Property>();
 
-        list.add(new Property(this.description.getName(),this.description.getValue_locale(),this.description.getType(),this.description.getEntity_locale()));
+        list.add(new Property(this.description.getName(),this.description.getValue_locale(),this.description.getEntity_locale(), this.description.getType(),this.description.getLang()));
 	Property[] ret = new Property[list.size()];
 	return (Property[]) list.toArray(ret);
     }
