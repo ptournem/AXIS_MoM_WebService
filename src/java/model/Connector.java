@@ -786,6 +786,16 @@ public class Connector {
                 "http://localhost:3030/ds/update");
 
         upp.execute();
+        
+        req = $PREFIXS
+                + "DELETE WHERE { "
+                + " ?s rdf:type axis-datamodel:Comment }";
+        upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(req)),
+                "http://localhost:3030/ds/update");
+
+        upp.execute();
+        
         return true;
     }
 
