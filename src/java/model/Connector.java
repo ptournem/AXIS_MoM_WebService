@@ -617,7 +617,9 @@ public class Connector {
                         + "     ?c axis-datamodel:content ?content ."
                         + "     ?c axis-datamodel:creationDate ?creationDate ."
                         + "     ?c axis-datamodel:validate ?validate ."
-                        + "     ?c axis-datamodel:email ?email}", e.getURI()));
+                        + "     ?c axis-datamodel:email ?email}"
+                        + "     ORDER BY ?creationDate", e.getURI()));
+                        
            
         ResultSet rs = qe.execSelect();
         ArrayList<Comment> tab = new ArrayList<>();
