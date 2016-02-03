@@ -207,12 +207,12 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 property = "dbont:restInPlace";
                 regof = "RegOfAgent";
                 break;
-            case "mother":
-                property = "dbont:mother";
+            case "parent":
+                property = "dbont:parent";
                 regof = "RegOfAgent";
                 break;
-            case "father":
-                property = "dbont:father";
+            case "child":
+                property = "dbont:child";
                 regof = "RegOfAgent";
                 break;
             case "isauthorof":
