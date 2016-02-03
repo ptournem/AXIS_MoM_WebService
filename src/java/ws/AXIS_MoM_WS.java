@@ -101,18 +101,18 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pers.insertRestInPlace(p);
                 ret = true;
                 break;
-            case "mother":
+            case "child":
                 pers.setURI(e.getURI());
 //                pers.constructEntity();
 //                pers.constructPerson();
-                pers.insertMother(p);
+                pers.insertChild(p);
                 ret = true;
                 break;
-            case "father":
+            case "parent":
                 pers.setURI(e.getURI());
 //                pers.constructEntity();
 //                pers.constructPerson();
-                pers.insertFather(p);
+                pers.insertParent(p);
                 ret = true;
                 break;
             case "isauthorof":
@@ -291,6 +291,8 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 }
             }
         }
+        
+
 
         Entity[] ret = new Entity[tab.size()];
 	return (Entity[]) tab.toArray(ret);

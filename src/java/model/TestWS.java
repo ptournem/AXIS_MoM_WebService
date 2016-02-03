@@ -22,7 +22,7 @@ public class TestWS {
     public static long endTime;
 
     public static void main(String args[]) {
-        testFonctionnel(true);
+        testFonctionnel(false);
         //deleteAll();
         
         //testComments();
@@ -435,8 +435,8 @@ public class TestWS {
 
         per.insertIsAuthorOf(p9);
         per.insertRestInPlace(p7);
-        per.insertFather(p6);
-        per.insertMother(p5);
+        per.insertParent(p6);
+        per.insertParent(p5);
         per.insertBirthDate(p2);
         per.insertPlaceOfBirth(p4);
         per.insertDeathDate(p3);

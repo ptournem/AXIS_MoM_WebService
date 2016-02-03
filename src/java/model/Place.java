@@ -49,7 +49,7 @@ public class Place extends Entity {
 
     public PropertyAdmin[] getPropertiesAdminPlace() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
-
+        
         list.add(this.postalCode);
         list.add(this.region);
         list.add(this.country);
