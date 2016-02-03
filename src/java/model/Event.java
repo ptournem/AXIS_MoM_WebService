@@ -24,9 +24,9 @@ public class Event extends Entity{
     public Property[] getPropertiesEvent() {
         ArrayList<Property> list = new ArrayList<Property>();
 
-	list.add(new Property(this.dateOfEvent.getName(), this.dateOfEvent.getValue_locale(), this.dateOfEvent.getType(), this.dateOfEvent.getEntity_locale()));
-        list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getType(), this.location.getEntity_locale()));
-        list.add(new Property(this.description.getName(),this.description.getValue_locale(),this.description.getType(),this.description.getEntity_locale()));
+	list.add(new Property(this.dateOfEvent.getName(), this.dateOfEvent.getValue_locale(), this.dateOfEvent.getEntity_locale(), this.dateOfEvent.getType(), this.dateOfEvent.getLang()));
+        list.add(new Property(this.location.getName(), this.location.getValue_locale(), this.location.getEntity_locale(), this.location.getType(), this.location.getLang()));
+        list.add(new Property(this.description.getName(),this.description.getValue_locale(),this.description.getEntity_locale(), this.description.getType(), this.description.getLang()));
 	Property[] ret = new Property[list.size()];
 	return (Property[]) list.toArray(ret);
     }

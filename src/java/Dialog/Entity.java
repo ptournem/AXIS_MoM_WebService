@@ -161,37 +161,13 @@ public class Entity {
         String uri8 = insert("rdf:type", "axis-datamodel:RegOfInformationItem");
         insert(uri, "axis-datamodel:hasRepresentation", uri8);
 
-        this.insertName(new Property("name", this.getName(), "fr", null));
-        this.insertImage(new Property("image", this.getImage(), "fr", null));
+        this.insertName(new Property("name", this.getName(), null, "string", "fr"));
+        this.insertImage(new Property("image", this.getImage(), null, "string", "fr"));
 
         //insert(e.getURI(), "rdfs:label", e.getName(), "fr");
         return this;
     }
 
-//    public List<List> browseModel(Resource resource, String predicate) {
-//
-//        List<List> l2 = new ArrayList<List>();
-//        StmtIterator stmtit = resource.listProperties();
-//        while (stmtit.hasNext()) {
-//            Statement stmt = stmtit.nextStatement();
-//            if (stmt.getPredicate().getLocalName().equals(predicate)) {
-//                if (stmt.getObject().isLiteral()) {
-//                    List l = new ArrayList();
-//                    l.add(stmt.getSubject().toString());
-//                    l.add(stmt.getPredicate().toString());
-//                    l.add(stmt.getObject().asLiteral().getString());
-//                    l2.add(l);
-//                } else {
-//                    List l = new LinkedList();
-//                    l.add(stmt.getSubject().toString());
-//                    l.add(stmt.getPredicate().toString());
-//                    l.add(stmt.getObject().toString());
-//                    l2.add(l);
-//                }
-//            }
-//        }
-//        return l2;
-//    }
     public ArrayList<Property> getPropertiesMapFromLod(Entity e) {
         if (e.getURI().contains("dbpedia")) {
             return entityBrowser(e);
@@ -235,7 +211,6 @@ public class Entity {
             ResultSet rs = qe.execSelect();
             if (rs.hasNext()) {
                 QuerySolution n = rs.next();
-//                System.out.println("type:" + n.get("type").asResource().getLocalName());
                 String type = n.get("type").asResource().getLocalName();
                 if (type.contains("PhysicalPerson")) {
                     this.type = "person";
@@ -256,7 +231,6 @@ public class Entity {
                 //            this.type = "activity";
 //                System.out.println("image:"+n.get("image").asLiteral().getString());
                 this.image = n.get("image").asLiteral().getString();
-//                System.out.println("name:"+n.get("name").asLiteral().getString());
                 this.name = n.get("name").asLiteral().getString();
 
             }
@@ -319,45 +293,6 @@ public class Entity {
         } else {
             return "literal";
         }
-    }
-
-    public PropertyAdmin getPropertyAdmin(String propertyName, String p) {
-        String req = String.format($PREFIXS
-                + "select ?var where {?s axis-datamodel:uses <%s> ."
-                + "?s rdf:type axis-datamodel:Entity ."
-                + "<%s> %s ?var "
-                + "}", this.getURI(), this.getURI(), p);
-
-        PropertyAdmin pa;
-        try (QueryExecution qe = QueryExecutionFactory.sparqlService(
-                "http://localhost:3030/ds/query", req)) {
-            ResultSet rs = qe.execSelect();
-            pa = new PropertyAdmin();
-            ArrayList<Entity> ale = new ArrayList<>();
-            while (rs.hasNext()) {
-                QuerySolution n = rs.next();
-                pa.setName(propertyName);
-                if (n.get("var").isResource()) {
-                    Entity e = new Entity();
-                    e.setURI(n.get("var").asResource().getURI());
-                    e.constructEntity();
-                    ale.add(e);
-                    pa.setType("uri");
-                }
-                if (n.get("var").isLiteral()) {
-                    pa.setType("fr");
-                    pa.setValue_locale(n.get("var").asLiteral().getString());
-                }
-
-            }
-            if (!ale.isEmpty()) {
-                Entity[] ret = new Entity[ale.size()];
-                pa.setEntity_locale((Entity[]) ale.toArray(ret));
-                qe.close();
-                return pa;
-            }
-        }
-        return pa;
     }
 
     public boolean delete(String uri, String prop, String uri2) {

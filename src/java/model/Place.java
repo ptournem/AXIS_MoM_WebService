@@ -36,12 +36,12 @@ public class Place extends Entity {
     public Property[] getPropertiesPlace() {
         ArrayList<Property> list = new ArrayList<Property>();
 //        entityBrowser(this.getURI()
-        list.add(new Property(this.postalCode.getName(), this.postalCode.getValue_locale(), this.postalCode.getType(), this.postalCode.getEntity_locale()));
-        list.add(new Property(this.region.getName(), this.region.getValue_locale(), this.region.getType(), this.region.getEntity_locale()));
-        list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getType(), this.description.getEntity_locale()));
-        list.add(new Property(this.country.getName(), this.country.getValue_locale(), this.country.getType(), this.country.getEntity_locale()));
-        list.add(new Property(this.birthPlaceOf.getName(), this.birthPlaceOf.getValue_locale(), this.birthPlaceOf.getType(), this.birthPlaceOf.getEntity_locale()));
-        list.add(new Property(this.locationOf.getName(), this.locationOf.getValue_locale(), this.locationOf.getType(), this.locationOf.getEntity_locale()));
+        list.add(new Property(this.postalCode.getName(), this.postalCode.getValue_locale(), this.postalCode.getEntity_locale(), this.postalCode.getType(), this.postalCode.getLang()));
+        list.add(new Property(this.region.getName(), this.region.getValue_locale(), this.region.getEntity_locale(), this.region.getType(), this.region.getLang()));
+        list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getEntity_locale(), this.description.getType(), this.description.getLang()));
+        list.add(new Property(this.country.getName(), this.country.getValue_locale(), this.country.getEntity_locale(), this.country.getType(), this.country.getLang()));
+        list.add(new Property(this.birthPlaceOf.getName(), this.birthPlaceOf.getValue_locale(), this.birthPlaceOf.getEntity_locale(), this.birthPlaceOf.getType(), this.birthPlaceOf.getLang()));
+        list.add(new Property(this.locationOf.getName(), this.locationOf.getValue_locale(), this.locationOf.getEntity_locale(), this.locationOf.getType(), this.locationOf.getLang()));
 
         Property[] ret = new Property[list.size()];
         return (Property[]) list.toArray(ret);
@@ -111,60 +111,73 @@ public class Place extends Entity {
                 QuerySolution rep = rs.next();
                 if (rep.get("description") != null) {
                     this.description.setValue_locale(rep.get("description").asLiteral().getString());
-                    this.description.setType(rep.get("description").asLiteral().getLanguage());
+                    this.description.setLang(rep.get("description").asLiteral().getLanguage());
+                    this.description.setType("string");
                 }
                 if (rep.get("postalcode") != null) {
                     this.postalCode.setValue_locale(rep.get("postalcode").asLiteral().getString());
-                    this.postalCode.setType(rep.get("postalcode").asLiteral().getLanguage());
+                    this.postalCode.setLang(rep.get("postalcode").asLiteral().getLanguage());
+                    this.postalCode.setType("string");
+                    
                 }
                 if (rep.get("countries") != null) {
                     Entity[] t = getEntityTab(rep.get("countries").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.country.setValue_locale(rep.get("countries").asLiteral().getString());
-                        this.country.setType("fr");
+                        this.country.setType("string");
+                        this.country.setLang(rep.get("countries").asLiteral().getLanguage());
                     } else {
                         this.country.setEntity_locale(t);
                         this.country.setType("uri");
+                        this.country.setLang("fr");
                     }
                 }
                 if (rep.get("birthplaceof") != null) {
                     Entity[] t = getEntityTab(rep.get("birthplaceof").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.birthPlaceOf.setValue_locale(rep.get("birthplaceof").asLiteral().getString());
-                        this.birthPlaceOf.setType("fr");
+                        this.birthPlaceOf.setLang(rep.get("birthplaceof").asLiteral().getLanguage());
+                        this.birthPlaceOf.setType("string");
                     } else {
                         this.birthPlaceOf.setEntity_locale(t);
                         this.birthPlaceOf.setType("uri");
+                        this.birthPlaceOf.setLang("fr");
                     }
                 }
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
-                        this.sameAs.setType("fr");
+                        this.sameAs.setType("string");
+                        this.sameAs.setLang(rep.get("sameas").asLiteral().getString());
                     } else {
                         this.sameAs.setEntity_locale(t);
                         this.sameAs.setType("uri");
+                        this.sameAs.setLang("fr");
                     }
                 }
                 if (rep.get("locationof") != null) {
                     Entity[] t = getEntityTab(rep.get("locationof").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.locationOf.setValue_locale(rep.get("locationof").asLiteral().getString());
-                        this.locationOf.setType("fr");
+                        this.locationOf.setType("string");
+                        this.locationOf.setLang(rep.get("locationof").asLiteral().getString());
                     } else {
                         this.locationOf.setEntity_locale(t);
                         this.locationOf.setType("uri");
+                        this.locationOf.setLang("fr");
                     }
                 }
                 if (rep.get("regions") != null) {
                     Entity[] t = getEntityTab(rep.get("regions").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
                         this.region.setValue_locale(rep.get("regions").asLiteral().getString());
-                        this.region.setType("fr");
+                        this.region.setType("string");
+                        this.region.setLang(rep.get("regions").asLiteral().getString());
                     } else {
                         this.region.setEntity_locale(t);
                         this.region.setType("uri");
+                        this.region.setLang("fr");
                     }
                 }
             }
@@ -244,139 +257,6 @@ public class Place extends Entity {
         }
     }
 
-//    public void constructPlace(boolean getdbpedia) {
-//        if (!this.getURI().contains("dbpedia")) {
-////            this.birthPlaceOf = getPlacePropertyAdmin("birthplaceof");
-////            this.country = getPlacePropertyAdmin("country");
-////            this.description = getPlacePropertyAdmin("description");
-////
-////            this.locationOf = getPlacePropertyAdmin("locationof");
-////            this.postalCode = getPlacePropertyAdmin("postalcode");
-////            this.region = getPlacePropertyAdmin("region");
-//            this.birthPlaceOf = getPropertyAdmin("birthplaceof", "dbont:birthPlace");
-//            this.country = getPropertyAdmin("country", "dbont:country");
-//            this.description = getPropertyAdmin("description", "rdf:Description");
-//            this.locationOf = getPropertyAdmin("locationof", "axis-datamodel:isAPlaceOfObject");
-//            this.postalCode = getPropertyAdmin("postalcode", "dbont:postalCode");
-//            this.region = getPropertyAdmin("region", "dbont:region");
-//            this.sameAs = getPropertyAdmin("sameas", "owl:sameAs");
-//        }else{
-//            this.birthPlaceOf = new PropertyAdmin();
-//            this.birthPlaceOf.setName("birthplaceof");
-//            this.country = new PropertyAdmin();
-//            this.country.setName("country");
-//            this.description = new PropertyAdmin();
-//            this.description.setName("description");
-//            this.locationOf = new PropertyAdmin();
-//            this.locationOf.setName("locationof");
-//            this.postalCode = new PropertyAdmin();
-//            this.postalCode.setName("postalcode");
-//            this.region = new PropertyAdmin();
-//            this.region.setName("region");
-//        }
-//        if (this.getURI().contains("dbpedia") || getdbpedia == true) {
-//            ArrayList<Property> p = getPropertiesMapFromLod(this);
-//            if (p != null) {
-//                Iterator<Property> it = p.iterator();
-//                while (it.hasNext()) {
-//                    Property n = it.next();
-//                    switch (n.getName()) {
-//                        case "birthplaceof":
-//                            this.birthPlaceOf.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.birthPlaceOf.setEntity_locale(n.getEnt());
-//                                this.birthPlaceOf.setValue_locale(n.getValue());
-//                            } else {
-//                                this.birthPlaceOf.setEntity_dbpedia(n.getEnt());
-//                                this.birthPlaceOf.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "country":
-//                            this.country.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.country.setEntity_locale(n.getEnt());
-//                                this.country.setValue_locale(n.getValue());
-//                            } else {
-//                                this.country.setEntity_dbpedia(n.getEnt());
-//                                this.country.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "locationof":
-//                            this.locationOf.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.locationOf.setEntity_locale(n.getEnt());
-//                                this.locationOf.setValue_locale(n.getValue());
-//                            } else {
-//                                this.locationOf.setEntity_dbpedia(n.getEnt());
-//                                this.locationOf.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "postalcode":
-//                            this.postalCode.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.postalCode.setEntity_locale(n.getEnt());
-//                                this.postalCode.setValue_locale(n.getValue());
-//                            } else {
-//                                this.postalCode.setEntity_dbpedia(n.getEnt());
-//                                this.postalCode.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "region":
-//                            this.region.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.region.setEntity_locale(n.getEnt());
-//                                this.region.setValue_locale(n.getValue());
-//                            } else {
-//                                this.region.setEntity_dbpedia(n.getEnt());
-//                                this.region.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                        case "description":
-//                            this.description.setType(n.getType());
-//                            if (this.getURI().contains("dbpedia")) {
-//                                this.description.setEntity_locale(n.getEnt());
-//                                this.description.setValue_locale(n.getValue());
-//                            } else {
-//                                this.description.setEntity_dbpedia(n.getEnt());
-//                                this.description.setValue_dbpedia(n.getValue());
-//                            }
-//                            break;
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
-//    public PropertyAdmin getPlacePropertyAdmin(String propertyName) {
-//        PropertyAdmin pa = new PropertyAdmin();
-//        switch (propertyName) {
-//            case "country":
-//                pa = getPropertyAdmin("country", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "region":
-//                pa = getPropertyAdmin("region", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "description":
-//                pa = getPropertyAdmin("Description", "literal");
-//                pa.setName(propertyName);
-//                break;
-//            case "locationof":
-//                pa = getPropertyAdmin("isAPlaceOfObject", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "birthplaceof":
-//                pa = getPropertyAdmin("birthPlace", "entity");
-//                pa.setName(propertyName);
-//                break;
-//            case "postalcode":
-//                pa = getPropertyAdmin("postalCode", "literal");
-//                pa.setName(propertyName);
-//                break;
-//        }
-//        return pa;
-//    }
     public void insertCountry(Property p) {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {

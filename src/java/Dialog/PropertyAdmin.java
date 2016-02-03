@@ -10,8 +10,17 @@ public class PropertyAdmin {
     private Entity[] entity_locale;
     private Entity[] entity_dbpedia;
     private String type;
+    private String lang;
 
     public PropertyAdmin() {
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public String getType() {
