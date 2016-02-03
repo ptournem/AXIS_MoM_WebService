@@ -170,7 +170,7 @@ public class TestWS {
         caterina = ws.AddEntity(caterina);
 
         //lier Léonard de vinci => mother => Caterina
-        lierEntity(ws, leonard, "mother", caterina);
+        lierEntity(ws, leonard, "parent", caterina);
 
         //création de Antonio Da Vinci
         antonio = ws.AddEntity(antonio);
@@ -179,9 +179,9 @@ public class TestWS {
         amboise = ws.AddEntity(amboise);
 
         //lier Léonard de vinci => father => Antonio
-        lierEntity(ws, leonard, "father", antonio);
-        lierEntity(ws, leonard, "father", caterina);
-        lierEntity(ws, leonard, "father", amboise);
+        lierEntity(ws, leonard, "parent", antonio);
+        lierEntity(ws, leonard, "parent", caterina);
+        lierEntity(ws, leonard, "parent", amboise);
 
         //lier Léonard Da vinci => restinplace => Amboise
         lierEntity(ws, leonard, "restinplace", amboise);
@@ -206,7 +206,7 @@ public class TestWS {
         //lier Léonard Da vinci => isauthorof => Joconde
         lierEntity(ws, leonard, "isauthorof", joconde);
         lierEntity(ws, leonard, "birthplace", vinci);
-        Property p = new Property("father", null, null, "uri", "fr");
+        Property p = new Property("parent", null, null, "uri", "fr");
         ws.RemoveEntityProperty(leonard, p, amboise);
 
         System.out.println("URI leonard : " + leonard.getURI());
@@ -239,7 +239,7 @@ public class TestWS {
             
             lierEntity(ws, bourgeois, "author", rodinDB);
 //            lierEntity(ws, leonard, "birthplace", vinciDB);
-            lierEntity(ws, leonard, "father", rodinDB);
+            lierEntity(ws, leonard, "parent", rodinDB);
             lierEntity(ws, leonard, "sameas", leonardDB);
             lierEntity(ws, joconde, "sameas", jocondeDB);
             lierEntity(ws, louvre, "sameas", louvreDB);

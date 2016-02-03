@@ -30,8 +30,8 @@ public class Person extends Entity {
     public PropertyAdmin birthDate;
     public PropertyAdmin deathDate;
     public PropertyAdmin placeOfBirth;
-    public PropertyAdmin mother;
-    public PropertyAdmin father;
+    public PropertyAdmin parent;
+    public PropertyAdmin child;
     public PropertyAdmin isAuthorOf;
     public PropertyAdmin restInPlace;
     public PropertyAdmin sameAs;
@@ -49,11 +49,11 @@ public class Person extends Entity {
         if (!this.placeOfBirth.getName().isEmpty()) {
             list.add(new Property(this.placeOfBirth.getName(), this.placeOfBirth.getValue_locale(), this.placeOfBirth.getEntity_locale(), this.placeOfBirth.getType(), this.placeOfBirth.getLang()));
         }
-        if (!this.mother.getName().isEmpty()) {
-            list.add(new Property(this.mother.getName(), this.mother.getValue_locale(), this.mother.getEntity_locale(), this.mother.getType(), this.mother.getLang()));
+        if (!this.parent.getName().isEmpty()) {
+            list.add(new Property(this.parent.getName(), this.parent.getValue_locale(), this.parent.getEntity_locale(), this.parent.getType(), this.parent.getLang()));
         }
-        if (!this.father.getName().isEmpty()) {
-            list.add(new Property(this.father.getName(), this.father.getValue_locale(), this.father.getEntity_locale(), this.father.getType(), this.father.getLang()));
+        if (!this.child.getName().isEmpty()) {
+            list.add(new Property(this.child.getName(), this.child.getValue_locale(), this.child.getEntity_locale(), this.child.getType(), this.child.getLang()));
         }
         if (!this.isAuthorOf.getName().isEmpty()) {
             list.add(new Property(this.isAuthorOf.getName(), this.isAuthorOf.getValue_locale(), this.isAuthorOf.getEntity_locale(), this.isAuthorOf.getType(), this.isAuthorOf.getLang()));
@@ -85,8 +85,8 @@ public class Person extends Entity {
         list.add(this.birthDate);
         list.add(this.deathDate);
         list.add(this.placeOfBirth);
-        list.add(this.mother);
-        list.add(this.father);
+        list.add(this.parent);
+        list.add(this.child);
         list.add(this.isAuthorOf);
         list.add(this.restInPlace);
         list.add(this.sameAs);
@@ -103,10 +103,10 @@ public class Person extends Entity {
         this.placeOfBirth.setName("birthplace");
         this.deathDate = new PropertyAdmin();
         this.deathDate.setName("deathdate");
-        this.mother = new PropertyAdmin();
-        this.mother.setName("mother");
-        this.father = new PropertyAdmin();
-        this.father.setName("father");
+        this.parent = new PropertyAdmin();
+        this.parent.setName("parent");
+        this.child = new PropertyAdmin();
+        this.child.setName("father");
         this.isAuthorOf = new PropertyAdmin();
         this.isAuthorOf.setName("isAuthorOf");
         this.restInPlace = new PropertyAdmin();
@@ -118,10 +118,10 @@ public class Person extends Entity {
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format($PREFIXS
                     + " select ?description ?deathdate ?birthdate "
-                    + " (group_concat(?mother;separator=\"&&&&\") as ?mothers)"
+                    + " (group_concat(?parent;separator=\"&&&&\") as ?parents)"
+                    + " (group_concat(?child;separator=\"&&&&\") as ?childs)"
                     + " (group_concat(?restinplace;separator=\"&&&&\") as ?restinplaces) "
                     + " (group_concat(?birthplace;separator=\"&&&&\") as ?birthplaces)"
-                    + " (group_concat(?father;separator=\"&&&&\") as ?fathers) "
                     + " (group_concat(?isauthorof;separator=\"&&&&\") as ?isauthorofs) "
                     + " (group_concat(?same;separator=\"&&&&\") as ?sameas) where {"
                     + " values ?uri { <%s> }"
@@ -130,8 +130,8 @@ public class Person extends Entity {
                     + " optional{ "
                     + " ?uri axis-datamodel:hasRepresentation ?reg ."
                     + " ?reg a axis-datamodel:RegOfAgent."
-                    + " optional{ ?reg dbont:father ?father .}"
-                    + " optional{ ?reg dbont:mother ?mother .}"
+                    + " optional{ ?reg dbont:parent ?parent .}"
+                    + " optional{ ?reg dbont:child ?child .}"
                     + " optional{ ?reg dbont:birthPlace ?birthplace .}"
                     + " optional{ ?reg schema:birthDate ?birthdate .}"
                     + " optional{ ?reg schema:deathDate ?deathdate .}"
@@ -167,16 +167,16 @@ public class Person extends Entity {
                     this.deathDate.setType("date");
                     this.deathDate.setLang(rep.get("deathdate").asLiteral().getLanguage());
                 }
-                if (rep.get("mothers") != null) {
-                    Entity[] t = getEntityTab(rep.get("mothers").asLiteral().getString().split("&&&&"));
+                if (rep.get("parents") != null) {
+                    Entity[] t = getEntityTab(rep.get("parents").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.mother.setValue_locale(rep.get("mothers").asLiteral().getString());
-                        this.mother.setLang(rep.get("mothers").asLiteral().getLanguage());
-                        this.mother.setType("string");
+                        this.parent.setValue_locale(rep.get("parents").asLiteral().getString());
+                        this.parent.setLang(rep.get("parents").asLiteral().getLanguage());
+                        this.parent.setType("string");
                     } else {
-                        this.mother.setEntity_locale(t);
-                        this.mother.setType("uri");
-                        this.mother.setLang("fr");
+                        this.parent.setEntity_locale(t);
+                        this.parent.setType("uri");
+                        this.parent.setLang("fr");
                     }
                 }
                 if (rep.get("sameas") != null) {
@@ -191,16 +191,16 @@ public class Person extends Entity {
                         this.sameAs.setLang("fr");
                     }
                 }
-                if (rep.get("fathers") != null) {
-                    Entity[] t = getEntityTab(rep.get("fathers").asLiteral().getString().split("&&&&"));
+                if (rep.get("childs") != null) {
+                    Entity[] t = getEntityTab(rep.get("childs").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.father.setValue_locale(rep.get("fathers").asLiteral().getString());
-                        this.father.setLang(rep.get("fathers").asLiteral().getLanguage());
-                        this.father.setType("string");
+                        this.child.setValue_locale(rep.get("childs").asLiteral().getString());
+                        this.child.setLang(rep.get("childs").asLiteral().getLanguage());
+                        this.child.setType("string");
                     } else {
-                        this.father.setEntity_locale(t);
-                        this.father.setType("uri");
-                        this.father.setLang("fr");
+                        this.child.setEntity_locale(t);
+                        this.child.setType("uri");
+                        this.child.setLang("fr");
                     }
                 }
                 if (rep.get("birthplaces") != null) {
@@ -290,24 +290,24 @@ public class Person extends Entity {
                             }
                             break;
                         case "mother":
-                            this.mother.setType(n.getType());
+                            this.parent.setType(n.getType());
                             if (this.getURI().contains("dbpedia")) {
-                                this.mother.setEntity_locale(n.getEnt());
-                                this.mother.setValue_locale(n.getValue());
+                                this.parent.setEntity_locale(n.getEnt());
+                                this.parent.setValue_locale(n.getValue());
                             } else {
-                                this.mother.setEntity_dbpedia(n.getEnt());
-                                this.mother.setValue_dbpedia(n.getValue());
+                                this.parent.setEntity_dbpedia(n.getEnt());
+                                this.parent.setValue_dbpedia(n.getValue());
                             }
                             break;
                         case "father":
-                            this.father.setType(n.getType());
+                            this.child.setType(n.getType());
                             if (this.getURI().contains("dbpedia")) {
-                                this.father.setEntity_locale(n.getEnt());
-                                this.father.setValue_locale(n.getValue());
+                                this.child.setEntity_locale(n.getEnt());
+                                this.child.setValue_locale(n.getValue());
 
                             } else {
-                                this.father.setEntity_dbpedia(n.getEnt());
-                                this.father.setValue_dbpedia(n.getValue());
+                                this.child.setEntity_dbpedia(n.getEnt());
+                                this.child.setValue_dbpedia(n.getValue());
                             }
                             break;
                         case "restinplace":
@@ -471,7 +471,7 @@ public class Person extends Entity {
 
     @Override
     public String toString() {
-        return "Person{" + "birthDate=" + birthDate + ", \n deathDate=" + deathDate + ",\n placeOfBirth=" + placeOfBirth + ",\n mother=" + mother + ",\n father=" + father + ",\n isAuthorOf=" + isAuthorOf + ",\n restInPlace=" + restInPlace + ",\n sameAs=" + sameAs + ",\n description=" + description + '}';
+        return "Person{" + "birthDate=" + birthDate + ", \n deathDate=" + deathDate + ",\n placeOfBirth=" + placeOfBirth + ",\n mother=" + parent + ",\n father=" + child + ",\n isAuthorOf=" + isAuthorOf + ",\n restInPlace=" + restInPlace + ",\n sameAs=" + sameAs + ",\n description=" + description + '}';
     }
 
 }
