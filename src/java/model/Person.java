@@ -82,6 +82,9 @@ public class Person extends Entity {
 //        tab[0] = vinciDB;
 //        testsameas.setEntity_locale(tab);
         //FIN TEST COCO
+        this.birthDate.setType("date");
+        this.deathDate.setType("date");
+        
         list.add(this.birthDate);
         list.add(this.deathDate);
         list.add(this.placeOfBirth);
@@ -367,12 +370,12 @@ public class Person extends Entity {
         }
     }
 
-    public void insertMother(Property p) {
+    public void insertParent(Property p) {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:mother", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "dbont:child", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:parent", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:child", this.getURI());
 
 //                uri1 = insert("rdf:type", "axis-datamodel:Person");
 //                insert(this.getURI(), "dbont:mother", uri1);
@@ -381,45 +384,40 @@ public class Person extends Entity {
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:mother", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "dbont:child", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:parent", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:child", this.getURI());
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:Person");
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:mother", uri1);
-                insert(uri1, "dbont:child", this.getURI());
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:parent", p.getValue(), p.getType());
                 break;
         }
     }
 
-    public void insertFather(Property p) {
+    public void insertChild(Property p) {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:father", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "dbont:child", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:child", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:parent", this.getURI());
 
 //                uri1 = insert("rdf:type", "axis-datamodel:Person");
-//                insert(this.getURI(), "dbont:father", uri1);
+//                insert(this.getURI(), "dbont:mother", uri1);
 //                insert(uri1, "dbont:child", this.getURI());
 //                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:father", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "dbont:child", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:child", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:parent", this.getURI());
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:Person");
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:father", uri1);
-                insert(uri1, "dbont:child", this.getURI());
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:child", p.getValue(), p.getType());
                 break;
         }
     }
+    
 
     public void insertRestInPlace(Property p) {
         String uri1 = null;
