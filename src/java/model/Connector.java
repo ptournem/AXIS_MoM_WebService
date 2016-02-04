@@ -607,7 +607,7 @@ public class Connector {
             //Entity e2 = selectlodFromEntity(e);
             // on ajoute cette nouvelle entité (pleine) à notre liste d'entités
             entities.add(e);
-
+            //
             }
         }
         for (int i = 0; i < entities.size(); i++) {
