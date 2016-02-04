@@ -33,6 +33,7 @@ public class Place extends Entity {
     public PropertyAdmin locationOf;
     public PropertyAdmin sameAs;
     public PropertyAdmin socialNetwork;
+    public PropertyAdmin isAPlaceOfEvent;
 
     public Property[] getPropertiesPlace() {
         ArrayList<Property> list = new ArrayList<Property>();
@@ -58,6 +59,10 @@ public class Place extends Entity {
 //        if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
 //            list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
 //        }
+        
+//        if (!((this.isAPlaceOfEvent.getEntity_locale() == null) && (this.isAPlaceOfEvent.getValue_locale() == null))) {
+//            list.add(new Property(this.isAPlaceOfEvent.getName(), this.isAPlaceOfEvent.getValue_locale(), this.isAPlaceOfEvent.getEntity_locale(), this.isAPlaceOfEvent.getType(),this.isAPlaceOfEvent.getLang()));
+//        }
 
         Property[] ret = new Property[list.size()];
         return (Property[]) list.toArray(ret);
@@ -72,7 +77,8 @@ public class Place extends Entity {
         list.add(this.description);
         list.add(this.birthPlaceOf);
         list.add(this.locationOf);
-//        list.add(this.socialNetwork);
+        //list.add(this.socialNetwork);
+        //list.add(this.isAPlaceOfEvent);
         PropertyAdmin[] ret = new PropertyAdmin[list.size()];
         return (PropertyAdmin[]) list.toArray(ret);
     }
@@ -327,6 +333,24 @@ public class Place extends Entity {
         }
     }
 
+    public void insertIsAPlaceOfEvent(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfEvent", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfEvent"), "axis-datamodel:takesPlaceIn", this.getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfEvent", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfEvent"), "axis-datamodel:takesPlaceIn", this.getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfEvent", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
     public void insertBirthPlaceOf(Property p) {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {

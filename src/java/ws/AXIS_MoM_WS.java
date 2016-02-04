@@ -43,6 +43,8 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
      */
     @Override
     public Boolean RemoveEntity(Entity e) {
+        e.delete(e.getURI(), "rdf:type", "?o");
+        e.delete(e.getURI(), "rdf:hasRepresentation", "?o");
 	return true;
     }
 
@@ -282,11 +284,6 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
             e.delete(selectRegOfEntity(e.getURI(), regof), property, "<"+valueEntity.getURI()+">");
         
 	return ret;
-    }
-
-    @Override
-    public Boolean RemoveEntityObjectPropertyWithObject(Entity e, Property p, Entity valueEntity) {
-	return true;
     }
 
     @Override
