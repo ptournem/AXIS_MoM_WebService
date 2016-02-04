@@ -10,16 +10,27 @@ public class Property {
     String name;
     String value;
     String type;
+    String lang;
     Entity[] ent;
 
-    public Property(String name, String value, String type, Entity[] ent) {
+    public Property(String name, String value, Entity[] ent, String type, String lang) {
 	this.name = name;
 	this.value = value;
         this.type = type;
         this.ent = ent;
+        this.lang = lang;
     }
 
+    
     public Property() {
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     public String getName() {
@@ -62,7 +73,7 @@ public class Property {
                 tabE += this.ent[i]+" - ";
             }
         }
-        return "Property{\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue=\u001B[0m" + value + ",\u001B[34mtype=\u001B[0m" + type + ", \u001B[34ment=\u001B[0m" + tabE + '}';
+        return "Property{\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue=\u001B[0m" + value + ",\u001B[34mtype=\u001B[0m" + type + ", \u001B[34ment=\u001B[0m" + tabE + ", \u001B[34mlang=\u001B[0m" + lang +'}';
     }
 
 

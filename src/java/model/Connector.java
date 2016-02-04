@@ -47,9 +47,8 @@ public class Connector {
                         + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
                         + "PREFIX dbr: <http://dbpedia.org/resource/>"
                         + "PREFIX type: <http://dbpedia.org/class/yago/>"
-                        + "PREFIX schema: <https://schema.org/>"
-                         +"PREFIX foaf: <http://xmlns.com/foaf/0.1/>"
-                        + "PREFIX dct: <http://dublincore.org/documents/2012/06/14/dcmi-terms/?v=terms#>";
+                        + "PREFIX schema: <https://schema.org/>";
+    
     public static void main(String args[]) {
 
         String test = "louv";
@@ -217,7 +216,7 @@ public class Connector {
         StmtIterator iter = m.listStatements();
         ArrayList<Entity> ale = new ArrayList<Entity>();
         int setted = 0;
-        Dialog.Property p2 = new Dialog.Property(null, null, null, null);
+        Dialog.Property p2 = new Dialog.Property(null, null, null, null, null);
         while (iter.hasNext()) {
             Statement stmt = (Statement) iter.next();
 //          System.out.println("test : "+stmt.asTriple().toString());
@@ -329,6 +328,7 @@ public class Connector {
             
             if (object.isResource()) {
                 p2.setType("uri");
+                p2.setLang("fr");
                 String uri2 = object.toString();
                 Entity e2 = new Entity(uri2, "", "", type);
                 ale.add(selectlodFromEntity(e2));
@@ -336,7 +336,8 @@ public class Connector {
                 p2.setEnt((Entity[]) ale.toArray(ret));
 
             } else {
-                p2.setType("fr");
+                p2.setType("string");
+                p2.setLang("fr");
                 p2.setEnt(null);
                 if(p2.getValue() == null)
                     p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en", ""));
@@ -620,11 +621,24 @@ public class Connector {
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         $PREFIXS
-                        + "select ?o ?n where {?s axis-datamodel:uses ?o ."
+                        + "select ?o ?n ?type "
+                        + "where {?s axis-datamodel:uses ?o ."
                         + "	?s rdf:type axis-datamodel:Entity ."
                         + "	?o axis-datamodel:hasRepresentation ?d ."
+                        + "	?o axis-datamodel:hasRepresentation ?regof ."
                         + "	?d rdf:type axis-datamodel:Document ."
-                        + "     ?d rdfs:label ?n}"));
+                        + "	?regof rdf:type ?type ."
+                        + "     ?d rdfs:label ?n "
+                        + "     MINUS {" 
+                        +"          ?regof rdf:type axis-datamodel:Document" 
+                        +"      }"
+                        + "     MINUS {" 
+                        +"          ?regof rdf:type axis-datamodel:RegOfPhotoItem" 
+                        +"      }"
+                        + "     MINUS {" 
+                        +"          ?regof rdf:type axis-datamodel:RegOfInformationItem" 
+                        +"      }}"
+                        + "     ORDER BY ?type"));
 
         ResultSet rs = qe.execSelect();
 
@@ -635,22 +649,11 @@ public class Connector {
             Entity e = new Entity();
             e.setURI(n.get("o").asResource().toString());
             e.setName(n.get("n").asLiteral().toString());
-            
             //n.get("n").
             tab.add(e);
         }
         //mList = ResultSetFormatter.toList(rs);
         qe.close();
-        
-//
-//        //System.out.println("mlist size = "+mList.size());
-//        for (int i = 0; i < mList.size(); i++) {
-//            //System.out.println(mList.get(i).getResource("o").toString());
-//            Entity e = new Entity();
-//            e.setURI(mList.get(i).getResource("o").toString());
-//            e.setName(mList.get(i).getResource("n").toString());
-//            tab.add(e);
-//        }
 
         Entity[] ret = new Entity[tab.size()];
         return (Entity[]) tab.toArray(ret);
@@ -669,7 +672,9 @@ public class Connector {
                         + "     ?c axis-datamodel:content ?content ."
                         + "     ?c axis-datamodel:creationDate ?creationDate ."
                         + "     ?c axis-datamodel:validate ?validate ."
-                        + "     ?c axis-datamodel:email ?email}", e.getURI()));
+                        + "     ?c axis-datamodel:email ?email}"
+                        + "     ORDER BY ?creationDate", e.getURI()));
+                        
            
         ResultSet rs = qe.execSelect();
         ArrayList<Comment> tab = new ArrayList<>();
@@ -841,6 +846,16 @@ public class Connector {
                 "http://localhost:3030/ds/update");
 
         upp.execute();
+        
+        req = $PREFIXS
+                + "DELETE WHERE { "
+                + " ?s rdf:type axis-datamodel:Comment }";
+        upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(req)),
+                "http://localhost:3030/ds/update");
+
+        upp.execute();
+        
         return true;
     }
 
