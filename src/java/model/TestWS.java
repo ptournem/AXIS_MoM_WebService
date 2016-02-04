@@ -5,6 +5,7 @@
  */
 package model;
 
+
 import Dialog.Comment;
 import Dialog.Entity;
 import Dialog.Property;

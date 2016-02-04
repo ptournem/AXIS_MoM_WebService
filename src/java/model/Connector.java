@@ -19,11 +19,17 @@ import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import Dialog.Entity;
 import java.util.ArrayList;
+import jena.query;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.riot.WebContent;
+import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
+import org.apache.jena.vocabulary.RDF;
 
 /**
  *
@@ -36,16 +42,17 @@ public class Connector {
                         + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.4#>"
                         + "PREFIX owl: <http://www.w3.org/2002/07/owl#>"
                         + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-                        + "PREFIX dbont: <http://dbpedia.org/ontology/> "
+                        + "PREFIX dbont: <http://dbpedia.org/ontology/>"
                         + "PREFIX dbp: <http://dbpedia.org/property/>"
                         + "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"
                         + "PREFIX dbr: <http://dbpedia.org/resource/>"
                         + "PREFIX type: <http://dbpedia.org/class/yago/>"
-                        + "PREFIX schema: <https://schema.org/> ";
-    
+                        + "PREFIX schema: <https://schema.org/>"
+                         +"PREFIX foaf: <http://xmlns.com/foaf/0.1/>"
+                        + "PREFIX dct: <http://dublincore.org/documents/2012/06/14/dcmi-terms/?v=terms#>";
     public static void main(String args[]) {
 
-        String test = "RACINE";
+        String test = "louv";
         selectlodFromKeyWord(test);
 
     }
@@ -394,12 +401,36 @@ public class Connector {
     }
 
     private static Model lodQueryAmbigious(String s) {
+        //String s2 = "resource/"+s;
+       // System.out.println("s2"+s2);
         String DBQueryString = $PREFIXS
-                // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "construct where {<http://dbpedia.org/resource/" + s + "> dbont:wikiPageDisambiguates ?o}";
-        Query DBquery = QueryFactory.create(DBQueryString);
-        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
+//                   +"CONSTRUCT {?s p ?o} "
+//                 +"WHERE { " 
+//                +"    { ?s dbont:abstract ?abstract.}  "
+//                 +"   UNION  "
+//                 +"   { ?s rdfs:label ?label.}  ";
+                // on ajoute  ?s owl:"select ?s ?p ?osameAs ?Entity" aprés le construct pour comparer avec les resultats locales
+//                +"select ?s { ?s <http://www.w3.org/2000/01/rdf-schema#label> "+s+". \n"
+//                + "?s <http://www.w3.org/2006/03/wn/wn20/schema/similarTo> ?o. \n"
+//                + "?s <http://www.w3.org/2000/01/rdf-schema#label> ?o } limit 10 \n";
 
+              //  +"select  ?s ?p ?o  WHERE { ?s ?p ?o .FILTER regex(str(?s),"+s+")}";
+             //  + "CONSTRUCT WHERE  {?s dbont:alias ?o. filter (regex(?o,"+s+",\"i\"))}";
+                +"construct{?s ?p ?o}"
+                + "WHERE {?s ?p ?o."
+                + "{SELECT DISTINCT ?s ?label"
+                + "WHERE {?s rdfs:label ?label."
+//                + "?s dbont:alias ?label."
+//                + "filter regex(?label,\""+s+"\",\"i\")}order by asc(?s)}}";
+               + "FILTER (LANG(?label)='en' )"
+             //   + "?label <bif:contains> \""+s2+"\"."
+                + "?label <bif:contains> \""+s+"\".}}}";
+        Query DBquery = QueryFactory.create(DBQueryString);
+        
+       // QueryEngineHTTP qDBexec = new QueryEngineHTTP("http://dbpedia.org/sparql", DBquery);
+       QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
+  // http://lookup.dbpedia.org/api/search.asmx/KeywordSearch?QueryClass&QueryString=
+        // qDBexec.setModelContentType(WebContent.contentTypeJSONLD);
         Model m = qDBexec.execConstruct();
 
         qDBexec.close();
@@ -527,34 +558,60 @@ public class Connector {
         return e;
     }
 
-    public static ArrayList<Entity> selectlodFromKeyWord(String keyword) {
-        //riad
-        
-        //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
-        // l'URI est externe, et fait donc référence à un lien dbpedia, freebase...
+    public static ArrayList<Entity> selectEntityLodFromKeyWord (String keyword){
+        // On créer une nouvelle liste d'entités de type Entity
         ArrayList<Entity> entities = new ArrayList<>();
-       // String capKeyword = capitalize(keyword);
-        keyword = keyword.substring(0,1).toUpperCase() + keyword.substring(1).toLowerCase();
+        
+        return null;
+    }
+         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre (riad)
+        // l'URI est externe, et fait donc référence à un lien dbpedia, freebase...
+    public static ArrayList<Entity> selectlodFromKeyWord(String keyword) {
+        // On créer une nouvelle liste d'entités de type Entity
+        ArrayList<Entity> entities = new ArrayList<>();
+       // On met la premiére lettre en majiscule et le reste en miniscule pour faciliter la recherche
+       // keyword = keyword.substring(0,1).toUpperCase() + keyword.substring(1).toLowerCase();
+        // on fait appel à la fonction qui reçoit le mot clef et retourne un model 
+        // ce model contient toutes les entités relatives au mot clef
         Model m = lodQueryAmbigious(keyword);
+        
+        // à cette étape j'aurai une liste d'uri à parcourir
         StmtIterator iter = m.listStatements();
        // System.out.println("iter" + iter.toString());
+        // tant qu'une entité existe on rentre dans la boucle
         while (iter.hasNext()) {
-
+            // on parour les élements de la list sous forme de stmt
             Statement stmt = (Statement) iter.next();
             //  System.out.println("stmt"+stmt.toString());
- 
+            // on crée une nouvelle entity
             Entity e = new Entity();
+            // on récupére l'objet du stmt
             RDFNode object = stmt.getObject();
-            String uri = object.toString();
+            // si l'objet est un literal on l'affiche normalement
+            if(object.isResource()){
+            // si c'est une ressource on doit la parcourir afin de remplir les attributs de chaque entité 
+            Resource res = object.asResource();
+            String uri = res.getURI();
+          //  if(uri.startsWith("http://dbpedia.org/resource")){
+            String name = res.getLocalName();
+            
+ 
+            // on affecte l'uri récupérer de la resource à notre entité
             e.setURI(uri);
-            Entity e2 = selectlodFromEntity(e);
-            entities.add(e2);
+            // on récupére le nom de chaque entité
+            e.setName(name);
+            // on fait appel à la fonction qui reçoit en entité qu'avec l'uri et
+            //nous retourne le nom, l'image et le type de l'entité
+            // cette fonction est beaucoup trop longue pour
+            //Entity e2 = selectlodFromEntity(e);
+            // on ajoute cette nouvelle entité (pleine) à notre liste d'entités
+            entities.add(e);
 
+            }
         }
-
-//        for (int i = 0; i < entities.size(); i++) {
-//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-//        }
+        for (int i = 0; i < entities.size(); i++) {
+            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+        }
         return entities;
     }
 
