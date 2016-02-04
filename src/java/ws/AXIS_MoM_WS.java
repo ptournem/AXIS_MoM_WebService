@@ -139,6 +139,10 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pers.insertIsAuthorOf(p);
                 ret = true;
                 break;
+            case "socialnetwork":
+                e.insertSocialNetwork(p);
+                ret = true;
+                break;
             case "birthplace":
                 pers.setURI(e.getURI());
 //                pers.constructEntity();
@@ -207,10 +211,14 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
         switch (p.getName()) {
 	    case "author":
                 property = "axis-datamodel:performs";
-                regof = "EmbodimentOfObject";
+                regof = "RegOfObjectItem";
                 break;
             case "sameas":
                 e.delete(e.getURI(), "owl:sameAs", "<"+valueEntity.getURI()+">");
+                break;
+            case "socialnetwork":
+                property = "axis-datamodel:socialNetwork";
+                regof = "Document";
                 break;
             case "description":
                 property = "rdf:Description";
@@ -218,7 +226,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "location":
                 property = "axis-datamodel:takePlaceIn";
-                regof = "EmbodimentOfObject";
+                regof = "RegOfObjectItem";
                 break;
             case "birthdate":
                 property = "schema:birthDate";

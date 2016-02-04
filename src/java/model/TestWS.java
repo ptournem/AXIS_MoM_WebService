@@ -159,10 +159,10 @@ public class TestWS {
 
         //ajouter Léonard Da vinci => sameas => dbpedia
         //ajouter Léonard Da vinci => birthdate => String
-        lierEntity(ws, leonard, "birthdate", "21-01-1400");
+        lierEntity(ws, leonard, "birthdate", "1400-01-25");
 
         //ajouter Léonard Da vinci => deathdate => String
-        lierEntity(ws, leonard, "deathdate", "21-05-1450");
+        lierEntity(ws, leonard, "deathdate", "1450-03-21");
 
         //création Caterina Da Vinci
         caterina = ws.AddEntity(caterina);
@@ -180,6 +180,7 @@ public class TestWS {
         lierEntity(ws, leonard, "parent", antonio);
         lierEntity(ws, leonard, "parent", caterina);
         lierEntity(ws, leonard, "parent", amboise);
+        lierEntity(ws, leonard, "socialnetwork", "leoHashtag");
 
         //lier Léonard Da vinci => restinplace => Amboise
         lierEntity(ws, leonard, "restinplace", amboise);

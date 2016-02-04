@@ -28,6 +28,7 @@ public class Object extends Entity {
     public PropertyAdmin author;
     public PropertyAdmin sameAs;
     public PropertyAdmin description;
+    public PropertyAdmin socialNetwork;
 
     public Property[] getPropertiesObject() {
         ArrayList<Property> list = new ArrayList<Property>();
@@ -41,6 +42,9 @@ public class Object extends Entity {
         if (!((this.description.getEntity_locale() == null) && (this.description.getValue_locale() == null))) {
             list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getEntity_locale(), this.description.getType(),this.description.getLang()));
         }
+        if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
+            list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
+        }
         //list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
         Property[] ret = new Property[list.size()];
         return (Property[]) list.toArray(ret);
@@ -53,6 +57,7 @@ public class Object extends Entity {
         list.add(this.location);
         list.add(this.sameAs);
         list.add(this.description);
+        list.add(this.socialNetwork);
         //list.add(this.dateCreation);
 
         PropertyAdmin[] ret = new PropertyAdmin[list.size()];
