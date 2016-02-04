@@ -282,7 +282,8 @@ public class TestWS {
         for (int i = 0; i < propsAdmin.length; i++) {
             System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
         }
-
+        
+        
         //leonard.delete("dbont:mother", caterina.getURI());
 //        Property[] props3 = ws.LoadEntityProperties(leonard);
 //        
