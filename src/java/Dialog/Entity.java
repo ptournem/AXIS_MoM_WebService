@@ -246,6 +246,10 @@ public class Entity {
         insert(this.URI, "owl:sameAs", p.getEnt()[0].getURI());
     }
 
+    public void insertSocialNetwork(Property p) {
+        insert(selectRegOfEntity(this.URI, "Document"), "axis-datamodel:socialNetwork", p.getValue(), "fr");
+    }
+    
     public void insertDescription(Property p) {
         insert(selectRegOfEntity(this.URI, "Document"), "rdf:Description", p.getValue(), "fr");
     }
