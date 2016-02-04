@@ -55,9 +55,9 @@ public class Place extends Entity {
         if (!((this.locationOf.getEntity_locale() == null) && (this.locationOf.getValue_locale() == null))) {
             list.add(new Property(this.locationOf.getName(), this.locationOf.getValue_locale(), this.locationOf.getEntity_locale(), this.locationOf.getType(), this.locationOf.getLang()));
         }
-//        if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
-//            list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
-//        }
+        if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
+            list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
+        }
 
         Property[] ret = new Property[list.size()];
         return (Property[]) list.toArray(ret);
@@ -72,7 +72,7 @@ public class Place extends Entity {
         list.add(this.description);
         list.add(this.birthPlaceOf);
         list.add(this.locationOf);
-//        list.add(this.socialNetwork);
+        list.add(this.socialNetwork);
         PropertyAdmin[] ret = new PropertyAdmin[list.size()];
         return (PropertyAdmin[]) list.toArray(ret);
     }
@@ -112,7 +112,7 @@ public class Place extends Entity {
                     + "    optional{ ?reg dbont:region ?region . }"
                     + "    optional{ ?reg dbont:birthPlace ?birthpof . }"
                     + "    optional{ ?reg dbont:postalCode ?postalcode . }"
-                    + "    optional{ ?reg axis-datamodel:takePlaceIn ?locof . }"
+                    + "    optional{ ?reg axis-datamodel:isAPlaceOfObject ?locof . }"
                     + "  }"
                     + "optional{"
                     + "	?uri axis-datamodel:hasRepresentation ?doc ."
