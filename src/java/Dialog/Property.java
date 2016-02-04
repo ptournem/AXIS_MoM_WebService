@@ -21,6 +21,7 @@ public class Property {
         this.lang = lang;
     }
 
+    
     public Property() {
     }
 
@@ -72,7 +73,7 @@ public class Property {
                 tabE += this.ent[i]+" - ";
             }
         }
-        return "Property{\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue=\u001B[0m" + value + ",\u001B[34mtype=\u001B[0m" + type + ", \u001B[34ment=\u001B[0m" + tabE + '}';
+        return "Property{\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue=\u001B[0m" + value + ",\u001B[34mtype=\u001B[0m" + type + ", \u001B[34ment=\u001B[0m" + tabE + ", \u001B[34mlang=\u001B[0m" + lang +'}';
     }
 
 

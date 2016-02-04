@@ -22,9 +22,7 @@ public class TestWS {
     public static long endTime;
 
     public static void main(String args[]) {
-        testFonctionnel(false);
-        //deleteAll();
-        
+
         //testComments();
         testFonctionnel(false);
 //        testComments();
@@ -161,10 +159,10 @@ public class TestWS {
 
         //ajouter Léonard Da vinci => sameas => dbpedia
         //ajouter Léonard Da vinci => birthdate => String
-        lierEntity(ws, leonard, "birthdate", "21-01");
+        lierEntity(ws, leonard, "birthdate", "21-01-1400");
 
         //ajouter Léonard Da vinci => deathdate => String
-        lierEntity(ws, leonard, "deathdate", "21-05");
+        lierEntity(ws, leonard, "deathdate", "21-05-1450");
 
         //création Caterina Da Vinci
         caterina = ws.AddEntity(caterina);

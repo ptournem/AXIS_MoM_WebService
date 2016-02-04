@@ -26,17 +26,34 @@ import model.Place;
 public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     
 
-
+    /**
+     * AddEntity : Ajoute une entité dans la base de données sémantique.
+     * @param e : l'entité à ajouter dans la base. Elle a une URI vide
+     * @return : l'entité avec son URI de renseignée
+     */
     @Override
     public Entity AddEntity(Entity e) {
 	return e.AddEntity();
     }
 
+    /**
+     * Supprime une entité de la base de données sémantique.
+     * @param e : l'entité à supprimer
+     * @return : true si la suppression a été effectuée
+     */
     @Override
     public Boolean RemoveEntity(Entity e) {
 	return true;
     }
 
+    /**
+     * Modifie une propriété d’une entité (ajoute un sujet-prédicat-objet à notre entité)
+     * @param e : l'entité qui recevra l'ajout de la propriété
+     * @param p : la propriété (prédicat + objet)
+     * @param valueEntity : si l'objet est une Entité, on la renseigne dans valueEntity
+     * @return La fonction renvoie un booléen “Vrai” si la modification de la
+     * propriété s’est bien passée.
+     */
     @Override
     public Boolean SetEntityProperty(Entity e, Property p, Entity valueEntity) {
 	Object obj = new Object();
@@ -172,6 +189,14 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	return ret;
     }
 
+    
+    /**
+     * Supprime une propriété d’une entité. 
+     * @param e l’entité dont on veut supprimer la propriété. Son attribut “URI” doit être renseigné. 
+     * @param p la propriété que l’on veut supprimer. Ses attribut “URI” et “type” doivent être renseignés.
+     * @param valueEntity l’attribut “type” est “URI”, l’objet Entity “valueEntity” doit être fourni avec son attribut “URI” renseigné. Sinon, l’objet Property “p” doit avoir son attribut “value” renseigné et l’objet Entity “valueEntity” peut être “null”.
+     * @return La fonction renvoie un booléen “Vrai” si la suppresion s’est bien passée.
+     */
     @Override
     public Boolean RemoveEntityProperty(Entity e, Property p, Entity valueEntity) {
         

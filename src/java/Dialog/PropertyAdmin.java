@@ -1,6 +1,5 @@
 package Dialog;
 
-import java.util.ArrayList;
 
 public class PropertyAdmin {
 
@@ -88,7 +87,7 @@ public class PropertyAdmin {
             }
         }
         
-        return "PropertyAdmin{" + "\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue_locale=\u001B[0m" + value_locale + ", \u001B[34mvalue_dbpedia=\u001B[0m" + value_dbpedia + ", \u001B[34mentity_locale=\u001B[0m" + tabE2 + ", \u001B[34mentity_dbpedia=\u001B[0m" + tabE + ", \u001B[34mtype=\u001B[0m" + type + '}';
+        return "PropertyAdmin{" + "\u001B[34mname=\u001B[0m" + name + ", \u001B[34mvalue_locale=\u001B[0m" + value_locale + ", \u001B[34mvalue_dbpedia=\u001B[0m" + value_dbpedia + ", \u001B[34mentity_locale=\u001B[0m" + tabE2 + ", \u001B[34mentity_dbpedia=\u001B[0m" + tabE + ", \u001B[34mtype=\u001B[0m" + type + ", \u001B[34mlang=\u001B[0m" + lang +'}';
     }
 
 }

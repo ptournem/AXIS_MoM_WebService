@@ -36,12 +36,24 @@ public class Place extends Entity {
     public Property[] getPropertiesPlace() {
         ArrayList<Property> list = new ArrayList<Property>();
 //        entityBrowser(this.getURI()
-        list.add(new Property(this.postalCode.getName(), this.postalCode.getValue_locale(), this.postalCode.getEntity_locale(), this.postalCode.getType(), this.postalCode.getLang()));
-        list.add(new Property(this.region.getName(), this.region.getValue_locale(), this.region.getEntity_locale(), this.region.getType(), this.region.getLang()));
-        list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getEntity_locale(), this.description.getType(), this.description.getLang()));
-        list.add(new Property(this.country.getName(), this.country.getValue_locale(), this.country.getEntity_locale(), this.country.getType(), this.country.getLang()));
-        list.add(new Property(this.birthPlaceOf.getName(), this.birthPlaceOf.getValue_locale(), this.birthPlaceOf.getEntity_locale(), this.birthPlaceOf.getType(), this.birthPlaceOf.getLang()));
-        list.add(new Property(this.locationOf.getName(), this.locationOf.getValue_locale(), this.locationOf.getEntity_locale(), this.locationOf.getType(), this.locationOf.getLang()));
+        if (!((this.postalCode.getEntity_locale() == null) && (this.postalCode.getValue_locale() == null))) {
+            list.add(new Property(this.postalCode.getName(), this.postalCode.getValue_locale(), this.postalCode.getEntity_locale(), this.postalCode.getType(), this.postalCode.getLang()));
+        }
+        if (!((this.region.getEntity_locale() == null) && (this.region.getValue_locale() == null))) {
+            list.add(new Property(this.region.getName(), this.region.getValue_locale(), this.region.getEntity_locale(), this.region.getType(), this.region.getLang()));
+        }
+        if (!((this.description.getEntity_locale() == null) && (this.description.getValue_locale() == null))) {
+            list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getEntity_locale(), this.description.getType(), this.description.getLang()));
+        }
+        if (!((this.country.getEntity_locale() == null) && (this.country.getValue_locale() == null))) {
+            list.add(new Property(this.country.getName(), this.country.getValue_locale(), this.country.getEntity_locale(), this.country.getType(), this.country.getLang()));
+        }
+        if (!((this.birthPlaceOf.getEntity_locale() == null) && (this.birthPlaceOf.getValue_locale() == null))) {
+            list.add(new Property(this.birthPlaceOf.getName(), this.birthPlaceOf.getValue_locale(), this.birthPlaceOf.getEntity_locale(), this.birthPlaceOf.getType(), this.birthPlaceOf.getLang()));
+        }
+        if (!((this.locationOf.getEntity_locale() == null) && (this.locationOf.getValue_locale() == null))) {
+            list.add(new Property(this.locationOf.getName(), this.locationOf.getValue_locale(), this.locationOf.getEntity_locale(), this.locationOf.getType(), this.locationOf.getLang()));
+        }
 
         Property[] ret = new Property[list.size()];
         return (Property[]) list.toArray(ret);
@@ -262,9 +274,6 @@ public class Place extends Entity {
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:country", p.getEnt()[0].getURI());
-//                uri1 = insert("rdf:type", "axis-datamodel:Place");
-//                insert(this.getURI(), "dbont:country", uri1);
-//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
@@ -272,9 +281,7 @@ public class Place extends Entity {
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:Place");
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:country", uri1);
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:country", p.getValue(), p.getType());
                 break;
         }
     }
@@ -284,9 +291,6 @@ public class Place extends Entity {
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:region", p.getEnt()[0].getURI());
-//                uri1 = insert("rdf:type", "axis-datamodel:Place");
-//                insert(this.getURI(), "dbont:region", uri1);
-//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
@@ -294,9 +298,7 @@ public class Place extends Entity {
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:Place");
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:region", uri1);
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:region", p.getValue(), p.getType());
                 break;
         }
     }
@@ -305,24 +307,17 @@ public class Place extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
-//                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
-//                insert(this.getURI(), "axis-datamodel:isAPlaceOfObject", uri1);
-//                insert(uri1, "axis-datamodel:takePlaceIn", this.getURI());
-//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", this.getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", this.getURI());
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", uri1);
-                insert(uri1, "axis-datamodel:takePlaceIn", this.getURI());
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", p.getValue(), p.getType());
                 break;
         }
     }
@@ -331,20 +326,17 @@ public class Place extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlace", p.getEnt()[0].getURI());
-//                uri1 = insert("rdf:type", "axis-datamodel:Person");
-//                insert(this.getURI(), "dbont:birthPlace", uri1);
-//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlaceOf", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:birthPlace", this.getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlaceOf", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:birthPlace", this.getURI());
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:Person");
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlace", uri1);
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlaceOf", p.getValue(), p.getType());
                 break;
         }
     }

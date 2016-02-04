@@ -32,13 +32,13 @@ public class Object extends Entity {
     public Property[] getPropertiesObject() {
         ArrayList<Property> list = new ArrayList<Property>();
 //        entityBrowser(this.getURI()
-        if (!this.author.getName().isEmpty()) {
+        if (!((this.author.getEntity_locale() == null) && (this.author.getValue_locale() == null))) {
             list.add(new Property(this.author.getName(), this.author.getValue_locale(),  this.author.getEntity_locale(), this.author.getType(), this.author.getLang()));
         }
-        if (!this.location.getName().isEmpty()) {
+        if (!((this.location.getEntity_locale() == null) && (this.location.getValue_locale() == null))) {
             list.add(new Property(this.location.getName(), this.location.getValue_locale(),  this.location.getEntity_locale(), this.location.getType(), this.location.getLang()));
         }
-        if (!this.description.getName().isEmpty()) {
+        if (!((this.description.getEntity_locale() == null) && (this.description.getValue_locale() == null))) {
             list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getEntity_locale(), this.description.getType(),this.description.getLang()));
         }
         //list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
@@ -188,24 +188,17 @@ public class Object extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
-//                uri1 = insert("rdf:type", "axis-datamodel:Place");
-//                insert(this.getURI(), "axis-datamodel:takePlaceIn", uri1);
-//                insert(uri1, "axis-datamodel:isAPlaceOfObject", this.getURI());
-//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "axis-datamodel:isAPlaceOfObject", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:Place");
-                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", uri1);
-                insert(uri1, "axis-datamodel:isAPlaceOfObject", this.getURI());
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", p.getValue(), p.getType());
                 break;
         }
     }
@@ -217,23 +210,16 @@ public class Object extends Entity {
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "axis-datamodel:performs", this.getURI());
-//                uri1 = insert("rdf:type", "axis-datamodel:PhysicalPerson");
-//                insert(this.getURI(), "axis-datamodel:isPerformedBy", uri1);
-//                insert(uri1, "axis-datamodel:performs", this.getURI());
-//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "axis-datamodel:performs", this.getURI());
                 break;
 
             case "our":
                 insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "axis-datamodel:performs", this.getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "axis-datamodel:performs", this.getURI());
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:PhysicalPerson");
-                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", uri1);
-                insert(uri1, "axis-datamodel:performs", this.getURI());
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", p.getValue(), p.getType());
                 break;
         }
 
