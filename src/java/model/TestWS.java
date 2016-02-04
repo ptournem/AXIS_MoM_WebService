@@ -169,7 +169,7 @@ public class TestWS {
         caterina = ws.AddEntity(caterina);
 
         //lier Léonard de vinci => mother => Caterina
-        lierEntity(ws, leonard, "parent", caterina);
+        //lierEntity(ws, leonard, "parent", caterina);
 
         //création de Antonio Da Vinci
         antonio = ws.AddEntity(antonio);
@@ -190,7 +190,7 @@ public class TestWS {
         lierEntity(ws, vinci, "region", toscane);
         lierEntity(ws, vinci, "birthplaceof", leonard);
         lierEntity(ws, vinci, "postalcode", "50059");
-        lierEntity(ws, vinci, "locationof", leonard);
+        //lierEntity(ws, vinci, "locationof", leonard);
         lierEntity(ws, vinci, "description", "Vinci est une commune dans la ville métropolitaine de Florence en Toscane (Italie).");
         //ajouter Léonard Da vinci => description => String
         lierEntity(ws, leonard, "description", "Léonard Da Vinci est un super artiste");
@@ -205,7 +205,7 @@ public class TestWS {
         lierEntity(ws, joconde, "author", leonard);
         //lier Léonard Da vinci => isauthorof => Joconde
         lierEntity(ws, leonard, "isauthorof", joconde);
-        lierEntity(ws, leonard, "birthplace", vinci);
+        //lierEntity(ws, leonard, "birthplace", vinci);
         Property p = new Property("parent", null, null, "uri", "fr");
         ws.RemoveEntityProperty(leonard, p, amboise);
 
