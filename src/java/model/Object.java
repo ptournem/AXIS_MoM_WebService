@@ -193,17 +193,17 @@ public class Object extends Entity {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:isAPlaceOfObject", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:isAPlaceOfObject", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;
 
             case "literal":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", p.getValue(), p.getType());
                 break;
         }
     }
