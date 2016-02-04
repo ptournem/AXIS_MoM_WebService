@@ -5,6 +5,7 @@
  */
 package control;
 
+
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
