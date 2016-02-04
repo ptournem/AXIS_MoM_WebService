@@ -73,23 +73,30 @@ public class Object extends Entity {
         this.description.setName("description");
         this.sameAs = new PropertyAdmin();
         this.sameAs.setName("sameas");
+        this.socialNetwork = new PropertyAdmin();
+        this.socialNetwork.setName("socialnetwork");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format($PREFIXS
-                    + " select ?description  (group_concat(?location; separator=\"&&&&\") as ?locations) "
+                    + " select ?description ?socnet (group_concat(?location; separator=\"&&&&\") as ?locations) "
                     + " (group_concat(?author;separator=\"&&&&\") as ?authors) "
                     + " (group_concat(?same;separator=\"&&&&\") as ?sameas) where {"
                     + " values ?uri { <%s> }"
                     + " ?e axis-datamodel:uses ?uri ."
                     + " ?e a axis-datamodel:Entity ."
+                    + " optional{"
                     + " ?uri axis-datamodel:hasRepresentation ?reg ."
                     + " ?reg a axis-datamodel:RegOfObjectItem ."
+                    + "     optional{ ?reg axis-datamodel:takePlaceIn ?location .}"
+                    + " }"
+                    + " optional{"
                     + " ?uri axis-datamodel:hasRepresentation ?doc ."
                     + " ?doc a axis-datamodel:Document .  "
-                    + " optional{ ?doc rdf:Description ?description .}"
+                    + "     optional{ ?doc rdf:Description ?description .}"
+                    + "     optional{ ?doc axis-datamodel:socialNetwork ?socnet .}"
+                    + " }"
                     + " optional{ ?uri owl:sameAs ?same .}"
                     + " optional{ ?uri axis-datamodel:isPerformedBy ?author .}"
-                    + " optional{ ?reg axis-datamodel:takePlaceIn ?location .}"
-                    + " } group by ?description", this.getURI());
+                    + " } group by ?description ?socnet", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", query);
@@ -101,6 +108,11 @@ public class Object extends Entity {
                     this.description.setValue_locale(rep.get("description").asLiteral().getString());
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
+                }
+                if (rep.get("socnet") != null) {
+                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
+                    this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
+                    this.socialNetwork.setType("string");
                 }
                 if (rep.get("authors") != null) {
                     Entity[] t = getEntityTab(rep.get("authors").asLiteral().getString().split("&&&&"));

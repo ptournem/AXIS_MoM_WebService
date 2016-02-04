@@ -256,6 +256,8 @@ public class TestWS {
         PropertyAdmin[] propsAdmin = ws.GetAllPropertiesAdmin(leonard);
         PropertyAdmin[] propsVinci = ws.GetAllPropertiesAdmin(vinci);
         PropertyAdmin[] propsJoconde = ws.GetAllPropertiesAdmin(joconde);
+        PropertyAdmin[] propsLouvre = ws.GetAllPropertiesAdmin(louvre);
+        
         System.out.println("\nProperty Leonard (type Person) :");
         for (int i = 0; i < props.length; i++) {
             System.out.println(" - Property[" + i + "] : " + props[i]);
@@ -275,7 +277,12 @@ public class TestWS {
         for (int i = 0; i < propsAdmin.length; i++) {
             System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
         }
-
+        
+        System.out.println("\nPropertyAdmin Louvre (type Place) :");
+        for (int i = 0; i < propsLouvre.length; i++) {
+            System.out.println(" - Property[" + i + "] : " + propsLouvre[i]);
+        }
+        
         //leonard.delete("dbont:mother", caterina.getURI());
 //        Property[] props3 = ws.LoadEntityProperties(leonard);
 //        

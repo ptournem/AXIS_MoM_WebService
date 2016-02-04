@@ -92,10 +92,12 @@ public class Place extends Entity {
         this.region.setName("region");
         this.sameAs = new PropertyAdmin();
         this.sameAs.setName("sameas");
-        
+        this.socialNetwork = new PropertyAdmin();
+        this.socialNetwork.setName("socialnetwork");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format(Connector.$PREFIXS
-                    + "select ?description ?postalcode (group_concat(?country; separator=\"&&&&\") as ?countries) "
+                    + "select ?description ?postalcode ?socnet "
+                    + " (group_concat(?country; separator=\"&&&&\") as ?countries) "
                     + " (group_concat(?region; separator=\"&&&&\") as ?regions) "
                     + " (group_concat(?birthpof; separator=\"&&&&\") as ?birthplaceof) "
                     + " (group_concat(?locof;separator=\"&&&&\") as ?locationof) "
@@ -116,9 +118,10 @@ public class Place extends Entity {
                     + "	?uri axis-datamodel:hasRepresentation ?doc ."
                     + "    ?doc a axis-datamodel:Document . "
                     + "    optional{ ?doc rdf:Description ?description . }"
+                    + "    optional{ ?doc axis-datamodel:socialNetwork ?socnet . }"
                     + "  }"
                     + "optional{ ?uri owl:sameAs ?same .}"
-                    + "} group by ?description ?postalcode", this.getURI());
+                    + "} group by ?description ?postalcode ?socnet", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", query);
@@ -135,6 +138,12 @@ public class Place extends Entity {
                     this.postalCode.setValue_locale(rep.get("postalcode").asLiteral().getString());
                     this.postalCode.setLang(rep.get("postalcode").asLiteral().getLanguage());
                     this.postalCode.setType("string");
+                    
+                }
+                if (rep.get("socnet") != null) {
+                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
+                    this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
+                    this.socialNetwork.setType("string");
                     
                 }
                 if (rep.get("countries") != null) {
