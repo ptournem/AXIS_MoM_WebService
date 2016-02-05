@@ -29,6 +29,11 @@ public class Object extends Entity {
     public PropertyAdmin sameAs;
     public PropertyAdmin description;
     public PropertyAdmin socialNetwork;
+    public PropertyAdmin website;
+    public PropertyAdmin owner;
+    public PropertyAdmin museum;
+    public PropertyAdmin year;
+    public PropertyAdmin type;
 
     public Property[] getPropertiesObject() {
         ArrayList<Property> list = new ArrayList<Property>();
@@ -45,7 +50,22 @@ public class Object extends Entity {
         if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
             list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
         }
-        //list.add(new Property(this.dateCreation.getName(), this.dateCreation.getValue_locale(), this.dateCreation.getType(), this.dateCreation.getEntity_locale()));
+        if (!((this.museum.getEntity_locale() == null) && (this.museum.getValue_locale() == null))) {
+            list.add(new Property(this.museum.getName(), this.museum.getValue_locale(), this.museum.getEntity_locale(), this.museum.getType(),this.museum.getLang()));
+        }
+        if (!((this.website.getEntity_locale() == null) && (this.website.getValue_locale() == null))) {
+            list.add(new Property(this.website.getName(), this.website.getValue_locale(), this.website.getEntity_locale(), this.website.getType(),this.website.getLang()));
+        }
+        if (!((this.owner.getEntity_locale() == null) && (this.owner.getValue_locale() == null))) {
+            list.add(new Property(this.owner.getName(), this.owner.getValue_locale(), this.owner.getEntity_locale(), this.owner.getType(),this.owner.getLang()));
+        }
+        if (!((this.year.getEntity_locale() == null) && (this.year.getValue_locale() == null))) {
+            list.add(new Property(this.year.getName(), this.year.getValue_locale(), this.year.getEntity_locale(), this.year.getType(),this.year.getLang()));
+        }
+        if (!((this.type.getEntity_locale() == null) && (this.type.getValue_locale() == null))) {
+            list.add(new Property(this.type.getName(), this.type.getValue_locale(), this.type.getEntity_locale(), this.type.getType(),this.type.getLang()));
+        }
+        
         Property[] ret = new Property[list.size()];
         return (Property[]) list.toArray(ret);
     }
@@ -58,6 +78,11 @@ public class Object extends Entity {
         list.add(this.sameAs);
         list.add(this.description);
         list.add(this.socialNetwork);
+        list.add(this.museum);
+        list.add(this.website);
+        list.add(this.owner);
+        list.add(this.year);
+        list.add(this.type);
         //list.add(this.dateCreation);
 
         PropertyAdmin[] ret = new PropertyAdmin[list.size()];
@@ -75,10 +100,22 @@ public class Object extends Entity {
         this.sameAs.setName("sameas");
         this.socialNetwork = new PropertyAdmin();
         this.socialNetwork.setName("socialnetwork");
+        this.owner = new PropertyAdmin();
+        this.owner.setName("owner");
+        this.museum = new PropertyAdmin();
+        this.museum.setName("museum");
+        this.year = new PropertyAdmin();
+        this.year.setName("year");
+        this.type = new PropertyAdmin();
+        this.type.setName("type");
+        this.website = new PropertyAdmin();
+        this.website.setName("website");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format($PREFIXS
-                    + " select ?description ?socnet (group_concat(?location; separator=\"&&&&\") as ?locations) "
+                    + " select ?description ?socnet ?owner ?type ?year ?website "
+                    + " (group_concat(?location; separator=\"&&&&\") as ?locations) "
                     + " (group_concat(?author;separator=\"&&&&\") as ?authors) "
+                    + " (group_concat(?museum; separator=\"&&&&\") as ?museums) "
                     + " (group_concat(?same;separator=\"&&&&\") as ?sameas) where {"
                     + " values ?uri { <%s> }"
                     + " ?e axis-datamodel:uses ?uri ."
@@ -87,16 +124,21 @@ public class Object extends Entity {
                     + " ?uri axis-datamodel:hasRepresentation ?reg ."
                     + " ?reg a axis-datamodel:RegOfObjectItem ."
                     + "     optional{ ?reg axis-datamodel:takePlaceIn ?location .}"
+                    + "     optional{ ?reg dbont:owner ?owner .}"
+                    + "     optional{ ?reg dbp:museum ?museum . }"
                     + " }"
                     + " optional{"
                     + " ?uri axis-datamodel:hasRepresentation ?doc ."
                     + " ?doc a axis-datamodel:Document .  "
                     + "     optional{ ?doc rdf:Description ?description .}"
                     + "     optional{ ?doc axis-datamodel:socialNetwork ?socnet .}"
+                    + "     optional{ ?doc dbp:year ?year . }"
+                    + "     optional{ ?doc dbp:type ?type . }"
+                    + "     optional{ ?doc dbont:wikiPageExternalLink ?website . }"
                     + " }"
                     + " optional{ ?uri owl:sameAs ?same .}"
                     + " optional{ ?uri axis-datamodel:isPerformedBy ?author .}"
-                    + " } group by ?description ?socnet", this.getURI());
+                    + " } group by ?description ?socnet ?owner ?year ?type ?website", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", query);
@@ -109,10 +151,32 @@ public class Object extends Entity {
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
                 }
+                if (rep.get("website") != null) {
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setLang(rep.get("website").asLiteral().getLanguage());
+                    this.website.setType("string");
+                }
                 if (rep.get("socnet") != null) {
                     this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
                     this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
                     this.socialNetwork.setType("string");
+                }
+                if (rep.get("owner") != null) {
+                    this.owner.setValue_locale(rep.get("owner").asLiteral().getString());
+                    this.owner.setLang(rep.get("owner").asLiteral().getLanguage());
+                    this.owner.setType("string");
+                }
+                if (rep.get("year") != null) {
+                    this.year.setValue_locale(rep.get("year").asLiteral().getString());
+                    this.year.setLang(rep.get("year").asLiteral().getLanguage());
+                    this.year.setType("string");
+
+                }
+                if (rep.get("type") != null) {
+                    this.type.setValue_locale(rep.get("type").asLiteral().getString());
+                    this.type.setLang(rep.get("type").asLiteral().getLanguage());
+                    this.type.setType("string");
+
                 }
                 if (rep.get("authors") != null) {
                     Entity[] t = getEntityTab(rep.get("authors").asLiteral().getString().split("&&&&"));
@@ -206,7 +270,6 @@ public class Object extends Entity {
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", this.getURI());
                 break;
 
             case "our":
@@ -219,29 +282,89 @@ public class Object extends Entity {
                 break;
         }
     }
-
-    public void insertAuthor(Property p) {
-
-        String uri1 = null;
+    
+    public void insertOwner(Property p) {
 
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbont:owner", p.getEnt()[0].getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbont:owner", p.getEnt()[0].getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbont:owner", p.getValue(), p.getType());
+        }
+    }
+
+    public void insertAuthor(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "axis-datamodel:performs", this.getURI());
                 break;
 
             case "our":
                 insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "axis-datamodel:performs", this.getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPhysicalPerson"), "axis-datamodel:performs", this.getURI());
                 break;
 
             case "literal":
                 insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", p.getValue(), p.getType());
                 break;
         }
+    }
+    
+    public void insertYear(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbp:year", p.getEnt()[0].getURI());
+                break;
 
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbp:year", p.getEnt()[0].getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbp:year", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertType(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbp:type", p.getEnt()[0].getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbp:type", p.getEnt()[0].getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbp:type", p.getValue(), p.getType());
+                break;
+        }
     }
 
+    public void insertMuseum(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbp:museum", p.getEnt()[0].getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbp:museum", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfMoralPerson"), "dbp:museum", this.getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfObjectItem"), "dbp:museum", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
     @Override
     public String toString() {
         return "Object{" + "location=" + location + ", author=" + author + ", sameAs=" + sameAs + ", description=" + description + '}';

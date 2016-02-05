@@ -17,8 +17,10 @@ import static model.Connector.selectAllEntitiesURI;
 import static model.Connector.selectRegOfEntity;
 import static model.Connector.selectAllComments;
 import static model.Connector.selectlodFromKeyWord;
+import model.Event;
 import model.Person;
 import model.Object;
+import model.Organisation;
 import model.Place;
 
 
@@ -43,8 +45,8 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
      */
     @Override
     public Boolean RemoveEntity(Entity e) {
-        e.delete(e.getURI(), "rdf:type", "?o");
-        e.delete(e.getURI(), "rdf:hasRepresentation", "?o");
+        e.deleteTriplet("<"+e.getURI()+">", "?p", "?o");
+        e.deleteTriplet("?s", "axis-datamodel:uses", "<"+e.getURI()+">");
 	return true;
     }
 
@@ -61,6 +63,8 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	Object obj = new Object();
         Person pers = new Person();
         Place pla = new Place();
+        Event eve = new Event();
+        Organisation orga = new Organisation();
         e.constructEntity();
         
         Entity[] tab = new Entity[1];
@@ -159,6 +163,16 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pla.insertBirthPlaceOf(p);
                 ret = true;
                 break;
+            case "deathplace":
+                pers.setURI(e.getURI());
+                pers.insertDeathDate(p);
+                ret = true;
+                break;
+            case "deathplaceof":
+                pla.setURI(e.getURI());
+                pla.insertDeathPlace(p);
+                ret = true;
+                break;
             case "postalcode":
                 pla.setURI(e.getURI());
 //                pla.constructEntity();
@@ -182,11 +196,74 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "locationof":
                 pla.setURI(e.getURI());
-//                pla.constructEntity();
-//                pla.constructPlace();
                 pla.insertLocationOf(p);
                 ret = true;
                 break;
+            case "placeofevent":
+                eve.setURI(e.getURI());
+                eve.insertPlaceOfEvent(p);
+                ret = true;
+                break;
+            case "hasparticipant":
+                eve.setURI(e.getURI());
+                eve.insertHasParticipant(p);
+                ret = true;
+                break;
+            case "dateofevent":
+                eve.setURI(e.getURI());
+                eve.insertDateOfEvent(p);
+                ret = true;
+                break;
+            case "website":
+                e.insertWebsite(p);
+                ret = true;
+                break;
+            case "owner":
+                obj.setURI(e.getURI());
+                obj.insertOwner(p);
+                ret = true;
+                break;
+            case "museum":
+                obj.setURI(e.getURI());
+                obj.insertMuseum(p);
+                ret = true;
+                break;
+            case "year":
+                obj.setURI(e.getURI());
+                obj.insertYear(p);
+                ret = true;
+                break;
+            case "type":
+                obj.setURI(e.getURI());
+                obj.insertType(p);
+                ret = true;
+                break;
+            case "placeoforganisation":
+                orga.setURI(e.getURI());
+                orga.insertPlaceOfOrganisation(p);
+                ret = true;
+                break;
+            case "isaplaceoforganisation":
+                pla.setURI(e.getURI());
+                pla.insertIsAPlaceOfOrganisation(p);
+                ret = true;
+                break;
+            case "dateOfCreation":
+                orga.setURI(e.getURI());
+                orga.insertDateOfCreation(p);
+                ret = true;
+                break;    
+            case "leader":
+                orga.setURI(e.getURI());
+                orga.insertLeader(p);
+                ret = true;
+                break;
+            case "istheleaderof":
+                pers.setURI(e.getURI());
+                pers.insertIsTheLeaderOf(p);
+                ret = true;
+                break;
+                
             default:
                 return false;
                 
@@ -214,49 +291,76 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	    case "author":
                 property = "axis-datamodel:performs";
                 regof = "RegOfObjectItem";
+                ret = true;
                 break;
             case "sameas":
                 e.delete(e.getURI(), "owl:sameAs", "<"+valueEntity.getURI()+">");
+                ret = true;
                 break;
             case "socialnetwork":
                 property = "axis-datamodel:socialNetwork";
                 regof = "Document";
+                ret = true;
                 break;
             case "description":
                 property = "rdf:Description";
                 regof = "Document";
+                ret = true;
                 break;
             case "location":
                 property = "axis-datamodel:takePlaceIn";
                 regof = "RegOfObjectItem";
+                ret = true;
                 break;
             case "birthdate":
                 property = "schema:birthDate";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "deathdate":
                 property = "schema:deathDate";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "restinplace":
                 property = "dbont:restInPlace";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "parent":
                 property = "dbont:parent";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "child":
                 property = "dbont:child";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "isauthorof":
                 property = "axis-datamodel:isPerformedBy";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "birthplace":
                 property = "dbont:birthPlace";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
+                break;
+            case "birthplaceof":
+                property = "dbont:birthPlace";
+                regof = "RegOfPlace";
+                ret = true;
+                break;
+            case "deathplace":
+                property = "dbont:birthPlace";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
+                break;
+            case "deathplaceof":
+                property = "dbont:deathPlace";
+                regof = "RegOfPlace";
+                ret = true;
                 break;
             case "postalcode":
                 property = "dbont:postalCode";
@@ -265,27 +369,98 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
             case "region":
                 property = "dbont:region";
                 regof = "RegOfPlace";
+                ret = true;
                 break;
             case "country":
                 property = "dbont:country";
                 regof = "RegOfPlace";
+                ret = true;
                 break;
             case "locationof":
                 property = "axis-datamodel:isAPlaceOfObject";
                 regof = "RegOfPlace";
+                ret = true;
                 break;
+            case "placeofevent":
+                property = "axis-datamodel:takesPlaceIn";
+                regof = "RegOfEvent";
+                ret = true;
+                break;
+            case "hasparticipant":
+                property = "axis-datamodel:hasParticipant";
+                regof = "RegOfEvent";
+                ret = true;
+                break;
+            case "dateofevent":
+                property = "dbont:date";
+                regof = "RegOfEvent";
+                ret = true;
+                break;
+            case "website":
+                property = "dbont:wikiPageExternalLink";
+                regof = "Document";
+                ret = true;
+                break;
+            case "owner":
+                property = "dbont:owner";
+                regof = "RegOfObjectItem";
+                ret = true;
+                break;
+            case "museum":
+                property = "dbp:museum";
+                regof = "RegOfObjectItem";
+                ret = true;
+                break;
+            case "year":
+                property = "dbp:year";
+                regof = "Document";
+                ret = true;
+                break;
+            case "type":
+                property = "dbp:type";
+                regof = "Document";
+                ret = true;
+                break;
+            case "placeoforganisation":
+                property = "axis-datamodel:takesPlaceIn";
+                regof = "RegOfMoralPerson";
+                ret = true;
+                break;
+            case "isaplaceoforganisation":
+                property = "dbont:location";
+                regof = "RegOfPlace";
+                ret = true;
+                break;
+            case "dateofcreation":
+                property = "dbp:established";
+                regof = "RegOfMoralPerson";
+                ret = true;
+                break;
+            case "istheleaderof":
+                property = "dbont:leaderName";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
+                break;
+                
             default:
-                return false;
+                ret = false;
         }
         
-        if(valueEntity.getURI().isEmpty())
-            e.delete(selectRegOfEntity(e.getURI(), "Document"), property, "?o");
-        else
-            e.delete(selectRegOfEntity(e.getURI(), regof), property, "<"+valueEntity.getURI()+">");
+        if(ret) {
+            if(valueEntity.getURI().isEmpty() || valueEntity.getURI() == null || valueEntity.getURI().equals("null"))
+                e.delete(selectRegOfEntity(e.getURI(), regof), property, "?o");
+            else
+                e.delete(selectRegOfEntity(e.getURI(), regof), property, "<"+valueEntity.getURI()+">");
+        }
         
 	return ret;
     }
 
+    /**
+     * Charge les propriétés remplies d’une entité.
+     * @param e : l’entité dont on veut charger les propriétés. Son attribut “URI” doit être renseigné. 
+     * @return : renvoie un tableau d’objet Property non-vide de l'entité voulue
+     */
     @Override
     public Property[] LoadEntityProperties(Entity e) {
         
@@ -304,6 +479,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     }
 
+    /**
+     * Cherche les entités présentes dans notre base de données sémantiques dont le nom correspond au texte passé en paramètre. 
+     * @param needle : texte recherché dans le nom des entités.
+     * @return : tableau d’objet Entity qui correspondent à la recherche. 
+     */
     @Override
     public Entity[] SearchOurEntitiesFromText(String needle) {
 
@@ -322,12 +502,15 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
             }
         }
         
-
-
         Entity[] ret = new Entity[tab.size()];
 	return (Entity[]) tab.toArray(ret);
     }
 
+    /**
+     * Cherche les entités présentes dans le Linked Open Data dont le nom correspond au texte passé en paramètre. 
+     * @param needle : représente le texte recherché dans le nom des entités.
+     * @return : tableau d’objet Entity qui correspondent à la recherche. 
+     */
     @Override
     public Entity[] SearchAllEntitiesFromText(String needle) {
         ArrayList<Entity> tab = selectlodFromKeyWord(needle);
@@ -335,6 +518,12 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	return (Entity[]) tab.toArray(ret);
     }
 
+    /**
+     * Ajoute un commentaire dans la base de données sémantique locale. 
+     * @param c : commentaire que l’on veut ajouter. Ses attributs “email”, “authorName” et “comment” doivent être renseignés. 
+     * @param e : l’entité que l’on veut commenter. Son attribut “URI” doit être renseigné. 
+     * @return : le commentaire inséré dans la base donnée sémantique locale avec tous ses attributs renseignés.
+     */
     @Override
     public Comment AddComment(Comment c, Entity e) {
         c.setEntity(e);
@@ -342,24 +531,45 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	return c;
     }
 
+    /**
+     * Valide un commentaire afin qu’il soit affiché au public du site web. 
+     * @param c : le commentaire que l’on veut valider. Son attribut “id” doit être renseigné.
+     * @return : renvoie un booléen “Vrai” si la validation s’est bien déroulée.
+     */
     @Override
     public Boolean GrantComment(Comment c) {
         c.changeValided(true);
 	return true;
     }
 
+    /**
+     * Supprime un commentaire de la base de données sémantique locale. 
+     * @param c : le commentaire que l’on veut supprimer. Son attribut “id” doit être renseigné. 
+     * @param e : l’entité que l’on veut supprimer. Son attribut “URI” doit être renseigné. 
+     * @return : renvoie un booléen “Vrai” si la suppression s’est bien déroulée.
+     */
     @Override
     public Boolean RemoveComment(Comment c, Entity e) {
         c.setEntity(e);
         return c.deleteComment();
     }
 
+    /**
+     * Refuse un commentaire afin qu’il ne soit plus affiché au public mais pas supprimé.
+     * @param c : commentaire que l’on veut refuser. Son attribut “id” doit être renseigné. 
+     * @return : renvoie un booléen “Vrai” si le refus s’est bien déroulé.
+     */
     @Override
     public Boolean DenyComment(Comment c) {
         c.changeValided(false);
 	return true;
     }
     
+    /**
+     * Charge tous les commentaires sur une entité. 
+     * @param e : l’entité dont on veut récupérer les commentaires. Son attribut “URI” doit être renseigné. 
+     * @return : un tableau d’objet Comment. Si l’objet Entity “e” est “null”,  la fonction renvoie tous les commentaires de la base de données sémantiques locale. 
+     */
     @Override
     public Comment[] LoadComment(Entity e) {
         
@@ -371,13 +581,22 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	
         return tab;
     }
-
+    
+    /**
+     * charge toutes les entités présentes dans notre base de données.
+     * @return : La fonction renvoie un tableau d’objet Entity qui sont présentes dans notre base de données sémantique locale.
+     */
     @Override
     public Entity[] GetAllEntities() {
         
         return this.SearchOurEntitiesFromText("");
     }
-
+    
+    /**
+     * charge toutes les propriétés possible d’une entité pour l’administration de celles-ci.
+     * @param e : l’entité dont on veut charger les propriétés. Son attribut “URI” doit être renseigné.
+     * @return : renvoie un tableau d’objet PropertyAdmin.
+     */
     @Override
     public PropertyAdmin[] GetAllPropertiesAdmin(Entity e) {
         
@@ -389,6 +608,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     }
 
+    /**
+     * Récupère une entité. 
+     * @param e : l’entité que l’on veut récupérer. Son attribut “URI” doit être renseigné.
+     * @return : La fonction renvoie un objet Entity correspondant à l’attribut URI donnée en paramètre et dont tous les attributs sont renseignés.
+     */
     @Override
     public Entity GetEntity(Entity e) {
 	e.constructEntity();        

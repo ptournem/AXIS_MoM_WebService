@@ -113,7 +113,7 @@ public class Entity {
                 insert(mainURI, "axis-datamodel:uses", uri);
                 this.setURI(uri);
 
-                String uri3 = insert("rdf:type", "axis-datamodel:RegOfAgent");
+                String uri3 = insert("rdf:type", "axis-datamodel:RegOfPhysicalPerson");
                 insert(uri, "axis-datamodel:hasRepresentation", uri3);
 
                 break;
@@ -125,6 +125,7 @@ public class Entity {
                 String uri4 = insert("rdf:type", "axis-datamodel:RegOfEvent");
                 insert(uri, "axis-datamodel:hasRepresentation", uri4);
 
+                
                 break;
             case "object":
                 uri = insert("rdf:type", "axis-datamodel:PhysicalObject");
@@ -149,9 +150,14 @@ public class Entity {
 //                  insert(e.URI, "axis:hasExpression", uri);
 //                  break;
             case "organisation":
+                
                 uri = insert("rdf:type", "axis-datamodel:MoralPerson");
                 insert(mainURI, "axis-datamodel:uses", uri);
                 this.setURI(uri);
+
+                String uri9 = insert("rdf:type", "axis-datamodel:RegOfMoralPerson");
+                insert(uri, "axis-datamodel:hasRepresentation", uri9);
+
                 break;
         }
 
@@ -245,6 +251,10 @@ public class Entity {
     public void insertSameAs(Property p) {
         insert(this.URI, "owl:sameAs", p.getEnt()[0].getURI());
     }
+    
+    public void insertWebsite(Property p) {
+        insert(selectRegOfEntity(this.URI, "Document"), "dbont:wikiPageExternalLink", p.getValue(), "fr");
+    }
 
     public void insertSocialNetwork(Property p) {
         insert(selectRegOfEntity(this.URI, "Document"), "axis-datamodel:socialNetwork", p.getValue(), "fr");
@@ -301,6 +311,11 @@ public class Entity {
 
     public boolean delete(String uri, String prop, String uri2) {
         deleteLinkEntity(uri, prop, uri2);
+        return true;
+    }
+    
+    public boolean deleteTriplet(String s, String p, String o) {
+        deleteTriple(s, p, o);
         return true;
     }
     

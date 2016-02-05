@@ -34,6 +34,10 @@ public class Person extends Entity {
     public PropertyAdmin sameAs;
     public PropertyAdmin description;
     public PropertyAdmin socialNetwork;
+    public PropertyAdmin website;
+    public PropertyAdmin participatesInEvent;
+    public PropertyAdmin deathPlace;
+    public PropertyAdmin isTheLeaderOf;
     
     public Property[] getPropertiesPerson() {
         ArrayList<Property> list = new ArrayList<Property>();
@@ -65,6 +69,18 @@ public class Person extends Entity {
         if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
             list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
         }
+        if (!((this.participatesInEvent.getEntity_locale() == null) && (this.participatesInEvent.getValue_locale() == null))) {
+            list.add(new Property(this.participatesInEvent.getName(), this.participatesInEvent.getValue_locale(), this.participatesInEvent.getEntity_locale(), this.participatesInEvent.getType(),this.participatesInEvent.getLang()));
+        }
+        if (!((this.website.getEntity_locale() == null) && (this.website.getValue_locale() == null))) {
+            list.add(new Property(this.website.getName(), this.website.getValue_locale(), this.website.getEntity_locale(), this.website.getType(),this.website.getLang()));
+        }
+        if (!((this.deathPlace.getEntity_locale() == null) && (this.deathPlace.getValue_locale() == null))) {
+            list.add(new Property(this.deathPlace.getName(), this.deathPlace.getValue_locale(), this.deathPlace.getEntity_locale(), this.deathPlace.getType(),this.deathPlace.getLang()));
+        }
+        if (!((this.isTheLeaderOf.getEntity_locale() == null) && (this.isTheLeaderOf.getValue_locale() == null))) {
+            list.add(new Property(this.isTheLeaderOf.getName(), this.isTheLeaderOf.getValue_locale(), this.isTheLeaderOf.getEntity_locale(), this.isTheLeaderOf.getType(),this.isTheLeaderOf.getLang()));
+        }
         Property[] ret = new Property[list.size()];
         return (Property[]) list.toArray(ret);
     }
@@ -85,6 +101,10 @@ public class Person extends Entity {
         list.add(this.sameAs);
         list.add(this.description);
         list.add(this.socialNetwork);
+        list.add(this.participatesInEvent);
+        list.add(this.website);
+        list.add(this.deathPlace);
+        list.add(this.isTheLeaderOf);
 
         PropertyAdmin[] ret = new PropertyAdmin[list.size()];
         return (PropertyAdmin[]) list.toArray(ret);
@@ -111,37 +131,52 @@ public class Person extends Entity {
         this.sameAs.setName("sameas");
         this.socialNetwork = new PropertyAdmin();
         this.socialNetwork.setName("socialnetwork");
+        this.deathPlace = new PropertyAdmin();
+        this.deathPlace.setName("deathplace");
+        this.participatesInEvent = new PropertyAdmin();
+        this.participatesInEvent.setName("participatesinevent");
+        this.isTheLeaderOf = new PropertyAdmin();
+        this.isTheLeaderOf.setName("istheleaderof");
+        this.website = new PropertyAdmin();
+        this.website.setName("website");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format($PREFIXS
-                    + " select ?description ?deathdate ?birthdate ?socnet "
+                    + " select ?description ?deathdate ?birthdate ?socnet ?website"
                     + " (group_concat(?parent;separator=\"&&&&\") as ?parents)"
                     + " (group_concat(?child;separator=\"&&&&\") as ?childs)"
                     + " (group_concat(?restinplace;separator=\"&&&&\") as ?restinplaces) "
                     + " (group_concat(?birthplace;separator=\"&&&&\") as ?birthplaces)"
                     + " (group_concat(?isauthorof;separator=\"&&&&\") as ?isauthorofs) "
+                    + " (group_concat(?deathplace;separator=\"&&&&\") as ?deathplaces) "
+                    + " (group_concat(?participatesinevent;separator=\"&&&&\") as ?participatesinevents) "
+                    + " (group_concat(?leader;separator=\"&&&&\") as ?istheleaderof) "
                     + " (group_concat(?same;separator=\"&&&&\") as ?sameas) where {"
                     + " values ?uri { <%s> }"
                     + " ?e axis-datamodel:uses ?uri ."
                     + " ?e a axis-datamodel:Entity ."
                     + " optional{ "
                     + " ?uri axis-datamodel:hasRepresentation ?reg ."
-                    + " ?reg a axis-datamodel:RegOfAgent."
+                    + " ?reg a axis-datamodel:RegOfPhysicalPerson."
                     + " optional{ ?reg dbont:parent ?parent .}"
                     + " optional{ ?reg dbont:child ?child .}"
                     + " optional{ ?reg dbont:birthPlace ?birthplace .}"
                     + " optional{ ?reg schema:birthDate ?birthdate .}"
                     + " optional{ ?reg schema:deathDate ?deathdate .}"
                     + " optional{ ?reg dbont:restInPlace ?restinplace .}"
+                    + " optional{ ?reg dbont:leaderName ?leader .}"
                     + " optional{ ?reg axis-datamodel:performs ?isauthorof .}"
+                    + " optional{ ?reg dbont:deathPlace ?deathplace .}"
+                    + " optional{ ?reg axis-datamodel:participatesInEvent ?participatesinevent .}"
                     + " }"
                     + " optional{ "
                     + " ?uri axis-datamodel:hasRepresentation ?doc ."
                     + " ?doc a axis-datamodel:Document .  "
                     + " optional{ ?doc rdf:Description ?description .}"
                     + " optional{ ?doc axis-datamodel:socialNetwork ?socnet .}"
+                    + "     optional{ ?doc dbont:wikiPageExternalLink ?website . }"
                     + " }"
                     + " optional{ ?uri owl:sameAs ?same .}"
-                    + " } group by  ?deathdate ?birthdate ?description ?socnet", this.getURI());
+                    + " } group by  ?deathdate ?birthdate ?description ?socnet ?website", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", query);
@@ -164,6 +199,11 @@ public class Person extends Entity {
                     this.birthDate.setValue_locale(rep.get("birthdate").asLiteral().getString());
                     this.birthDate.setLang(rep.get("birthdate").asLiteral().getLanguage());
                 }
+                if (rep.get("website") != null) {
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setLang(rep.get("website").asLiteral().getLanguage());
+                    this.website.setType("string");
+                }
                 if (rep.get("deathdate") != null) {
                     this.deathDate.setValue_locale(rep.get("deathdate").asLiteral().getString());
                     this.deathDate.setType("date");
@@ -179,6 +219,42 @@ public class Person extends Entity {
                         this.parent.setEntity_locale(t);
                         this.parent.setType("uri");
                         this.parent.setLang("fr");
+                    }
+                }
+                if (rep.get("deathplaces") != null) {
+                    Entity[] t = getEntityTab(rep.get("deathplaces").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.deathPlace.setValue_locale(rep.get("deathplaces").asLiteral().getString());
+                        this.deathPlace.setLang(rep.get("deathplaces").asLiteral().getLanguage());
+                        this.deathPlace.setType("string");
+                    } else {
+                        this.deathPlace.setEntity_locale(t);
+                        this.deathPlace.setType("uri");
+                        this.deathPlace.setLang("fr");
+                    }
+                }
+                if (rep.get("participatesinevents") != null) {
+                    Entity[] t = getEntityTab(rep.get("participatesinevents").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.participatesInEvent.setValue_locale(rep.get("participatesinevents").asLiteral().getString());
+                        this.participatesInEvent.setLang(rep.get("participatesinevents").asLiteral().getLanguage());
+                        this.participatesInEvent.setType("string");
+                    } else {
+                        this.participatesInEvent.setEntity_locale(t);
+                        this.participatesInEvent.setType("uri");
+                        this.participatesInEvent.setLang("fr");
+                    }
+                }
+                if (rep.get("istheleaderof") != null) {
+                    Entity[] t = getEntityTab(rep.get("istheleaderof").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.isTheLeaderOf.setValue_locale(rep.get("istheleaderof").asLiteral().getString());
+                        this.isTheLeaderOf.setLang(rep.get("istheleaderof").asLiteral().getLanguage());
+                        this.isTheLeaderOf.setType("string");
+                    } else {
+                        this.isTheLeaderOf.setEntity_locale(t);
+                        this.isTheLeaderOf.setType("uri");
+                        this.isTheLeaderOf.setLang("fr");
                     }
                 }
                 if (rep.get("sameas") != null) {
@@ -340,103 +416,145 @@ public class Person extends Entity {
     }
     
     public void insertBirthDate(Property p) {
-        insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "schema:birthDate", p.getValue(), p.getType());
+        insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "schema:birthDate", p.getValue(), p.getType());
     }
 
     public void insertDeathDate(Property p) {
-        insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "schema:deathDate", p.getValue(), p.getType());
+        insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "schema:deathDate", p.getValue(), p.getType());
     }
 
     public void insertPlaceOfBirth(Property p) {
-        String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:birthPlace", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPlace"), "dbont:birthPlaceOf", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:birthPlace", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:birthPlace", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPlace"), "dbont:birthPlaceOf", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:birthPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPlace"), "dbont:birthPlace", this.getURI());
                 break;
 
             case "literal":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:birthPlaceOf", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:birthPlaceOf", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertDeathPlace(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:deathPlace", p.getEnt()[0].getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:deathPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPlace"), "dbont:deathPlace", this.getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:deathPlace", p.getValue(), p.getType());
                 break;
         }
     }
 
     public void insertParent(Property p) {
-        String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:parent", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:child", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:parent", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:parent", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:child", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:parent", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPhysicalPerson"), "dbont:child", this.getURI());
                 break;
 
             case "literal":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:parent", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:parent", p.getValue(), p.getType());
                 break;
         }
     }
 
     public void insertChild(Property p) {
-        String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:child", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:parent", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:child", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:child", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:parent", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:child", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPhysicalPerson"), "dbont:parent", this.getURI());
                 break;
 
             case "literal":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:child", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:child", p.getValue(), p.getType());
                 break;
         }
     }
     
 
     public void insertRestInPlace(Property p) {
-        String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:restInPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:restInPlace", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:restInPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:restInPlace", p.getEnt()[0].getURI());
                 break;
 
             case "literal":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:restInPlace", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:restInPlace", p.getValue(), p.getType());
                 break;
         }
     }
 
     public void insertIsAuthorOf(Property p) {
-        String uri1 = null;
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "axis-datamodel:performs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "axis-datamodel:performs", p.getEnt()[0].getURI());
                 insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", this.getURI());
                 break;
 
             case "literal":
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "axis-datamodel:performs", p.getValue(), p.getType());
+                break;
+        }
+    }
+
+    public void insertParticipatesInEvent(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "axis-datamodel:participatesInEvent", p.getEnt()[0].getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "axis-datamodel:participatesInEvent", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfEvent"), "axis-datamodel:hasParticipant", this.getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "axis-datamodel:participatesInEvent", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertIsTheLeaderOf(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:leaderName", p.getEnt()[0].getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:leaderName", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfMoralPerson"), "dbont:leaderName", this.getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPhysicalPerson"), "dbont:leaderName", p.getValue(), p.getType());
                 break;
         }
     }
