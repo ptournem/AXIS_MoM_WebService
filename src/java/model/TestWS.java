@@ -25,7 +25,7 @@ public class TestWS {
     public static void main(String args[]) {
 
         //testComments();
-        testFonctionnel(false);
+        testFonctionnel(true);
 //        testComments();
 
         //System.out.println("test");
