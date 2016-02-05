@@ -253,7 +253,7 @@ public class Entity {
     }
     
     public void insertWebsite(Property p) {
-        insert(selectRegOfEntity(this.URI, "Document"), "dbont:wikiPageExternalLink", p.getEnt()[0].getURI());
+        insert(selectRegOfEntity(this.URI, "Document"), "dbont:wikiPageExternalLink", p.getValue(), "fr");
     }
 
     public void insertSocialNetwork(Property p) {

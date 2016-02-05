@@ -134,15 +134,17 @@ public class Person extends Entity {
         this.sameAs.setName("sameas");
         this.socialNetwork = new PropertyAdmin();
         this.socialNetwork.setName("socialnetwork");
-//        this.deathPlace = new PropertyAdmin();
-//        this.deathPlace.setName("deathplace");
-//        this.participatesInEvent = new PropertyAdmin();
-//        this.participatesInEvent.setName("participatesinevent");
-//        this.isTheLeaderOf = new PropertyAdmin();
-//        this.isTheLeaderOf.setName("istheleaderof");
+        this.deathPlace = new PropertyAdmin();
+        this.deathPlace.setName("deathplace");
+        this.participatesInEvent = new PropertyAdmin();
+        this.participatesInEvent.setName("participatesinevent");
+        this.isTheLeaderOf = new PropertyAdmin();
+        this.isTheLeaderOf.setName("istheleaderof");
+        this.website = new PropertyAdmin();
+        this.website.setName("website");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format($PREFIXS
-                    + " select ?description ?deathdate ?birthdate ?socnet "
+                    + " select ?description ?deathdate ?birthdate ?socnet ?website"
                     + " (group_concat(?parent;separator=\"&&&&\") as ?parents)"
                     + " (group_concat(?child;separator=\"&&&&\") as ?childs)"
                     + " (group_concat(?restinplace;separator=\"&&&&\") as ?restinplaces) "
@@ -174,9 +176,10 @@ public class Person extends Entity {
                     + " ?doc a axis-datamodel:Document .  "
                     + " optional{ ?doc rdf:Description ?description .}"
                     + " optional{ ?doc axis-datamodel:socialNetwork ?socnet .}"
+                    + "     optional{ ?doc dbont:wikiPageExternalLink ?website . }"
                     + " }"
                     + " optional{ ?uri owl:sameAs ?same .}"
-                    + " } group by  ?deathdate ?birthdate ?description ?socnet", this.getURI());
+                    + " } group by  ?deathdate ?birthdate ?description ?socnet ?website", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", query);
@@ -199,6 +202,11 @@ public class Person extends Entity {
                     this.birthDate.setValue_locale(rep.get("birthdate").asLiteral().getString());
                     this.birthDate.setLang(rep.get("birthdate").asLiteral().getLanguage());
                 }
+                if (rep.get("website") != null) {
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setLang(rep.get("website").asLiteral().getLanguage());
+                    this.website.setType("string");
+                }
                 if (rep.get("deathdate") != null) {
                     this.deathDate.setValue_locale(rep.get("deathdate").asLiteral().getString());
                     this.deathDate.setType("date");
@@ -216,42 +224,42 @@ public class Person extends Entity {
                         this.parent.setLang("fr");
                     }
                 }
-//                if (rep.get("deathplaces") != null) {
-//                    Entity[] t = getEntityTab(rep.get("deathplaces").asLiteral().getString().split("&&&&"));
-//                    if (t.length == 0) {
-//                        this.deathPlace.setValue_locale(rep.get("deathplaces").asLiteral().getString());
-//                        this.deathPlace.setLang(rep.get("deathplaces").asLiteral().getLanguage());
-//                        this.deathPlace.setType("string");
-//                    } else {
-//                        this.deathPlace.setEntity_locale(t);
-//                        this.deathPlace.setType("uri");
-//                        this.deathPlace.setLang("fr");
-//                    }
-//                }
-//                if (rep.get("participatesinevents") != null) {
-//                    Entity[] t = getEntityTab(rep.get("participatesinevents").asLiteral().getString().split("&&&&"));
-//                    if (t.length == 0) {
-//                        this.participatesInEvent.setValue_locale(rep.get("participatesinevents").asLiteral().getString());
-//                        this.participatesInEvent.setLang(rep.get("participatesinevents").asLiteral().getLanguage());
-//                        this.participatesInEvent.setType("string");
-//                    } else {
-//                        this.participatesInEvent.setEntity_locale(t);
-//                        this.participatesInEvent.setType("uri");
-//                        this.participatesInEvent.setLang("fr");
-//                    }
-//                }
-//                if (rep.get("istheleaderof") != null) {
-//                    Entity[] t = getEntityTab(rep.get("istheleaderof").asLiteral().getString().split("&&&&"));
-//                    if (t.length == 0) {
-//                        this.isTheLeaderOf.setValue_locale(rep.get("istheleaderof").asLiteral().getString());
-//                        this.isTheLeaderOf.setLang(rep.get("istheleaderof").asLiteral().getLanguage());
-//                        this.isTheLeaderOf.setType("string");
-//                    } else {
-//                        this.isTheLeaderOf.setEntity_locale(t);
-//                        this.isTheLeaderOf.setType("uri");
-//                        this.isTheLeaderOf.setLang("fr");
-//                    }
-//                }
+                if (rep.get("deathplaces") != null) {
+                    Entity[] t = getEntityTab(rep.get("deathplaces").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.deathPlace.setValue_locale(rep.get("deathplaces").asLiteral().getString());
+                        this.deathPlace.setLang(rep.get("deathplaces").asLiteral().getLanguage());
+                        this.deathPlace.setType("string");
+                    } else {
+                        this.deathPlace.setEntity_locale(t);
+                        this.deathPlace.setType("uri");
+                        this.deathPlace.setLang("fr");
+                    }
+                }
+                if (rep.get("participatesinevents") != null) {
+                    Entity[] t = getEntityTab(rep.get("participatesinevents").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.participatesInEvent.setValue_locale(rep.get("participatesinevents").asLiteral().getString());
+                        this.participatesInEvent.setLang(rep.get("participatesinevents").asLiteral().getLanguage());
+                        this.participatesInEvent.setType("string");
+                    } else {
+                        this.participatesInEvent.setEntity_locale(t);
+                        this.participatesInEvent.setType("uri");
+                        this.participatesInEvent.setLang("fr");
+                    }
+                }
+                if (rep.get("istheleaderof") != null) {
+                    Entity[] t = getEntityTab(rep.get("istheleaderof").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.isTheLeaderOf.setValue_locale(rep.get("istheleaderof").asLiteral().getString());
+                        this.isTheLeaderOf.setLang(rep.get("istheleaderof").asLiteral().getLanguage());
+                        this.isTheLeaderOf.setType("string");
+                    } else {
+                        this.isTheLeaderOf.setEntity_locale(t);
+                        this.isTheLeaderOf.setType("uri");
+                        this.isTheLeaderOf.setLang("fr");
+                    }
+                }
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {

@@ -149,22 +149,32 @@ public class TestWS {
         Entity vinci = new Entity("Vinci", "http://www.lepoint.fr/images/2011/03/22/italie-unita-274376-jpg_165194.JPG", "location");
         Entity italie = new Entity("Italie", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/langfr-225px-Flag_of_Italy.svg.png", "location");
         Entity toscane = new Entity("Toscane", "http://www.franceinfo.fr/sites/default/files/2013/06/22/1036825/images/principale/yes.jpg", "location");
-        
+        Entity louvreOrg = new Entity("Musée du Louvre", "https://upload.wikimedia.org/wikipedia/en/4/42/Louvre_Pyramid.jpg", "organisation");
+        Entity mlkSpeech = new Entity("Discours de Martin Luther King", "http://www.saphirnews.com/photo/art/default/5798576-8644705.jpg?v=1377633337", "event");
+        Entity lincolnMemorial = new Entity("Lincoln Memorial", "https://fr.wikipedia.org/wiki/Lincoln_Memorial#/media/File:Aerial_view_of_Lincoln_Memorial_-_east_side_EDIT.jpeg", "location");
+        Entity mlk = new Entity("Martin Luther King", "http://a4.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,h_1200,q_80,w_1200/MTE5NTU2MzE2MjgwNDg5NDgz.jpg", "person");
         bourgeois = ws.AddEntity(bourgeois);
         vinci = ws.AddEntity(vinci);
         italie = ws.AddEntity(italie);
         toscane = ws.AddEntity(toscane);
-        
+        mlk = ws.AddEntity(mlk);
+        lincolnMemorial = ws.AddEntity(lincolnMemorial);
+        mlkSpeech = ws.AddEntity(mlkSpeech);
         //création Léonard Da Vinci
         leonard = ws.AddEntity(leonard);
-
+        louvreOrg = ws.AddEntity(louvreOrg);
         //ajouter Léonard Da vinci => sameas => dbpedia
         //ajouter Léonard Da vinci => birthdate => String
         lierEntity(ws, leonard, "birthdate", "1400-01-25");
 
         //ajouter Léonard Da vinci => deathdate => String
         lierEntity(ws, leonard, "deathdate", "1450-03-21");
-
+        
+        //création Joconde
+        joconde = ws.AddEntity(joconde);
+        louvre = ws.AddEntity(louvre);
+        
+        
         //création Caterina Da Vinci
         caterina = ws.AddEntity(caterina);
 
@@ -194,10 +204,24 @@ public class TestWS {
         lierEntity(ws, vinci, "description", "Vinci est une commune dans la ville métropolitaine de Florence en Toscane (Italie).");
         //ajouter Léonard Da vinci => description => String
         lierEntity(ws, leonard, "description", "Léonard Da Vinci est un super artiste");
-
-        //création Joconde
-        joconde = ws.AddEntity(joconde);
-        louvre = ws.AddEntity(louvre);
+        
+        lierEntity(ws, louvreOrg, "description", "Le musée du Louvre est un musée d'art et d'antiquités situé au centre de Paris dans le palais du Louvre.");
+        lierEntity(ws, louvreOrg, "dateofcreation", "1792");
+        lierEntity(ws, louvreOrg, "socialnetwork", "#MuséeDuLouvre");
+        lierEntity(ws, louvreOrg, "website", "http://www.louvre.fr/");
+        lierEntity(ws, louvreOrg, "leader", "Jean-Luc Martinez");
+        lierEntity(ws, louvreOrg, "hasobject", joconde);
+        lierEntity(ws, louvreOrg, "placeoforganisation", louvre);
+        
+        lierEntity(ws, mlkSpeech, "website", "http://www.americanrhetoric.com/speeches/mlkihaveadream.htm");
+        lierEntity(ws, mlkSpeech, "socialnetwork", "#DiscoursDeMartinLutherKing");
+        lierEntity(ws, mlkSpeech, "description", "I have a dream (traduit en français par « Je fais un rêve ») est à la fois le nom du discours le plus célèbre de Martin Luther King et le point d'orgue du Mouvement des droits civiques.");
+        lierEntity(ws, mlkSpeech, "placeofevent", lincolnMemorial);
+        lierEntity(ws, mlkSpeech, "dateofevent", "28 August 1963");
+        lierEntity(ws, mlkSpeech, "hasparticipant", mlk);
+        
+        
+        
         
         lierEntity(ws, joconde, "location", louvre);
         //ajouter Joconde => description => String
