@@ -489,13 +489,13 @@ public class Connector {
                     String typ = stmt.getObject().toString();
                     if (typ.contains("Person") || (typ.contains("Agent") || (typ.contains("Artist")))) {
                         e.setType("person");
-                    } else if (e.getType() == null && typ.contains("Event")) {
+                    } else if (typ.contains("Event")) {
                         e.setType("event");
-                    } else if (e.getType() == null && typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
+                    } else if (typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if (e.getType() == null && typ.contains("SpatialThing") || typ.contains("Organization")) {
+                    } else if (typ.contains("SpatialThing") || typ.contains("Organization")) {
                         e.setType("organisation");
-                    } else if (e.getType() == null && typ.contains("Activity")) {
+                    } else if (typ.contains("Activity")) {
                         e.setType("activity");
                     }
                     if (e.getType() == null) {
@@ -505,14 +505,14 @@ public class Connector {
                     break;
                 case "http://dbpedia.org/property/type":
                     String typ2 = stmt.getObject().toString();
-                    if (typ2.contains("Organisation") || (typ2.contains("Museum"))) {
-                        e.setType("organisation");
+                     if (typ2.contains("Person") || (typ2.contains("Agent") || (typ2.contains("Artist")))) {
+                        e.setType("person");
                     } else if (typ2.contains("Event")) {
                         e.setType("event");
-                    } else if (typ2.contains("Person")) {
-                        e.setType("person");
-                    } else if (typ2.contains("location") || typ2.contains("Place") || typ2.contains("State")) {
+                    } else if (typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
                         e.setType("location");
+                    } else if (typ2.contains("SpatialThing") || typ2.contains("Organization")) {
+                        e.setType("organisation");
                     } else if (typ2.contains("Activity")) {
                         e.setType("activity");
                     }

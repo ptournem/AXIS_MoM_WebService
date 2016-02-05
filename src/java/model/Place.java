@@ -78,7 +78,7 @@ public class Place extends Entity {
 
     public PropertyAdmin[] getPropertiesAdminPlace() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
-        
+
         list.add(this.postalCode);
         list.add(this.region);
         list.add(this.country);
@@ -90,8 +90,8 @@ public class Place extends Entity {
         list.add(this.website);
         list.add(this.sameAs);
         list.add(this.isAPlaceOfOrganisation);
-        //list.add(this.isAPlaceOfEvent);
-        
+        list.add(this.isAPlaceOfEvent);
+
         PropertyAdmin[] ret = new PropertyAdmin[list.size()];
         return (PropertyAdmin[]) list.toArray(ret);
     }
@@ -113,13 +113,24 @@ public class Place extends Entity {
         this.sameAs.setName("sameas");
         this.socialNetwork = new PropertyAdmin();
         this.socialNetwork.setName("socialnetwork");
+        this.deathPlaceOf = new PropertyAdmin();
+        this.deathPlaceOf.setName("deathplaceof");
+        this.isAPlaceOfOrganisation = new PropertyAdmin();
+        this.isAPlaceOfOrganisation.setName("istheplaceoforganisation");
+        this.isAPlaceOfEvent = new PropertyAdmin();
+        this.isAPlaceOfEvent.setName("isaplaceofevent");
+        this.website = new PropertyAdmin();
+        this.website.setName("website");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format(Connector.$PREFIXS
-                    + "select ?description ?postalcode ?socnet "
+                    + "select ?description ?postalcode ?socnet ?website"
                     + " (group_concat(?country; separator=\"&&&&\") as ?countries) "
                     + " (group_concat(?region; separator=\"&&&&\") as ?regions) "
                     + " (group_concat(?birthpof; separator=\"&&&&\") as ?birthplaceof) "
                     + " (group_concat(?locof;separator=\"&&&&\") as ?locationof) "
+                    + " (group_concat(?deathplaceof;separator=\"&&&&\") as ?deathplacesof) "
+                    + " (group_concat(?isaplaceoforga;separator=\"&&&&\") as ?isaplaceoforgas) "
+                    + " (group_concat(?isaplaceofevent;separator=\"&&&&\") as ?isaplaceofevents) "
                     + " (group_concat(?same;separator=\"&&&&\") as ?sameas) where {"
                     + " values ?uri { <%s> }"
                     + "  ?e axis-datamodel:uses ?uri ."
@@ -132,15 +143,19 @@ public class Place extends Entity {
                     + "    optional{ ?reg dbont:birthPlace ?birthpof . }"
                     + "    optional{ ?reg dbont:postalCode ?postalcode . }"
                     + "    optional{ ?reg axis-datamodel:isAPlaceOfObject ?locof . }"
+                    + "    optional{ ?reg dbont:deathPlace ?deathplaceof . }"
+                    + "    optional{ ?reg dbont:location ?isaplaceoforga . }"
+                    + "    optional{ ?reg axis-datamodel:isAPlaceOfEvent ?istheplaceofevent . }"
                     + "  }"
                     + "optional{"
                     + "	?uri axis-datamodel:hasRepresentation ?doc ."
                     + "    ?doc a axis-datamodel:Document . "
                     + "    optional{ ?doc rdf:Description ?description . }"
                     + "    optional{ ?doc axis-datamodel:socialNetwork ?socnet . }"
+                    + "     optional{ ?doc dbont:wikiPageExternalLink ?website . }"
                     + "  }"
                     + "optional{ ?uri owl:sameAs ?same .}"
-                    + "} group by ?description ?postalcode ?socnet", this.getURI());
+                    + "} group by ?description ?postalcode ?socnet ?website", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", query);
@@ -153,17 +168,22 @@ public class Place extends Entity {
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
                 }
+                if (rep.get("website") != null) {
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setLang(rep.get("website").asLiteral().getLanguage());
+                    this.website.setType("string");
+                }
                 if (rep.get("postalcode") != null) {
                     this.postalCode.setValue_locale(rep.get("postalcode").asLiteral().getString());
                     this.postalCode.setLang(rep.get("postalcode").asLiteral().getLanguage());
                     this.postalCode.setType("string");
-                    
+
                 }
                 if (rep.get("socnet") != null) {
                     this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
                     this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
                     this.socialNetwork.setType("string");
-                    
+
                 }
                 if (rep.get("countries") != null) {
                     Entity[] t = getEntityTab(rep.get("countries").asLiteral().getString().split("&&&&"));
@@ -175,6 +195,42 @@ public class Place extends Entity {
                         this.country.setEntity_locale(t);
                         this.country.setType("uri");
                         this.country.setLang("fr");
+                    }
+                }
+                if (rep.get("deathplacesof") != null) {
+                    Entity[] t = getEntityTab(rep.get("deathplacesof").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.deathPlaceOf.setValue_locale(rep.get("deathplacesof").asLiteral().getString());
+                        this.deathPlaceOf.setType("string");
+                        this.deathPlaceOf.setLang(rep.get("deathplacesof").asLiteral().getLanguage());
+                    } else {
+                        this.deathPlaceOf.setEntity_locale(t);
+                        this.deathPlaceOf.setType("uri");
+                        this.deathPlaceOf.setLang("fr");
+                    }
+                }
+                if (rep.get("isaplaceoforgas") != null) {
+                    Entity[] t = getEntityTab(rep.get("isaplaceoforgas").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.isAPlaceOfOrganisation.setValue_locale(rep.get("isaplaceoforgas").asLiteral().getString());
+                        this.isAPlaceOfOrganisation.setType("string");
+                        this.isAPlaceOfOrganisation.setLang(rep.get("isaplaceoforgas").asLiteral().getLanguage());
+                    } else {
+                        this.isAPlaceOfOrganisation.setEntity_locale(t);
+                        this.isAPlaceOfOrganisation.setType("uri");
+                        this.isAPlaceOfOrganisation.setLang("fr");
+                    }
+                }
+                if (rep.get("isaplaceofevents") != null) {
+                    Entity[] t = getEntityTab(rep.get("isaplaceofevents").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.isAPlaceOfEvent.setValue_locale(rep.get("isaplaceofevents").asLiteral().getString());
+                        this.isAPlaceOfEvent.setType("string");
+                        this.isAPlaceOfEvent.setLang(rep.get("isaplaceofevents").asLiteral().getLanguage());
+                    } else {
+                        this.isAPlaceOfEvent.setEntity_locale(t);
+                        this.isAPlaceOfEvent.setType("uri");
+                        this.isAPlaceOfEvent.setLang("fr");
                     }
                 }
                 if (rep.get("birthplaceof") != null) {

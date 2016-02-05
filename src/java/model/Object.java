@@ -100,10 +100,22 @@ public class Object extends Entity {
         this.sameAs.setName("sameas");
         this.socialNetwork = new PropertyAdmin();
         this.socialNetwork.setName("socialnetwork");
+        this.owner = new PropertyAdmin();
+        this.owner.setName("owner");
+        this.museum = new PropertyAdmin();
+        this.museum.setName("museum");
+        this.year = new PropertyAdmin();
+        this.year.setName("year");
+        this.type = new PropertyAdmin();
+        this.type.setName("type");
+        this.website = new PropertyAdmin();
+        this.website.setName("website");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format($PREFIXS
-                    + " select ?description ?socnet (group_concat(?location; separator=\"&&&&\") as ?locations) "
+                    + " select ?description ?socnet ?owner ?type ?year ?website "
+                    + " (group_concat(?location; separator=\"&&&&\") as ?locations) "
                     + " (group_concat(?author;separator=\"&&&&\") as ?authors) "
+                    + " (group_concat(?museum; separator=\"&&&&\") as ?museums) "
                     + " (group_concat(?same;separator=\"&&&&\") as ?sameas) where {"
                     + " values ?uri { <%s> }"
                     + " ?e axis-datamodel:uses ?uri ."
@@ -112,16 +124,21 @@ public class Object extends Entity {
                     + " ?uri axis-datamodel:hasRepresentation ?reg ."
                     + " ?reg a axis-datamodel:RegOfObjectItem ."
                     + "     optional{ ?reg axis-datamodel:takePlaceIn ?location .}"
+                    + "     optional{ ?reg dbont:owner ?owner .}"
+                    + "     optional{ ?reg dbp:museum ?museum . }"
                     + " }"
                     + " optional{"
                     + " ?uri axis-datamodel:hasRepresentation ?doc ."
                     + " ?doc a axis-datamodel:Document .  "
                     + "     optional{ ?doc rdf:Description ?description .}"
                     + "     optional{ ?doc axis-datamodel:socialNetwork ?socnet .}"
+                    + "     optional{ ?doc dbp:year ?year . }"
+                    + "     optional{ ?doc dbp:type ?type . }"
+                    + "     optional{ ?doc dbont:wikiPageExternalLink ?website . }"
                     + " }"
                     + " optional{ ?uri owl:sameAs ?same .}"
                     + " optional{ ?uri axis-datamodel:isPerformedBy ?author .}"
-                    + " } group by ?description ?socnet", this.getURI());
+                    + " } group by ?description ?socnet ?owner ?year ?type ?website", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", query);
@@ -134,10 +151,32 @@ public class Object extends Entity {
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
                 }
+                if (rep.get("website") != null) {
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setLang(rep.get("website").asLiteral().getLanguage());
+                    this.website.setType("string");
+                }
                 if (rep.get("socnet") != null) {
                     this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
                     this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
                     this.socialNetwork.setType("string");
+                }
+                if (rep.get("owner") != null) {
+                    this.owner.setValue_locale(rep.get("owner").asLiteral().getString());
+                    this.owner.setLang(rep.get("owner").asLiteral().getLanguage());
+                    this.owner.setType("string");
+                }
+                if (rep.get("year") != null) {
+                    this.year.setValue_locale(rep.get("year").asLiteral().getString());
+                    this.year.setLang(rep.get("year").asLiteral().getLanguage());
+                    this.year.setType("string");
+
+                }
+                if (rep.get("type") != null) {
+                    this.type.setValue_locale(rep.get("type").asLiteral().getString());
+                    this.type.setLang(rep.get("type").asLiteral().getLanguage());
+                    this.type.setType("string");
+
                 }
                 if (rep.get("authors") != null) {
                     Entity[] t = getEntityTab(rep.get("authors").asLiteral().getString().split("&&&&"));
