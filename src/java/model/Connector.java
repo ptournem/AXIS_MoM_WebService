@@ -55,8 +55,15 @@ public class Connector {
 //        String test = "louvre";
 //        selectlodFromKeyWord(test);
 
-         Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", null, null, "person");
-          entityBrowser(e);
+        ArrayList<Entity> tab = selectlodFromKeyWord("louvr");
+        Entity[] ret = new Entity[tab.size()];
+	Entity[] tab2 =  (Entity[]) tab.toArray(ret);
+        for(int i=0;i<tab2.length;i++) {
+            System.out.println("e = "+tab2[i]);
+        }
+        
+         //Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", null, null, "person");
+          //entityBrowser(e);
     }
 
     public static Model loadModels(String url) { //mélanoche
@@ -840,6 +847,19 @@ public class Connector {
         String req = $PREFIXS
                 + "DELETE WHERE { "
                 + " <%s> %s %s "
+                + "}";
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(req, s, p, o)),
+                "http://localhost:3030/ds/update");
+
+        upp.execute();
+        return true;
+    }
+    
+    public static boolean deleteTriple(String s, String p, String o) {
+        String req = $PREFIXS
+                + "DELETE WHERE { "
+                + " %s %s %s "
                 + "}";
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
                 UpdateFactory.create(String.format(req, s, p, o)),

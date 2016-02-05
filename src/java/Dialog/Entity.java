@@ -314,6 +314,11 @@ public class Entity {
         return true;
     }
     
+    public boolean deleteTriplet(String s, String p, String o) {
+        deleteTriple(s, p, o);
+        return true;
+    }
+    
     public Entity[] getEntityTab(String Uri) {
         Entity e = new Entity();
         ArrayList<Entity> ale = new ArrayList<>();

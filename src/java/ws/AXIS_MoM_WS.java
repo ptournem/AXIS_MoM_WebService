@@ -45,8 +45,8 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
      */
     @Override
     public Boolean RemoveEntity(Entity e) {
-        e.delete(e.getURI(), "rdf:type", "?o");
-        e.delete(e.getURI(), "rdf:hasRepresentation", "?o");
+        e.deleteTriplet("<"+e.getURI()+">", "?p", "?o");
+        e.deleteTriplet("?s", "axis-datamodel:uses", "<"+e.getURI()+">");
 	return true;
     }
 
@@ -291,61 +291,76 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	    case "author":
                 property = "axis-datamodel:performs";
                 regof = "RegOfObjectItem";
+                ret = true;
                 break;
             case "sameas":
                 e.delete(e.getURI(), "owl:sameAs", "<"+valueEntity.getURI()+">");
+                ret = true;
                 break;
             case "socialnetwork":
                 property = "axis-datamodel:socialNetwork";
                 regof = "Document";
+                ret = true;
                 break;
             case "description":
                 property = "rdf:Description";
                 regof = "Document";
+                ret = true;
                 break;
             case "location":
                 property = "axis-datamodel:takePlaceIn";
                 regof = "RegOfObjectItem";
+                ret = true;
                 break;
             case "birthdate":
                 property = "schema:birthDate";
                 regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "deathdate":
                 property = "schema:deathDate";
                 regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "restinplace":
                 property = "dbont:restInPlace";
                 regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "parent":
                 property = "dbont:parent";
                 regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "child":
                 property = "dbont:child";
                 regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "isauthorof":
                 property = "axis-datamodel:isPerformedBy";
                 regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "birthplace":
                 property = "dbont:birthPlace";
                 regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "birthplaceof":
                 property = "dbont:birthPlace";
                 regof = "RegOfPlace";
+                ret = true;
                 break;
             case "deathplace":
                 property = "dbont:birthPlace";
                 regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
             case "deathplaceof":
                 property = "dbont:deathPlace";
                 regof = "RegOfPlace";
+                ret = true;
                 break;
             case "postalcode":
                 property = "dbont:postalCode";
@@ -354,72 +369,89 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
             case "region":
                 property = "dbont:region";
                 regof = "RegOfPlace";
+                ret = true;
                 break;
             case "country":
                 property = "dbont:country";
                 regof = "RegOfPlace";
+                ret = true;
                 break;
             case "locationof":
                 property = "axis-datamodel:isAPlaceOfObject";
                 regof = "RegOfPlace";
+                ret = true;
                 break;
             case "placeofevent":
                 property = "axis-datamodel:takesPlaceIn";
                 regof = "RegOfEvent";
+                ret = true;
                 break;
             case "hasparticipant":
                 property = "axis-datamodel:hasParticipant";
                 regof = "RegOfEvent";
+                ret = true;
                 break;
             case "dateofevent":
                 property = "dbont:date";
                 regof = "RegOfEvent";
+                ret = true;
                 break;
             case "website":
                 property = "dbont:wikiPageExternalLink";
                 regof = "Document";
+                ret = true;
                 break;
             case "owner":
                 property = "dbont:owner";
                 regof = "RegOfObjectItem";
+                ret = true;
                 break;
             case "museum":
                 property = "dbp:museum";
                 regof = "RegOfObjectItem";
+                ret = true;
                 break;
             case "year":
                 property = "dbp:year";
                 regof = "Document";
+                ret = true;
                 break;
             case "type":
                 property = "dbp:type";
                 regof = "Document";
+                ret = true;
                 break;
             case "placeoforganisation":
                 property = "axis-datamodel:takesPlaceIn";
                 regof = "RegOfMoralPerson";
+                ret = true;
                 break;
             case "isaplaceoforganisation":
                 property = "dbont:location";
                 regof = "RegOfPlace";
+                ret = true;
                 break;
             case "dateofcreation":
                 property = "dbp:established";
                 regof = "RegOfMoralPerson";
+                ret = true;
                 break;
             case "istheleaderof":
                 property = "dbont:leaderName";
                 regof = "RegOfPhysicalPerson";
+                ret = true;
                 break;
                 
             default:
-                return false;
+                ret = false;
         }
         
-        if(valueEntity.getURI().isEmpty() || valueEntity.getURI() == null || valueEntity.getURI().equals("null"))
-            e.delete(selectRegOfEntity(e.getURI(), regof), property, "?o");
-        else
-            e.delete(selectRegOfEntity(e.getURI(), regof), property, "<"+valueEntity.getURI()+">");
+        if(ret) {
+            if(valueEntity.getURI().isEmpty() || valueEntity.getURI() == null || valueEntity.getURI().equals("null"))
+                e.delete(selectRegOfEntity(e.getURI(), regof), property, "?o");
+            else
+                e.delete(selectRegOfEntity(e.getURI(), regof), property, "<"+valueEntity.getURI()+">");
+        }
         
 	return ret;
     }
