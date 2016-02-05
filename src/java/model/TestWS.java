@@ -27,8 +27,7 @@ public class TestWS {
     public static void main(String args[]) {
 
         //testComments();
-//        testFonctionnel(true);
-//        ByteBuffer s = Charset.forName("UTF-8").encode("Léonard de Vinci");
+        testFonctionnel(true);
 //        testComments();
         //System.out.println("test");
         //testConstructEntity();
