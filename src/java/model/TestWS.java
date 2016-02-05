@@ -10,6 +10,8 @@ import Dialog.Comment;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import static model.Connector.deleteAll;
 import ws.AXIS_MoM_WS;
 
@@ -25,9 +27,9 @@ public class TestWS {
     public static void main(String args[]) {
 
         //testComments();
-        testFonctionnel(false);
+//        testFonctionnel(true);
+//        ByteBuffer s = Charset.forName("UTF-8").encode("Léonard de Vinci");
 //        testComments();
-
         //System.out.println("test");
         //testConstructEntity();
 //        testPerson();
@@ -40,7 +42,7 @@ public class TestWS {
 //        
 //        Person per = new Person();
 //        per.setURI(e3.getURI());
-//        
+//
 //        
 //        Property p1 = new Property();
 //	p1.setName("birthplace");
@@ -49,7 +51,7 @@ public class TestWS {
 //        ArrayList<Entity> ale = new ArrayList<Entity> ();
 //        ale.add(e1);
 //        Entity [] eTab = new Entity[ale.size()];
-//        
+//
 //        
 //        Property p2 = new Property();
 //	p2.setName("birthplace");
@@ -58,7 +60,7 @@ public class TestWS {
 //        ArrayList<Entity> ale1 = new ArrayList<Entity> ();
 //        ale1.add(e2);
 //        Entity [] eTab1 = new Entity[ale1.size()];
-//        
+//
 //        
 //        p1.setEnt((Entity []) ale.toArray(eTab));
 //        p2.setEnt((Entity []) ale1.toArray(eTab1));
@@ -90,13 +92,12 @@ public class TestWS {
 //        Set set = new HashSet() ;
 //        set.addAll(list) ;
 //        ArrayList distinctList = new ArrayList(set) ;
-//        
+//
 //        
 //        java.lang.Object[] a = distinctList.toArray();
 //        for (int i = 0; i < a.length; i++) {
 //            System.out.println("distinctList:"+a[i]);
 //        }
-        
         //testRecherche();
         //testPropertiesDbpedia();
         //testInference();

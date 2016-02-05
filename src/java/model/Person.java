@@ -111,6 +111,12 @@ public class Person extends Entity {
         this.sameAs.setName("sameas");
         this.socialNetwork = new PropertyAdmin();
         this.socialNetwork.setName("socialnetwork");
+//        this.deathPlace = new PropertyAdmin();
+//        this.deathPlace.setName("deathplace");
+//        this.participatesInEvent = new PropertyAdmin();
+//        this.participatesInEvent.setName("participatesinevent");
+//        this.isTheLeaderOf = new PropertyAdmin();
+//        this.isTheLeaderOf.setName("istheleaderof");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format($PREFIXS
                     + " select ?description ?deathdate ?birthdate ?socnet "
@@ -119,20 +125,26 @@ public class Person extends Entity {
                     + " (group_concat(?restinplace;separator=\"&&&&\") as ?restinplaces) "
                     + " (group_concat(?birthplace;separator=\"&&&&\") as ?birthplaces)"
                     + " (group_concat(?isauthorof;separator=\"&&&&\") as ?isauthorofs) "
+                    + " (group_concat(?deathplace;separator=\"&&&&\") as ?deathplaces) "
+                    + " (group_concat(?participatesinevent;separator=\"&&&&\") as ?participatesinevents) "
+                    + " (group_concat(?leader;separator=\"&&&&\") as ?istheleaderof) "
                     + " (group_concat(?same;separator=\"&&&&\") as ?sameas) where {"
                     + " values ?uri { <%s> }"
                     + " ?e axis-datamodel:uses ?uri ."
                     + " ?e a axis-datamodel:Entity ."
                     + " optional{ "
                     + " ?uri axis-datamodel:hasRepresentation ?reg ."
-                    + " ?reg a axis-datamodel:RegOfAgent."
+                    + " ?reg a axis-datamodel:RegOfPhysicalPerson."
                     + " optional{ ?reg dbont:parent ?parent .}"
                     + " optional{ ?reg dbont:child ?child .}"
                     + " optional{ ?reg dbont:birthPlace ?birthplace .}"
                     + " optional{ ?reg schema:birthDate ?birthdate .}"
                     + " optional{ ?reg schema:deathDate ?deathdate .}"
                     + " optional{ ?reg dbont:restInPlace ?restinplace .}"
+                    + " optional{ ?reg dbont:leaderName ?leader .}"
                     + " optional{ ?reg axis-datamodel:performs ?isauthorof .}"
+                    + " optional{ ?reg dbont:deathPlace ?deathplace .}"
+                    + " optional{ ?reg axis-datamodel:participatesInEvent ?participatesinevent .}"
                     + " }"
                     + " optional{ "
                     + " ?uri axis-datamodel:hasRepresentation ?doc ."
@@ -181,6 +193,42 @@ public class Person extends Entity {
                         this.parent.setLang("fr");
                     }
                 }
+//                if (rep.get("deathplaces") != null) {
+//                    Entity[] t = getEntityTab(rep.get("deathplaces").asLiteral().getString().split("&&&&"));
+//                    if (t.length == 0) {
+//                        this.deathPlace.setValue_locale(rep.get("deathplaces").asLiteral().getString());
+//                        this.deathPlace.setLang(rep.get("deathplaces").asLiteral().getLanguage());
+//                        this.deathPlace.setType("string");
+//                    } else {
+//                        this.deathPlace.setEntity_locale(t);
+//                        this.deathPlace.setType("uri");
+//                        this.deathPlace.setLang("fr");
+//                    }
+//                }
+//                if (rep.get("participatesinevents") != null) {
+//                    Entity[] t = getEntityTab(rep.get("participatesinevents").asLiteral().getString().split("&&&&"));
+//                    if (t.length == 0) {
+//                        this.participatesInEvent.setValue_locale(rep.get("participatesinevents").asLiteral().getString());
+//                        this.participatesInEvent.setLang(rep.get("participatesinevents").asLiteral().getLanguage());
+//                        this.participatesInEvent.setType("string");
+//                    } else {
+//                        this.participatesInEvent.setEntity_locale(t);
+//                        this.participatesInEvent.setType("uri");
+//                        this.participatesInEvent.setLang("fr");
+//                    }
+//                }
+//                if (rep.get("istheleaderof") != null) {
+//                    Entity[] t = getEntityTab(rep.get("istheleaderof").asLiteral().getString().split("&&&&"));
+//                    if (t.length == 0) {
+//                        this.isTheLeaderOf.setValue_locale(rep.get("istheleaderof").asLiteral().getString());
+//                        this.isTheLeaderOf.setLang(rep.get("istheleaderof").asLiteral().getLanguage());
+//                        this.isTheLeaderOf.setType("string");
+//                    } else {
+//                        this.isTheLeaderOf.setEntity_locale(t);
+//                        this.isTheLeaderOf.setType("uri");
+//                        this.isTheLeaderOf.setLang("fr");
+//                    }
+//                }
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
