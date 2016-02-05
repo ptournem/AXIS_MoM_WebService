@@ -34,6 +34,9 @@ public class Place extends Entity {
     public PropertyAdmin sameAs;
     public PropertyAdmin socialNetwork;
     public PropertyAdmin isAPlaceOfEvent;
+    public PropertyAdmin website;
+    public PropertyAdmin deathPlaceOf;
+    public PropertyAdmin isAPlaceOfOrganisation;
 
     public Property[] getPropertiesPlace() {
         ArrayList<Property> list = new ArrayList<Property>();
@@ -56,12 +59,20 @@ public class Place extends Entity {
         if (!((this.locationOf.getEntity_locale() == null) && (this.locationOf.getValue_locale() == null))) {
             list.add(new Property(this.locationOf.getName(), this.locationOf.getValue_locale(), this.locationOf.getEntity_locale(), this.locationOf.getType(), this.locationOf.getLang()));
         }
-
-//        if (!((this.isAPlaceOfEvent.getEntity_locale() == null) && (this.isAPlaceOfEvent.getValue_locale() == null))) {
-//            list.add(new Property(this.isAPlaceOfEvent.getName(), this.isAPlaceOfEvent.getValue_locale(), this.isAPlaceOfEvent.getEntity_locale(), this.isAPlaceOfEvent.getType(),this.isAPlaceOfEvent.getLang()));
-//        }
         if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
             list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
+        }
+        if (!((this.deathPlaceOf.getEntity_locale() == null) && (this.deathPlaceOf.getValue_locale() == null))) {
+            list.add(new Property(this.deathPlaceOf.getName(), this.deathPlaceOf.getValue_locale(), this.deathPlaceOf.getEntity_locale(), this.deathPlaceOf.getType(),this.deathPlaceOf.getLang()));
+        }
+        if (!((this.website.getEntity_locale() == null) && (this.website.getValue_locale() == null))) {
+            list.add(new Property(this.website.getName(), this.website.getValue_locale(), this.website.getEntity_locale(), this.website.getType(),this.website.getLang()));
+        }
+        if (!((this.sameAs.getEntity_locale() == null) && (this.sameAs.getValue_locale() == null))) {
+            list.add(new Property(this.sameAs.getName(), this.sameAs.getValue_locale(), this.sameAs.getEntity_locale(), this.sameAs.getType(),this.sameAs.getLang()));
+        }
+        if (!((this.isAPlaceOfOrganisation.getEntity_locale() == null) && (this.isAPlaceOfOrganisation.getValue_locale() == null))) {
+            list.add(new Property(this.isAPlaceOfOrganisation.getName(), this.isAPlaceOfOrganisation.getValue_locale(), this.isAPlaceOfOrganisation.getEntity_locale(), this.isAPlaceOfOrganisation.getType(),this.isAPlaceOfOrganisation.getLang()));
         }
 
         Property[] ret = new Property[list.size()];
@@ -77,8 +88,11 @@ public class Place extends Entity {
         list.add(this.description);
         list.add(this.birthPlaceOf);
         list.add(this.locationOf);
-
+        list.add(this.deathPlaceOf);
         list.add(this.socialNetwork);
+        list.add(this.website);
+        list.add(this.sameAs);
+        list.add(this.isAPlaceOfOrganisation);
         //list.add(this.isAPlaceOfEvent);
         
         PropertyAdmin[] ret = new PropertyAdmin[list.size()];
@@ -330,7 +344,6 @@ public class Place extends Entity {
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfObject", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:takePlaceIn", this.getURI());
                 break;
 
             case "our":
@@ -348,7 +361,6 @@ public class Place extends Entity {
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfEvent", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfEvent"), "axis-datamodel:takesPlaceIn", this.getURI());
                 break;
 
             case "our":
@@ -362,25 +374,57 @@ public class Place extends Entity {
         }
     }
     
-    public void insertBirthPlaceOf(Property p) {
-        String uri1 = null;
+    public void insertIsAPlaceOfOrganisation(Property p) {
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlaceOf", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:birthPlace", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:location ", p.getEnt()[0].getURI());
                 break;
 
             case "our":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlaceOf", p.getEnt()[0].getURI());
-                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:birthPlace", this.getURI());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:location ", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfMoralPerson"), "axis-datamodel:takesPlaceIn", this.getURI());
                 break;
 
             case "literal":
-                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlaceOf", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:location ", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
+    public void insertBirthPlaceOf(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlace", p.getEnt()[0].getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPhysicalPerson"), "dbont:birthPlace", this.getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:birthPlace", p.getValue(), p.getType());
                 break;
         }
     }
 
+    public void insertDeathPlace(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:deathPlace", p.getEnt()[0].getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:deathPlace", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfPhysicalPerson"), "dbont:deathPlace", this.getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:deathPlace", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
     public void insertPostalCode(Property p) {
         insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "dbont:postalCode", p.getValue(), p.getType());
     }

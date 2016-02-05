@@ -17,8 +17,10 @@ import static model.Connector.selectAllEntitiesURI;
 import static model.Connector.selectRegOfEntity;
 import static model.Connector.selectAllComments;
 import static model.Connector.selectlodFromKeyWord;
+import model.Event;
 import model.Person;
 import model.Object;
+import model.Organisation;
 import model.Place;
 
 
@@ -61,6 +63,8 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	Object obj = new Object();
         Person pers = new Person();
         Place pla = new Place();
+        Event eve = new Event();
+        Organisation orga = new Organisation();
         e.constructEntity();
         
         Entity[] tab = new Entity[1];
@@ -159,6 +163,16 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pla.insertBirthPlaceOf(p);
                 ret = true;
                 break;
+            case "deathplace":
+                pers.setURI(e.getURI());
+                pers.insertDeathDate(p);
+                ret = true;
+                break;
+            case "deathplaceof":
+                pla.setURI(e.getURI());
+                pla.insertDeathPlace(p);
+                ret = true;
+                break;
             case "postalcode":
                 pla.setURI(e.getURI());
 //                pla.constructEntity();
@@ -182,11 +196,74 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "locationof":
                 pla.setURI(e.getURI());
-//                pla.constructEntity();
-//                pla.constructPlace();
                 pla.insertLocationOf(p);
                 ret = true;
                 break;
+            case "placeofevent":
+                eve.setURI(e.getURI());
+                eve.insertPlaceOfEvent(p);
+                ret = true;
+                break;
+            case "hasparticipant":
+                eve.setURI(e.getURI());
+                eve.insertHasParticipant(p);
+                ret = true;
+                break;
+            case "dateofevent":
+                eve.setURI(e.getURI());
+                eve.insertDateOfEvent(p);
+                ret = true;
+                break;
+            case "website":
+                e.insertWebsite(p);
+                ret = true;
+                break;
+            case "owner":
+                obj.setURI(e.getURI());
+                obj.insertOwner(p);
+                ret = true;
+                break;
+            case "museum":
+                obj.setURI(e.getURI());
+                obj.insertMuseum(p);
+                ret = true;
+                break;
+            case "year":
+                obj.setURI(e.getURI());
+                obj.insertYear(p);
+                ret = true;
+                break;
+            case "type":
+                obj.setURI(e.getURI());
+                obj.insertType(p);
+                ret = true;
+                break;
+            case "placeoforganisation":
+                orga.setURI(e.getURI());
+                orga.insertPlaceOfOrganisation(p);
+                ret = true;
+                break;
+            case "isaplaceoforganisation":
+                pla.setURI(e.getURI());
+                pla.insertIsAPlaceOfOrganisation(p);
+                ret = true;
+                break;
+            case "dateOfCreation":
+                orga.setURI(e.getURI());
+                orga.insertDateOfCreation(p);
+                ret = true;
+                break;    
+            case "leader":
+                orga.setURI(e.getURI());
+                orga.insertLeader(p);
+                ret = true;
+                break;
+            case "istheleaderof":
+                pers.setURI(e.getURI());
+                pers.insertIsTheLeaderOf(p);
+                ret = true;
+                break;
+                
             default:
                 return false;
                 
@@ -232,31 +309,43 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "birthdate":
                 property = "schema:birthDate";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
                 break;
             case "deathdate":
                 property = "schema:deathDate";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
                 break;
             case "restinplace":
                 property = "dbont:restInPlace";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
                 break;
             case "parent":
                 property = "dbont:parent";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
                 break;
             case "child":
                 property = "dbont:child";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
                 break;
             case "isauthorof":
                 property = "axis-datamodel:isPerformedBy";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
                 break;
             case "birthplace":
                 property = "dbont:birthPlace";
-                regof = "RegOfAgent";
+                regof = "RegOfPhysicalPerson";
+                break;
+            case "birthplaceof":
+                property = "dbont:birthPlace";
+                regof = "RegOfPlace";
+                break;
+            case "deathplace":
+                property = "dbont:birthPlace";
+                regof = "RegOfPhysicalPerson";
+                break;
+            case "deathplaceof":
+                property = "dbont:deathPlace";
+                regof = "RegOfPlace";
                 break;
             case "postalcode":
                 property = "dbont:postalCode";
@@ -274,12 +363,61 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 property = "axis-datamodel:isAPlaceOfObject";
                 regof = "RegOfPlace";
                 break;
+            case "placeofevent":
+                property = "axis-datamodel:takesPlaceIn";
+                regof = "RegOfEvent";
+                break;
+            case "hasparticipant":
+                property = "axis-datamodel:hasParticipant";
+                regof = "RegOfEvent";
+                break;
+            case "dateofevent":
+                property = "dbont:date";
+                regof = "RegOfEvent";
+                break;
+            case "website":
+                property = "dbont:wikiPageExternalLink";
+                regof = "Document";
+                break;
+            case "owner":
+                property = "dbont:owner";
+                regof = "RegOfObjectItem";
+                break;
+            case "museum":
+                property = "dbp:museum";
+                regof = "RegOfObjectItem";
+                break;
+            case "year":
+                property = "dbp:year";
+                regof = "Document";
+                break;
+            case "type":
+                property = "dbp:type";
+                regof = "Document";
+                break;
+            case "placeoforganisation":
+                property = "axis-datamodel:takesPlaceIn";
+                regof = "RegOfMoralPerson";
+                break;
+            case "isaplaceoforganisation":
+                property = "dbont:location";
+                regof = "RegOfPlace";
+                break;
+            case "dateofcreation":
+                property = "dbp:established";
+                regof = "RegOfMoralPerson";
+                break;
+            case "istheleaderof":
+                property = "dbont:leaderName";
+                regof = "RegOfPhysicalPerson";
+                break;
+                
             default:
                 return false;
         }
         
-        if(valueEntity.getURI().isEmpty())
-            e.delete(selectRegOfEntity(e.getURI(), "Document"), property, "?o");
+        if(valueEntity.getURI().isEmpty() || valueEntity.getURI() == null || valueEntity.getURI().equals("null"))
+            e.delete(selectRegOfEntity(e.getURI(), regof), property, "?o");
         else
             e.delete(selectRegOfEntity(e.getURI(), regof), property, "<"+valueEntity.getURI()+">");
         

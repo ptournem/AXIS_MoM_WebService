@@ -638,7 +638,7 @@ public class Connector {
                         + "     MINUS {" 
                         +"          ?regof rdf:type axis-datamodel:RegOfInformationItem" 
                         +"      }}"
-                        + "     ORDER BY ?type"));
+                        + "     ORDER BY ?type ?n"));
 
         ResultSet rs = qe.execSelect();
 
@@ -709,11 +709,12 @@ public class Connector {
                         + "     ?regof rdf:type axis-datamodel:RegOfInformationItem ."
                         + "     ?regof axis-datamodel:hasComment ?c ."
                         + "	?c rdf:type axis-datamodel:Comment ."
-                        + "?c axis-datamodel:creator ?creator ."
-                        + "?c axis-datamodel:content ?content ."
-                        + "?c axis-datamodel:creationDate ?creationDate ."
-                        + "?c axis-datamodel:validate ?validate ."
-                        + "?c axis-datamodel:email ?email}"));
+                        + "     ?c axis-datamodel:creator ?creator ."
+                        + "     ?c axis-datamodel:content ?content ."
+                        + "     ?c axis-datamodel:creationDate ?creationDate ."
+                        + "     ?c axis-datamodel:validate ?validate ."
+                        + "     ?c axis-datamodel:email ?email}"
+                        + "     ORDER BY ?validate ?creationDate"));
 
         ResultSet rs = qe.execSelect();
         ArrayList<Comment> tab = new ArrayList<>();
