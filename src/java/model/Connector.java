@@ -52,11 +52,9 @@ public class Connector {
 
     public static void main(String args[]) {
 
-//        String test = "louvre";
-//        selectlodFromKeyWord(test);
+        String test = "léona de";
+        selectlodFromKeyWord(test);
 
-         Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", null, null, "person");
-          entityBrowser(e);
     }
 
     public static Model loadModels(String url) { //mélanoche
@@ -402,18 +400,41 @@ public class Connector {
     }
 
     private static ResultSet lodQueryAmbigious(String s) {
+        String sFinal = "";
+        if (s.contains(" ")){
+            System.out.println("s"+s);
+        String[] s2 = s.split(" ");
+            
+        for (int i = 0; i < s2.length; i++) {
+            
+           int s2Taille = s2[0].length();
+           if(i!=s2.length-1){
+            if(s2Taille>3){
+                sFinal = sFinal+s2[i]+"*\"NEAR\"";
+            }else{
+                sFinal = sFinal+s2[i]+"\"NEAR\"";
+            }
+           }else{
+               sFinal = sFinal+s2[i];
+           }
+        }}else{
+            sFinal=s;
+        }
+        System.out.println("sFinal:"+sFinal);
+      // '"Louv*"NEAR"lens"'
+        //FILTER (contains(?label , \""+s+"\")
         String DBQueryString = $PREFIXS
-                + "select distinct ?uri ?label ?description ?image"
+                + "select distinct ?uri ?label ?image"
                 + "(group_concat(?type; separator=\"&&&&\") as ?types)"
                 + "(group_concat(?typ; separator=\"&&&&\") as ?typs)"
                 + "where {?uri rdfs:label ?label ."
-                + " ?label <bif:contains> \"" + s + "\" ."
-                + " ?uri <http://dbpedia.org/ontology/abstract> ?description."
+                 + " ?uri <http://dbpedia.org/ontology/abstract> ?description."
                 + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "
+                + " ?label <bif:contains> '\""+sFinal+"\"'."
                 + "optional { ?uri rdf:type ?type . }"
                 + "optional { ?uri dbp:type ?typ . }"
-                + "FILTER (lang(?description) = 'fr') FILTER (lang(?label) = 'fr')}"
-                + "group by ?uri ?label ?description ?image";
+                + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
+              + "group by ?uri ?label ?image";
     
         // on crée notre requete 
         Query DBquery = QueryFactory.create(DBQueryString);
@@ -626,9 +647,9 @@ public class Connector {
             entities.add(e);
         }
 //        test d'affichage
-//        for (int i = 0; i < entities.size(); i++) {
-//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-//        }
+        for (int i = 0; i < entities.size(); i++) {
+            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+        }
         return entities;
     }
 
