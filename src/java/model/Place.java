@@ -33,6 +33,7 @@ public class Place extends Entity {
     public PropertyAdmin locationOf;
     public PropertyAdmin sameAs;
     public PropertyAdmin socialNetwork;
+    public PropertyAdmin isAPlaceOfEvent;
 
     public Property[] getPropertiesPlace() {
         ArrayList<Property> list = new ArrayList<Property>();
@@ -55,6 +56,10 @@ public class Place extends Entity {
         if (!((this.locationOf.getEntity_locale() == null) && (this.locationOf.getValue_locale() == null))) {
             list.add(new Property(this.locationOf.getName(), this.locationOf.getValue_locale(), this.locationOf.getEntity_locale(), this.locationOf.getType(), this.locationOf.getLang()));
         }
+
+//        if (!((this.isAPlaceOfEvent.getEntity_locale() == null) && (this.isAPlaceOfEvent.getValue_locale() == null))) {
+//            list.add(new Property(this.isAPlaceOfEvent.getName(), this.isAPlaceOfEvent.getValue_locale(), this.isAPlaceOfEvent.getEntity_locale(), this.isAPlaceOfEvent.getType(),this.isAPlaceOfEvent.getLang()));
+//        }
         if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
             list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
         }
@@ -72,7 +77,10 @@ public class Place extends Entity {
         list.add(this.description);
         list.add(this.birthPlaceOf);
         list.add(this.locationOf);
+
         list.add(this.socialNetwork);
+        //list.add(this.isAPlaceOfEvent);
+        
         PropertyAdmin[] ret = new PropertyAdmin[list.size()];
         return (PropertyAdmin[]) list.toArray(ret);
     }
@@ -92,10 +100,12 @@ public class Place extends Entity {
         this.region.setName("region");
         this.sameAs = new PropertyAdmin();
         this.sameAs.setName("sameas");
-        
+        this.socialNetwork = new PropertyAdmin();
+        this.socialNetwork.setName("socialnetwork");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format(Connector.$PREFIXS
-                    + "select ?description ?postalcode (group_concat(?country; separator=\"&&&&\") as ?countries) "
+                    + "select ?description ?postalcode ?socnet "
+                    + " (group_concat(?country; separator=\"&&&&\") as ?countries) "
                     + " (group_concat(?region; separator=\"&&&&\") as ?regions) "
                     + " (group_concat(?birthpof; separator=\"&&&&\") as ?birthplaceof) "
                     + " (group_concat(?locof;separator=\"&&&&\") as ?locationof) "
@@ -110,15 +120,16 @@ public class Place extends Entity {
                     + "    optional{ ?reg dbont:region ?region . }"
                     + "    optional{ ?reg dbont:birthPlace ?birthpof . }"
                     + "    optional{ ?reg dbont:postalCode ?postalcode . }"
-                    + "    optional{ ?reg axis-datamodel:takePlaceIn ?locof . }"
+                    + "    optional{ ?reg axis-datamodel:isAPlaceOfObject ?locof . }"
                     + "  }"
                     + "optional{"
                     + "	?uri axis-datamodel:hasRepresentation ?doc ."
                     + "    ?doc a axis-datamodel:Document . "
                     + "    optional{ ?doc rdf:Description ?description . }"
+                    + "    optional{ ?doc axis-datamodel:socialNetwork ?socnet . }"
                     + "  }"
                     + "optional{ ?uri owl:sameAs ?same .}"
-                    + "} group by ?description ?postalcode", this.getURI());
+                    + "} group by ?description ?postalcode ?socnet", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", query);
@@ -135,6 +146,12 @@ public class Place extends Entity {
                     this.postalCode.setValue_locale(rep.get("postalcode").asLiteral().getString());
                     this.postalCode.setLang(rep.get("postalcode").asLiteral().getLanguage());
                     this.postalCode.setType("string");
+                    
+                }
+                if (rep.get("socnet") != null) {
+                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
+                    this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
+                    this.socialNetwork.setType("string");
                     
                 }
                 if (rep.get("countries") != null) {
@@ -327,6 +344,24 @@ public class Place extends Entity {
         }
     }
 
+    public void insertIsAPlaceOfEvent(Property p) {
+        switch (this.getTypeProperty(p)) {
+            case "dbpedia":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfEvent", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfEvent"), "axis-datamodel:takesPlaceIn", this.getURI());
+                break;
+
+            case "our":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfEvent", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfEvent"), "axis-datamodel:takesPlaceIn", this.getURI());
+                break;
+
+            case "literal":
+                insert(selectRegOfEntity(this.getURI(), "RegOfPlace"), "axis-datamodel:isAPlaceOfEvent", p.getValue(), p.getType());
+                break;
+        }
+    }
+    
     public void insertBirthPlaceOf(Property p) {
         String uri1 = null;
         switch (this.getTypeProperty(p)) {

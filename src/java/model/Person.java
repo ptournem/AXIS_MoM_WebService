@@ -62,9 +62,9 @@ public class Person extends Entity {
         if (!((this.description.getEntity_locale() == null) && (this.description.getValue_locale() == null))) {
             list.add(new Property(this.description.getName(), this.description.getValue_locale(), this.description.getEntity_locale(), this.description.getType(), this.description.getLang()));
         }
-//        if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
-//            list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
-//        }
+        if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
+            list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
+        }
         Property[] ret = new Property[list.size()];
         return (Property[]) list.toArray(ret);
     }
@@ -84,7 +84,7 @@ public class Person extends Entity {
         list.add(this.restInPlace);
         list.add(this.sameAs);
         list.add(this.description);
-//        list.add(this.socialNetwork);
+        list.add(this.socialNetwork);
 
         PropertyAdmin[] ret = new PropertyAdmin[list.size()];
         return (PropertyAdmin[]) list.toArray(ret);
@@ -109,9 +109,11 @@ public class Person extends Entity {
         this.description.setName("description");
         this.sameAs = new PropertyAdmin();
         this.sameAs.setName("sameas");
+        this.socialNetwork = new PropertyAdmin();
+        this.socialNetwork.setName("socialnetwork");
         if (!this.getURI().contains("dbpedia")) {
             String req = String.format($PREFIXS
-                    + " select ?description ?deathdate ?birthdate "
+                    + " select ?description ?deathdate ?birthdate ?socnet "
                     + " (group_concat(?parent;separator=\"&&&&\") as ?parents)"
                     + " (group_concat(?child;separator=\"&&&&\") as ?childs)"
                     + " (group_concat(?restinplace;separator=\"&&&&\") as ?restinplaces) "
@@ -136,9 +138,10 @@ public class Person extends Entity {
                     + " ?uri axis-datamodel:hasRepresentation ?doc ."
                     + " ?doc a axis-datamodel:Document .  "
                     + " optional{ ?doc rdf:Description ?description .}"
+                    + " optional{ ?doc axis-datamodel:socialNetwork ?socnet .}"
                     + " }"
                     + " optional{ ?uri owl:sameAs ?same .}"
-                    + " } group by  ?deathdate ?birthdate ?description ", this.getURI());
+                    + " } group by  ?deathdate ?birthdate ?description ?socnet", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(
                     "http://localhost:3030/ds/query", query);
@@ -150,6 +153,11 @@ public class Person extends Entity {
                     this.description.setValue_locale(rep.get("description").asLiteral().getString());
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
+                }
+                if (rep.get("socnet") != null) {
+                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
+                    this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
+                    this.socialNetwork.setType("string");
                 }
                 if (rep.get("birthdate") != null) {
                     this.birthDate.setType("date");
@@ -383,11 +391,6 @@ public class Person extends Entity {
             case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:child", p.getEnt()[0].getURI());
                 insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfAgent"), "dbont:parent", this.getURI());
-
-//                uri1 = insert("rdf:type", "axis-datamodel:Person");
-//                insert(this.getURI(), "dbont:mother", uri1);
-//                insert(uri1, "dbont:child", this.getURI());
-//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
@@ -407,9 +410,6 @@ public class Person extends Entity {
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:restInPlace", p.getEnt()[0].getURI());
-//                uri1 = insert("rdf:type", "axis-datamodel:Place");
-//                insert(this.getURI(), "dbont:restInPlace", uri1);
-//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
                 break;
 
             case "our":
@@ -417,9 +417,7 @@ public class Person extends Entity {
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:Place");
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:restInPlace", uri1);
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "dbont:restInPlace", p.getValue(), p.getType());
                 break;
         }
     }
@@ -429,23 +427,16 @@ public class Person extends Entity {
         switch (this.getTypeProperty(p)) {
             case "dbpedia":
                 insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "axis-datamodel:isPerformedBy", this.getURI());
-//                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
-//                insert(this.getURI(), "axis-datamodel:performs", uri1);
-//                insert(uri1, "axis-datamodel:isPerformedBy", this.getURI());
-//                insert(uri1, "owl:sameAs", p.getEnt()[0].getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", this.getURI());
                 break;
 
             case "our":
                 insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", p.getEnt()[0].getURI());
-                insert(p.getEnt()[0].getURI(), "axis-datamodel:isPerformedBy", this.getURI());
+                insert(selectRegOfEntity(p.getEnt()[0].getURI(), "RegOfObjectItem"), "axis-datamodel:isPerformedBy", this.getURI());
                 break;
 
             case "literal":
-                uri1 = insert("rdf:type", "axis-datamodel:PhysicalObject");
-                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", uri1);
-                insert(uri1, "axis-datamodel:isPerformedBy", this.getURI());
-                insert(uri1, "rdfs:label", p.getValue(), p.getType());
+                insert(selectRegOfEntity(this.getURI(), "RegOfAgent"), "axis-datamodel:performs", p.getValue(), p.getType());
                 break;
         }
     }
