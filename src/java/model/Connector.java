@@ -52,18 +52,10 @@ public class Connector {
 
     public static void main(String args[]) {
 
-//        String test = "louvre";
+//        String test = "léonard";
 //        selectlodFromKeyWord(test);
-
-        ArrayList<Entity> tab = selectlodFromKeyWord("louvr");
-        Entity[] ret = new Entity[tab.size()];
-	Entity[] tab2 =  (Entity[]) tab.toArray(ret);
-        for(int i=0;i<tab2.length;i++) {
-            System.out.println("e = "+tab2[i]);
-        }
-        
-         //Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", null, null, "person");
-          //entityBrowser(e);
+        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
+        entityBrowser(e);
     }
 
     public static Model loadModels(String url) { //mélanoche
@@ -146,7 +138,7 @@ public class Connector {
         String uri = e.getURI().toString();
         Model m = lodQuery(uri, "http://dbpedia.org/ontology/abstract", "?o");
         tProp = searchPropertyFromModel(m, tProp, null);
-        System.out.println("le type :"+e.getType().toString());
+        //System.out.println("le type :"+e.getType().toString());
         switch (e.getType()) {
             case "person":
               //  m = lodQuery(uri, "http://dbpedia.org/property/dateOfBirth", "?o");
@@ -409,18 +401,41 @@ public class Connector {
     }
 
     private static ResultSet lodQueryAmbigious(String s) {
+        String sFinal = "";
+        if (s.contains(" ")){
+            System.out.println("s"+s);
+        String[] s2 = s.split(" ");
+            
+        for (int i = 0; i < s2.length; i++) {
+            
+           int s2Taille = s2[0].length();
+           if(i!=s2.length-1){
+            if(s2Taille>3){
+                sFinal = sFinal+s2[i]+"*\"NEAR\"";
+            }else{
+                sFinal = sFinal+s2[i]+"\"NEAR\"";
+            }
+           }else{
+               sFinal = sFinal+s2[i];
+           }
+        }}else{
+            sFinal=s;
+        }
+        System.out.println("sFinal:"+sFinal);
+      // '"Louv*"NEAR"lens"'
+        //FILTER (contains(?label , \""+s+"\")
         String DBQueryString = $PREFIXS
-                + "select distinct ?uri ?label ?description ?image"
+                + "select distinct ?uri ?label ?image"
                 + "(group_concat(?type; separator=\"&&&&\") as ?types)"
                 + "(group_concat(?typ; separator=\"&&&&\") as ?typs)"
                 + "where {?uri rdfs:label ?label ."
-                + " ?label <bif:contains> \"" + s + "\" ."
-                + " ?uri <http://dbpedia.org/ontology/abstract> ?description."
+                 + " ?uri <http://dbpedia.org/ontology/abstract> ?description."
                 + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "
+                + " ?label <bif:contains> '\""+sFinal+"\"'."
                 + "optional { ?uri rdf:type ?type . }"
                 + "optional { ?uri dbp:type ?typ . }"
-                + "FILTER (lang(?description) = 'fr') FILTER (lang(?label) = 'fr')}"
-                + "group by ?uri ?label ?description ?image";
+                + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
+              + "group by ?uri ?label ?image";
     
         // on crée notre requete 
         Query DBquery = QueryFactory.create(DBQueryString);
@@ -435,7 +450,7 @@ public class Connector {
     private static Model lodQuery(String s, String p, String o) {
         String DBQueryString = $PREFIXS
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "select ?s ?p ?o where {<" + s + "> <" + p + "> " + o + "}";
+                + "construct where {<" + s + "> <" + p + "> " + o + "}";
         Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
@@ -489,13 +504,13 @@ public class Connector {
                     String typ = stmt.getObject().toString();
                     if (typ.contains("Person") || (typ.contains("Agent") || (typ.contains("Artist")))) {
                         e.setType("person");
-                    } else if (typ.contains("Event")) {
+                    } else if (e.getType() == null && typ.contains("Event")) {
                         e.setType("event");
-                    } else if (typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
+                    } else if (e.getType() == null && typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if (typ.contains("SpatialThing") || typ.contains("Organization")) {
+                    } else if (e.getType() == null && typ.contains("SpatialThing") || typ.contains("Organization")) {
                         e.setType("organisation");
-                    } else if (typ.contains("Activity")) {
+                    } else if (e.getType() == null && typ.contains("Activity")) {
                         e.setType("activity");
                     }
                     if (e.getType() == null) {
@@ -505,14 +520,14 @@ public class Connector {
                     break;
                 case "http://dbpedia.org/property/type":
                     String typ2 = stmt.getObject().toString();
-                     if (typ2.contains("Person") || (typ2.contains("Agent") || (typ2.contains("Artist")))) {
-                        e.setType("person");
+                    if (typ2.contains("Organisation") || (typ2.contains("Museum"))) {
+                        e.setType("organisation");
                     } else if (typ2.contains("Event")) {
                         e.setType("event");
-                    } else if (typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
+                    } else if (typ2.contains("Person")) {
+                        e.setType("person");
+                    } else if (typ2.contains("location") || typ2.contains("Place") || typ2.contains("State")) {
                         e.setType("location");
-                    } else if (typ2.contains("SpatialThing") || typ2.contains("Organization")) {
-                        e.setType("organisation");
                     } else if (typ2.contains("Activity")) {
                         e.setType("activity");
                     }
@@ -633,9 +648,9 @@ public class Connector {
             entities.add(e);
         }
 //        test d'affichage
-//        for (int i = 0; i < entities.size(); i++) {
-//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-//        }
+        for (int i = 0; i < entities.size(); i++) {
+            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+        }
         return entities;
     }
 
@@ -652,17 +667,16 @@ public class Connector {
                         + "	?d rdf:type axis-datamodel:Document ."
                         + "	?regof rdf:type ?type ."
                         + "     ?d rdfs:label ?n "
-                        + "     MINUS {" 
-                        +"          ?regof rdf:type axis-datamodel:Document" 
-                        +"      }"
-                        + "     MINUS {" 
-                        +"          ?regof rdf:type axis-datamodel:RegOfPhotoItem" 
-                        +"      }"
-                        + "     MINUS {" 
-                        +"          ?regof rdf:type axis-datamodel:RegOfInformationItem" 
-                        +"      }}"
-                        + "     ORDER BY ?type ?n"));
-
+                        + "     MINUS {"
+                        + "          ?regof rdf:type axis-datamodel:Document"
+                        + "      }"
+                        + "     MINUS {"
+                        + "          ?regof rdf:type axis-datamodel:RegOfPhotoItem"
+                        + "      }"
+                        + "     MINUS {"
+                        + "          ?regof rdf:type axis-datamodel:RegOfInformationItem"
+                        + "      }}"
+                        + "     ORDER BY ?type"));
 
         ResultSet rs = qe.execSelect();
 
@@ -731,12 +745,11 @@ public class Connector {
                         + "     ?regof rdf:type axis-datamodel:RegOfInformationItem ."
                         + "     ?regof axis-datamodel:hasComment ?c ."
                         + "	?c rdf:type axis-datamodel:Comment ."
-                        + "     ?c axis-datamodel:creator ?creator ."
-                        + "     ?c axis-datamodel:content ?content ."
-                        + "     ?c axis-datamodel:creationDate ?creationDate ."
-                        + "     ?c axis-datamodel:validate ?validate ."
-                        + "     ?c axis-datamodel:email ?email}"
-                        + "     ORDER BY ?validate ?creationDate"));
+                        + "?c axis-datamodel:creator ?creator ."
+                        + "?c axis-datamodel:content ?content ."
+                        + "?c axis-datamodel:creationDate ?creationDate ."
+                        + "?c axis-datamodel:validate ?validate ."
+                        + "?c axis-datamodel:email ?email}"));
 
         ResultSet rs = qe.execSelect();
         ArrayList<Comment> tab = new ArrayList<>();
@@ -847,19 +860,6 @@ public class Connector {
         String req = $PREFIXS
                 + "DELETE WHERE { "
                 + " <%s> %s %s "
-                + "}";
-        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
-                UpdateFactory.create(String.format(req, s, p, o)),
-                "http://localhost:3030/ds/update");
-
-        upp.execute();
-        return true;
-    }
-    
-    public static boolean deleteTriple(String s, String p, String o) {
-        String req = $PREFIXS
-                + "DELETE WHERE { "
-                + " %s %s %s "
                 + "}";
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
                 UpdateFactory.create(String.format(req, s, p, o)),
