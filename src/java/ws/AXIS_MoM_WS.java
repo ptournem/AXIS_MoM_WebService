@@ -456,6 +456,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	return ret;
     }
 
+    /**
+     * Charge les propriétés remplies d’une entité.
+     * @param e : l’entité dont on veut charger les propriétés. Son attribut “URI” doit être renseigné. 
+     * @return : renvoie un tableau d’objet Property non-vide de l'entité voulue
+     */
     @Override
     public Property[] LoadEntityProperties(Entity e) {
         
@@ -474,6 +479,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     }
 
+    /**
+     * Cherche les entités présentes dans notre base de données sémantiques dont le nom correspond au texte passé en paramètre. 
+     * @param needle : texte recherché dans le nom des entités.
+     * @return : tableau d’objet Entity qui correspondent à la recherche. 
+     */
     @Override
     public Entity[] SearchOurEntitiesFromText(String needle) {
 
@@ -492,12 +502,15 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
             }
         }
         
-
-
         Entity[] ret = new Entity[tab.size()];
 	return (Entity[]) tab.toArray(ret);
     }
 
+    /**
+     * Cherche les entités présentes dans le Linked Open Data dont le nom correspond au texte passé en paramètre. 
+     * @param needle : représente le texte recherché dans le nom des entités.
+     * @return : tableau d’objet Entity qui correspondent à la recherche. 
+     */
     @Override
     public Entity[] SearchAllEntitiesFromText(String needle) {
         ArrayList<Entity> tab = selectlodFromKeyWord(needle);
@@ -505,6 +518,12 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	return (Entity[]) tab.toArray(ret);
     }
 
+    /**
+     * Ajoute un commentaire dans la base de données sémantique locale. 
+     * @param c : commentaire que l’on veut ajouter. Ses attributs “email”, “authorName” et “comment” doivent être renseignés. 
+     * @param e : l’entité que l’on veut commenter. Son attribut “URI” doit être renseigné. 
+     * @return : le commentaire inséré dans la base donnée sémantique locale avec tous ses attributs renseignés.
+     */
     @Override
     public Comment AddComment(Comment c, Entity e) {
         c.setEntity(e);
@@ -512,24 +531,45 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	return c;
     }
 
+    /**
+     * Valide un commentaire afin qu’il soit affiché au public du site web. 
+     * @param c : le commentaire que l’on veut valider. Son attribut “id” doit être renseigné.
+     * @return : renvoie un booléen “Vrai” si la validation s’est bien déroulée.
+     */
     @Override
     public Boolean GrantComment(Comment c) {
         c.changeValided(true);
 	return true;
     }
 
+    /**
+     * Supprime un commentaire de la base de données sémantique locale. 
+     * @param c : le commentaire que l’on veut supprimer. Son attribut “id” doit être renseigné. 
+     * @param e : l’entité que l’on veut supprimer. Son attribut “URI” doit être renseigné. 
+     * @return : renvoie un booléen “Vrai” si la suppression s’est bien déroulée.
+     */
     @Override
     public Boolean RemoveComment(Comment c, Entity e) {
         c.setEntity(e);
         return c.deleteComment();
     }
 
+    /**
+     * Refuse un commentaire afin qu’il ne soit plus affiché au public mais pas supprimé.
+     * @param c : commentaire que l’on veut refuser. Son attribut “id” doit être renseigné. 
+     * @return : renvoie un booléen “Vrai” si le refus s’est bien déroulé.
+     */
     @Override
     public Boolean DenyComment(Comment c) {
         c.changeValided(false);
 	return true;
     }
     
+    /**
+     * Charge tous les commentaires sur une entité. 
+     * @param e : l’entité dont on veut récupérer les commentaires. Son attribut “URI” doit être renseigné. 
+     * @return : un tableau d’objet Comment. Si l’objet Entity “e” est “null”,  la fonction renvoie tous les commentaires de la base de données sémantiques locale. 
+     */
     @Override
     public Comment[] LoadComment(Entity e) {
         
@@ -541,13 +581,22 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 	
         return tab;
     }
-
+    
+    /**
+     * charge toutes les entités présentes dans notre base de données.
+     * @return : La fonction renvoie un tableau d’objet Entity qui sont présentes dans notre base de données sémantique locale.
+     */
     @Override
     public Entity[] GetAllEntities() {
         
         return this.SearchOurEntitiesFromText("");
     }
-
+    
+    /**
+     * charge toutes les propriétés possible d’une entité pour l’administration de celles-ci.
+     * @param e : l’entité dont on veut charger les propriétés. Son attribut “URI” doit être renseigné.
+     * @return : renvoie un tableau d’objet PropertyAdmin.
+     */
     @Override
     public PropertyAdmin[] GetAllPropertiesAdmin(Entity e) {
         
@@ -559,6 +608,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
 
     }
 
+    /**
+     * Récupère une entité. 
+     * @param e : l’entité que l’on veut récupérer. Son attribut “URI” doit être renseigné.
+     * @return : La fonction renvoie un objet Entity correspondant à l’attribut URI donnée en paramètre et dont tous les attributs sont renseignés.
+     */
     @Override
     public Entity GetEntity(Entity e) {
 	e.constructEntity();        
