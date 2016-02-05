@@ -165,7 +165,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "deathplace":
                 pers.setURI(e.getURI());
-                pers.insertDeathDate(p);
+                pers.insertDeathPlace(p);
                 ret = true;
                 break;
             case "deathplaceof":
@@ -263,6 +263,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pers.insertIsTheLeaderOf(p);
                 ret = true;
                 break;
+            case "participatesinevent":
+                pers.setURI(e.getURI());
+                pers.insertParticipatesInEvent(p);
+                ret = true;
+                break;
                 
             default:
                 return false;
@@ -353,7 +358,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 ret = true;
                 break;
             case "deathplace":
-                property = "dbont:birthPlace";
+                property = "dbont:deathPlace";
                 regof = "RegOfPhysicalPerson";
                 ret = true;
                 break;
@@ -438,6 +443,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "istheleaderof":
                 property = "dbont:leaderName";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
+                break;
+            case "participatesinevent":
+                property = "axis-datamodel:participatesInEvent";
                 regof = "RegOfPhysicalPerson";
                 ret = true;
                 break;
