@@ -40,9 +40,7 @@ public class Event extends Entity{
         if (!((this.description.getEntity_locale() == null) && (this.description.getValue_locale() == null))) {
             list.add(new Property(this.description.getName(),this.description.getValue_locale(),this.description.getEntity_locale(), this.description.getType(), this.description.getLang()));
         }
-        if (!((this.sameAs.getEntity_locale() == null) && (this.sameAs.getValue_locale() == null))) {
-            list.add(new Property(this.sameAs.getName(), this.sameAs.getValue_locale(), this.sameAs.getEntity_locale(), this.sameAs.getType(),this.sameAs.getLang()));
-        }
+
 //        if (!((this.socialNetwork.getEntity_locale() == null) && (this.socialNetwork.getValue_locale() == null))) {
 //            list.add(new Property(this.socialNetwork.getName(), this.socialNetwork.getValue_locale(), this.socialNetwork.getEntity_locale(), this.socialNetwork.getType(),this.socialNetwork.getLang()));
 //        }
@@ -56,6 +54,7 @@ public class Event extends Entity{
         list.add(this.placeOfEvent);
         list.add(this.description);
         list.add(this.hasParticipant);
+        list.add(this.sameAs);
         //list.add(this.socialNetwork);
         
 	PropertyAdmin[] ret = new PropertyAdmin[list.size()];

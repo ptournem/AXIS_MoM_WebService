@@ -56,9 +56,6 @@ public class Object extends Entity {
         if (!((this.website.getEntity_locale() == null) && (this.website.getValue_locale() == null))) {
             list.add(new Property(this.website.getName(), this.website.getValue_locale(), this.website.getEntity_locale(), this.website.getType(),this.website.getLang()));
         }
-        if (!((this.sameAs.getEntity_locale() == null) && (this.sameAs.getValue_locale() == null))) {
-            list.add(new Property(this.sameAs.getName(), this.sameAs.getValue_locale(), this.sameAs.getEntity_locale(), this.sameAs.getType(),this.sameAs.getLang()));
-        }
         if (!((this.owner.getEntity_locale() == null) && (this.owner.getValue_locale() == null))) {
             list.add(new Property(this.owner.getName(), this.owner.getValue_locale(), this.owner.getEntity_locale(), this.owner.getType(),this.owner.getLang()));
         }

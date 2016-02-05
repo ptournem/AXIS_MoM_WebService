@@ -78,9 +78,6 @@ public class Person extends Entity {
         if (!((this.deathPlace.getEntity_locale() == null) && (this.deathPlace.getValue_locale() == null))) {
             list.add(new Property(this.deathPlace.getName(), this.deathPlace.getValue_locale(), this.deathPlace.getEntity_locale(), this.deathPlace.getType(),this.deathPlace.getLang()));
         }
-        if (!((this.sameAs.getEntity_locale() == null) && (this.sameAs.getValue_locale() == null))) {
-            list.add(new Property(this.sameAs.getName(), this.sameAs.getValue_locale(), this.sameAs.getEntity_locale(), this.sameAs.getType(),this.sameAs.getLang()));
-        }
         if (!((this.isTheLeaderOf.getEntity_locale() == null) && (this.isTheLeaderOf.getValue_locale() == null))) {
             list.add(new Property(this.isTheLeaderOf.getName(), this.isTheLeaderOf.getValue_locale(), this.isTheLeaderOf.getEntity_locale(), this.isTheLeaderOf.getType(),this.isTheLeaderOf.getLang()));
         }

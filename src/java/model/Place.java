@@ -68,9 +68,6 @@ public class Place extends Entity {
         if (!((this.website.getEntity_locale() == null) && (this.website.getValue_locale() == null))) {
             list.add(new Property(this.website.getName(), this.website.getValue_locale(), this.website.getEntity_locale(), this.website.getType(),this.website.getLang()));
         }
-        if (!((this.sameAs.getEntity_locale() == null) && (this.sameAs.getValue_locale() == null))) {
-            list.add(new Property(this.sameAs.getName(), this.sameAs.getValue_locale(), this.sameAs.getEntity_locale(), this.sameAs.getType(),this.sameAs.getLang()));
-        }
         if (!((this.isAPlaceOfOrganisation.getEntity_locale() == null) && (this.isAPlaceOfOrganisation.getValue_locale() == null))) {
             list.add(new Property(this.isAPlaceOfOrganisation.getName(), this.isAPlaceOfOrganisation.getValue_locale(), this.isAPlaceOfOrganisation.getEntity_locale(), this.isAPlaceOfOrganisation.getType(),this.isAPlaceOfOrganisation.getLang()));
         }
