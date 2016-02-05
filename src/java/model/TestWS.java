@@ -27,7 +27,7 @@ public class TestWS {
     public static void main(String args[]) {
 
         //testComments();
-        testFonctionnel(true);
+        //testFonctionnel(true);
 //        testComments();
         //System.out.println("test");
         //testConstructEntity();
@@ -115,6 +115,22 @@ public class TestWS {
 //        Property[] props2 = ws.LoadEntityProperties(leonard2);
 //
 //        System.out.println(" - Property[4] : "+props2[4]); 
+        
+            AXIS_MoM_WS ws = new AXIS_MoM_WS();
+            
+            Entity vinciDB = new Entity();
+            vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
+            vinciDB.constructEntity();
+            
+
+            Property[] props2 = ws.LoadEntityProperties(vinciDB);
+
+            System.out.println("_____ AFFICHAGE DE LA PROPERTY : ");
+            System.out.println("\nProperty Vinci (URI Dbpedia) :");
+            for (int i = 0; i < props2.length; i++) {
+                System.out.println(" - Property[" + i + "] : " + props2[i]);
+            }
+            
     }
     
     public static void testPropertiesDbpedia() {
