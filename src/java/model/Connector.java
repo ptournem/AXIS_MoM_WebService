@@ -52,9 +52,10 @@ public class Connector {
 
     public static void main(String args[]) {
 
-        String test = "léona de";
-        selectlodFromKeyWord(test);
-
+//        String test = "léonard";
+//        selectlodFromKeyWord(test);
+        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
+        entityBrowser(e);
     }
 
     public static Model loadModels(String url) { //mélanoche
@@ -137,7 +138,7 @@ public class Connector {
         String uri = e.getURI().toString();
         Model m = lodQuery(uri, "http://dbpedia.org/ontology/abstract", "?o");
         tProp = searchPropertyFromModel(m, tProp, null);
-        System.out.println("le type :"+e.getType().toString());
+        //System.out.println("le type :"+e.getType().toString());
         switch (e.getType()) {
             case "person":
               //  m = lodQuery(uri, "http://dbpedia.org/property/dateOfBirth", "?o");
@@ -449,7 +450,7 @@ public class Connector {
     private static Model lodQuery(String s, String p, String o) {
         String DBQueryString = $PREFIXS
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                + "select ?s ?p ?o where {<" + s + "> <" + p + "> " + o + "}";
+                + "construct where {<" + s + "> <" + p + "> " + o + "}";
         Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
