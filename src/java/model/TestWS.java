@@ -252,8 +252,6 @@ public class TestWS {
 
         System.out.println("URI leonard : " + leonard.getURI());
         joconde = ws.GetEntity(joconde);
-        System.out.println(joconde);
-        
         System.out.println("\n\n\n_______________");
 
         if (dbpedia) {
@@ -299,6 +297,8 @@ public class TestWS {
         Property[] propsJoconde = ws.LoadEntityProperties(joconde);
         Property[] propsLouvre = ws.LoadEntityProperties(louvre);
         
+        PropertyAdmin[] propsMlkSpeech = ws.GetAllPropertiesAdmin(mlkSpeech);
+        
         System.out.println("\nProperty Leonard (type Person) :");
         for (int i = 0; i < props.length; i++) {
             System.out.println(" - Property[" + i + "] : " + props[i]);
@@ -322,6 +322,11 @@ public class TestWS {
         System.out.println("\nPropertyAdmin Leonard (type Person) :");
         for (int i = 0; i < propsAdmin.length; i++) {
             System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
+        }
+        
+        System.out.println("\nPropertyAdmin MLK Speech (type Event) :");
+        for (int i = 0; i < propsMlkSpeech.length; i++) {
+            System.out.println(" - PropertyAdmin[" + i + "] : " + propsMlkSpeech[i]);
         }
         
         
