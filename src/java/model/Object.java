@@ -214,6 +214,18 @@ public class Object extends Entity {
                         this.sameAs.setLang("fr");
                     }
                 }
+                if (rep.get("museums") != null) {
+                    Entity[] t = getEntityTab(rep.get("museums").asLiteral().getString().split("&&&&"));
+                    if (t.length == 0) {
+                        this.museum.setValue_locale(rep.get("museums").asLiteral().getString());
+                        this.museum.setType("string");
+                        this.museum.setLang(rep.get("museums").asLiteral().getLanguage());
+                    } else {
+                        this.museum.setEntity_locale(t);
+                        this.museum.setType("uri");
+                        this.museum.setLang("fr");
+                    }
+                }
             }
             qe.close();
         }
@@ -232,6 +244,36 @@ public class Object extends Entity {
                             } else {
                                 this.author.setEntity_dbpedia(n.getEnt());
                                 this.author.setValue_dbpedia(n.getValue());
+                            }
+                            break;
+                        case "museum":
+                            this.museum.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.museum.setEntity_locale(n.getEnt());
+                                this.museum.setValue_locale(n.getValue());
+                            } else {
+                                this.museum.setEntity_dbpedia(n.getEnt());
+                                this.museum.setValue_dbpedia(n.getValue());
+                            }
+                            break;
+                        case "type":
+                            this.type.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.type.setEntity_locale(n.getEnt());
+                                this.type.setValue_locale(n.getValue());
+                            } else {
+                                this.type.setEntity_dbpedia(n.getEnt());
+                                this.type.setValue_dbpedia(n.getValue());
+                            }
+                            break;
+                        case "year":
+                            this.year.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.year.setEntity_locale(n.getEnt());
+                                this.year.setValue_locale(n.getValue());
+                            } else {
+                                this.year.setEntity_dbpedia(n.getEnt());
+                                this.year.setValue_dbpedia(n.getValue());
                             }
                             break;
                         case "location":

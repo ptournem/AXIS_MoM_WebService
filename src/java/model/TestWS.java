@@ -143,7 +143,9 @@ public class TestWS {
         pla.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
         pla.constructEntity();
         pla.constructPlace(true);
-
+        
+        
+        
         System.out.println("Entity : " + e);
         System.out.println("Place : " + pla);
 
@@ -170,6 +172,7 @@ public class TestWS {
         Entity mlkSpeech = new Entity("Discours de Martin Luther King", "http://www.saphirnews.com/photo/art/default/5798576-8644705.jpg?v=1377633337", "event");
         Entity lincolnMemorial = new Entity("Lincoln Memorial", "https://fr.wikipedia.org/wiki/Lincoln_Memorial#/media/File:Aerial_view_of_Lincoln_Memorial_-_east_side_EDIT.jpeg", "location");
         Entity mlk = new Entity("Martin Luther King", "http://a4.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,h_1200,q_80,w_1200/MTE5NTU2MzE2MjgwNDg5NDgz.jpg", "person");
+        
         bourgeois = ws.AddEntity(bourgeois);
         vinci = ws.AddEntity(vinci);
         italie = ws.AddEntity(italie);
@@ -212,7 +215,11 @@ public class TestWS {
 
         //lier Léonard Da vinci => restinplace => Amboise
         lierEntity(ws, leonard, "restinplace", amboise);
+        lierEntity(ws, leonard, "deathplace", amboise);
+        lierEntity(ws, leonard, "istheleaderof", louvreOrg);
         lierEntity(ws, leonard, "birthplace", vinci);
+        lierEntity(ws, leonard, "participatesinevent", mlkSpeech);
+        lierEntity(ws, leonard, "website", "leodavinci.com");
         lierEntity(ws, vinci, "country", italie);
         lierEntity(ws, vinci, "region", toscane);
         lierEntity(ws, vinci, "birthplaceof", leonard);
@@ -237,13 +244,17 @@ public class TestWS {
         lierEntity(ws, mlkSpeech, "dateofevent", "28 August 1963");
         lierEntity(ws, mlkSpeech, "hasparticipant", mlk);
         
-        
+            
         
         
         lierEntity(ws, joconde, "location", louvre);
         //ajouter Joconde => description => String
         lierEntity(ws, joconde, "description", "La Joconde est un super tableau");
         lierEntity(ws, joconde, "author", leonard);
+        lierEntity(ws, joconde, "museum", louvreOrg);
+        lierEntity(ws, joconde, "year", "1500");
+        lierEntity(ws, joconde, "type", "peinture");
+        lierEntity(ws, joconde, "owner", "Musée du Louvre");
         //lier Léonard Da vinci => isauthorof => Joconde
         lierEntity(ws, leonard, "isauthorof", joconde);
         //lierEntity(ws, leonard, "birthplace", vinci);
@@ -257,23 +268,27 @@ public class TestWS {
         if (dbpedia) {
             Entity leonardDB = new Entity();
             leonardDB.setURI("http://dbpedia.org/resource/Leonardo_da_Vinci");
-            leonardDB.constructEntity();
-
+//            leonardDB.constructEntity();
+            
+            Entity mlkEvent = new Entity();
+            mlkEvent.setURI("http://dbpedia.org/resource/Martin_Luther_King,_Jr.");
+//            mlkEvent.constructEntity();
+            
             Entity vinciDB = new Entity();
             vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
-            vinciDB.constructEntity();
+//            vinciDB.constructEntity();
             
             Entity rodinDB = new Entity();
             rodinDB.setURI("http://dbpedia.org/resource/Auguste_Rodin");
-            rodinDB.constructEntity();
+//            rodinDB.constructEntity();
             
             Entity louvreDB = new Entity();
             louvreDB.setURI("http://dbpedia.org/resource/Louvre");
-            louvreDB.constructEntity();
+//            louvreDB.constructEntity();
             
             Entity jocondeDB = new Entity();
             jocondeDB.setURI("http://dbpedia.org/resource/I,_Mona_Lisa");
-            jocondeDB.constructEntity();
+//            jocondeDB.constructEntity();
             
             
             lierEntity(ws, bourgeois, "author", rodinDB);
@@ -282,13 +297,15 @@ public class TestWS {
             lierEntity(ws, leonard, "sameas", leonardDB);
             lierEntity(ws, joconde, "sameas", jocondeDB);
             lierEntity(ws, louvre, "sameas", louvreDB);
+            lierEntity(ws, louvreOrg, "sameas", louvreDB);
             lierEntity(ws, vinci, "sameas", vinciDB);
-            Property[] props2 = ws.LoadEntityProperties(vinciDB);
+            lierEntity(ws, mlkSpeech, "sameas", mlkEvent);
+//            Property[] props2 = ws.LoadEntityProperties(vinciDB);
 
-            System.out.println("\nProperty Vinci (URI Dbpedia) :");
-            for (int i = 0; i < props2.length; i++) {
-                System.out.println(" - Property[" + i + "] : " + props2[i]);
-            }
+//            System.out.println("\nProperty Vinci (URI Dbpedia) :");
+//            for (int i = 0; i < props2.length; i++) {
+//                System.out.println(" - Property[" + i + "] : " + props2[i]);
+//            }
         }
 
         Property[] props = ws.LoadEntityProperties(leonard);
@@ -296,8 +313,11 @@ public class TestWS {
         PropertyAdmin[] propsVinci = ws.GetAllPropertiesAdmin(vinci);
         Property[] propsJoconde = ws.LoadEntityProperties(joconde);
         Property[] propsLouvre = ws.LoadEntityProperties(louvre);
+        Property[] amboiseProp = ws.LoadEntityProperties(amboise);
+        
         
         PropertyAdmin[] propsMlkSpeech = ws.GetAllPropertiesAdmin(mlkSpeech);
+        PropertyAdmin[] propsLouvreOrg = ws.GetAllPropertiesAdmin(louvreOrg);
         
         System.out.println("\nProperty Leonard (type Person) :");
         for (int i = 0; i < props.length; i++) {
@@ -319,14 +339,23 @@ public class TestWS {
             System.out.println(" - Property[" + i + "] : " + propsLouvre[i]);
         }
         
-        System.out.println("\nPropertyAdmin Leonard (type Person) :");
-        for (int i = 0; i < propsAdmin.length; i++) {
-            System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
+        System.out.println("\nProperty Amboise (type Place) :");
+        for (int i = 0; i < amboiseProp.length; i++) {
+            System.out.println(" - Property[" + i + "] : " + amboiseProp[i]);
         }
+//        
+//        System.out.println("\nPropertyAdmin Leonard (type Person) :");
+//        for (int i = 0; i < propsAdmin.length; i++) {
+//            System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
+//        }
         
         System.out.println("\nPropertyAdmin MLK Speech (type Event) :");
         for (int i = 0; i < propsMlkSpeech.length; i++) {
             System.out.println(" - PropertyAdmin[" + i + "] : " + propsMlkSpeech[i]);
+        }
+        System.out.println("\nPropertyAdmin Louvre org (type Organisation) :");
+        for (int i = 0; i < propsLouvreOrg.length; i++) {
+            System.out.println(" - PropertyAdmin[" + i + "] : " + propsLouvreOrg[i]);
         }
         
         

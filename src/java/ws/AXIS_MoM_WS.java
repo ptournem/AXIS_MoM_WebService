@@ -228,6 +228,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 obj.insertMuseum(p);
                 ret = true;
                 break;
+            case "hasobject":
+                orga.setURI(e.getURI());
+                orga.insertMuseum(p);
+                ret = true;
+                break;
             case "year":
                 obj.setURI(e.getURI());
                 obj.insertYear(p);
@@ -248,7 +253,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pla.insertIsAPlaceOfOrganisation(p);
                 ret = true;
                 break;
-            case "dateOfCreation":
+            case "dateofcreation":
                 orga.setURI(e.getURI());
                 orga.insertDateOfCreation(p);
                 ret = true;
@@ -414,6 +419,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
             case "museum":
                 property = "dbp:museum";
                 regof = "RegOfObjectItem";
+                ret = true;
+                break;
+            case "hasobject":
+                property = "dbp:museum";
+                regof = "RegOfMoralPerson";
                 ret = true;
                 break;
             case "year":

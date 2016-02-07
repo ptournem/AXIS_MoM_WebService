@@ -116,7 +116,7 @@ public class Place extends Entity {
         this.deathPlaceOf = new PropertyAdmin();
         this.deathPlaceOf.setName("deathplaceof");
         this.isAPlaceOfOrganisation = new PropertyAdmin();
-        this.isAPlaceOfOrganisation.setName("istheplaceoforganisation");
+        this.isAPlaceOfOrganisation.setName("isaplaceoforganisation");
         this.isAPlaceOfEvent = new PropertyAdmin();
         this.isAPlaceOfEvent.setName("isaplaceofevent");
         this.website = new PropertyAdmin();

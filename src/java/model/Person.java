@@ -184,7 +184,6 @@ public class Person extends Entity {
             ResultSet rs = qe.execSelect();
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
-                System.out.println("rep:"+rep);
                 if (rep.get("description") != null) {
                     this.description.setValue_locale(rep.get("description").asLiteral().getString());
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
@@ -358,6 +357,16 @@ public class Person extends Entity {
                                 this.placeOfBirth.setValue_dbpedia(n.getValue());
                             }
                             break;
+                        case "deathplace":
+                            this.deathPlace.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.deathPlace.setEntity_locale(n.getEnt());
+                                this.deathPlace.setValue_locale(n.getValue());
+                            } else {
+                                this.deathPlace.setEntity_dbpedia(n.getEnt());
+                                this.deathPlace.setValue_dbpedia(n.getValue());
+                            }
+                            break;
                         case "description":
                             this.description.setType(n.getType());
                             if (this.getURI().contains("dbpedia")) {
@@ -376,6 +385,28 @@ public class Person extends Entity {
                             } else {
                                 this.parent.setEntity_dbpedia(n.getEnt());
                                 this.parent.setValue_dbpedia(n.getValue());
+                            }
+                            break;
+                        case "participatesinevent":
+                            this.participatesInEvent.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.participatesInEvent.setEntity_locale(n.getEnt());
+                                this.participatesInEvent.setValue_locale(n.getValue());
+
+                            } else {
+                                this.participatesInEvent.setEntity_dbpedia(n.getEnt());
+                                this.participatesInEvent.setValue_dbpedia(n.getValue());
+                            }
+                            break;
+                        case "istheleaderof":
+                            this.isTheLeaderOf.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.isTheLeaderOf.setEntity_locale(n.getEnt());
+                                this.isTheLeaderOf.setValue_locale(n.getValue());
+
+                            } else {
+                                this.isTheLeaderOf.setEntity_dbpedia(n.getEnt());
+                                this.isTheLeaderOf.setValue_dbpedia(n.getValue());
                             }
                             break;
                         case "child":

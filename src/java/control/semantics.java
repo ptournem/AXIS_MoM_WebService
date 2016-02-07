@@ -14,6 +14,7 @@ import static model.Connector.*;
 import model.Event;
 import model.Person;
 import model.Object;
+import model.Organisation;
 import model.Place;
 import org.apache.jena.rdf.model.Model;
 
@@ -55,7 +56,7 @@ public class semantics {
 		Event ev = new Event();
                 ev.setURI(e.getURI());
                 ev.constructEntity();
-                ev.constructEvent();
+                ev.constructEvent(false);
                 tab = ev.getPropertiesEvent();
 		break;
 	    case "object":
@@ -71,6 +72,13 @@ public class semantics {
                 pl.constructEntity();
                 pl.constructPlace(false);
                 tab = pl.getPropertiesPlace();
+		break;
+            case "organisation":
+                Organisation org = new Organisation();
+                org.setURI(e.getURI());
+                org.constructEntity();
+                org.constructOrganisation(false);
+                tab = org.getPropertiesOrganisation();
 		break;
 	    default:
 		throw new AssertionError();
@@ -99,7 +107,7 @@ public class semantics {
 		Event ev = new Event();
                 ev.setURI(e.getURI());
                 ev.constructEntity();
-                ev.constructEvent();
+                ev.constructEvent(true);
                 tab = ev.getPropertiesAdminEvent();
 		break;
 	    case "object":
@@ -116,7 +124,14 @@ public class semantics {
                 pl.constructPlace(true);
                 tab = pl.getPropertiesAdminPlace();
 		break;
-
+            case "organisation":
+                Organisation org = new Organisation();
+                org.setURI(e.getURI());
+                org.constructEntity();
+                org.constructOrganisation(true);
+                tab = org.getPropertiesAdminOrganisation();
+		break;
+                
 	    default:
 		throw new AssertionError();
 	}

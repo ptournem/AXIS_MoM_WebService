@@ -209,9 +209,9 @@ public class Connector {
                 break;
         }
 
-        for (int i = 0; i < tProp.size(); i++) {
-            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
-        }
+//        for (int i = 0; i < tProp.size(); i++) {
+//            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
+//        }
 //        
 //        long endTime = System.currentTimeMillis();
 //        System.out.println("_____ FIN FONCTION SELECTLODENTITY: "+(endTime-startTime));
@@ -484,7 +484,7 @@ public class Connector {
         m = lodQuery(uri, "http://dbpedia.org/ontology/birthname", "?o");
         e = searchFromModel(m, e);
 
-        long endTime = System.currentTimeMillis();
+//        long endTime = System.currentTimeMillis();
 //        System.out.println("_____ FIN FONCTION SELECTLODENTITY: " + (endTime - startTime));
 //        System.out.println("l'entité : " + e);
         return e;
@@ -647,10 +647,10 @@ public class Connector {
             // on ajoute notre entité au tableau des entités
             entities.add(e);
         }
-//        test d'affichage
-        for (int i = 0; i < entities.size(); i++) {
-            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-        }
+////        test d'affichage
+//        for (int i = 0; i < entities.size(); i++) {
+//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+//        }
         return entities;
     }
 
