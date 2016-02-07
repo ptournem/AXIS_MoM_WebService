@@ -115,6 +115,23 @@ public class TestWS {
 //        Property[] props2 = ws.LoadEntityProperties(leonard2);
 //
 //        System.out.println(" - Property[4] : "+props2[4]); 
+        
+//            AXIS_MoM_WS ws = new AXIS_MoM_WS();
+//            
+//            Entity vinciDB = new Entity();
+//            vinciDB.setURI("http://dbpedia.org/resource/Vinci,_Tuscany");
+//            vinciDB.constructEntity();
+//            
+//
+//            Property[] props2 = ws.LoadEntityProperties(vinciDB);
+//
+//            System.out.println(vinciDB);
+//            System.out.println("_____ AFFICHAGE DE LA PROPERTY : ");
+//            System.out.println("\nProperty Vinci (URI Dbpedia) :");
+//            for (int i = 0; i < props2.length; i++) {
+//                System.out.println(" - Property[" + i + "] : " + props2[i]);
+//            }
+            
     }
     
     public static void testPropertiesDbpedia() {
@@ -235,8 +252,6 @@ public class TestWS {
 
         System.out.println("URI leonard : " + leonard.getURI());
         joconde = ws.GetEntity(joconde);
-        System.out.println(joconde);
-        
         System.out.println("\n\n\n_______________");
 
         if (dbpedia) {
@@ -282,6 +297,8 @@ public class TestWS {
         Property[] propsJoconde = ws.LoadEntityProperties(joconde);
         Property[] propsLouvre = ws.LoadEntityProperties(louvre);
         
+        PropertyAdmin[] propsMlkSpeech = ws.GetAllPropertiesAdmin(mlkSpeech);
+        
         System.out.println("\nProperty Leonard (type Person) :");
         for (int i = 0; i < props.length; i++) {
             System.out.println(" - Property[" + i + "] : " + props[i]);
@@ -305,6 +322,11 @@ public class TestWS {
         System.out.println("\nPropertyAdmin Leonard (type Person) :");
         for (int i = 0; i < propsAdmin.length; i++) {
             System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
+        }
+        
+        System.out.println("\nPropertyAdmin MLK Speech (type Event) :");
+        for (int i = 0; i < propsMlkSpeech.length; i++) {
+            System.out.println(" - PropertyAdmin[" + i + "] : " + propsMlkSpeech[i]);
         }
         
         
