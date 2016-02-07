@@ -122,7 +122,7 @@ public class Person extends Entity {
         this.child = new PropertyAdmin();
         this.child.setName("child");
         this.isAuthorOf = new PropertyAdmin();
-        this.isAuthorOf.setName("isAuthorOf");
+        this.isAuthorOf.setName("isauthorof");
         this.restInPlace = new PropertyAdmin();
         this.restInPlace.setName("restinplace");
         this.description = new PropertyAdmin();
@@ -184,6 +184,7 @@ public class Person extends Entity {
             ResultSet rs = qe.execSelect();
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
+                System.out.println("rep:"+rep);
                 if (rep.get("description") != null) {
                     this.description.setValue_locale(rep.get("description").asLiteral().getString());
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
