@@ -53,7 +53,7 @@ public class Connector {
 
     public static void main(String args[]) {
 
-        String test = "Lénoard de";
+        String test = "vinci";
         selectlodFromKeyWord(test);
 //        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
 //        entityBrowser(e);
@@ -510,18 +510,18 @@ public class Connector {
       // '"Louv*"NEAR"lens"'
         //FILTER (contains(?label , \""+s+"\")
         String DBQueryString = $PREFIXS
-                + "select ?uri ?label ?image "
+                + "select ?uri ?label ?image"
                 + "(group_concat(?type; separator=\"&&&&\") as ?types)"
                 + "(group_concat(?typ; separator=\"&&&&\") as ?typs)"
                 + "where {?uri rdfs:label ?label ."
                  + " ?uri <http://dbpedia.org/ontology/abstract> ?description. "
                 + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "
-                + " ?label <bif:contains> '\""+sFinal+"\"'"//OPTION (score ?sc)."
+                + " ?label <bif:contains> '\""+sFinal+"\"' " // option (score ?sc).}"
                 + " optional { ?uri rdf:type ?type . }"
                 + " optional { ?uri dbp:type ?typ . }"
                 + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
-               + "GROUP BY ?uri ?label ?image ";
-               //+"ORDER BY desc (?sc)"
+               + "GROUP BY ?uri ?label ?image";
+             // +"ORDER BY desc (?score)"
               // +"LIMIT 20";
               
         // on crée notre requete 
