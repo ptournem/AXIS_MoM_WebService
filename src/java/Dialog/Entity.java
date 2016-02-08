@@ -52,7 +52,16 @@ public class Entity {
 //        e4.constructEntity();
     }
 
+    /**
+     * 
+     * @param URI l'uri en base de l'entité selectionné
+     * @param name le nom en base de l'entité (label attaché au Document)
+     * @param image le lien de l'image de l'entité (dans RegOfPhotoItem)
+     * @param type le type de l'entité : Person, Object, Event, Organisation, Place, Activity
+     */
     public Entity(String URI, String name, String image, String type) {
+        
+        
         this.URI = URI;
         this.name = name;
         this.image = image;
@@ -101,6 +110,10 @@ public class Entity {
         this.type = type;
     }
 
+    /**
+     * insere l'entité dans la base sémantique, en ajoutant le nom, l'image et le type sous le bon format (création de plusieurs triplets)
+     * @return la même entité avec l'URI rempli
+     */
     public Entity AddEntity() {
         String mainURI = insert("rdf:type", "axis-datamodel:Entity");
         String AFP = insert("rdf:type", "axis-datamodel:AFP");
@@ -174,6 +187,11 @@ public class Entity {
         return this;
     }
 
+    /**
+     * récupere toutes les propriétés liés à une entité : si cette entité a un sameAs, la fonction récuperera les propriétés de l'entité liée
+     * @param e prend l'entité en paramètre
+     * @return un tableau de Property correspondant à l'entité
+     */
     public ArrayList<Property> getPropertiesMapFromLod(Entity e) {
         if (e.getURI().contains("dbpedia")) {
             return entityBrowser(e);
@@ -194,6 +212,11 @@ public class Entity {
         return null;
     }
 
+    /**
+     * permet de construire l'entité :
+     * on part du principe qu'uniquement l'URI est remplie
+     * la fonction va remplir le name, l'image et le type de l'entité
+     */
     public void constructEntity() {
         if (this.URI.contains("dbpedia")) {
             selectlodFromEntity(this);
@@ -308,26 +331,46 @@ public class Entity {
         }
     }
 
+    /**
+     * permet la suppression d'un triplet lié à une URI
+     * @param uri l'uri de l'objet dont on veut supprimer un triplet
+     * @param prop le prédicat de l'objet à supprimer
+     * @param uri2 l'uri de l'objet destination
+     * @return 
+     */
     public boolean delete(String uri, String prop, String uri2) {
         deleteLinkEntity(uri, prop, uri2);
         return true;
     }
     
+    /**
+     * permet la suppression d'un triplet quelconque
+     * @param s le sujet (qui peut être ?s)
+     * @param p le prédicat (qui peut être ?p)
+     * @param o l'objet (qui peut être ?o)
+     * @return 
+     */
     public boolean deleteTriplet(String s, String p, String o) {
         deleteTriple(s, p, o);
         return true;
     }
     
-    public Entity[] getEntityTab(String Uri) {
-        Entity e = new Entity();
-        ArrayList<Entity> ale = new ArrayList<>();
-        e.setURI(Uri);
-        e.constructEntity();
-        ale.add(e);
-        Entity[] ret = new Entity[ale.size()];
-        return (Entity[]) ale.toArray(ret);
-    }
-
+//    public Entity[] getEntityTab(String Uri) {
+//        Entity e = new Entity();
+//        ArrayList<Entity> ale = new ArrayList<>();
+//        e.setURI(Uri);
+//        e.constructEntity();
+//        ale.add(e);
+//        Entity[] ret = new Entity[ale.size()];
+//        return (Entity[]) ale.toArray(ret);
+//    }
+//
+    
+    /**
+     * 
+     * @param tab
+     * @return 
+     */
     public Entity[] getEntityTab(String[] tab) {
         
         ArrayList<Entity> ale = new ArrayList<>();
