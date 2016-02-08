@@ -212,6 +212,10 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person", null, true);
                 m = lodQuery("?o", "http://dbpedia.org/property/birthPlace", uri);
                 tProp = searchPropertyFromModel(m, tProp, "person", null, true);
+                      m = lodQuery("?o", "http://dbpedia.org/property/locationCity", uri);
+                tProp = searchPropertyFromModel(m, tProp, "organisation", null, true);
+                      m = lodQuery("?o", "http://dbpedia.org/ontology/locationCity", uri);
+                tProp = searchPropertyFromModel(m, tProp, "organisation", null, true);
                 break;
             case "event":
                 m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
@@ -296,6 +300,9 @@ public class Connector {
                 case "http://dbpedia.org/property/child":
                     p2.setName("child");
                     break;
+                    case "http://dbpedia.org/property/owner":
+                    p2.setName("owner");
+                    break;
                 case "http://dbpedia.org/property/parents":
                     p2.setName("parents");
                     break;
@@ -354,6 +361,8 @@ public class Connector {
                     break;
                 case "http://dbpedia.org/property/museum":
                     p2.setName(name);
+                    case "http://dbpedia.org/property/locationCity":
+                    p2.setName("isaplaceoforganisation");
                     break;
                 case "http://dbpedia.org/ontology/museum":
                     p2.setName(name);
