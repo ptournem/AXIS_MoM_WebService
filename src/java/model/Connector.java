@@ -53,7 +53,7 @@ public class Connector {
 
     public static void main(String args[]) {
 
-        String test = "vinci";
+        String test = "Louvre";
         selectlodFromKeyWord(test);
 //        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
 //        entityBrowser(e);
@@ -195,6 +195,10 @@ public class Connector {
                 m = lodQuery(uri, "http://dbpedia.org/property/type", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
                 
+                 m = lodQuery(uri, "http://dbpedia.org/ontology/owner", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+                
+                
                 break;
             case "location":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
@@ -258,7 +262,7 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person");
                m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
-                m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
+                m = lodQuery(uri, "http://dbpedia.org/property/established", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
              m = lodQuery(uri, "http://dbpedia.org/ontology/museum", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "object");
@@ -300,21 +304,28 @@ public class Connector {
                      case "http://dbpedia.org/property/child":
                     p2.setName("child");
                     break;
-                            case "http://dbpedia.org/property/parents":
-                    p2.setName("parents");
+                            case "http://dbpedia.org/property/parent":
+                    p2.setName("parent");
                     break;
+                             case "http://dbpedia.org/property/established":
+                    p2.setName("dateofcreation");
+                    break;
+                                         case "http://dbpedia.org/ontology/owner":
+                    p2.setName("owner");
+                    break;
+                                
                 case "http://dbpedia.org/property/author":
                     p2.setName("author");
                     break;
                 // les travaux de la personne
                 case "http://dbpedia.org/property/works":
-                    p2.setName("isAuthorOf");
+                    p2.setName("isauthorof");
                     break;
                 case "http://dbpedia.org/property/dateOfBirth":
                     p2.setName("birthdate");
                     break;
                       case "http://dbpedia.org/ontology/locationCity":
-                    p2.setName("isAPlaceOfOrganisation");
+                    p2.setName("isaplaceoforganisation");
                     break;
                  
                 
@@ -329,7 +340,7 @@ public class Connector {
                     p2.setName("leader");
                     break;
                     case "http://dbpedia.org/property/leader":
-                    p2.setName("leaderOf");
+                    p2.setName("leaderof");
                     break;
                     
                 // le chef d'une organisation
@@ -350,7 +361,7 @@ public class Connector {
                     p2.setName("restinplace");
                     break;
                     case "http://dbpedia.org/ontology/museum":
-                    p2.setName("hasObject");
+                    p2.setName("hasobject");
                     break;
                     
                      case "http://dbpedia.org/property/year":
@@ -404,14 +415,14 @@ public class Connector {
                     p2.setName("location");
                     break;
                 case "http://dbpedia.org/property/introduced":
-                    p2.setName("dateOfCreation");
+                    p2.setName("dateofcreation");
                     break;
 
                 case "http://dbpedia.org/ontology/yearMeanC":
-                    p2.setName("tempMean");
+                    p2.setName("tempmean");
                     break;
                     case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
-                    p2.setName("hasParticipant");
+                    p2.setName("hasparticipant");
                     break;
                      case "http://dbpedia.org/property/website":
                     p2.setName("website");
@@ -422,10 +433,10 @@ public class Connector {
                     p2.setName("website");
                     break;
                         case "http://dbpedia.org/ontology/deathPlace":
-                    p2.setName("deathPlace");
+                    p2.setName("deathplace");
                     break;
                       case "http://dbpedia.org/property/deathPlace":
-                    p2.setName("deathPlace");
+                    p2.setName("deathplace");
                     break;
                           
    
