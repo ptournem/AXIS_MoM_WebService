@@ -528,18 +528,19 @@ public class Connector {
         // '"Louv*"NEAR"lens"'
         //FILTER (contains(?label , \""+s+"\")
         String DBQueryString = $PREFIXS
-                + "select ?uri ?label ?image"
+                + "select distinct ?uri ?label ?image "
                 + "(group_concat(?type; separator=\"&&&&\") as ?types)"
                 + "(group_concat(?typ; separator=\"&&&&\") as ?typs)"
                 + "where {?uri rdfs:label ?label ."
                 + " ?uri <http://dbpedia.org/ontology/abstract> ?description. "
                 + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "
-                + " ?label <bif:contains> '\"" + sFinal + "\"' " // option (score ?sc).}"
+                + " ?label <bif:contains> \'"+ sFinal + "\' "//option (score ?sc)"
                 + " optional { ?uri rdf:type ?type . }"
                 + " optional { ?uri dbp:type ?typ . }"
                 + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
-                + "GROUP BY ?uri ?label ?image";
-             // +"ORDER BY desc (?score)"
+                + "GROUP BY ?uri ?label ?image "
+                +"ORDER BY asc (?label)";
+              
         // +"LIMIT 20";
 
         // on crée notre requete 
