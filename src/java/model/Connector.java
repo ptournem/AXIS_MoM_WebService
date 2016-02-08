@@ -33,6 +33,9 @@ import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 
 public class Connector {
 
+    /**
+     *
+     */
     public static String $PREFIXS = "PREFIX poc: <http://titan.be/axis-poc2015/>"
             + " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"
             + "PREFIX axis-datamodel: <http://titan.be/axis-csrm/datamodel/ontology/0.4#>"
@@ -45,16 +48,19 @@ public class Connector {
             + "PREFIX type: <http://dbpedia.org/class/yago/>"
             + "PREFIX schema: <https://schema.org/>";
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String args[]) {
 
-        String test = "vinci";
+        String test = "Europe";
         selectlodFromKeyWord(test);
 //        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
 //        entityBrowser(e);
     }
 
     /**
-     * 
      * @param url
      * @return 
      */
@@ -70,9 +76,15 @@ public class Connector {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @param str
      * @return 
+=======
+     *
+     * @param str
+     * @return
+>>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Model executeQueryConstruct(String str) {
 
@@ -86,12 +98,11 @@ public class Connector {
     }
 
     /**
-     * 
      * @param uri
      * @return 
      */
     public static Model selectFromEntity(String uri) { 
-        //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
+
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         $PREFIXS
@@ -108,14 +119,13 @@ public class Connector {
     }
 
     /**
-     * 
      * @param s
      * @param p
      * @param o
      * @return 
      */
     public static ResultSet selectFromEntity(String s, String p, String o) { 
-        //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
+
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         $PREFIXS
@@ -130,13 +140,12 @@ public class Connector {
     }
 
     /**
-     * 
      * @param uri
      * @param predicat
      * @return 
      */
     public static Model selectFromEntityWithPredicat(String uri, String predicat) { 
-        //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
+
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
                         $PREFIXS
@@ -158,8 +167,6 @@ public class Connector {
      * @return 
      */
     public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
-//        
-//        long startTime = System.currentTimeMillis();
 
         ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
@@ -177,7 +184,9 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfDeath", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
-           
+                m = lodQuery(uri, "http://dbpedia.org/property/leader", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "organisation");
+                
                 m = lodQuery(uri, "http://dbpedia.org/ontology/birthPlace", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/mother", "?o");
@@ -219,6 +228,10 @@ public class Connector {
                 m = lodQuery(uri, "http://dbpedia.org/property/type", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
                 
+                 m = lodQuery(uri, "http://dbpedia.org/ontology/owner", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+                
+                
                 break;
             case "location":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
@@ -245,6 +258,9 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person");
                  m = lodQuery(uri, "http://dbpedia.org/property/birthPlace", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
+                  m = lodQuery(uri, "http://dbpedia.org/ontology/locationCity", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "organisation");
+                
                 break;
             case "event":
                  m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
@@ -279,7 +295,10 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person");
                m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
-
+                m = lodQuery(uri, "http://dbpedia.org/property/established", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+             m = lodQuery(uri, "http://dbpedia.org/property/museum", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "object");
                 break;
             case "activity":
 
@@ -296,11 +315,19 @@ public class Connector {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @param m
      * @param tProp
      * @param type
      * @return 
+=======
+     *
+     * @param m
+     * @param tProp
+     * @param type
+     * @return
+>>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp, String type) {
         StmtIterator iter = m.listStatements();
@@ -325,20 +352,31 @@ public class Connector {
                      case "http://dbpedia.org/property/child":
                     p2.setName("child");
                     break;
-                            case "http://dbpedia.org/property/parents":
-                    p2.setName("parents");
+                            case "http://dbpedia.org/property/parent":
+                    p2.setName("parent");
                     break;
+                             case "http://dbpedia.org/property/established":
+                    p2.setName("dateofcreation");
+                    break;
+                    case "http://dbpedia.org/ontology/owner":
+                    p2.setName("owner");
+                    break;
+                                
                 case "http://dbpedia.org/property/author":
                     p2.setName("author");
                     break;
                 // les travaux de la personne
                 case "http://dbpedia.org/property/works":
-                    p2.setName("isAuthorOf");
+                    p2.setName("isauthorof");
                     break;
                 case "http://dbpedia.org/property/dateOfBirth":
                     p2.setName("birthdate");
                     break;
-
+                      case "http://dbpedia.org/ontology/locationCity":
+                    p2.setName("isaplaceoforganisation");
+                    break;
+                 
+                
                 // le maire d'une organisation de type ville
                 case "http://dbpedia.org/ontology/language":
                     p2.setName("language");
@@ -349,6 +387,10 @@ public class Connector {
                 case "http://dbpedia.org/property/leaderName":
                     p2.setName("leader");
                     break;
+                    case "http://dbpedia.org/property/leader":
+                    p2.setName("leaderof");
+                    break;
+                    
                 // le chef d'une organisation
                     case "http://dbpedia.org/property/director":
                     p2.setName("leader");
@@ -366,10 +408,9 @@ public class Connector {
                 case "http://dbpedia.org/ontology/restingPlace":
                     p2.setName("restinplace");
                     break;
-//                    case "http://dbpedia.org/property/museum":
-//                    p2.setName("museum");
-//                    break;
-                
+                    case "http://dbpedia.org/property/museum":
+                    p2.setName("hasobject");
+                    break;
                     
                      case "http://dbpedia.org/property/year":
                     p2.setName("year");
@@ -418,19 +459,20 @@ public class Connector {
                 case "http://dbpedia.org/property/city":
                     p2.setName("location");
                     break;
-                case "http://dbpedia.org/property/museum":
-                    p2.setName("location");
-                    break;
+
                 case "http://dbpedia.org/property/introduced":
-                    p2.setName("dateOfCreation");
+                    p2.setName("dateofcreation");
                     break;
 
                 case "http://dbpedia.org/ontology/yearMeanC":
-                    p2.setName("tempMean");
+                    p2.setName("tempmean");
                     break;
                     case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
-                    p2.setName("hasParticipant");
+                    p2.setName("hasparticipant");
                     break;
+//                        case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
+//                    p2.setName("hasparticipant");
+//                    break;
                      case "http://dbpedia.org/property/website":
                     p2.setName("website");
                     break;
@@ -440,10 +482,10 @@ public class Connector {
                     p2.setName("website");
                     break;
                         case "http://dbpedia.org/ontology/deathPlace":
-                    p2.setName("deathPlace");
+                    p2.setName("deathplace");
                     break;
                       case "http://dbpedia.org/property/deathPlace":
-                    p2.setName("deathPlace");
+                    p2.setName("deathplace");
                     break;
                           
    
@@ -466,7 +508,7 @@ public class Connector {
                 p2.setLang("fr");
                 p2.setEnt(null);
                 if (p2.getValue() == null) {
-                    p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en", ""));
+                    p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#integer", "").replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en", ""));
                 }
             }
             if (!p2.getName().contains("default")) {
@@ -579,7 +621,7 @@ public class Connector {
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<" + s + "> <" + p + "> " + o + "}";
         Query DBquery = QueryFactory.create(DBQueryString);
-        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
+        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://fr.dbpedia.org/sparql", DBquery);
 
         Model m = qDBexec.execConstruct();
 
@@ -588,9 +630,15 @@ public class Connector {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @param e
      * @return 
+=======
+     *
+     * @param e
+     * @return
+>>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Entity selectlodFromEntity(Entity e) {
 
@@ -623,10 +671,17 @@ public class Connector {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @param m
      * @param e
      * @return 
+=======
+     *
+     * @param m
+     * @param e
+     * @return
+>>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Entity searchFromModel(Model m, Entity e) {
         StmtIterator iter = m.listStatements();
@@ -646,7 +701,7 @@ public class Connector {
                         e.setType("event");
                     } else if (e.getType() == null && typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if (e.getType() == null && typ.contains("SpatialThing") || typ.contains("Organization")) {
+                    } else if (e.getType() == null && typ.contains("SpatialThing") || typ.contains("museum") || typ.contains("Organization")) {
                         e.setType("organisation");
                     } else if (e.getType() == null && typ.contains("Activity")) {
                         e.setType("activity");
@@ -789,15 +844,20 @@ public class Connector {
             entities.add(e);
         }
 ////        test d'affichage
-//        for (int i = 0; i < entities.size(); i++) {
-//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-//        }
+        for (int i = 0; i < entities.size(); i++) {
+            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+        }
         return entities;
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @return 
+=======
+     *
+     * @return
+>>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Entity[] selectAllEntitiesURI() {
 
@@ -843,9 +903,15 @@ public class Connector {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @param e
      * @return 
+=======
+     *
+     * @param e
+     * @return
+>>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Comment[] selectAllComments(Entity e) {
 
@@ -887,8 +953,13 @@ public class Connector {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @return 
+=======
+     *
+     * @return
+>>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Comment[] selectAllComments() {
 
@@ -930,11 +1001,11 @@ public class Connector {
         return (Comment[]) tab.toArray(ret);
     }
 
-    /**
-     * 
+
+     /*
      * @param p
      * @param o
-     * @return 
+     * @return
      */
     public static String insert(String p, String o) { 
         String req = $PREFIXS
@@ -954,6 +1025,7 @@ public class Connector {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @param s
      * @param p
@@ -977,7 +1049,6 @@ public class Connector {
     }
 
     /**
-     * 
      * @param s
      * @param p
      * @param o
@@ -985,6 +1056,7 @@ public class Connector {
      * @return 
      */
     public static boolean insert(String s, String p, String o, String lang) { 
+
         String req = $PREFIXS
                 + "INSERT DATA { "
                 + "<%s>"
@@ -1006,10 +1078,17 @@ public class Connector {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @param entity
      * @param regof
      * @return 
+=======
+     *
+     * @param entity
+     * @param regof
+     * @return
+>>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static String selectRegOfEntity(String entity, String regof) {
         String uri = "null";
@@ -1031,13 +1110,13 @@ public class Connector {
         return uri;
 
     }
-    
+
     /**
-     * 
+     *
      * @param s
      * @param p
      * @param o
-     * @return 
+     * @return
      */
     public static boolean deleteLinkEntity(String s, String p, String o) {
         String req = $PREFIXS
@@ -1053,8 +1132,13 @@ public class Connector {
     }
 
     /**
+<<<<<<< HEAD
      * 
      * @return 
+=======
+     *
+     * @return
+>>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static boolean deleteAll() {
         String req = $PREFIXS
