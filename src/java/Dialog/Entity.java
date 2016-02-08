@@ -33,13 +33,11 @@ public class Entity {
         String uri = "http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom";
         e3.setURI(uri);
         e3.constructEntity();
-//        System.out.println(e3);
 
         //String uri = "<http://titan.be/axis-poc2015/Entity_TheMarchForJobsAndFreedom>";
         //String uri1 = "<http://titan.be/axis-poc2015/8b281ed7-1514-4f29-842c-3a81a3dfd722>";
         //e.setURI(uri);
         //e.constructEntity();
-        //System.out.println(e);
 //        e.printEntity(uri);
 //        
 //        TestWebService ws = new TestWebService();
@@ -49,7 +47,6 @@ public class Entity {
 //        Entity e4 = new Entity();
 //        e4.setURI(e2.getURI());
 //        e4.constructEntity();
-//        System.out.println(e4);
     }
 
     public Entity(String URI, String name, String image, String type) {
@@ -235,7 +232,6 @@ public class Entity {
                 }
                 //        if(type.contains(""))
                 //            this.type = "activity";
-//                System.out.println("image:"+n.get("image").asLiteral().getString());
                 this.image = n.get("image").asLiteral().getString();
                 this.name = n.get("name").asLiteral().getString();
 

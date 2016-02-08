@@ -165,7 +165,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "deathplace":
                 pers.setURI(e.getURI());
-                pers.insertDeathDate(p);
+                pers.insertDeathPlace(p);
                 ret = true;
                 break;
             case "deathplaceof":
@@ -228,6 +228,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 obj.insertMuseum(p);
                 ret = true;
                 break;
+            case "hasobject":
+                orga.setURI(e.getURI());
+                orga.insertMuseum(p);
+                ret = true;
+                break;
             case "year":
                 obj.setURI(e.getURI());
                 obj.insertYear(p);
@@ -248,7 +253,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 pla.insertIsAPlaceOfOrganisation(p);
                 ret = true;
                 break;
-            case "dateOfCreation":
+            case "dateofcreation":
                 orga.setURI(e.getURI());
                 orga.insertDateOfCreation(p);
                 ret = true;
@@ -261,6 +266,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
             case "istheleaderof":
                 pers.setURI(e.getURI());
                 pers.insertIsTheLeaderOf(p);
+                ret = true;
+                break;
+            case "participatesinevent":
+                pers.setURI(e.getURI());
+                pers.insertParticipatesInEvent(p);
                 ret = true;
                 break;
                 
@@ -353,7 +363,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 ret = true;
                 break;
             case "deathplace":
-                property = "dbont:birthPlace";
+                property = "dbont:deathPlace";
                 regof = "RegOfPhysicalPerson";
                 ret = true;
                 break;
@@ -411,6 +421,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 regof = "RegOfObjectItem";
                 ret = true;
                 break;
+            case "hasobject":
+                property = "dbp:museum";
+                regof = "RegOfMoralPerson";
+                ret = true;
+                break;
             case "year":
                 property = "dbp:year";
                 regof = "Document";
@@ -441,6 +456,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 regof = "RegOfPhysicalPerson";
                 ret = true;
                 break;
+            case "participatesinevent":
+                property = "axis-datamodel:participatesInEvent";
+                regof = "RegOfPhysicalPerson";
+                ret = true;
+                break;
                 
             default:
                 ret = false;
@@ -466,7 +486,6 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
         
         
         e.constructEntity();
-        System.out.println("e:"+e);
 //        Object obj = new Object();
 //        obj.setURI(e.getURI());
 //        obj.constructObject();
