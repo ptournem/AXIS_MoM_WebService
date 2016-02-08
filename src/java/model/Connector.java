@@ -53,7 +53,7 @@ public class Connector {
 
     public static void main(String args[]) {
 
-        String test = "Louvre";
+        String test = "Europe";
         selectlodFromKeyWord(test);
 //        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
 //        entityBrowser(e);
@@ -264,7 +264,7 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/property/established", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
-             m = lodQuery(uri, "http://dbpedia.org/ontology/museum", "?o");
+             m = lodQuery(uri, "http://dbpedia.org/property/museum", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "object");
                 break;
             case "activity":
@@ -310,7 +310,7 @@ public class Connector {
                              case "http://dbpedia.org/property/established":
                     p2.setName("dateofcreation");
                     break;
-                                         case "http://dbpedia.org/ontology/owner":
+                    case "http://dbpedia.org/ontology/owner":
                     p2.setName("owner");
                     break;
                                 
@@ -360,7 +360,7 @@ public class Connector {
                 case "http://dbpedia.org/ontology/restingPlace":
                     p2.setName("restinplace");
                     break;
-                    case "http://dbpedia.org/ontology/museum":
+                    case "http://dbpedia.org/property/museum":
                     p2.setName("hasobject");
                     break;
                     
@@ -411,9 +411,7 @@ public class Connector {
                 case "http://dbpedia.org/property/city":
                     p2.setName("location");
                     break;
-                case "http://dbpedia.org/property/museum":
-                    p2.setName("location");
-                    break;
+
                 case "http://dbpedia.org/property/introduced":
                     p2.setName("dateofcreation");
                     break;
@@ -424,6 +422,9 @@ public class Connector {
                     case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
                     p2.setName("hasparticipant");
                     break;
+//                        case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
+//                    p2.setName("hasparticipant");
+//                    break;
                      case "http://dbpedia.org/property/website":
                     p2.setName("website");
                     break;
@@ -565,7 +566,7 @@ public class Connector {
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                 + "construct where {<" + s + "> <" + p + "> " + o + "}";
         Query DBquery = QueryFactory.create(DBQueryString);
-        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
+        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://fr.dbpedia.org/sparql", DBquery);
 
         Model m = qDBexec.execConstruct();
 
@@ -621,7 +622,7 @@ public class Connector {
                         e.setType("event");
                     } else if (e.getType() == null && typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if (e.getType() == null && typ.contains("SpatialThing") || typ.contains("Organization")) {
+                    } else if (e.getType() == null && typ.contains("SpatialThing") || typ.contains("museum") || typ.contains("Organization")) {
                         e.setType("organisation");
                     } else if (e.getType() == null && typ.contains("Activity")) {
                         e.setType("activity");
