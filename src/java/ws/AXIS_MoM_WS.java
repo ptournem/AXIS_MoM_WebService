@@ -285,8 +285,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "sameas":
                 e.delete(e.getURI(), "owl:sameAs", "<"+valueEntity.getURI()+">");
-                ret = true;
-                break;
+                return true;
             case "socialnetwork":
                 property = "axis-datamodel:socialNetwork";
                 regof = "Document";
