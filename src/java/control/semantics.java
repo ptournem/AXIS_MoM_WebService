@@ -22,7 +22,6 @@ import org.apache.jena.rdf.model.Model;
 
 /**
  *
- * @author loannguyen
  */
 public class semantics {
     

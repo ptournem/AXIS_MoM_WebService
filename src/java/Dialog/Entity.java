@@ -14,6 +14,9 @@ import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
+/**
+ * Classe générale de toutes les Entity
+ */
 public class Entity {
 
     String URI;

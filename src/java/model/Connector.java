@@ -19,24 +19,18 @@ import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import Dialog.Entity;
 import java.util.ArrayList;
-import jena.query;
-import static model.TestWS.startTime;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.riot.WebContent;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
-import org.apache.jena.vocabulary.RDF;
 
 
 /**
- *
- * @author lookout.ig2i
+ * Classe Connector qui contient toutes les méthodes génériques pour manipuler la base de données (notamment les select et insert)
  */
+
 public class Connector {
 
     public static String $PREFIXS = "PREFIX poc: <http://titan.be/axis-poc2015/>"
@@ -59,7 +53,12 @@ public class Connector {
 //        entityBrowser(e);
     }
 
-    public static Model loadModels(String url) { //mélanoche
+    /**
+     * 
+     * @param url
+     * @return 
+     */
+    public static Model loadModels(String url) { 
 
         String serviceURI = "http://localhost:3030/ds";
         DatasetAccessor accessor;
@@ -70,6 +69,11 @@ public class Connector {
         return model;
     }
 
+    /**
+     * 
+     * @param str
+     * @return 
+     */
     public static Model executeQueryConstruct(String str) {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
@@ -81,7 +85,12 @@ public class Connector {
         return constructModel;
     }
 
-    public static Model selectFromEntity(String uri) { //robine
+    /**
+     * 
+     * @param uri
+     * @return 
+     */
+    public static Model selectFromEntity(String uri) { 
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
@@ -98,7 +107,14 @@ public class Connector {
         return m;
     }
 
-    public static ResultSet selectFromEntity(String s, String p, String o) { //robine
+    /**
+     * 
+     * @param s
+     * @param p
+     * @param o
+     * @return 
+     */
+    public static ResultSet selectFromEntity(String s, String p, String o) { 
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
@@ -113,7 +129,13 @@ public class Connector {
         return rs;
     }
 
-    public static Model selectFromEntityWithPredicat(String uri, String predicat) { //Robine
+    /**
+     * 
+     * @param uri
+     * @param predicat
+     * @return 
+     */
+    public static Model selectFromEntityWithPredicat(String uri, String predicat) { 
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
         QueryExecution qe = QueryExecutionFactory.sparqlService(
                 "http://localhost:3030/ds/query", String.format(
@@ -130,7 +152,11 @@ public class Connector {
         return m;
     }
 
-    // méthode pour supprimer des charactéres
+    /**
+     * 
+     * @param e
+     * @return 
+     */
     public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
 //        
 //        long startTime = System.currentTimeMillis();
@@ -269,6 +295,13 @@ public class Connector {
         return tProp;
     }
 
+    /**
+     * 
+     * @param m
+     * @param tProp
+     * @param type
+     * @return 
+     */
     public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp, String type) {
         StmtIterator iter = m.listStatements();
         ArrayList<Entity> ale = new ArrayList<Entity>();
@@ -533,7 +566,14 @@ public class Connector {
         ResultSet r = qDBexec.execSelect();
         return r;
     }
-
+    
+    /**
+     * 
+     * @param s
+     * @param p
+     * @param o
+     * @return 
+     */
     private static Model lodQuery(String s, String p, String o) {
         String DBQueryString = $PREFIXS
                 // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
@@ -547,6 +587,11 @@ public class Connector {
         return m;
     }
 
+    /**
+     * 
+     * @param e
+     * @return 
+     */
     public static Entity selectlodFromEntity(Entity e) {
 
         //long startTime = System.currentTimeMillis();
@@ -577,6 +622,12 @@ public class Connector {
         return e;
     }
 
+    /**
+     * 
+     * @param m
+     * @param e
+     * @return 
+     */
     public static Entity searchFromModel(Model m, Entity e) {
         StmtIterator iter = m.listStatements();
         while (iter.hasNext()) {
@@ -654,8 +705,11 @@ public class Connector {
         return e;
     }
 
-    //on construct toutes les propriétés et valeurs de l'URI passé en paramètre (riad)
-    // l'URI est externe, et fait donc référence à un lien dbpedia, freebase...
+    /**
+     * 
+     * @param keyword
+     * @return 
+     */
     public static ArrayList<Entity> selectlodFromKeyWord(String keyword) {
         // On créer une nouvelle liste d'entités de type Entity
         ArrayList<Entity> entities = new ArrayList<>();
@@ -741,6 +795,10 @@ public class Connector {
         return entities;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static Entity[] selectAllEntitiesURI() {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
@@ -784,6 +842,11 @@ public class Connector {
         return (Entity[]) tab.toArray(ret);
     }
 
+    /**
+     * 
+     * @param e
+     * @return 
+     */
     public static Comment[] selectAllComments(Entity e) {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
@@ -823,6 +886,10 @@ public class Connector {
         return (Comment[]) tab.toArray(ret);
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static Comment[] selectAllComments() {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
@@ -863,7 +930,13 @@ public class Connector {
         return (Comment[]) tab.toArray(ret);
     }
 
-    public static String insert(String p, String o) { //robine
+    /**
+     * 
+     * @param p
+     * @param o
+     * @return 
+     */
+    public static String insert(String p, String o) { 
         String req = $PREFIXS
                 + "INSERT DATA { "
                 + " poc:%s "
@@ -880,7 +953,14 @@ public class Connector {
         return "http://titan.be/axis-poc2015/" + id;
     }
 
-    public static boolean insert(String s, String p, String o) { //robine
+    /**
+     * 
+     * @param s
+     * @param p
+     * @param o
+     * @return 
+     */
+    public static boolean insert(String s, String p, String o) { 
         String req = $PREFIXS
                 + "INSERT DATA { "
                 + "<%s>"
@@ -896,7 +976,15 @@ public class Connector {
         return true;
     }
 
-    public static boolean insert(String s, String p, String o, String lang) { //robine
+    /**
+     * 
+     * @param s
+     * @param p
+     * @param o
+     * @param lang
+     * @return 
+     */
+    public static boolean insert(String s, String p, String o, String lang) { 
         String req = $PREFIXS
                 + "INSERT DATA { "
                 + "<%s>"
@@ -917,6 +1005,12 @@ public class Connector {
         return true;
     }
 
+    /**
+     * 
+     * @param entity
+     * @param regof
+     * @return 
+     */
     public static String selectRegOfEntity(String entity, String regof) {
         String uri = "null";
 
@@ -937,12 +1031,14 @@ public class Connector {
         return uri;
 
     }
-
-    public static boolean update(String s, String p, String o) {
-        //pas prio
-        return true;
-    }
-
+    
+    /**
+     * 
+     * @param s
+     * @param p
+     * @param o
+     * @return 
+     */
     public static boolean deleteLinkEntity(String s, String p, String o) {
         String req = $PREFIXS
                 + "DELETE WHERE { "
@@ -956,6 +1052,10 @@ public class Connector {
         return true;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public static boolean deleteAll() {
         String req = $PREFIXS
                 + "DELETE WHERE { "

@@ -10,6 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import static model.Connector.*;
 
+/**
+ * 
+ */
 public class Comment {
 
     String id;

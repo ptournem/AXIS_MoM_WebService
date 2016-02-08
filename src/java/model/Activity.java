@@ -12,9 +12,9 @@ import Dialog.PropertyAdmin;
 import java.util.ArrayList;
 
 /**
- *
- * @author APP-Riad.Belmahi
+ * Classe pour les entités de type Activity
  */
+
 public class Activity extends Entity {
     public PropertyAdmin description;
     public PropertyAdmin sameAs;

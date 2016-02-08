@@ -20,8 +20,7 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 /**
- *
- * @author APP-Riad.Belmahi
+ * Classe pour les entités de type Place
  */
 public class Place extends Entity {
 

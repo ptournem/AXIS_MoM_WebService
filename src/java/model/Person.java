@@ -19,8 +19,7 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 /**
- *
- * @isAuthorOf loannguyen
+ * Classe pour les entités de type Person
  */
 public class Person extends Entity {
 

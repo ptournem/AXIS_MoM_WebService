@@ -16,8 +16,7 @@ import static model.Connector.deleteAll;
 import ws.AXIS_MoM_WS;
 
 /**
- *
- * @author loannguyen
+ * Classe réservée pour les tests => simule les appels faits par le site web au web service
  */
 public class TestWS {
 

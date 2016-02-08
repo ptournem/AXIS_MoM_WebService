@@ -5,6 +5,9 @@
  */
 package Dialog;
 
+/**
+ * 
+ */
 public class Property {
 
     String name;

@@ -21,8 +21,7 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 
 /**
- *
- * @author Robois
+ * Classe pour les entités de type Event
  */
 public class Event extends Entity {
 

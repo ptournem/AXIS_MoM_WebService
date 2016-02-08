@@ -1,6 +1,9 @@
 package Dialog;
 
 
+/**
+ * 
+ */
 public class PropertyAdmin {
 
     private String name;

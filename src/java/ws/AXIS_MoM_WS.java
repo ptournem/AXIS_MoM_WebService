@@ -23,7 +23,9 @@ import model.Object;
 import model.Organisation;
 import model.Place;
 
-
+/**
+ * 
+ */
 @WebService(serviceName = "AXIS_MoM_WS", endpointInterface = "ws.AXIS_MoM_WSInterface")
 public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
     
@@ -105,43 +107,31 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "birthdate":
                 pers.setURI(e.getURI());
-//                pers.constructEntity();
-//                pers.constructPerson();
                 pers.insertBirthDate(p);
                 ret = true;
                 break;
             case "deathdate":
                 pers.setURI(e.getURI());
-//                pers.constructEntity();
-//                pers.constructPerson();
                 pers.insertDeathDate(p);
                 ret = true;
                 break;
             case "restinplace":
                 pers.setURI(e.getURI());
-//                pers.constructEntity();
-//                pers.constructPerson();
                 pers.insertRestInPlace(p);
                 ret = true;
                 break;
             case "child":
                 pers.setURI(e.getURI());
-//                pers.constructEntity();
-//                pers.constructPerson();
                 pers.insertChild(p);
                 ret = true;
                 break;
             case "parent":
                 pers.setURI(e.getURI());
-//                pers.constructEntity();
-//                pers.constructPerson();
                 pers.insertParent(p);
                 ret = true;
                 break;
             case "isauthorof":
                 pers.setURI(e.getURI());
-//                pers.constructEntity();
-//                pers.constructPerson();
                 pers.insertIsAuthorOf(p);
                 ret = true;
                 break;
@@ -151,15 +141,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "birthplace":
                 pers.setURI(e.getURI());
-//                pers.constructEntity();
-//                pers.constructPerson();
                 pers.insertPlaceOfBirth(p);
                 ret = true;
                 break;
             case "birthplaceof":
                 pla.setURI(e.getURI());
-//                pla.constructEntity();
-//                pla.constructPlace();
                 pla.insertBirthPlaceOf(p);
                 ret = true;
                 break;
@@ -175,22 +161,16 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "postalcode":
                 pla.setURI(e.getURI());
-//                pla.constructEntity();
-//                pla.constructPlace();
                 pla.insertPostalCode(p);
                 ret = true;
                 break;
             case "region":
                 pla.setURI(e.getURI());
-//                pla.constructEntity();
-//                pla.constructPlace();
                 pla.insertRegion(p);
                 ret = true;
                 break;
             case "country":
                 pla.setURI(e.getURI());
-//                pla.constructEntity();
-//                pla.constructPlace();
                 pla.insertCountry(p);
                 ret = true;
                 break;
@@ -483,19 +463,12 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
      */
     @Override
     public Property[] LoadEntityProperties(Entity e) {
-        
-        
         e.constructEntity();
-//        Object obj = new Object();
-//        obj.setURI(e.getURI());
-//        obj.constructObject();
-//        System.out.println(obj);
         
         semantics ctrl = new semantics();
         
         Property[] tab = ctrl.getAllPropertiesFromEntity(e);
         return tab;
-
     }
 
     /**
