@@ -314,7 +314,7 @@ public class Entity {
     }
     
     public boolean deleteTriplet(String s, String p, String o) {
-        deleteTriplet(s, p, o);
+        deleteTriple(s, p, o);
         return true;
     }
     
