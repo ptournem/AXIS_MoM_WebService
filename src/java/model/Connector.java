@@ -19,18 +19,12 @@ import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import Dialog.Entity;
 import java.util.ArrayList;
-import jena.query;
-import static model.TestWS.startTime;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
-import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.riot.WebContent;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
-import org.apache.jena.vocabulary.RDF;
 
 /**
  *
@@ -973,6 +967,19 @@ public static Entity selectlodFromEntity(Entity e) {
         String req = $PREFIXS
                 + "DELETE WHERE { "
                 + " <%s> %s %s "
+                + "}";
+        UpdateProcessor upp = UpdateExecutionFactory.createRemote(
+                UpdateFactory.create(String.format(req, s, p, o)),
+                "http://localhost:3030/ds/update");
+
+        upp.execute();
+        return true;
+    }
+    
+    public static boolean deleteTriple(String s, String p, String o) {
+        String req = $PREFIXS
+                + "DELETE WHERE { "
+                + " %s %s %s "
                 + "}";
         UpdateProcessor upp = UpdateExecutionFactory.createRemote(
                 UpdateFactory.create(String.format(req, s, p, o)),
