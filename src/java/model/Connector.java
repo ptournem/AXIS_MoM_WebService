@@ -46,10 +46,10 @@ public class Connector {
 
     public static void main(String args[]) {
 
-        String test = "Louvre";
-        selectlodFromKeyWord(test);
-//        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
-//        entityBrowser(e);
+//        String test = "Louvre";
+//        selectlodFromKeyWord(test);
+        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
+        entityBrowser(e);
     }
 
     public static Model loadModels(String url) { //mélanoche
@@ -216,28 +216,44 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "organisation", null, true);
                       m = lodQuery("?o", "http://dbpedia.org/ontology/locationCity", uri);
                 tProp = searchPropertyFromModel(m, tProp, "organisation", null, true);
+                m = lodQuery("?o", "http://dbpedia.org/property/prevcity", uri);
+                tProp = searchPropertyFromModel(m, tProp, "event", null, true);
+                
                 break;
             case "event":
                 m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofevent", false);
+                 m = lodQuery(uri, "http://dbpedia.org/property/year", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null, "dateofevent", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", false);
+                m = lodQuery(uri, "http://dbpedia.org/property/prevsupcity", "?o");
+                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", true);
+                  m = lodQuery(uri, " http://dbpedia.org/property/nextcity", "?o");
+                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", true);
+                
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", true);
                 m = lodQuery(uri, "http://dbpedia.org/property/place", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "place", "placeofevent", false);
+                tProp = searchPropertyFromModel(m, tProp, "place", "placeofevent", true);
                 m = lodQuery(uri, "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person", "hasparticipant", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, null, false);
+               
                 break;
             case "organisation":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
+                 m = lodQuery(uri, "http://dbpedia.org/property/pushpinMap", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
+                 m = lodQuery(uri, "http://dbpedia.org/property/city", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", true);
+                
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", true);
                 m = lodQuery(uri, "http://dbpedia.org/property/place", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", true);
                 m = lodQuery(uri, "http://dbpedia.org/property/introduced", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofcreation", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/managerClub", "?o");
@@ -263,9 +279,9 @@ public class Connector {
                 break;
         }
 
-//        for (int i = 0; i < tProp.size(); i++) {
-//            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
-//        }
+        for (int i = 0; i < tProp.size(); i++) {
+            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
+        }
 //        
 //        long endTime = System.currentTimeMillis();
 //        System.out.println("_____ FIN FONCTION SELECTLODENTITY: "+(endTime-startTime));
@@ -326,7 +342,10 @@ public class Connector {
                       case "http://dbpedia.org/ontology/locationCity":
                     p2.setName("isaplaceoforganisation");
                     break;
-                 
+                     case "http://dbpedia.org/property/nextcity":
+                    p2.setName("isaplaceofevent");
+                    break;
+                
                 
                 // le maire d'une organisation de type ville
                 case "http://dbpedia.org/ontology/language":
@@ -542,9 +561,8 @@ public class Connector {
                 + " optional { ?uri dbp:type ?typ . }"
                 + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
                 + "GROUP BY ?uri ?label ?image "
-                +"ORDER BY asc (?label)";
-              
-        // +"LIMIT 20";
+                +"ORDER BY asc (?label)"
+                +"LIMIT 50";
 
         // on crée notre requete 
         Query DBquery = QueryFactory.create(DBQueryString);
@@ -730,7 +748,7 @@ public static Entity selectlodFromEntity(Entity e) {
                         e.setType("person");
                     } else if (e.getType() == null && types[i].contains("Event")) {
                         e.setType("event");
-                    } else if (e.getType() == null && types[i].contains("Location") || types[i].contains("Place") || types[i].contains("State") || types[i].contains("PopulatedPlace")) {
+                    } else if (e.getType() == null && types[i].contains("Location") || types[i].contains("City") || types[i].contains("Place") || types[i].contains("State") || types[i].contains("PopulatedPlace")) {
                         e.setType("location");
                     } else if (e.getType() == null && types[i].contains("SpatialThing") || types[i].contains("Organization")) {
                         e.setType("organisation");
@@ -748,7 +766,7 @@ public static Entity selectlodFromEntity(Entity e) {
                         e.setType("person");
                     } else if (e.getType() == null && typs[i].contains("Event")) {
                         e.setType("event");
-                    } else if (e.getType() == null && typs[i].contains("Location") || typs[i].contains("Place") || typs[i].contains("State") || typs[i].contains("PopulatedPlace")) {
+                    } else if (e.getType() == null && typs[i].contains("Location") || typs[i].contains("City") ||typs[i].contains("Place") || typs[i].contains("State") || typs[i].contains("PopulatedPlace")) {
                         e.setType("location");
                     } else if (e.getType() == null && typs[i].contains("SpatialThing") || typs[i].contains("Organization")) {
                         e.setType("organisation");
