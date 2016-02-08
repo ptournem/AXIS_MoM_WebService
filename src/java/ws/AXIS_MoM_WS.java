@@ -24,7 +24,7 @@ import model.Organisation;
 import model.Place;
 
 /**
- * 
+ * Le webservice principal : le site web peut utiliser uniquement les fonctions disponibles dans cette classe
  */
 @WebService(serviceName = "AXIS_MoM_WS", endpointInterface = "ws.AXIS_MoM_WSInterface")
 public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
@@ -441,7 +441,6 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 regof = "RegOfPhysicalPerson";
                 ret = true;
                 break;
-                
             default:
                 ret = false;
         }
