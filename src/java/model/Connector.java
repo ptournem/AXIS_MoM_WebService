@@ -313,6 +313,7 @@ public class Connector {
      * @param type
      * @return 
      */
+
     public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp, String type) {
         StmtIterator iter = m.listStatements();
         ArrayList<Entity> ale = new ArrayList<Entity>();
@@ -997,13 +998,6 @@ public class Connector {
         return true;
     }
 
-    /**
-     * @param s
-     * @param p
-     * @param o
-     * @param lang
-     * @return 
-     */
     public static boolean insert(String s, String p, String o, String lang) { 
 
         String req = $PREFIXS
