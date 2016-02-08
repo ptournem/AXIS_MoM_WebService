@@ -314,21 +314,7 @@ public class Connector {
         return tProp;
     }
 
-    /**
-<<<<<<< HEAD
-     * 
-     * @param m
-     * @param tProp
-     * @param type
-     * @return 
-=======
-     *
-     * @param m
-     * @param tProp
-     * @param type
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
-     */
+
     public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp, String type) {
         StmtIterator iter = m.listStatements();
         ArrayList<Entity> ale = new ArrayList<Entity>();
@@ -850,15 +836,7 @@ public class Connector {
         return entities;
     }
 
-    /**
-<<<<<<< HEAD
-     * 
-     * @return 
-=======
-     *
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
-     */
+
     public static Entity[] selectAllEntitiesURI() {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
@@ -1024,14 +1002,7 @@ public class Connector {
         return "http://titan.be/axis-poc2015/" + id;
     }
 
-    /**
-<<<<<<< HEAD
-     * 
-     * @param s
-     * @param p
-     * @param o
-     * @return 
-     */
+   
     public static boolean insert(String s, String p, String o) { 
         String req = $PREFIXS
                 + "INSERT DATA { "
@@ -1048,13 +1019,6 @@ public class Connector {
         return true;
     }
 
-    /**
-     * @param s
-     * @param p
-     * @param o
-     * @param lang
-     * @return 
-     */
     public static boolean insert(String s, String p, String o, String lang) { 
 
         String req = $PREFIXS
@@ -1077,19 +1041,7 @@ public class Connector {
         return true;
     }
 
-    /**
-<<<<<<< HEAD
-     * 
-     * @param entity
-     * @param regof
-     * @return 
-=======
-     *
-     * @param entity
-     * @param regof
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
-     */
+
     public static String selectRegOfEntity(String entity, String regof) {
         String uri = "null";
 
@@ -1131,15 +1083,6 @@ public class Connector {
         return true;
     }
 
-    /**
-<<<<<<< HEAD
-     * 
-     * @return 
-=======
-     *
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
-     */
     public static boolean deleteAll() {
         String req = $PREFIXS
                 + "DELETE WHERE { "
