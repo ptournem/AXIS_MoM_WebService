@@ -31,8 +31,8 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 
 /**
- *
- * @author lookout.ig2i
+ * La classe Connector permet d'utiliser des fonctions génériques qui permettent la 
+ * manipulation de la base de données sémantiques (insert, select, delete...)
  */
 public class Connector {
 

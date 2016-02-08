@@ -24,7 +24,7 @@ import model.Organisation;
 import model.Place;
 
 /**
- * 
+ * Le webservice principal : le site web peut utiliser uniquement les fonctions disponibles dans cette classe
  */
 @WebService(serviceName = "AXIS_MoM_WS", endpointInterface = "ws.AXIS_MoM_WSInterface")
 public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
@@ -285,8 +285,7 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 break;
             case "sameas":
                 e.delete(e.getURI(), "owl:sameAs", "<"+valueEntity.getURI()+">");
-                ret = true;
-                break;
+                return true;
             case "socialnetwork":
                 property = "axis-datamodel:socialNetwork";
                 regof = "Document";
@@ -441,7 +440,6 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 regof = "RegOfPhysicalPerson";
                 ret = true;
                 break;
-                
             default:
                 ret = false;
         }
