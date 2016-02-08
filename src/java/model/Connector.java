@@ -52,7 +52,7 @@ public class Connector {
 
     public static void main(String args[]) {
 
-        String test = "vinci";
+        String test = "Louvre";
         selectlodFromKeyWord(test);
 //        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
 //        entityBrowser(e);
@@ -305,6 +305,13 @@ public class Connector {
                 case "http://dbpedia.org/property/parents":
                     p2.setName("parents");
                     break;
+                             case "http://dbpedia.org/property/established":
+                    p2.setName("dateofcreation");
+                    break;
+                                         case "http://dbpedia.org/ontology/owner":
+                    p2.setName("owner");
+                    break;
+                                
                 case "http://dbpedia.org/property/author":
                     p2.setName("author");
                     break;
@@ -315,7 +322,11 @@ public class Connector {
                 case "http://dbpedia.org/property/dateOfBirth":
                     p2.setName("birthdate");
                     break;
-
+                      case "http://dbpedia.org/ontology/locationCity":
+                    p2.setName("isaplaceoforganisation");
+                    break;
+                 
+                
                 // le maire d'une organisation de type ville
                 case "http://dbpedia.org/ontology/language":
                     p2.setName("language");
@@ -326,6 +337,10 @@ public class Connector {
                 case "http://dbpedia.org/property/leaderName":
                     p2.setName("leader");
                     break;
+                    case "http://dbpedia.org/property/leader":
+                    p2.setName("leaderof");
+                    break;
+                    
                 // le chef d'une organisation
                 case "http://dbpedia.org/property/director":
                     p2.setName("leader");
@@ -404,7 +419,7 @@ public class Connector {
                     break;
 
                 case "http://dbpedia.org/ontology/yearMeanC":
-                    p2.setName("tempMean");
+                    p2.setName("tempmean");
                     break;
                 case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
                     p2.setName("hasparticipant");
@@ -750,9 +765,9 @@ public static Entity selectlodFromEntity(Entity e) {
             entities.add(e);
         }
 ////        test d'affichage
-//        for (int i = 0; i < entities.size(); i++) {
-//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-//        }
+        for (int i = 0; i < entities.size(); i++) {
+            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+        }
         return entities;
     }
 
