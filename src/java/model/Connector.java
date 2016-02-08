@@ -18,7 +18,11 @@ import org.apache.jena.update.UpdateExecutionFactory;
 import org.apache.jena.update.UpdateFactory;
 import org.apache.jena.update.UpdateProcessor;
 import Dialog.Entity;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.RDFNode;
@@ -46,10 +50,10 @@ public class Connector {
 
     public static void main(String args[]) {
 
-//        String test = "Louvre";
-//        selectlodFromKeyWord(test);
-        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
-        entityBrowser(e);
+        String test = "paris";
+        selectlodFromKeyWord(test);
+//        Entity e = new Entity("http://dbpedia.org/resource/Léonard_devinci", "", "", "person");
+//        entityBrowser(e);
     }
 
     public static Model loadModels(String url) { //mélanoche
@@ -212,26 +216,26 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person", null, true);
                 m = lodQuery("?o", "http://dbpedia.org/property/birthPlace", uri);
                 tProp = searchPropertyFromModel(m, tProp, "person", null, true);
-                      m = lodQuery("?o", "http://dbpedia.org/property/locationCity", uri);
+                m = lodQuery("?o", "http://dbpedia.org/property/locationCity", uri);
                 tProp = searchPropertyFromModel(m, tProp, "organisation", null, true);
-                      m = lodQuery("?o", "http://dbpedia.org/ontology/locationCity", uri);
+                m = lodQuery("?o", "http://dbpedia.org/ontology/locationCity", uri);
                 tProp = searchPropertyFromModel(m, tProp, "organisation", null, true);
                 m = lodQuery("?o", "http://dbpedia.org/property/prevcity", uri);
                 tProp = searchPropertyFromModel(m, tProp, "event", null, true);
-                
+
                 break;
             case "event":
                 m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofevent", false);
-                 m = lodQuery(uri, "http://dbpedia.org/property/year", "?o");
+                m = lodQuery(uri, "http://dbpedia.org/property/year", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofevent", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/prevsupcity", "?o");
-                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", true);
-                  m = lodQuery(uri, " http://dbpedia.org/property/nextcity", "?o");
-                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", true);
-                
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", true);
+                m = lodQuery(uri, " http://dbpedia.org/property/nextcity", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", true);
+
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", true);
                 m = lodQuery(uri, "http://dbpedia.org/property/place", "?o");
@@ -240,16 +244,16 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person", "hasparticipant", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, null, false);
-               
+
                 break;
             case "organisation":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
-                 m = lodQuery(uri, "http://dbpedia.org/property/pushpinMap", "?o");
+                m = lodQuery(uri, "http://dbpedia.org/property/pushpinMap", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
-                 m = lodQuery(uri, "http://dbpedia.org/property/city", "?o");
+                m = lodQuery(uri, "http://dbpedia.org/property/city", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", true);
-                
+
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", true);
                 m = lodQuery(uri, "http://dbpedia.org/property/place", "?o");
@@ -299,9 +303,9 @@ public class Connector {
             org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
             RDFNode object;
-            if(revert == true){
+            if (revert == true) {
                 object = stmt.getSubject();
-            } else{
+            } else {
                 object = stmt.getObject();
             }
 //            System.out.println("----------------------");
@@ -316,19 +320,19 @@ public class Connector {
                 case "http://dbpedia.org/property/child":
                     p2.setName("child");
                     break;
-                    case "http://dbpedia.org/property/owner":
+                case "http://dbpedia.org/property/owner":
                     p2.setName("owner");
                     break;
                 case "http://dbpedia.org/property/parents":
                     p2.setName("parents");
                     break;
-                             case "http://dbpedia.org/property/established":
+                case "http://dbpedia.org/property/established":
                     p2.setName("dateofcreation");
                     break;
-                             case "http://dbpedia.org/ontology/owner":
+                case "http://dbpedia.org/ontology/owner":
                     p2.setName("owner");
                     break;
-                                
+
                 case "http://dbpedia.org/property/author":
                     p2.setName("author");
                     break;
@@ -339,14 +343,13 @@ public class Connector {
                 case "http://dbpedia.org/property/dateOfBirth":
                     p2.setName("birthdate");
                     break;
-                      case "http://dbpedia.org/ontology/locationCity":
+                case "http://dbpedia.org/ontology/locationCity":
                     p2.setName("isaplaceoforganisation");
                     break;
-                     case "http://dbpedia.org/property/nextcity":
+                case "http://dbpedia.org/property/nextcity":
                     p2.setName("isaplaceofevent");
                     break;
-                
-                
+
                 // le maire d'une organisation de type ville
                 case "http://dbpedia.org/ontology/language":
                     p2.setName("language");
@@ -357,10 +360,10 @@ public class Connector {
                 case "http://dbpedia.org/property/leaderName":
                     p2.setName("leader");
                     break;
-                    case "http://dbpedia.org/property/leader":
+                case "http://dbpedia.org/property/leader":
                     p2.setName("leaderof");
                     break;
-                    
+
                 // le chef d'une organisation
                 case "http://dbpedia.org/property/director":
                     p2.setName("leader");
@@ -380,7 +383,7 @@ public class Connector {
                     break;
                 case "http://dbpedia.org/property/museum":
                     p2.setName(name);
-                    case "http://dbpedia.org/property/locationCity":
+                case "http://dbpedia.org/property/locationCity":
                     p2.setName("isaplaceoforganisation");
                     break;
                 case "http://dbpedia.org/ontology/museum":
@@ -556,13 +559,13 @@ public class Connector {
                 + "where {?uri rdfs:label ?label ."
                 + " ?uri <http://dbpedia.org/ontology/abstract> ?description. "
                 + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "
-                + " ?label <bif:contains> \'"+ sFinal + "\' "//option (score ?sc)"
+                + " ?label <bif:contains> '\""+ sFinal + "\"'"
                 + " optional { ?uri rdf:type ?type . }"
                 + " optional { ?uri dbp:type ?typ . }"
                 + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
                 + "GROUP BY ?uri ?label ?image "
-                +"ORDER BY asc (?label)"
-                +"LIMIT 50";
+                + "ORDER BY asc (?label)"
+                + "LIMIT 50";
 
         // on crée notre requete 
         Query DBquery = QueryFactory.create(DBQueryString);
@@ -575,27 +578,35 @@ public class Connector {
     }
 
     private static Model lodQuery(String s, String p, String o) {
-        String DBQueryString;
+        String DBQueryString = "";
         if (o.contains("http")) {
-            DBQueryString = $PREFIXS
-                    // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
-                    + "construct where {" + s + " <" + p + "> <" + o + ">} limit 10";
+//            String oEncoded;
+//            try {
+//                oEncoded = URLEncoder.encode(o, "UTF-8");
+               // System.out.println("oEncoded" + oEncoded);
+
+                DBQueryString = $PREFIXS
+                        // on compare les objet si c'est une ressource on lui passe des chevrons
+                        + "construct where {" + s + " <" + p + "> <" + o + ">} limit 10";
+//            } catch (UnsupportedEncodingException ex) {
+//                Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         } else {
             DBQueryString = $PREFIXS
                     // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                     + "construct where {<" + s + "> <" + p + "> " + o + "}";
         }
-    
-    Query DBquery = QueryFactory.create(DBQueryString);
-    QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
-    Model m = qDBexec.execConstruct();
+        Query DBquery = QueryFactory.create(DBQueryString);
+        QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
 
-    qDBexec.close ();
-    return m ;
-}
+        Model m = qDBexec.execConstruct();
 
-public static Entity selectlodFromEntity(Entity e) {
+        qDBexec.close();
+        return m;
+    }
+
+    public static Entity selectlodFromEntity(Entity e) {
 
         //long startTime = System.currentTimeMillis();
         String uri = e.getURI();
@@ -766,7 +777,7 @@ public static Entity selectlodFromEntity(Entity e) {
                         e.setType("person");
                     } else if (e.getType() == null && typs[i].contains("Event")) {
                         e.setType("event");
-                    } else if (e.getType() == null && typs[i].contains("Location") || typs[i].contains("City") ||typs[i].contains("Place") || typs[i].contains("State") || typs[i].contains("PopulatedPlace")) {
+                    } else if (e.getType() == null && typs[i].contains("Location") || typs[i].contains("City") || typs[i].contains("Place") || typs[i].contains("State") || typs[i].contains("PopulatedPlace")) {
                         e.setType("location");
                     } else if (e.getType() == null && typs[i].contains("SpatialThing") || typs[i].contains("Organization")) {
                         e.setType("organisation");
@@ -1003,7 +1014,7 @@ public static Entity selectlodFromEntity(Entity e) {
         upp.execute();
         return true;
     }
-    
+
     public static boolean deleteTriple(String s, String p, String o) {
         String req = $PREFIXS
                 + "DELETE WHERE { "
