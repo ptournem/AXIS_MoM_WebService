@@ -32,6 +32,7 @@ import org.apache.jena.riot.WebContent;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 import org.apache.jena.vocabulary.RDF;
 
+
 /**
  *
  * @author lookout.ig2i
@@ -52,10 +53,10 @@ public class Connector {
 
     public static void main(String args[]) {
 
-//        String test = "léonard";
-//        selectlodFromKeyWord(test);
-        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
-        entityBrowser(e);
+        String test = "Lénoard de";
+        selectlodFromKeyWord(test);
+//        Entity e = new Entity("http://dbpedia.org/resource/Leonardo_da_Vinci", "", "", "person");
+//        entityBrowser(e);
     }
 
     public static Model loadModels(String url) { //mélanoche
@@ -144,16 +145,33 @@ public class Connector {
               //  m = lodQuery(uri, "http://dbpedia.org/property/dateOfBirth", "?o");
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfBirth", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
+                  m = lodQuery(uri, "http://dbpedia.org/property/birthDate", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                m = lodQuery(uri, "http://dbpedia.org/property/deathDate", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfDeath", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
+           
                 m = lodQuery(uri, "http://dbpedia.org/ontology/birthPlace", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/mother", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
                 m = lodQuery(uri, "http://dbpedia.org/property/father", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
+                 m = lodQuery(uri, "http://dbpedia.org/property/author", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "object");
                 m = lodQuery(uri, "http://dbpedia.org/ontology/restingPlace", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location");
+                 m = lodQuery(uri, "http://dbpedia.org/ontology/parent", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+                 m = lodQuery(uri, "http://dbpedia.org/ontology/child", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+                 m = lodQuery(uri, "http://dbpedia.org/ontology/deathPlace", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location");
+                m = lodQuery(uri, "http://dbpedia.org/ontology/leader", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "organisation");
+                 m = lodQuery(uri, "http://dbpedia.org/ontology/website", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
                 break;
             case "object":
                 m = lodQuery(uri, "http://dbpedia.org/property/artist", "?o");
@@ -168,6 +186,13 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/museum", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location");
+                  m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                  m = lodQuery(uri, "http://dbpedia.org/property/year", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                m = lodQuery(uri, "http://dbpedia.org/property/type", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                
                 break;
             case "location":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
@@ -182,14 +207,39 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/property/leaderName", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
+                 m = lodQuery(uri, "http://dbpedia.org/property/birthPlace", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location");
+                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location");
+                 m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                 m = lodQuery(uri, "http://dbpedia.org/property/deathPlace", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+                 m = lodQuery(uri, "http://dbpedia.org/property/birthPlace", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
                 break;
             case "event":
-
+                 m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location");
+                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location");
+                 m = lodQuery(uri, "http://dbpedia.org/property/place", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "place");
+                 m = lodQuery(uri, "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "person");
+                m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
                 break;
             case "organisation":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location");
+                 m = lodQuery(uri, "http://dbpedia.org/property/place", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/introduced", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
@@ -201,7 +251,8 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person");
                   m = lodQuery(uri, "http://dbpedia.org/property/director", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
-               
+               m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
 
                 break;
             case "activity":
@@ -237,6 +288,12 @@ public class Connector {
             switch (p) {
                 case "http://dbpedia.org/property/artist":
                     p2.setName("author");
+                    break;
+                     case "http://dbpedia.org/property/child":
+                    p2.setName("child");
+                    break;
+                            case "http://dbpedia.org/property/parents":
+                    p2.setName("parents");
                     break;
                 case "http://dbpedia.org/property/author":
                     p2.setName("author");
@@ -276,6 +333,15 @@ public class Connector {
                 case "http://dbpedia.org/ontology/restingPlace":
                     p2.setName("restinplace");
                     break;
+//                    case "http://dbpedia.org/property/museum":
+//                    p2.setName("museum");
+//                    break;
+                
+                    
+                     case "http://dbpedia.org/property/year":
+                    p2.setName("year");
+                    break;
+                    
                 case "http://dbpedia.org/ontology/abstract":
                     String test = stmt.getObject().asLiteral().getLanguage();
                     if (test.equals("fr")) {
@@ -296,10 +362,10 @@ public class Connector {
                     p2.setName("sameas");
                     break;
                 case "http://dbpedia.org/property/mother":
-                    p2.setName("mother");
+                    p2.setName("parent");
                     break;
                 case "http://dbpedia.org/property/father":
-                    p2.setName("father");
+                    p2.setName("parent");
                     break;
                 case "http://dbpedia.org/ontology/country":
                     p2.setName("country");
@@ -329,6 +395,25 @@ public class Connector {
                 case "http://dbpedia.org/ontology/yearMeanC":
                     p2.setName("tempMean");
                     break;
+                    case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
+                    p2.setName("hasParticipant");
+                    break;
+                     case "http://dbpedia.org/property/website":
+                    p2.setName("website");
+                    break;
+                    
+                        
+                    case "http://xmlns.com/foaf/0.1/homepage":
+                    p2.setName("website");
+                    break;
+                        case "http://dbpedia.org/ontology/deathPlace":
+                    p2.setName("deathPlace");
+                    break;
+                      case "http://dbpedia.org/property/deathPlace":
+                    p2.setName("deathPlace");
+                    break;
+                          
+   
                 default:
                     p2.setName("default");
                     break;
@@ -425,18 +510,20 @@ public class Connector {
       // '"Louv*"NEAR"lens"'
         //FILTER (contains(?label , \""+s+"\")
         String DBQueryString = $PREFIXS
-                + "select distinct ?uri ?label ?image"
+                + "select ?uri ?label ?image "
                 + "(group_concat(?type; separator=\"&&&&\") as ?types)"
                 + "(group_concat(?typ; separator=\"&&&&\") as ?typs)"
                 + "where {?uri rdfs:label ?label ."
-                 + " ?uri <http://dbpedia.org/ontology/abstract> ?description."
+                 + " ?uri <http://dbpedia.org/ontology/abstract> ?description. "
                 + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "
-                + " ?label <bif:contains> '\""+sFinal+"\"'."
-                + "optional { ?uri rdf:type ?type . }"
-                + "optional { ?uri dbp:type ?typ . }"
+                + " ?label <bif:contains> '\""+sFinal+"\"'"//OPTION (score ?sc)."
+                + " optional { ?uri rdf:type ?type . }"
+                + " optional { ?uri dbp:type ?typ . }"
                 + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
-              + "group by ?uri ?label ?image";
-    
+               + "GROUP BY ?uri ?label ?image ";
+               //+"ORDER BY desc (?sc)"
+              // +"LIMIT 20";
+              
         // on crée notre requete 
         Query DBquery = QueryFactory.create(DBQueryString);
         // on utilise cette methode afin d'éviter le parseur par défaut qui bloque certains caractéres
@@ -502,9 +589,9 @@ public class Connector {
                 // si le predicat est un type
                 case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
                     String typ = stmt.getObject().toString();
-                    if (typ.contains("Person") || (typ.contains("Agent") || (typ.contains("Artist")))) {
+                    if (typ.contains("Person") || (typ.contains("Agent")) || (typ.contains("Artist"))) {
                         e.setType("person");
-                    } else if (e.getType() == null && typ.contains("Event")) {
+                    } else if (e.getType() == null && typ.contains("Event") || typ.contains("SocialEvent")){
                         e.setType("event");
                     } else if (e.getType() == null && typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
                         e.setType("location");
@@ -649,7 +736,7 @@ public class Connector {
         }
 //        test d'affichage
         for (int i = 0; i < entities.size(); i++) {
-            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+            System.out.println("entity n°" + i + "  :  " + entities.get(i));
         }
         return entities;
     }

@@ -38,12 +38,7 @@ public class AXIS_MoM_WSTest {
     @Test (expected = NullPointerException.class)
     public void testAddEntity() {
         System.out.println("AddEntity");
-        String uri = "JUNITtestURI";
-        String name ="JUNITtestName";
-        String image ="JUNITtestImage";
-        String type ="JUNITtestType";
-        
-        Entity e = new Entity(uri,name,image,type);
+        Entity e = new Entity("http://www.ccjc-neuilly.com/wp-content/uploads/2015/12/Leonard2.jpg", "Leonard 2", "person");
         
         AXIS_MoM_WS instance = new AXIS_MoM_WS();
         Entity expResult = e;
@@ -54,13 +49,11 @@ public class AXIS_MoM_WSTest {
     
      @Test (expected = NullPointerException.class)
        public void testAddEntity2() {
-        System.out.println("AddEntity");
+        System.out.println("AddEntity2");
       //  String uri = "<JUNITtestRiadEntityURI>";
-        String name ="Maroc";
-        String image ="imgmaroc.jpeg";
-        String type ="location";
+   
         
-        Entity e = new Entity(name,image,type);
+        Entity e = new Entity("test2.jpg", "Orga", "organisation");
         
         AXIS_MoM_WS instance = new AXIS_MoM_WS();
         Entity expResult = e;
@@ -71,13 +64,11 @@ public class AXIS_MoM_WSTest {
 
        @Test (expected = NullPointerException.class)
        public void testAddEntity3() {
-        System.out.println("AddEntity");
+        System.out.println("AddEntity3");
        // String uri = "JUNITtestURI";
-        String name ="JUNITtestName";
-        String image ="JUNITtestImage.jpg";
-        String type ="person";
+
         
-        Entity e = new Entity(name,image,type);
+        Entity e = new Entity("http://test3.jpg", "<TestChevronEvent>", "event");
         
         AXIS_MoM_WS instance = new AXIS_MoM_WS();
         Entity expResult = e;
@@ -90,12 +81,8 @@ public class AXIS_MoM_WSTest {
      */
 //    @Test (expected = NullPointerException.class)
 //    public void testRemoveEntity() {
-//        System.out.println("RemoveEntity");
-//       String uri = "";
-//        String name ="JUNITtestNameDe";
-//        String image ="";
-//        String type ="JUNITtestTypeDe"; 
-//        Entity e = new Entity(name,image,type);
+//        System.out.println("RemoveEntity1");
+//      Entity e = new Entity("http://test3.jpg", "<TestChevronEvent>", "event");
 //        AXIS_MoM_WS instance = new AXIS_MoM_WS();
 //        Boolean expResult = true;
 //        Boolean result = instance.RemoveEntity(e);
@@ -110,9 +97,9 @@ public class AXIS_MoM_WSTest {
 //        System.out.println("SetEntityProperty");
 //        Entity e = null;
 //        Property p = null;
-//        Entity valueEntity = null;
+//        Entity valueEntity  = new Entity("http://testSetEntityProp1.jpg", "testEntityPropPlace", "location");
 //        AXIS_MoM_WS instance = new AXIS_MoM_WS();
-//        Boolean expResult = null;
+//        Boolean expResult = true;
 //        Boolean result = instance.SetEntityProperty(e, p, valueEntity);
 //        assertEquals(expResult, result);
 //        fail("testSetEntityProperty IS FAILED");

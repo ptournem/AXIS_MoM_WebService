@@ -30,6 +30,7 @@ public class Object extends Entity {
     public PropertyAdmin description;
     public PropertyAdmin socialNetwork;
     public PropertyAdmin website;
+    // je propose artist comme sur dbpedia
     public PropertyAdmin owner;
     public PropertyAdmin museum;
     public PropertyAdmin year;
