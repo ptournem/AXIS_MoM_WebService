@@ -76,15 +76,8 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
      * @param str
      * @return 
-=======
-     *
-     * @param str
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Model executeQueryConstruct(String str) {
 
@@ -315,19 +308,10 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
      * @param m
      * @param tProp
      * @param type
      * @return 
-=======
-     *
-     * @param m
-     * @param tProp
-     * @param type
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp, String type) {
         StmtIterator iter = m.listStatements();
@@ -630,15 +614,8 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
      * @param e
      * @return 
-=======
-     *
-     * @param e
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Entity selectlodFromEntity(Entity e) {
 
@@ -671,17 +648,9 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
      * @param m
      * @param e
      * @return 
-=======
-     *
-     * @param m
-     * @param e
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Entity searchFromModel(Model m, Entity e) {
         StmtIterator iter = m.listStatements();
@@ -851,13 +820,8 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
      * @return 
-=======
-     *
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
+
      */
     public static Entity[] selectAllEntitiesURI() {
 
@@ -903,15 +867,8 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
      * @param e
      * @return 
-=======
-     *
-     * @param e
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Comment[] selectAllComments(Entity e) {
 
@@ -953,13 +910,7 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
      * @return 
-=======
-     *
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static Comment[] selectAllComments() {
 
@@ -1025,8 +976,6 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
      * @param s
      * @param p
      * @param o
@@ -1078,17 +1027,9 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
      * @param entity
      * @param regof
      * @return 
-=======
-     *
-     * @param entity
-     * @param regof
-     * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static String selectRegOfEntity(String entity, String regof) {
         String uri = "null";
@@ -1132,13 +1073,7 @@ public class Connector {
     }
 
     /**
-<<<<<<< HEAD
-     * 
-     * @return 
-=======
-     *
      * @return
->>>>>>> b4418524be33ca231a4d4167a24c5e25d3710091
      */
     public static boolean deleteAll() {
         String req = $PREFIXS
