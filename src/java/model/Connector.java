@@ -151,7 +151,9 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, null);
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfDeath", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
-           
+                m = lodQuery(uri, "http://dbpedia.org/property/leader", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "organisation");
+                
                 m = lodQuery(uri, "http://dbpedia.org/ontology/birthPlace", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location");
                 m = lodQuery(uri, "http://dbpedia.org/property/mother", "?o");
@@ -219,6 +221,9 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person");
                  m = lodQuery(uri, "http://dbpedia.org/property/birthPlace", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person");
+                  m = lodQuery(uri, "http://dbpedia.org/ontology/locationCity", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "organisation");
+                
                 break;
             case "event":
                  m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
@@ -253,7 +258,10 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person");
                m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null);
-
+                m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
+                tProp = searchPropertyFromModel(m, tProp, null);
+             m = lodQuery(uri, "http://dbpedia.org/ontology/museum", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "object");
                 break;
             case "activity":
 
@@ -305,7 +313,11 @@ public class Connector {
                 case "http://dbpedia.org/property/dateOfBirth":
                     p2.setName("birthdate");
                     break;
-
+                      case "http://dbpedia.org/ontology/locationCity":
+                    p2.setName("isAPlaceOfOrganisation");
+                    break;
+                 
+                
                 // le maire d'une organisation de type ville
                 case "http://dbpedia.org/ontology/language":
                     p2.setName("language");
@@ -316,6 +328,10 @@ public class Connector {
                 case "http://dbpedia.org/property/leaderName":
                     p2.setName("leader");
                     break;
+                    case "http://dbpedia.org/property/leader":
+                    p2.setName("leaderOf");
+                    break;
+                    
                 // le chef d'une organisation
                     case "http://dbpedia.org/property/director":
                     p2.setName("leader");
@@ -333,10 +349,9 @@ public class Connector {
                 case "http://dbpedia.org/ontology/restingPlace":
                     p2.setName("restinplace");
                     break;
-//                    case "http://dbpedia.org/property/museum":
-//                    p2.setName("museum");
-//                    break;
-                
+                    case "http://dbpedia.org/ontology/museum":
+                    p2.setName("hasObject");
+                    break;
                     
                      case "http://dbpedia.org/property/year":
                     p2.setName("year");
@@ -735,9 +750,9 @@ public class Connector {
             entities.add(e);
         }
 ////        test d'affichage
-//        for (int i = 0; i < entities.size(); i++) {
-//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-//        }
+        for (int i = 0; i < entities.size(); i++) {
+            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+        }
         return entities;
     }
 
