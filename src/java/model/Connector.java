@@ -308,7 +308,7 @@ public class Connector {
                              case "http://dbpedia.org/property/established":
                     p2.setName("dateofcreation");
                     break;
-                                         case "http://dbpedia.org/ontology/owner":
+                             case "http://dbpedia.org/ontology/owner":
                     p2.setName("owner");
                     break;
                                 
@@ -453,7 +453,7 @@ public class Connector {
                 p2.setLang("fr");
                 p2.setEnt(null);
                 if (p2.getValue() == null) {
-                    p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en", ""));
+                    p2.setValue(object.toString().replace("^^http://www.w3.org/2001/XMLSchema#integer", "").replace("^^http://www.w3.org/2001/XMLSchema#date", "").replace("@fr", "").replace("@en", ""));
                 }
             }
             if (!p2.getName().contains("default")) {
