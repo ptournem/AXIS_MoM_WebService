@@ -50,10 +50,10 @@ public class Connector {
 
     public static void main(String args[]) {
 
-        String test = "Exposition Internationale";
-        selectlodFromKeyWord(test);
-//       Entity e = new Entity("http://dbpedia.org/resource/Exposition_Internationale_des_Arts_et_Techniques_dans_la_Vie_Moderne", "", "", "person");
-//        entityBrowser(e);
+//        String test = "Louvre";
+//        selectlodFromKeyWord(test);
+       Entity e = new Entity("http://dbpedia.org/resource/Paris", "", "", "location");
+        entityBrowser(e);
     }
 
     public static Model loadModels(String url) { //mélanoche
@@ -135,9 +135,9 @@ public class Connector {
         ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
         Model m = lodQuery(uri, "http://dbpedia.org/ontology/abstract", "?o");
-        tProp = searchPropertyFromModel(m, tProp, null, null, false);
-         m = lodQuery(uri, "http://dbpedia.org/ontology/wikiPageRedirects", "?o");
-        tProp = searchPropertyFromModel(m, tProp, null, null, true);
+        tProp = searchPropertyFromModel(m, tProp, null, "description", false);
+//         m = lodQuery(uri, "http://dbpedia.org/ontology/wikiPageRedirects", "?o");
+//        tProp = searchPropertyFromModel(m, tProp, null, null, true);
         //System.out.println("le type :"+e.getType().toString());
         switch (e.getType()) {
             case "person":
@@ -145,85 +145,93 @@ public class Connector {
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfBirth", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofbirth", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/birthDate", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "birthdate", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/deathDate", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "deathdate", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfDeath", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "deathdate", false);
 
                 m = lodQuery(uri, "http://dbpedia.org/ontology/birthPlace", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "birthplace", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/mother", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "person", "parent", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/father", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "person", "parent", false);
                 m = lodQuery("?o", "http://dbpedia.org/property/author", uri);
-                tProp = searchPropertyFromModel(m, tProp, "object", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "object", "isauthorof", true);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/restingPlace", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "restinplace", false);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/parent", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "person", "parent", false);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/child", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "person", "child", false);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/deathPlace", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "deathplace", false);
                 m = lodQuery("?o", "http://dbpedia.org/ontology/leader", uri);
-                tProp = searchPropertyFromModel(m, tProp, "organisation", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "organisation", "istheleaderof", true);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/website", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "website", false);
+                m = lodQuery("?o", "http://dbpedia.org/property/managerClub", uri);
+                tProp = searchPropertyFromModel(m, tProp, "person", "istheleaderof", true);
+                m = lodQuery("?o", "http://dbpedia.org/property/mayor", uri);
+                tProp = searchPropertyFromModel(m, tProp, "person", "istheleaderof", true);
+                m = lodQuery("?o", "http://dbpedia.org/property/leaderName", uri);
+                tProp = searchPropertyFromModel(m, tProp, "person", "istheleaderof", true);
+                m = lodQuery("?o", "http://dbpedia.org/property/director", uri);
+                tProp = searchPropertyFromModel(m, tProp, "person", "istheleaderof", true);
                 break;
             case "object":
                 m = lodQuery(uri, "http://dbpedia.org/property/artist", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "person", "author", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/author", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "person", "author", false);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "location", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "location", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/city", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "location", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/museum", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "museum", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "website", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/year", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "year", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/type", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "type", false);
 
                 break;
             case "location":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/region", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "region", false);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/country", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "location", "country", false);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/postalCode", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "postalcode", false);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/yearMeanC", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "meantemperature", false);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/language", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "language", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/leaderName", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "person", null, false);
+                tProp = searchPropertyFromModel(m, tProp, "person", "leader", false);
                 m = lodQuery("?o", "http://dbpedia.org/property/birthPlace", uri);
-                tProp = searchPropertyFromModel(m, tProp, "person", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "person", "birthplaceof", true);
                 m = lodQuery("?o", "http://dbpedia.org/property/location", uri);
-                tProp = searchPropertyFromModel(m, tProp, "object", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "object", "locationof", true);
                 m = lodQuery("?o", "http://dbpedia.org/ontology/location", uri);
-                tProp = searchPropertyFromModel(m, tProp, "object", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "object", "locationof", true);
                 m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
+                tProp = searchPropertyFromModel(m, tProp, null, "website", false);
                 m = lodQuery("?o", "http://dbpedia.org/property/deathPlace", uri);
-                tProp = searchPropertyFromModel(m, tProp, "person", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "person", "deathplaceof", true);
                 m = lodQuery("?o", "http://dbpedia.org/property/birthPlace", uri);
-                tProp = searchPropertyFromModel(m, tProp, "person", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "person", "birthplaceof", true);
                 m = lodQuery("?o", "http://dbpedia.org/property/locationCity", uri);
-                tProp = searchPropertyFromModel(m, tProp, "organisation", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "organisation", "isaplaceoforganisation", true);
                 m = lodQuery("?o", "http://dbpedia.org/ontology/locationCity", uri);
-                tProp = searchPropertyFromModel(m, tProp, "organisation", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "organisation", "isaplaceoforganisation", true);
                 m = lodQuery("?o", "http://dbpedia.org/property/prevcity", uri);
-                tProp = searchPropertyFromModel(m, tProp, "event", null, true);
+                tProp = searchPropertyFromModel(m, tProp, "event", "isaplaceofevent", true);
 
                 break;
             case "event":
@@ -237,9 +245,10 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/prevsupcity", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", false);
-                m = lodQuery(uri, " http://dbpedia.org/property/nextcity", "?o");
+                m = lodQuery(uri, "http://dbpedia.org/property/nextcity", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", false);
-
+                m = lodQuery(uri, "http://dbpedia.org/property/city", "?o");
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", false);
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeofevent", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/place", "?o");
@@ -247,10 +256,7 @@ public class Connector {
                 m = lodQuery(uri, "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person", "hasparticipant", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
-                tProp = searchPropertyFromModel(m, tProp, null, null, false);
-                m = lodQuery(uri, "http://dbpedia.org/property/city", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "place", "placeofevent", false);
-                http://dbpedia.org/property/city
+                tProp = searchPropertyFromModel(m, tProp, null, "website", false);
 
                 break;
             case "organisation":
@@ -259,12 +265,12 @@ public class Connector {
                 m = lodQuery(uri, "http://dbpedia.org/property/pushpinMap", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/city", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", true);
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
 
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", true);
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/place", "?o");
-                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", true);
+                tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/introduced", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofcreation", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/managerClub", "?o");
@@ -325,84 +331,84 @@ public class Connector {
 //                    p2.setType("uri");
 //                    break;
       
-                case "http://dbpedia.org/property/artist":
-                    p2.setName("author");
-                    break;
-                case "http://dbpedia.org/property/child":
-                    p2.setName("child");
-                    break;
-                case "http://dbpedia.org/property/owner":
-                    p2.setName("owner");
-                    break;
-                case "http://dbpedia.org/property/parents":
-                    p2.setName("parents");
-                    break;
-                case "http://dbpedia.org/property/established":
-                    p2.setName("dateofcreation");
-                    break;
-                case "http://dbpedia.org/ontology/owner":
-                    p2.setName("owner");
-                    break;
-
-                case "http://dbpedia.org/property/author":
-                    p2.setName("author");
-                    break;
-                // les travaux de la personne
-                case "http://dbpedia.org/property/works":
-                    p2.setName("isauthorof");
-                    break;
-                case "http://dbpedia.org/property/dateOfBirth":
-                    p2.setName("birthdate");
-                    break;
-                case "http://dbpedia.org/ontology/locationCity":
-                    p2.setName("isaplaceoforganisation");
-                    break;
-                case "http://dbpedia.org/property/nextcity":
-                    p2.setName("isaplaceofevent");
-                    break;
-
-                // le maire d'une organisation de type ville
-                case "http://dbpedia.org/ontology/language":
-                    p2.setName("language");
-                    break;
-                case "http://dbpedia.org/ontology/mayor":
-                    p2.setName("leader");
-                    break;
-                case "http://dbpedia.org/property/leaderName":
-                    p2.setName("leader");
-                    break;
-                case "http://dbpedia.org/property/leader":
-                    p2.setName("leaderof");
-                    break;
-
-                // le chef d'une organisation
-                case "http://dbpedia.org/property/director":
-                    p2.setName("leader");
-                    break;
-                case "http://dbpedia.org/ontology/managerClub ":
-                    p2.setName("leader");
-                    break;
-
-                case "http://dbpedia.org/property/dateOfDeath":
-                    p2.setName("deathdate");
-                    break;
-                case "http://dbpedia.org/ontology/birthPlace":
-                    p2.setName("birthplace");
-                    break;
-                case "http://dbpedia.org/ontology/restingPlace":
-                    p2.setName("restinplace");
-                    break;
-                case "http://dbpedia.org/property/museum":
-                    p2.setName(name);
-                case "http://dbpedia.org/property/locationCity":
-                    p2.setName("isaplaceoforganisation");
-                    break;
-                case "http://dbpedia.org/ontology/museum":
-                    p2.setName(name);
-                    break;
-                case "http://dbpedia.org/property/year":
-                    p2.setName("year");
-                    break;
+//                case "http://dbpedia.org/property/artist":
+//                    p2.setName("author");
+//                    break;
+//                case "http://dbpedia.org/property/child":
+//                    p2.setName("child");
+//                    break;
+//                case "http://dbpedia.org/property/owner":
+//                    p2.setName("owner");
+//                    break;
+//                case "http://dbpedia.org/property/parents":
+//                    p2.setName("parents");
+//                    break;
+//                case "http://dbpedia.org/property/established":
+//                    p2.setName("dateofcreation");
+//                    break;
+//                case "http://dbpedia.org/ontology/owner":
+//                    p2.setName("owner");
+//                    break;
+//
+//                case "http://dbpedia.org/property/author":
+//                    p2.setName("author");
+//                    break;
+//                // les travaux de la personne
+//                case "http://dbpedia.org/property/works":
+//                    p2.setName("isauthorof");
+//                    break;
+//                case "http://dbpedia.org/property/dateOfBirth":
+//                    p2.setName("birthdate");
+//                    break;
+//                case "http://dbpedia.org/ontology/locationCity":
+//                    p2.setName("isaplaceoforganisation");
+//                    break;
+//                case "http://dbpedia.org/property/nextcity":
+//                    p2.setName("isaplaceofevent");
+//                    break;
+//
+//                // le maire d'une organisation de type ville
+//                case "http://dbpedia.org/ontology/language":
+//                    p2.setName("language");
+//                    break;
+//                case "http://dbpedia.org/ontology/mayor":
+//                    p2.setName(name);
+//                    break;
+//                case "http://dbpedia.org/property/leaderName":
+//                    p2.setName(name);
+//                    break;
+//                case "http://dbpedia.org/property/leader":
+//                    p2.setName(name);
+//                    break;
+//
+//                // le chef d'une organisation
+//                case "http://dbpedia.org/property/director":
+//                    p2.setName(name);
+//                    break;
+//                case "http://dbpedia.org/ontology/managerClub ":
+//                    p2.setName(name);
+//                    break;
+//
+//                case "http://dbpedia.org/property/dateOfDeath":
+//                    p2.setName("deathdate");
+//                    break;
+//                case "http://dbpedia.org/ontology/birthPlace":
+//                    p2.setName("birthplace");
+//                    break;
+//                case "http://dbpedia.org/ontology/restingPlace":
+//                    p2.setName("restinplace");
+//                    break;
+//                case "http://dbpedia.org/property/museum":
+//                    p2.setName(name);
+//                case "http://dbpedia.org/property/locationCity":
+//                    p2.setName("isaplaceoforganisation");
+//                    break;
+//                case "http://dbpedia.org/ontology/museum":
+//                    p2.setName(name);
+//                    break;
+//                case "http://dbpedia.org/property/year":
+//                    p2.setName("year");
+//                    break;
 
                 case "http://dbpedia.org/ontology/abstract":
                     String test = stmt.getObject().asLiteral().getLanguage();
@@ -417,65 +423,65 @@ public class Connector {
                     }
 
                     break;
-                case "http://www.w3.org/2002/07/owl#sameAs":
-                    p2.setName("sameas");
-                    break;
-                case "http://dbpedia.org/ontology/wikiPageDisambiguates":
-                    p2.setName("sameas");
-                    break;
-                case "http://dbpedia.org/property/mother":
-                    p2.setName("parent");
-                    break;
-                case "http://dbpedia.org/property/father":
-                    p2.setName("parent");
-                    break;
-                case "http://dbpedia.org/ontology/country":
-                    p2.setName("country");
-                    break;
-                case "http://dbpedia.org/ontology/region":
-                    p2.setName("region");
-                    break;
-                case "http://dbpedia.org/ontology/postalCode":
-                    p2.setName("postalcode");
-                    break;
-                case "http://dbpedia.org/ontology/location":
-                    p2.setName(name);
-                    break;
-                case "http://dbpedia.org/property/location":
-                    p2.setName(name);
-                    break;
-                case "http://dbpedia.org/property/city":
-                    p2.setName(name);
-                    break;
-                case "http://dbpedia.org/property/introduced":
-                    p2.setName("dateofcreation");
-                    break;
-                case "http://dbpedia.org/ontology/yearMeanC":
-                    p2.setName("tempmean");
-                    break;
-                case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
-                    p2.setName("hasparticipant");
-                    break;
-                case "http://dbpedia.org/property/website":
-                    p2.setName("website");
-                    break;
-
-                case "http://xmlns.com/foaf/0.1/homepage":
-                    p2.setName("website");
-                    break;
-                case "http://dbpedia.org/ontology/deathPlace":
-                    p2.setName("deathplace");
-                    break;
-                case "http://dbpedia.org/property/deathPlace":
-                    p2.setName("deathplace");
-                    break;
+//                case "http://www.w3.org/2002/07/owl#sameAs":
+//                    p2.setName("sameas");
+//                    break;
+//                case "http://dbpedia.org/ontology/wikiPageDisambiguates":
+//                    p2.setName("sameas");
+//                    break;
+//                case "http://dbpedia.org/property/mother":
+//                    p2.setName("parent");
+//                    break;
+//                case "http://dbpedia.org/property/father":
+//                    p2.setName("parent");
+//                    break;
+//                case "http://dbpedia.org/ontology/country":
+//                    p2.setName("country");
+//                    break;
+//                case "http://dbpedia.org/ontology/region":
+//                    p2.setName("region");
+//                    break;
+//                case "http://dbpedia.org/ontology/postalCode":
+//                    p2.setName("postalcode");
+//                    break;
+//                case "http://dbpedia.org/ontology/location":
+//                    p2.setName(name);
+//                    break;
+//                case "http://dbpedia.org/property/location":
+//                    p2.setName(name);
+//                    break;
+//                case "http://dbpedia.org/property/city":
+//                    p2.setName(name);
+//                    break;
+//                case "http://dbpedia.org/property/introduced":
+//                    p2.setName("dateofcreation");
+//                    break;
+//                case "http://dbpedia.org/ontology/yearMeanC":
+//                    p2.setName("tempmean");
+//                    break;
+//                case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
+//                    p2.setName("hasparticipant");
+//                    break;
+//                case "http://dbpedia.org/property/website":
+//                    p2.setName("website");
+//                    break;
+//
+//                case "http://xmlns.com/foaf/0.1/homepage":
+//                    p2.setName("website");
+//                    break;
+//                case "http://dbpedia.org/ontology/deathPlace":
+//                    p2.setName("deathplace");
+//                    break;
+//                case "http://dbpedia.org/property/deathPlace":
+//                    p2.setName("deathplace");
+//                    break;
 
                 default:
                     p2.setName("default");
                     break;
             }
-
-            if (object.isResource() || p.contains("wikiPageRedirects")) {
+            p2.setName(name);
+            if (object.isResource() ) {
                 
                 p2.setType("uri");
                 p2.setLang("fr");
@@ -662,17 +668,17 @@ public class Connector {
                     String typ = stmt.getObject().toString();
                     if (typ.contains("Person") || (typ.contains("Artist"))) {
                         e.setType("person");
-                    } else if (e.getType() == null && typ.contains("Event") || typ.contains("SocialEvent") || typ.contains("Show") || typ.contains("Carnival1"))
+                    } else if (typ.contains("Event") || typ.contains("SocialEvent") || typ.contains("Show") || typ.contains("Carnival1"))
                     {
                         e.setType("event");
-                    } else if (e.getType() == null && typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
+                    } else if ( typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if (e.getType() == null &&  typ.contains("Organization") || typ.contains("Organisation") || typ.contains("Museum")) {
+                    } else if ( typ.contains("Organization") || typ.contains("Organisation") || typ.contains("Museum")) {
                         e.setType("organisation");
-                    } else if (e.getType() == null && typ.contains("Activity")) {
+                    } else if ( typ.contains("Activity")) {
                         e.setType("activity");
                     }
-                    else if (e.getType() == null || typ.contains("Object") ) {
+                    else if (e.getType() == null) {
                         e.setType("object");
                     } 
 
@@ -681,17 +687,17 @@ public class Connector {
                     String typ2 = stmt.getObject().toString();
                    if (typ2.contains("Person") || (typ2.contains("Artist"))) {
                         e.setType("person");
-                    } else if (e.getType() == null && typ2.contains("Event") || typ2.contains("SocialEvent") || typ2.contains("Show") || typ2.contains("Carnival1"))
+                    } else if (typ2.contains("Event") || typ2.contains("SocialEvent") || typ2.contains("Show") || typ2.contains("Carnival1"))
                     {
                         e.setType("event");
-                    } else if (e.getType() == null && typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
+                    } else if ( typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if (e.getType() == null &&  typ2.contains("Organization") || typ2.contains("Organisation") || typ2.contains("Museum")) {
+                    } else if ( typ2.contains("Organization") || typ2.contains("Organisation") || typ2.contains("Museum")) {
                         e.setType("organisation");
-                    } else if (e.getType() == null && typ2.contains("Activity")) {
+                    } else if ( typ2.contains("Activity")) {
                         e.setType("activity");
                     }
-                    else if ((e.getType() == null) || typ2.contains("Object")) {
+                    else if ((e.getType() == null)) {
                         e.setType("object");
                     }
                     
