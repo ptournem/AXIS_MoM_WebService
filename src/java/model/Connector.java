@@ -52,7 +52,9 @@ public class Connector {
 
 //        String test = "Louvre";
 //        selectlodFromKeyWord(test);
-       Entity e = new Entity("http://dbpedia.org/resource/Louvre","","","organisation");
+       Entity e = new Entity();
+       e.setURI("http://dbpedia.org/resource/Louvre");
+       e.constructEntity();
         entityBrowser(e);
     }
 
@@ -601,7 +603,7 @@ public class Connector {
 
                 DBQueryString = $PREFIXS
                         // on compare les objet si c'est une ressource on lui passe des chevrons
-                        + "construct where {" + s + " <" + p + "> <" + o + ">}";
+                        + "construct where {" + s + " <" + p + "> <" + o + ">} limit 15";
         } else {
             DBQueryString = $PREFIXS
                     // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
