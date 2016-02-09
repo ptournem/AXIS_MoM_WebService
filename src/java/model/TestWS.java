@@ -26,7 +26,7 @@ public class TestWS {
     public static void main(String args[]) {
 
         //testComments();
-        testFonctionnel(true);
+        testFonctionnel(false);
 //        testComments();
         //System.out.println("test");
         //testConstructEntity();
