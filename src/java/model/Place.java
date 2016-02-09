@@ -350,6 +350,46 @@ public class Place extends Entity {
                                 this.description.setValue_dbpedia(n.getValue());
                             }
                             break;
+                        case "deathplaceof":
+                            this.deathPlaceOf.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.deathPlaceOf.setEntity_locale(n.getEnt());
+                                this.deathPlaceOf.setValue_locale(n.getValue());
+                            } else {
+                                this.deathPlaceOf.setEntity_dbpedia(n.getEnt());
+                                this.deathPlaceOf.setValue_dbpedia(n.getValue());
+                            }
+                            break;
+                        case "website":
+                            this.website.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.website.setEntity_locale(n.getEnt());
+                                this.website.setValue_locale(n.getValue());
+                            } else {
+                                this.website.setEntity_dbpedia(n.getEnt());
+                                this.website.setValue_dbpedia(n.getValue());
+                            }
+                            break;
+                        case "isaplaceoforganisation":
+                            this.isAPlaceOfOrganisation.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.isAPlaceOfOrganisation.setEntity_locale(n.getEnt());
+                                this.isAPlaceOfOrganisation.setValue_locale(n.getValue());
+                            } else {
+                                this.isAPlaceOfOrganisation.setEntity_dbpedia(n.getEnt());
+                                this.isAPlaceOfOrganisation.setValue_dbpedia(n.getValue());
+                            }
+                            break;
+                        case "isaplaceofevent":
+                            this.isAPlaceOfEvent.setType(n.getType());
+                            if (this.getURI().contains("dbpedia")) {
+                                this.isAPlaceOfEvent.setEntity_locale(n.getEnt());
+                                this.isAPlaceOfEvent.setValue_locale(n.getValue());
+                            } else {
+                                this.isAPlaceOfEvent.setEntity_dbpedia(n.getEnt());
+                                this.isAPlaceOfEvent.setValue_dbpedia(n.getValue());
+                            }
+                            break;
                     }
 
                 }

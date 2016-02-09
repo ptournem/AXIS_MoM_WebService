@@ -31,8 +31,8 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 
 /**
- * La classe Connector permet d'utiliser des fonctions génériques qui permettent la 
- * manipulation de la base de données sémantiques (insert, select, delete...)
+ * La classe Connector permet d'utiliser des fonctions génériques qui permettent
+ * la manipulation de la base de données sémantiques (insert, select, delete...)
  */
 public class Connector {
 
@@ -52,7 +52,7 @@ public class Connector {
 
 //        String test = "Exposition Internationale";
 //        selectlodFromKeyWord(test);
-       Entity e = new Entity("http://dbpedia.org/resource/Louvre", "", "", "organisation");
+        Entity e = new Entity("http://dbpedia.org/resource/Louvre", "", "", "organisation");
         entityBrowser(e);
     }
 
@@ -214,12 +214,12 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, null, "language", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/leaderName", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "person", "leader", false);
-                m = lodQuery("?o", "http://dbpedia.org/property/birthPlace", uri);
-                tProp = searchPropertyFromModel(m, tProp, "person", "birthplaceof", true);
                 m = lodQuery("?o", "http://dbpedia.org/property/location", uri);
                 tProp = searchPropertyFromModel(m, tProp, "object", "locationof", true);
-                m = lodQuery("?o", "http://dbpedia.org/ontology/location", uri);
-                tProp = searchPropertyFromModel(m, tProp, "object", "locationof", true);
+                if (m.isEmpty()) {
+                    m = lodQuery("?o", "http://dbpedia.org/ontology/location", uri);
+                    tProp = searchPropertyFromModel(m, tProp, "object", "locationof", true);
+                }
                 m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "website", false);
                 m = lodQuery("?o", "http://dbpedia.org/property/deathPlace", uri);
@@ -228,8 +228,10 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person", "birthplaceof", true);
                 m = lodQuery("?o", "http://dbpedia.org/property/locationCity", uri);
                 tProp = searchPropertyFromModel(m, tProp, "organisation", "isaplaceoforganisation", true);
-                m = lodQuery("?o", "http://dbpedia.org/ontology/locationCity", uri);
-                tProp = searchPropertyFromModel(m, tProp, "organisation", "isaplaceoforganisation", true);
+                if (m.isEmpty()) {
+                    m = lodQuery("?o", "http://dbpedia.org/ontology/locationCity", uri);
+                    tProp = searchPropertyFromModel(m, tProp, "organisation", "isaplaceoforganisation", true);
+                }
                 m = lodQuery("?o", "http://dbpedia.org/property/prevcity", uri);
                 tProp = searchPropertyFromModel(m, tProp, "event", "isaplaceofevent", true);
 
@@ -237,7 +239,7 @@ public class Connector {
             case "event":
                 m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofevent", false);
-                 m = lodQuery(uri,"http://dbpedia.org/property/open", "?o");
+                m = lodQuery(uri, "http://dbpedia.org/property/open", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofevent", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/year", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofevent", false);
@@ -285,10 +287,12 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofcreation", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/established", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofcreation", false);
-                m = lodQuery("?o", "http://dbpedia.org/property/museum", uri);
+                m = lodQuery("?o", "http://dbpedia.org/property/musem", uri);
                 tProp = searchPropertyFromModel(m, tProp, "object", "hasobject", true);
-                m = lodQuery("?o", "http://dbpedia.org/ontology/museum", uri);
-                tProp = searchPropertyFromModel(m, tProp, "object", "hasobject", true);
+                if (m.isEmpty()) {
+                    m = lodQuery("?o", "http://dbpedia.org/ontology/museum", uri);
+                    tProp = searchPropertyFromModel(m, tProp, "object", "hasobject", true);
+                }
 
                 break;
             case "activity":
@@ -320,9 +324,8 @@ public class Connector {
             } else {
                 object = stmt.getObject();
             }
-            
             switch (p) {
-                
+
                 case "http://dbpedia.org/ontology/abstract":
                     String test = stmt.getObject().asLiteral().getLanguage();
                     if (test.equals("fr")) {
@@ -335,14 +338,14 @@ public class Connector {
                     }
 
                     break;
-                    
+
                 default:
                     p2.setName("default");
                     break;
             }
             p2.setName(name);
-            if (object.isResource() ) {
-                
+            if (object.isResource()) {
+
                 p2.setType("uri");
                 p2.setLang("fr");
                 String uri2 = object.toString();
@@ -436,7 +439,7 @@ public class Connector {
                 + "where {?uri rdfs:label ?label ."
                 + " ?uri <http://dbpedia.org/ontology/abstract> ?description. "
                 + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "
-                + " ?label <bif:contains> '\""+ sFinal + "\"'"
+                + " ?label <bif:contains> '\"" + sFinal + "\"'"
                 + " optional { ?uri rdf:type ?type . }"
                 + " optional { ?uri dbp:type ?typ . }"
                 + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
@@ -460,11 +463,11 @@ public class Connector {
 //            String oEncoded;
 //            try {
 //                oEncoded = URLEncoder.encode(o, "UTF-8");
-               // System.out.println("oEncoded" + oEncoded);
+            // System.out.println("oEncoded" + oEncoded);
 
-                DBQueryString = $PREFIXS
-                        // on compare les objet si c'est une ressource on lui passe des chevrons
-                        + "construct where {" + s + " <" + p + "> <" + o + ">} limit 10";
+            DBQueryString = $PREFIXS
+                    // on compare les objet si c'est une ressource on lui passe des chevrons
+                    + "construct where {" + s + " <" + p + "> <" + o + ">} limit 10";
 //            } catch (UnsupportedEncodingException ex) {
 //                Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
 //            }
@@ -527,39 +530,34 @@ public class Connector {
                     String typ = stmt.getObject().toString();
                     if (typ.contains("Person") || (typ.contains("Artist"))) {
                         e.setType("person");
-                    } else if (typ.contains("Event") || typ.contains("SocialEvent") || typ.contains("Show") || typ.contains("Carnival1"))
-                    {
+                    } else if (typ.contains("Event") || typ.contains("SocialEvent") || typ.contains("Show") || typ.contains("Carnival1")) {
                         e.setType("event");
-                    } else if ( typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
+                    } else if (typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if ( typ.contains("Organization") || typ.contains("Organisation") || typ.contains("Museum") || typ.contains("SpatialThing")) {
+                    } else if (typ.contains("Organization") || typ.contains("Organisation") || typ.contains("Museum") || typ.contains("SpatialThing")) {
                         e.setType("organisation");
-                    } else if ( typ.contains("Activity")) {
+                    } else if (typ.contains("Activity")) {
                         e.setType("activity");
-                    }
-                    else if (e.getType() == null) {
+                    } else if (e.getType() == null) {
                         e.setType("object");
-                    } 
+                    }
 
                     break;
                 case "http://dbpedia.org/property/type":
                     String typ2 = stmt.getObject().toString();
-                   if (typ2.contains("Person") || (typ2.contains("Artist"))) {
+                    if (typ2.contains("Person") || (typ2.contains("Artist"))) {
                         e.setType("person");
-                    } else if (typ2.contains("Event") || typ2.contains("SocialEvent") || typ2.contains("Show") || typ2.contains("Carnival1"))
-                    {
+                    } else if (typ2.contains("Event") || typ2.contains("SocialEvent") || typ2.contains("Show") || typ2.contains("Carnival1")) {
                         e.setType("event");
-                    } else if ( typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
+                    } else if (typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if ( typ2.contains("Organization") || typ2.contains("Organisation") || typ2.contains("Museum") || typ2.contains("SpatialThing")) {
+                    } else if (typ2.contains("Organization") || typ2.contains("Organisation") || typ2.contains("Museum") || typ2.contains("SpatialThing")) {
                         e.setType("organisation");
-                    } else if ( typ2.contains("Activity")) {
+                    } else if (typ2.contains("Activity")) {
                         e.setType("activity");
-                    }
-                    else if ((e.getType() == null)) {
+                    } else if ((e.getType() == null)) {
                         e.setType("object");
                     }
-                    
 
                     break;
                 case "http://dbpedia.org/ontology/thumbnail":

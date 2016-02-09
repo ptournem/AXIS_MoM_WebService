@@ -287,6 +287,10 @@ public class TestWS {
             
             Entity jocondeDB = new Entity();
             jocondeDB.setURI("http://dbpedia.org/resource/Mona_Lisa");
+            
+            Entity amboiseDB = new Entity();
+            amboiseDB.setURI("http://dbpedia.org/resource/Amboise");
+            
 //            jocondeDB.constructEntity();
             
             
@@ -299,6 +303,7 @@ public class TestWS {
             lierEntity(ws, louvreOrg, "sameas", louvreDB);
             lierEntity(ws, vinci, "sameas", vinciDB);
             lierEntity(ws, mlkSpeech, "sameas", mlkEvent);
+            lierEntity(ws, amboise, "sameas", amboiseDB);
 //            Property[] props2 = ws.LoadEntityProperties(vinciDB);
 
 //            System.out.println("\nProperty Vinci (URI Dbpedia) :");
@@ -307,73 +312,73 @@ public class TestWS {
 //            }
         }
 
-        Property[] props = ws.LoadEntityProperties(leonard);
-        PropertyAdmin[] propsAdmin = ws.GetAllPropertiesAdmin(leonard);
-        PropertyAdmin[] propsVinci = ws.GetAllPropertiesAdmin(vinci);
-        Property[] propsJoconde = ws.LoadEntityProperties(joconde);
-        Property[] propsLouvre = ws.LoadEntityProperties(louvre);
-        Property[] amboiseProp = ws.LoadEntityProperties(amboise);
+//        Property[] props = ws.LoadEntityProperties(leonard);
+//        PropertyAdmin[] propsAdmin = ws.GetAllPropertiesAdmin(leonard);
+//        PropertyAdmin[] propsVinci = ws.GetAllPropertiesAdmin(vinci);
+//        Property[] propsJoconde = ws.LoadEntityProperties(joconde);
+//        Property[] propsLouvre = ws.LoadEntityProperties(louvre);
+//        Property[] amboiseProp = ws.LoadEntityProperties(amboise);
         
         
-        PropertyAdmin[] propsMlkSpeech = ws.GetAllPropertiesAdmin(mlkSpeech);
-        PropertyAdmin[] propsLouvreOrg = ws.GetAllPropertiesAdmin(louvreOrg);
+//        PropertyAdmin[] propsMlkSpeech = ws.GetAllPropertiesAdmin(mlkSpeech);
+//        PropertyAdmin[] propsLouvreOrg = ws.GetAllPropertiesAdmin(louvreOrg);
         PropertyAdmin[] propsamboise = ws.GetAllPropertiesAdmin(amboise);
-        PropertyAdmin[] propslouvre = ws.GetAllPropertiesAdmin(louvre);
-        PropertyAdmin[] propsjoconde = ws.GetAllPropertiesAdmin(joconde);
+//        PropertyAdmin[] propslouvre = ws.GetAllPropertiesAdmin(louvre);
+//        PropertyAdmin[] propsjoconde = ws.GetAllPropertiesAdmin(joconde);
         
-        System.out.println("\nProperty Leonard (type Person) :");
-        for (int i = 0; i < props.length; i++) {
-            System.out.println(" - Property[" + i + "] : " + props[i]);
-        }
-
-        System.out.println("\nPropertyAdmin Vinci (type Place) :");
-        for (int i = 0; i < propsVinci.length; i++) {
-            System.out.println(" - Property[" + i + "] : " + propsVinci[i]);
-        }
-        
-        System.out.println("\nProperty Joconde (type Object) :");
-        for (int i = 0; i < propsJoconde.length; i++) {
-            System.out.println(" - Property[" + i + "] : " + propsJoconde[i]);
-        }
-        
-        System.out.println("\nProperty Louvre (type Place) :");
-        for (int i = 0; i < propsLouvre.length; i++) {
-            System.out.println(" - Property[" + i + "] : " + propsLouvre[i]);
-        }
-        
-        System.out.println("\nProperty Amboise (type Place) :");
-        for (int i = 0; i < amboiseProp.length; i++) {
-            System.out.println(" - Property[" + i + "] : " + amboiseProp[i]);
-        }
+//        System.out.println("\nProperty Leonard (type Person) :");
+//        for (int i = 0; i < props.length; i++) {
+//            System.out.println(" - Property[" + i + "] : " + props[i]);
+//        }
+//
+//        System.out.println("\nPropertyAdmin Vinci (type Place) :");
+//        for (int i = 0; i < propsVinci.length; i++) {
+//            System.out.println(" - Property[" + i + "] : " + propsVinci[i]);
+//        }
 //        
-        System.out.println("\nPropertyAdmin Leonard (type Person) :");
-        for (int i = 0; i < propsAdmin.length; i++) {
-            System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
-        }
+//        System.out.println("\nProperty Joconde (type Object) :");
+//        for (int i = 0; i < propsJoconde.length; i++) {
+//            System.out.println(" - Property[" + i + "] : " + propsJoconde[i]);
+//        }
         
-        System.out.println("\nPropertyAdmin Joconde (type Object) :");
-        for (int i = 0; i < propsjoconde.length; i++) {
-            System.out.println(" - PropertyAdmin[" + i + "] : " + propsjoconde[i]);
-        }
-        
-        System.out.println("\nPropertyAdmin Louvre (type Place) :");
-        for (int i = 0; i < propslouvre.length; i++) {
-            System.out.println(" - PropertyAdmin[" + i + "] : " + propslouvre[i]);
-        }
+//        System.out.println("\nProperty Louvre (type Place) :");
+//        for (int i = 0; i < propsLouvre.length; i++) {
+//            System.out.println(" - Property[" + i + "] : " + propsLouvre[i]);
+//        }
+//        
+//        System.out.println("\nProperty Amboise (type Place) :");
+//        for (int i = 0; i < amboiseProp.length; i++) {
+//            System.out.println(" - Property[" + i + "] : " + amboiseProp[i]);
+//        }
+////        
+//        System.out.println("\nPropertyAdmin Leonard (type Person) :");
+//        for (int i = 0; i < propsAdmin.length; i++) {
+//            System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
+//        }
+//        
+//        System.out.println("\nPropertyAdmin Joconde (type Object) :");
+//        for (int i = 0; i < propsjoconde.length; i++) {
+//            System.out.println(" - PropertyAdmin[" + i + "] : " + propsjoconde[i]);
+//        }
+//        
+//        System.out.println("\nPropertyAdmin Louvre (type Place) :");
+//        for (int i = 0; i < propslouvre.length; i++) {
+//            System.out.println(" - PropertyAdmin[" + i + "] : " + propslouvre[i]);
+//        }
         
         System.out.println("\nPropertyAdmin Amboise (type Place) :");
         for (int i = 0; i < propsamboise.length; i++) {
             System.out.println(" - PropertyAdmin[" + i + "] : " + propsamboise[i]);
         }
         
-        System.out.println("\nPropertyAdmin MLK Speech (type Event) :");
-        for (int i = 0; i < propsMlkSpeech.length; i++) {
-            System.out.println(" - PropertyAdmin[" + i + "] : " + propsMlkSpeech[i]);
-        }
-        System.out.println("\nPropertyAdmin Louvre org (type Organisation) :");
-        for (int i = 0; i < propsLouvreOrg.length; i++) {
-            System.out.println(" - PropertyAdmin[" + i + "] : " + propsLouvreOrg[i]);
-        }
+//        System.out.println("\nPropertyAdmin MLK Speech (type Event) :");
+//        for (int i = 0; i < propsMlkSpeech.length; i++) {
+//            System.out.println(" - PropertyAdmin[" + i + "] : " + propsMlkSpeech[i]);
+//        }
+//        System.out.println("\nPropertyAdmin Louvre org (type Organisation) :");
+//        for (int i = 0; i < propsLouvreOrg.length; i++) {
+//            System.out.println(" - PropertyAdmin[" + i + "] : " + propsLouvreOrg[i]);
+//        }
         
         
         //leonard.delete("dbont:mother", caterina.getURI());
