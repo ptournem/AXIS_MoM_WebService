@@ -50,10 +50,11 @@ public class Connector {
 
     public static void main(String args[]) {
 
-//        String test = "Louvre";
+//        String test = "Paris";
 //        selectlodFromKeyWord(test);
        Entity e = new Entity();
-       e.setURI("http://dbpedia.org/resource/Louvre");
+      // e.setURI("http://dbpedia.org/resource/Lens,_Pas-de-Calais");
+        e.setURI("http://dbpedia.org/resource/Mona_Lisa");
        e.constructEntity();
         entityBrowser(e);
     }
