@@ -66,6 +66,8 @@ public class Organisation extends Entity {
     public PropertyAdmin[] getPropertiesAdminOrganisation() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
 
+        this.dateOfCreation.setType("date");
+        
         //list.add(this.typeOfOrganisation);
         list.add(this.placeOfOrganisation);
         list.add(this.dateOfCreation);
