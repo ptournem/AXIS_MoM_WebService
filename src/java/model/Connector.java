@@ -299,9 +299,9 @@ public class Connector {
                 break;
         }
 
-        for (int i = 0; i < tProp.size(); i++) {
-            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
-        }
+//        for (int i = 0; i < tProp.size(); i++) {
+//            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
+//        }
 //        
 //        long endTime = System.currentTimeMillis();
 //        System.out.println("_____ FIN FONCTION SELECTLODENTITY: "+(endTime-startTime));
@@ -811,9 +811,9 @@ public class Connector {
             entities.add(e);
         }
 ////        test d'affichage
-        for (int i = 0; i < entities.size(); i++) {
-            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-        }
+//        for (int i = 0; i < entities.size(); i++) {
+//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+//        }
         return entities;
     }
 
