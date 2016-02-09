@@ -836,7 +836,7 @@ public class Connector {
                         + "     MINUS {"
                         + "          ?regof rdf:type axis-datamodel:RegOfInformationItem"
                         + "      }}"
-                        + "     ORDER BY ?type"));
+                        + "     ORDER BY ?type ?name"));
 
         ResultSet rs = qe.execSelect();
 

@@ -58,6 +58,9 @@ public class Event extends Entity {
 
     public PropertyAdmin[] getPropertiesAdminEvent() {
         ArrayList<PropertyAdmin> list = new ArrayList<PropertyAdmin>();
+        
+        this.dateOfEvent.setType("date");
+        
         list.add(this.dateOfEvent);
         list.add(this.placeOfEvent);
         list.add(this.description);
