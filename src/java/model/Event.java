@@ -120,29 +120,29 @@ public class Event extends Entity {
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
                 if (rep.get("description") != null) {
-                    this.description.setValue_locale(rep.get("description").asLiteral().getString());
+                    this.description.setValue_locale(rep.get("description").asLiteral().getString().split("&&&&")[0]);
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
                 }
                 if (rep.get("website") != null) {
-                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString().split("&&&&")[0]);
                     this.website.setLang(rep.get("website").asLiteral().getLanguage());
                     this.website.setType("string");
                 }
                 if (rep.get("socnet") != null) {
-                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
+                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString().split("&&&&")[0]);
                     this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
                     this.socialNetwork.setType("string");
                 }
                 if (rep.get("date") != null) {
-                    this.dateOfEvent.setValue_locale(rep.get("date").asLiteral().getString());
+                    this.dateOfEvent.setValue_locale(rep.get("date").asLiteral().getString().split("&&&&")[0]);
                     this.dateOfEvent.setLang(rep.get("date").asLiteral().getLanguage());
                     this.dateOfEvent.setType("string");
                 }
                 if (rep.get("placesofevent") != null) {
                     Entity[] t = getEntityTab(rep.get("placesofevent").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.placeOfEvent.setValue_locale(rep.get("placesofevent").asLiteral().getString());
+                        this.placeOfEvent.setValue_locale(rep.get("placesofevent").asLiteral().getString().split("&&&&")[0]);
                         this.placeOfEvent.setType("string");
                         this.placeOfEvent.setLang(rep.get("placesofevent").asLiteral().getLanguage());
                     } else {
@@ -154,7 +154,7 @@ public class Event extends Entity {
                 if (rep.get("participants") != null) {
                     Entity[] t = getEntityTab(rep.get("participants").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.hasParticipant.setValue_locale(rep.get("participants").asLiteral().getString());
+                        this.hasParticipant.setValue_locale(rep.get("participants").asLiteral().getString().split("&&&&")[0]);
                         this.hasParticipant.setType("string");
                         this.hasParticipant.setLang(rep.get("participants").asLiteral().getLanguage());
                     } else {
@@ -166,7 +166,7 @@ public class Event extends Entity {
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
+                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString().split("&&&&")[0]);
                         this.sameAs.setType("string");
                         this.sameAs.setLang(rep.get("sameas").asLiteral().getLanguage());
                     } else {

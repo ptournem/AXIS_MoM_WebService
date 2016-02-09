@@ -430,6 +430,11 @@ public class AXIS_MoM_WS implements AXIS_MoM_WSInterface {
                 regof = "RegOfMoralPerson";
                 ret = true;
                 break;
+            case "leader":
+                property = "dbont:leaderName";
+                regof = "RegOfMoralPerson";
+                ret = true;
+                break;
             case "istheleaderof":
                 property = "dbont:leaderName";
                 regof = "RegOfPhysicalPerson";

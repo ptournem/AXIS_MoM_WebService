@@ -184,34 +184,34 @@ public class Person extends Entity {
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
                 if (rep.get("description") != null) {
-                    this.description.setValue_locale(rep.get("description").asLiteral().getString());
+                    this.description.setValue_locale(rep.get("description").asLiteral().getString().split("&&&&")[0]);
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
                 }
                 if (rep.get("socnet") != null) {
-                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
+                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString().split("&&&&")[0]);
                     this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
                     this.socialNetwork.setType("string");
                 }
                 if (rep.get("birthdate") != null) {
                     this.birthDate.setType("date");
-                    this.birthDate.setValue_locale(rep.get("birthdate").asLiteral().getString());
+                    this.birthDate.setValue_locale(rep.get("birthdate").asLiteral().getString().split("&&&&")[0]);
                     this.birthDate.setLang(rep.get("birthdate").asLiteral().getLanguage());
                 }
                 if (rep.get("website") != null) {
-                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString().split("&&&&")[0]);
                     this.website.setLang(rep.get("website").asLiteral().getLanguage());
                     this.website.setType("string");
                 }
                 if (rep.get("deathdate") != null) {
-                    this.deathDate.setValue_locale(rep.get("deathdate").asLiteral().getString());
+                    this.deathDate.setValue_locale(rep.get("deathdate").asLiteral().getString().split("&&&&")[0]);
                     this.deathDate.setType("date");
                     this.deathDate.setLang(rep.get("deathdate").asLiteral().getLanguage());
                 }
                 if (rep.get("parents") != null) {
                     Entity[] t = getEntityTab(rep.get("parents").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.parent.setValue_locale(rep.get("parents").asLiteral().getString());
+                        this.parent.setValue_locale(rep.get("parents").asLiteral().getString().split("&&&&")[0]);
                         this.parent.setLang(rep.get("parents").asLiteral().getLanguage());
                         this.parent.setType("string");
                     } else {
@@ -223,7 +223,7 @@ public class Person extends Entity {
                 if (rep.get("deathplaces") != null) {
                     Entity[] t = getEntityTab(rep.get("deathplaces").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.deathPlace.setValue_locale(rep.get("deathplaces").asLiteral().getString());
+                        this.deathPlace.setValue_locale(rep.get("deathplaces").asLiteral().getString().split("&&&&")[0]);
                         this.deathPlace.setLang(rep.get("deathplaces").asLiteral().getLanguage());
                         this.deathPlace.setType("string");
                     } else {
@@ -235,7 +235,7 @@ public class Person extends Entity {
                 if (rep.get("participatesinevents") != null) {
                     Entity[] t = getEntityTab(rep.get("participatesinevents").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.participatesInEvent.setValue_locale(rep.get("participatesinevents").asLiteral().getString());
+                        this.participatesInEvent.setValue_locale(rep.get("participatesinevents").asLiteral().getString().split("&&&&")[0]);
                         this.participatesInEvent.setLang(rep.get("participatesinevents").asLiteral().getLanguage());
                         this.participatesInEvent.setType("string");
                     } else {
@@ -247,7 +247,7 @@ public class Person extends Entity {
                 if (rep.get("istheleaderof") != null) {
                     Entity[] t = getEntityTab(rep.get("istheleaderof").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.isTheLeaderOf.setValue_locale(rep.get("istheleaderof").asLiteral().getString());
+                        this.isTheLeaderOf.setValue_locale(rep.get("istheleaderof").asLiteral().getString().split("&&&&")[0]);
                         this.isTheLeaderOf.setLang(rep.get("istheleaderof").asLiteral().getLanguage());
                         this.isTheLeaderOf.setType("string");
                     } else {
@@ -259,7 +259,7 @@ public class Person extends Entity {
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
+                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString().split("&&&&")[0]);
                         this.sameAs.setLang(rep.get("sameas").asLiteral().getLanguage());
                         this.sameAs.setType("string");
                     } else {
@@ -271,7 +271,7 @@ public class Person extends Entity {
                 if (rep.get("childs") != null) {
                     Entity[] t = getEntityTab(rep.get("childs").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.child.setValue_locale(rep.get("childs").asLiteral().getString());
+                        this.child.setValue_locale(rep.get("childs").asLiteral().getString().split("&&&&")[0]);
                         this.child.setLang(rep.get("childs").asLiteral().getLanguage());
                         this.child.setType("string");
                     } else {
@@ -283,7 +283,7 @@ public class Person extends Entity {
                 if (rep.get("birthplaces") != null) {
                     Entity[] t = getEntityTab(rep.get("birthplaces").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.placeOfBirth.setValue_locale(rep.get("birthplaces").asLiteral().getString());
+                        this.placeOfBirth.setValue_locale(rep.get("birthplaces").asLiteral().getString().split("&&&&")[0]);
                         this.placeOfBirth.setLang(rep.get("birthplaces").asLiteral().getLanguage());
                         this.placeOfBirth.setType("string");
                     } else {
@@ -295,7 +295,7 @@ public class Person extends Entity {
                 if (rep.get("restinplaces") != null) {
                     Entity[] t = getEntityTab(rep.get("restinplaces").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.restInPlace.setValue_locale(rep.get("restinplaces").asLiteral().getString());
+                        this.restInPlace.setValue_locale(rep.get("restinplaces").asLiteral().getString().split("&&&&")[0]);
                         this.restInPlace.setLang(rep.get("restinplaces").asLiteral().getLanguage());
                         this.restInPlace.setType("string");
                     } else {
@@ -307,7 +307,7 @@ public class Person extends Entity {
                 if (rep.get("isauthorofs") != null) {
                     Entity[] t = getEntityTab(rep.get("isauthorofs").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.isAuthorOf.setValue_locale(rep.get("isauthorofs").asLiteral().getString());
+                        this.isAuthorOf.setValue_locale(rep.get("isauthorofs").asLiteral().getString().split("&&&&")[0]);
                         this.isAuthorOf.setLang(rep.get("isauthorofs").asLiteral().getLanguage());
                         this.isAuthorOf.setType("string");
                     } else {

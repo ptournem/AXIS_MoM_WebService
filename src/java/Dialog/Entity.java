@@ -158,10 +158,15 @@ public class Entity {
                 insert(uri, "axis-datamodel:hasRepresentation", uri6);
 
                 break;
-//              case "activity":
-//                  uri = insert("rdf:type", "axis:RegOfPhysicalPerson");
-//                  insert(e.URI, "axis:hasExpression", uri);
-//                  break;
+            case "activity":
+                uri = insert("rdf:type", "axis-datamodel:Activity");
+                insert(mainURI, "axis-datamodel:uses", uri);
+                this.setURI(uri);
+
+                String uri10 = insert("rdf:type", "axis-datamodel:RegOfSettlement");
+                insert(uri, "axis-datamodel:hasRepresentation", uri10);
+
+                break;
             case "organisation":
                 
                 uri = insert("rdf:type", "axis-datamodel:MoralPerson");
@@ -257,8 +262,9 @@ public class Entity {
                 if (type.contains("MoralPerson")) {
                     this.type = "organisation";
                 }
-                //        if(type.contains(""))
-                //            this.type = "activity";
+                if(type.contains("Activity"))
+                    this.type = "activity";
+                
                 this.image = n.get("image").asLiteral().getString();
                 this.name = n.get("name").asLiteral().getString();
 
