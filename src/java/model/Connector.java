@@ -672,7 +672,7 @@ public class Connector {
                     } else if (e.getType() == null && typ.contains("Activity")) {
                         e.setType("activity");
                     }
-                    else if (e.getType() == null && typ.contains("Object") ) {
+                    else if (e.getType() == null || typ.contains("Object") ) {
                         e.setType("object");
                     } 
 
@@ -691,7 +691,7 @@ public class Connector {
                     } else if (e.getType() == null && typ2.contains("Activity")) {
                         e.setType("activity");
                     }
-                    else if ((e.getType() == null)  && typ2.contains("Object")) {
+                    else if ((e.getType() == null) || typ2.contains("Object")) {
                         e.setType("object");
                     }
                     
