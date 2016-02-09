@@ -126,6 +126,7 @@ public class Object extends Entity {
                     + "     optional{ ?reg axis-datamodel:takePlaceIn ?location .}"
                     + "     optional{ ?reg dbont:owner ?owner .}"
                     + "     optional{ ?reg dbp:museum ?museum . }"
+                    + "     optional{ ?reg axis-datamodel:isPerformedBy ?author .}"
                     + " }"
                     + " optional{"
                     + " ?uri axis-datamodel:hasRepresentation ?doc ."
@@ -137,7 +138,6 @@ public class Object extends Entity {
                     + "     optional{ ?doc dbont:wikiPageExternalLink ?website . }"
                     + " }"
                     + " optional{ ?uri owl:sameAs ?same .}"
-                    + " optional{ ?uri axis-datamodel:isPerformedBy ?author .}"
                     + " } group by ?description ?socnet ?owner ?year ?type ?website", this.getURI());
             Query query = QueryFactory.create(req);
             QueryExecution qe = QueryExecutionFactory.sparqlService(

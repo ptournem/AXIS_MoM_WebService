@@ -205,6 +205,7 @@ public class Entity {
                 newUri = qs.get("o").toString();
                 Entity e1 = new Entity();
                 e1.setURI(newUri);
+                e1.setType(e.type);
                 e1.constructEntity();
                 return entityBrowser(e1);
             }

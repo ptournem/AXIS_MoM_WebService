@@ -277,7 +277,6 @@ public class Organisation extends Entity {
                 Iterator<Property> it = p.iterator();
                 while (it.hasNext()) {
                     Property n = it.next();
-                    System.out.println("NNN>>>>>"+n.getName());
                     switch (n.getName()) {
                         case "hasobject":
                             this.hasObject.setType(n.getType());

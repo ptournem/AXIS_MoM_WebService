@@ -286,7 +286,7 @@ public class TestWS {
 //            louvreDB.constructEntity();
             
             Entity jocondeDB = new Entity();
-            jocondeDB.setURI("http://dbpedia.org/resource/I,_Mona_Lisa");
+            jocondeDB.setURI("http://dbpedia.org/resource/Mona_Lisa");
 //            jocondeDB.constructEntity();
             
             
@@ -317,6 +317,9 @@ public class TestWS {
         
         PropertyAdmin[] propsMlkSpeech = ws.GetAllPropertiesAdmin(mlkSpeech);
         PropertyAdmin[] propsLouvreOrg = ws.GetAllPropertiesAdmin(louvreOrg);
+        PropertyAdmin[] propsamboise = ws.GetAllPropertiesAdmin(amboise);
+        PropertyAdmin[] propslouvre = ws.GetAllPropertiesAdmin(louvre);
+        PropertyAdmin[] propsjoconde = ws.GetAllPropertiesAdmin(joconde);
         
         System.out.println("\nProperty Leonard (type Person) :");
         for (int i = 0; i < props.length; i++) {
@@ -343,10 +346,25 @@ public class TestWS {
             System.out.println(" - Property[" + i + "] : " + amboiseProp[i]);
         }
 //        
-//        System.out.println("\nPropertyAdmin Leonard (type Person) :");
-//        for (int i = 0; i < propsAdmin.length; i++) {
-//            System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
-//        }
+        System.out.println("\nPropertyAdmin Leonard (type Person) :");
+        for (int i = 0; i < propsAdmin.length; i++) {
+            System.out.println(" - PropertyAdmin[" + i + "] : " + propsAdmin[i]);
+        }
+        
+        System.out.println("\nPropertyAdmin Joconde (type Object) :");
+        for (int i = 0; i < propsjoconde.length; i++) {
+            System.out.println(" - PropertyAdmin[" + i + "] : " + propsjoconde[i]);
+        }
+        
+        System.out.println("\nPropertyAdmin Louvre (type Place) :");
+        for (int i = 0; i < propslouvre.length; i++) {
+            System.out.println(" - PropertyAdmin[" + i + "] : " + propslouvre[i]);
+        }
+        
+        System.out.println("\nPropertyAdmin Amboise (type Place) :");
+        for (int i = 0; i < propsamboise.length; i++) {
+            System.out.println(" - PropertyAdmin[" + i + "] : " + propsamboise[i]);
+        }
         
         System.out.println("\nPropertyAdmin MLK Speech (type Event) :");
         for (int i = 0; i < propsMlkSpeech.length; i++) {

@@ -50,12 +50,9 @@ public class Connector {
 
     public static void main(String args[]) {
 
-//        String test = "Paris";
+//        String test = "Exposition Internationale";
 //        selectlodFromKeyWord(test);
-       Entity e = new Entity();
-      // e.setURI("http://dbpedia.org/resource/Lens,_Pas-de-Calais");
-        e.setURI("http://dbpedia.org/resource/Mona_Lisa");
-       e.constructEntity();
+       Entity e = new Entity("http://dbpedia.org/resource/Louvre", "", "", "organisation");
         entityBrowser(e);
     }
 
@@ -315,7 +312,6 @@ public class Connector {
         Dialog.Property p2 = new Dialog.Property(null, null, null, null, null);
         while (iter.hasNext()) {
             Statement stmt = (Statement) iter.next();
-//          System.out.println("test : "+stmt.asTriple().toString());
             org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
             RDFNode object;
@@ -324,101 +320,14 @@ public class Connector {
             } else {
                 object = stmt.getObject();
             }
-//            System.out.println("----------------------");
-//            System.out.println("Predicate :" + p);
-//            System.out.println("Subject :" + subject.toString());
-//            System.out.println("Object:" + object.toString());
-//            System.out.println("----------------------");
+            
             switch (p) {
-//                case "http://dbpedia.org/ontology/wikiPageRedirects":
-//                    p2.setType("uri");
-//                    break;
-      
-//                case "http://dbpedia.org/property/artist":
-//                    p2.setName("author");
-//                    break;
-//                case "http://dbpedia.org/property/child":
-//                    p2.setName("child");
-//                    break;
-//                case "http://dbpedia.org/property/owner":
-//                    p2.setName("owner");
-//                    break;
-//                case "http://dbpedia.org/property/parents":
-//                    p2.setName("parents");
-//                    break;
-//                case "http://dbpedia.org/property/established":
-//                    p2.setName("dateofcreation");
-//                    break;
-//                case "http://dbpedia.org/ontology/owner":
-//                    p2.setName("owner");
-//                    break;
-//
-//                case "http://dbpedia.org/property/author":
-//                    p2.setName("author");
-//                    break;
-//                // les travaux de la personne
-//                case "http://dbpedia.org/property/works":
-//                    p2.setName("isauthorof");
-//                    break;
-//                case "http://dbpedia.org/property/dateOfBirth":
-//                    p2.setName("birthdate");
-//                    break;
-//                case "http://dbpedia.org/ontology/locationCity":
-//                    p2.setName("isaplaceoforganisation");
-//                    break;
-//                case "http://dbpedia.org/property/nextcity":
-//                    p2.setName("isaplaceofevent");
-//                    break;
-//
-//                // le maire d'une organisation de type ville
-//                case "http://dbpedia.org/ontology/language":
-//                    p2.setName("language");
-//                    break;
-//                case "http://dbpedia.org/ontology/mayor":
-//                    p2.setName(name);
-//                    break;
-//                case "http://dbpedia.org/property/leaderName":
-//                    p2.setName(name);
-//                    break;
-//                case "http://dbpedia.org/property/leader":
-//                    p2.setName(name);
-//                    break;
-//
-//                // le chef d'une organisation
-//                case "http://dbpedia.org/property/director":
-//                    p2.setName(name);
-//                    break;
-//                case "http://dbpedia.org/ontology/managerClub ":
-//                    p2.setName(name);
-//                    break;
-//
-//                case "http://dbpedia.org/property/dateOfDeath":
-//                    p2.setName("deathdate");
-//                    break;
-//                case "http://dbpedia.org/ontology/birthPlace":
-//                    p2.setName("birthplace");
-//                    break;
-//                case "http://dbpedia.org/ontology/restingPlace":
-//                    p2.setName("restinplace");
-//                    break;
-//                case "http://dbpedia.org/property/museum":
-//                    p2.setName(name);
-//                case "http://dbpedia.org/property/locationCity":
-//                    p2.setName("isaplaceoforganisation");
-//                    break;
-//                case "http://dbpedia.org/ontology/museum":
-//                    p2.setName(name);
-//                    break;
-//                case "http://dbpedia.org/property/year":
-//                    p2.setName("year");
-//                    break;
-
+                
                 case "http://dbpedia.org/ontology/abstract":
                     String test = stmt.getObject().asLiteral().getLanguage();
                     if (test.equals("fr")) {
                         p2.setEnt(null);
                         p2.setName(object.asLiteral().getString());
-                        //System.out.println(object.asLiteral().getString());
                         p2.setName("description");
                         p2.setValue(object.asLiteral().getString());
                     } else if (p2.getType() == null) {
@@ -426,59 +335,7 @@ public class Connector {
                     }
 
                     break;
-//                case "http://www.w3.org/2002/07/owl#sameAs":
-//                    p2.setName("sameas");
-//                    break;
-//                case "http://dbpedia.org/ontology/wikiPageDisambiguates":
-//                    p2.setName("sameas");
-//                    break;
-//                case "http://dbpedia.org/property/mother":
-//                    p2.setName("parent");
-//                    break;
-//                case "http://dbpedia.org/property/father":
-//                    p2.setName("parent");
-//                    break;
-//                case "http://dbpedia.org/ontology/country":
-//                    p2.setName("country");
-//                    break;
-//                case "http://dbpedia.org/ontology/region":
-//                    p2.setName("region");
-//                    break;
-//                case "http://dbpedia.org/ontology/postalCode":
-//                    p2.setName("postalcode");
-//                    break;
-//                case "http://dbpedia.org/ontology/location":
-//                    p2.setName(name);
-//                    break;
-//                case "http://dbpedia.org/property/location":
-//                    p2.setName(name);
-//                    break;
-//                case "http://dbpedia.org/property/city":
-//                    p2.setName(name);
-//                    break;
-//                case "http://dbpedia.org/property/introduced":
-//                    p2.setName("dateofcreation");
-//                    break;
-//                case "http://dbpedia.org/ontology/yearMeanC":
-//                    p2.setName("tempmean");
-//                    break;
-//                case "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#hasParticipant":
-//                    p2.setName("hasparticipant");
-//                    break;
-//                case "http://dbpedia.org/property/website":
-//                    p2.setName("website");
-//                    break;
-//
-//                case "http://xmlns.com/foaf/0.1/homepage":
-//                    p2.setName("website");
-//                    break;
-//                case "http://dbpedia.org/ontology/deathPlace":
-//                    p2.setName("deathplace");
-//                    break;
-//                case "http://dbpedia.org/property/deathPlace":
-//                    p2.setName("deathplace");
-//                    break;
-
+                    
                 default:
                     p2.setName("default");
                     break;
@@ -510,7 +367,6 @@ public class Connector {
                     int index = -1;
                     for (int i = 0; i < s; i++) {
                         if (tProp.get(i).getName() == p2.getName()) {
-                            //System.out.println("name>>>>>"+p2.getName());
                             index = i;
                         }
                     }
@@ -599,12 +455,19 @@ public class Connector {
     }
 
     private static Model lodQuery(String s, String p, String o) {
-       String DBQueryString = "";
+        String DBQueryString = "";
         if (o.contains("http")) {
+//            String oEncoded;
+//            try {
+//                oEncoded = URLEncoder.encode(o, "UTF-8");
+               // System.out.println("oEncoded" + oEncoded);
 
                 DBQueryString = $PREFIXS
                         // on compare les objet si c'est une ressource on lui passe des chevrons
-                        + "construct where {" + s + " <" + p + "> <" + o + ">} limit 15";
+                        + "construct where {" + s + " <" + p + "> <" + o + ">} limit 10";
+//            } catch (UnsupportedEncodingException ex) {
+//                Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         } else {
             DBQueryString = $PREFIXS
                     // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
@@ -664,36 +527,36 @@ public class Connector {
                     String typ = stmt.getObject().toString();
                     if (typ.contains("Person") || (typ.contains("Artist"))) {
                         e.setType("person");
-                    }if (typ.contains("Event") || typ.contains("SocialEvent") || typ.contains("Show") || typ.contains("Carnival1"))
+                    } else if (typ.contains("Event") || typ.contains("SocialEvent") || typ.contains("Show") || typ.contains("Carnival1"))
                     {
                         e.setType("event");
-                    }if ( typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
+                    } else if ( typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
                         e.setType("location");
-                    }if ( typ.contains("Organization") || typ.contains("Organisation") || typ.contains("Museum") || typ.contains("SpatialThing")) {
+                    } else if ( typ.contains("Organization") || typ.contains("Organisation") || typ.contains("Museum") || typ.contains("SpatialThing")) {
                         e.setType("organisation");
-                    } if ( typ.contains("Activity")) {
+                    } else if ( typ.contains("Activity")) {
                         e.setType("activity");
                     }
-                   if (e.getType() == null) {
+                    else if (e.getType() == null) {
                         e.setType("object");
                     } 
 
                     break;
                 case "http://dbpedia.org/property/type":
                     String typ2 = stmt.getObject().toString();
-                   if ( typ2.contains("Person") || (typ2.contains("Artist"))) {
+                   if (typ2.contains("Person") || (typ2.contains("Artist"))) {
                         e.setType("person");
-                    }if (typ2.contains("Event") || typ2.contains("SocialEvent") || typ2.contains("Show") || typ2.contains("Carnival1"))
+                    } else if (typ2.contains("Event") || typ2.contains("SocialEvent") || typ2.contains("Show") || typ2.contains("Carnival1"))
                     {
                         e.setType("event");
-                    }if ( typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
+                    } else if ( typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
                         e.setType("location");
-                    }if ( typ2.contains("Organization") || typ2.contains("Organisation") || typ2.contains("Museum") || typ2.contains("SpatialThing")) {
+                    } else if ( typ2.contains("Organization") || typ2.contains("Organisation") || typ2.contains("Museum") || typ2.contains("SpatialThing")) {
                         e.setType("organisation");
-                    }if ( typ2.contains("Activity")) {
+                    } else if ( typ2.contains("Activity")) {
                         e.setType("activity");
                     }
-                    if ((e.getType() == null)) {
+                    else if ((e.getType() == null)) {
                         e.setType("object");
                     }
                     
@@ -774,13 +637,13 @@ public class Connector {
                     if (types[i].contains("Person") || (types[i].contains("Agent") || (types[i].contains("Artist")))) {
                         // on lui affecte le type que nous avons définit et qui est commun entre la db local et les types dbpedia
                         e.setType("person");
-                    } if (e.getType() == null && types[i].contains("Event")) {
+                    } else if (e.getType() == null && types[i].contains("Event")) {
                         e.setType("event");
-                    } if (e.getType() == null && types[i].contains("Location") || types[i].contains("City") || types[i].contains("Place") || types[i].contains("State") || types[i].contains("PopulatedPlace")) {
+                    } else if (e.getType() == null && types[i].contains("Location") || types[i].contains("City") || types[i].contains("Place") || types[i].contains("State") || types[i].contains("PopulatedPlace")) {
                         e.setType("location");
-                    } if (e.getType() == null && types[i].contains("SpatialThing") || types[i].contains("Organization")) {
+                    } else if (e.getType() == null && types[i].contains("SpatialThing") || types[i].contains("Organization")) {
                         e.setType("organisation");
-                    } if (e.getType() == null && types[i].contains("Activity")) {
+                    } else if (e.getType() == null && types[i].contains("Activity")) {
                         e.setType("activity");
                     }
                     if (e.getType() == null) {
@@ -792,13 +655,13 @@ public class Connector {
                 for (int i = 0; i < sizeTyps; i++) {
                     if (typs[i].contains("Person") || (typs[i].contains("Agent") || (typs[i].contains("Artist")))) {
                         e.setType("person");
-                    } if (typs[i].contains("Event")) {
+                    } else if (e.getType() == null && typs[i].contains("Event")) {
                         e.setType("event");
-                    } if (typs[i].contains("Location") || typs[i].contains("City") || typs[i].contains("Place") || typs[i].contains("State") || typs[i].contains("PopulatedPlace")) {
+                    } else if (e.getType() == null && typs[i].contains("Location") || typs[i].contains("City") || typs[i].contains("Place") || typs[i].contains("State") || typs[i].contains("PopulatedPlace")) {
                         e.setType("location");
-                    } if (typs[i].contains("SpatialThing") || typs[i].contains("Organization")) {
+                    } else if (e.getType() == null && typs[i].contains("SpatialThing") || typs[i].contains("Organization")) {
                         e.setType("organisation");
-                    } if ( typs[i].contains("Activity")) {
+                    } else if (e.getType() == null && typs[i].contains("Activity")) {
                         e.setType("activity");
                     }
                     // si aucun des types n'est trouvé on le met à object qui le type génerique
@@ -839,7 +702,7 @@ public class Connector {
                         + "     MINUS {"
                         + "          ?regof rdf:type axis-datamodel:RegOfInformationItem"
                         + "      }}"
-                        + "     ORDER BY ?type ?name"));
+                        + "     ORDER BY ?type"));
 
         ResultSet rs = qe.execSelect();
 
