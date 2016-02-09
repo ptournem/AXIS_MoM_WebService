@@ -52,7 +52,7 @@ public class Connector {
 
 //        String test = "Louvre";
 //        selectlodFromKeyWord(test);
-       Entity e = new Entity("http://dbpedia.org/resource/Paris", "", "", "location");
+       Entity e = new Entity("http://dbpedia.org/resource/Louvre","","","organisation");
         entityBrowser(e);
     }
 
@@ -596,19 +596,12 @@ public class Connector {
     }
 
     private static Model lodQuery(String s, String p, String o) {
-        String DBQueryString = "";
+       String DBQueryString = "";
         if (o.contains("http")) {
-//            String oEncoded;
-//            try {
-//                oEncoded = URLEncoder.encode(o, "UTF-8");
-               // System.out.println("oEncoded" + oEncoded);
 
                 DBQueryString = $PREFIXS
                         // on compare les objet si c'est une ressource on lui passe des chevrons
-                        + "construct where {" + s + " <" + p + "> <" + o + ">} limit 10";
-//            } catch (UnsupportedEncodingException ex) {
-//                Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+                        + "construct where {" + s + " <" + p + "> <" + o + ">}";
         } else {
             DBQueryString = $PREFIXS
                     // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
@@ -668,36 +661,36 @@ public class Connector {
                     String typ = stmt.getObject().toString();
                     if (typ.contains("Person") || (typ.contains("Artist"))) {
                         e.setType("person");
-                    } else if (typ.contains("Event") || typ.contains("SocialEvent") || typ.contains("Show") || typ.contains("Carnival1"))
+                    }if (typ.contains("Event") || typ.contains("SocialEvent") || typ.contains("Show") || typ.contains("Carnival1"))
                     {
                         e.setType("event");
-                    } else if ( typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
+                    }if ( typ.contains("Location") || typ.contains("Place") || typ.contains("State") || typ.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if ( typ.contains("Organization") || typ.contains("Organisation") || typ.contains("Museum")) {
+                    }if ( typ.contains("Organization") || typ.contains("Organisation") || typ.contains("Museum") || typ.contains("SpatialThing")) {
                         e.setType("organisation");
-                    } else if ( typ.contains("Activity")) {
+                    } if ( typ.contains("Activity")) {
                         e.setType("activity");
                     }
-                    else if (e.getType() == null) {
+                   if (e.getType() == null) {
                         e.setType("object");
                     } 
 
                     break;
                 case "http://dbpedia.org/property/type":
                     String typ2 = stmt.getObject().toString();
-                   if (typ2.contains("Person") || (typ2.contains("Artist"))) {
+                   if ( typ2.contains("Person") || (typ2.contains("Artist"))) {
                         e.setType("person");
-                    } else if (typ2.contains("Event") || typ2.contains("SocialEvent") || typ2.contains("Show") || typ2.contains("Carnival1"))
+                    }if (typ2.contains("Event") || typ2.contains("SocialEvent") || typ2.contains("Show") || typ2.contains("Carnival1"))
                     {
                         e.setType("event");
-                    } else if ( typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
+                    }if ( typ2.contains("Location") || typ2.contains("Place") || typ2.contains("State") || typ2.contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if ( typ2.contains("Organization") || typ2.contains("Organisation") || typ2.contains("Museum")) {
+                    }if ( typ2.contains("Organization") || typ2.contains("Organisation") || typ2.contains("Museum") || typ2.contains("SpatialThing")) {
                         e.setType("organisation");
-                    } else if ( typ2.contains("Activity")) {
+                    }if ( typ2.contains("Activity")) {
                         e.setType("activity");
                     }
-                    else if ((e.getType() == null)) {
+                    if ((e.getType() == null)) {
                         e.setType("object");
                     }
                     
@@ -778,13 +771,13 @@ public class Connector {
                     if (types[i].contains("Person") || (types[i].contains("Agent") || (types[i].contains("Artist")))) {
                         // on lui affecte le type que nous avons définit et qui est commun entre la db local et les types dbpedia
                         e.setType("person");
-                    } else if (e.getType() == null && types[i].contains("Event")) {
+                    } if (e.getType() == null && types[i].contains("Event")) {
                         e.setType("event");
-                    } else if (e.getType() == null && types[i].contains("Location") || types[i].contains("City") || types[i].contains("Place") || types[i].contains("State") || types[i].contains("PopulatedPlace")) {
+                    } if (e.getType() == null && types[i].contains("Location") || types[i].contains("City") || types[i].contains("Place") || types[i].contains("State") || types[i].contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if (e.getType() == null && types[i].contains("SpatialThing") || types[i].contains("Organization")) {
+                    } if (e.getType() == null && types[i].contains("SpatialThing") || types[i].contains("Organization")) {
                         e.setType("organisation");
-                    } else if (e.getType() == null && types[i].contains("Activity")) {
+                    } if (e.getType() == null && types[i].contains("Activity")) {
                         e.setType("activity");
                     }
                     if (e.getType() == null) {
@@ -796,13 +789,13 @@ public class Connector {
                 for (int i = 0; i < sizeTyps; i++) {
                     if (typs[i].contains("Person") || (typs[i].contains("Agent") || (typs[i].contains("Artist")))) {
                         e.setType("person");
-                    } else if (e.getType() == null && typs[i].contains("Event")) {
+                    } if (typs[i].contains("Event")) {
                         e.setType("event");
-                    } else if (e.getType() == null && typs[i].contains("Location") || typs[i].contains("City") || typs[i].contains("Place") || typs[i].contains("State") || typs[i].contains("PopulatedPlace")) {
+                    } if (typs[i].contains("Location") || typs[i].contains("City") || typs[i].contains("Place") || typs[i].contains("State") || typs[i].contains("PopulatedPlace")) {
                         e.setType("location");
-                    } else if (e.getType() == null && typs[i].contains("SpatialThing") || typs[i].contains("Organization")) {
+                    } if (typs[i].contains("SpatialThing") || typs[i].contains("Organization")) {
                         e.setType("organisation");
-                    } else if (e.getType() == null && typs[i].contains("Activity")) {
+                    } if ( typs[i].contains("Activity")) {
                         e.setType("activity");
                     }
                     // si aucun des types n'est trouvé on le met à object qui le type génerique
