@@ -147,33 +147,33 @@ public class Object extends Entity {
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
                 if (rep.get("description") != null) {
-                    this.description.setValue_locale(rep.get("description").asLiteral().getString());
+                    this.description.setValue_locale(rep.get("description").asLiteral().getString().split("&&&&")[0]);
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
                 }
                 if (rep.get("website") != null) {
-                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString().split("&&&&")[0]);
                     this.website.setLang(rep.get("website").asLiteral().getLanguage());
                     this.website.setType("string");
                 }
                 if (rep.get("socnet") != null) {
-                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
+                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString().split("&&&&")[0]);
                     this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
                     this.socialNetwork.setType("string");
                 }
                 if (rep.get("owner") != null) {
-                    this.owner.setValue_locale(rep.get("owner").asLiteral().getString());
+                    this.owner.setValue_locale(rep.get("owner").asLiteral().getString().split("&&&&")[0]);
                     this.owner.setLang(rep.get("owner").asLiteral().getLanguage());
                     this.owner.setType("string");
                 }
                 if (rep.get("year") != null) {
-                    this.year.setValue_locale(rep.get("year").asLiteral().getString());
+                    this.year.setValue_locale(rep.get("year").asLiteral().getString().split("&&&&")[0]);
                     this.year.setLang(rep.get("year").asLiteral().getLanguage());
                     this.year.setType("string");
 
                 }
                 if (rep.get("type") != null) {
-                    this.type.setValue_locale(rep.get("type").asLiteral().getString());
+                    this.type.setValue_locale(rep.get("type").asLiteral().getString().split("&&&&")[0]);
                     this.type.setLang(rep.get("type").asLiteral().getLanguage());
                     this.type.setType("string");
 
@@ -181,7 +181,7 @@ public class Object extends Entity {
                 if (rep.get("authors") != null) {
                     Entity[] t = getEntityTab(rep.get("authors").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.author.setValue_locale(rep.get("authors").asLiteral().getString());
+                        this.author.setValue_locale(rep.get("authors").asLiteral().getString().split("&&&&")[0]);
                         this.author.setType("string");
                         this.author.setLang(rep.get("authors").asLiteral().getLanguage());
                     } else {
@@ -193,7 +193,7 @@ public class Object extends Entity {
                 if (rep.get("locations") != null) {
                     Entity[] t = getEntityTab(rep.get("locations").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.location.setValue_locale(rep.get("locations").asLiteral().getString());
+                        this.location.setValue_locale(rep.get("locations").asLiteral().getString().split("&&&&")[0]);
                         this.location.setType("string");
                         this.location.setLang(rep.get("locations").asLiteral().getLanguage());
                     } else {
@@ -205,7 +205,7 @@ public class Object extends Entity {
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
+                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString().split("&&&&")[0]);
                         this.sameAs.setType("string");
                         this.sameAs.setLang(rep.get("sameas").asLiteral().getLanguage());
                     } else {
@@ -217,7 +217,7 @@ public class Object extends Entity {
                 if (rep.get("museums") != null) {
                     Entity[] t = getEntityTab(rep.get("museums").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.museum.setValue_locale(rep.get("museums").asLiteral().getString());
+                        this.museum.setValue_locale(rep.get("museums").asLiteral().getString().split("&&&&")[0]);
                         this.museum.setType("string");
                         this.museum.setLang(rep.get("museums").asLiteral().getLanguage());
                     } else {

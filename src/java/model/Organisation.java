@@ -201,29 +201,29 @@ public class Organisation extends Entity {
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
                 if (rep.get("description") != null) {
-                    this.description.setValue_locale(rep.get("description").asLiteral().getString());
+                    this.description.setValue_locale(rep.get("description").asLiteral().getString().split("&&&&")[0]);
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
                 }
                 if (rep.get("website") != null) {
-                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString().split("&&&&")[0]);
                     this.website.setLang(rep.get("website").asLiteral().getLanguage());
                     this.website.setType("string");
                 }
                 if (rep.get("socnet") != null) {
-                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
+                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString().split("&&&&")[0]);
                     this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
                     this.socialNetwork.setType("string");
                 }
                 if (rep.get("date") != null) {
-                    this.dateOfCreation.setValue_locale(rep.get("date").asLiteral().getString());
+                    this.dateOfCreation.setValue_locale(rep.get("date").asLiteral().getString().split("&&&&")[0]);
                     this.dateOfCreation.setLang(rep.get("date").asLiteral().getLanguage());
                     this.dateOfCreation.setType("string");
                 }
                 if (rep.get("places") != null) {
                     Entity[] t = getEntityTab(rep.get("places").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.placeOfOrganisation.setValue_locale(rep.get("places").asLiteral().getString());
+                        this.placeOfOrganisation.setValue_locale(rep.get("places").asLiteral().getString().split("&&&&")[0]);
                         this.placeOfOrganisation.setType("string");
                         this.placeOfOrganisation.setLang(rep.get("places").asLiteral().getLanguage());
                     } else {
@@ -235,7 +235,7 @@ public class Organisation extends Entity {
                 if (rep.get("leaders") != null) {
                     Entity[] t = getEntityTab(rep.get("leaders").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.leader.setValue_locale(rep.get("leaders").asLiteral().getString());
+                        this.leader.setValue_locale(rep.get("leaders").asLiteral().getString().split("&&&&")[0]);
                         this.leader.setType("string");
                         this.leader.setLang(rep.get("leaders").asLiteral().getLanguage());
                     } else {
@@ -247,7 +247,7 @@ public class Organisation extends Entity {
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
+                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString().split("&&&&")[0]);
                         this.sameAs.setType("string");
                         this.sameAs.setLang(rep.get("sameas").asLiteral().getLanguage());
                     } else {
@@ -259,7 +259,7 @@ public class Organisation extends Entity {
                 if (rep.get("hasobjects") != null) {
                     Entity[] t = getEntityTab(rep.get("hasobjects").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.hasObject.setValue_locale(rep.get("hasobjects").asLiteral().getString());
+                        this.hasObject.setValue_locale(rep.get("hasobjects").asLiteral().getString().split("&&&&")[0]);
                         this.hasObject.setType("string");
                         this.hasObject.setLang(rep.get("hasobjects").asLiteral().getLanguage());
                     } else {

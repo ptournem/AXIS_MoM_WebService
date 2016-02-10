@@ -163,23 +163,23 @@ public class Place extends Entity {
             if (rs.hasNext()) {
                 QuerySolution rep = rs.next();
                 if (rep.get("description") != null) {
-                    this.description.setValue_locale(rep.get("description").asLiteral().getString());
+                    this.description.setValue_locale(rep.get("description").asLiteral().getString().split("&&&&")[0]);
                     this.description.setLang(rep.get("description").asLiteral().getLanguage());
                     this.description.setType("string");
                 }
                 if (rep.get("website") != null) {
-                    this.website.setValue_locale(rep.get("website").asLiteral().getString());
+                    this.website.setValue_locale(rep.get("website").asLiteral().getString().split("&&&&")[0]);
                     this.website.setLang(rep.get("website").asLiteral().getLanguage());
                     this.website.setType("string");
                 }
                 if (rep.get("postalcode") != null) {
-                    this.postalCode.setValue_locale(rep.get("postalcode").asLiteral().getString());
+                    this.postalCode.setValue_locale(rep.get("postalcode").asLiteral().getString().split("&&&&")[0]);
                     this.postalCode.setLang(rep.get("postalcode").asLiteral().getLanguage());
                     this.postalCode.setType("string");
 
                 }
                 if (rep.get("socnet") != null) {
-                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString());
+                    this.socialNetwork.setValue_locale(rep.get("socnet").asLiteral().getString().split("&&&&")[0]);
                     this.socialNetwork.setLang(rep.get("socnet").asLiteral().getLanguage());
                     this.socialNetwork.setType("string");
 
@@ -187,7 +187,7 @@ public class Place extends Entity {
                 if (rep.get("countries") != null) {
                     Entity[] t = getEntityTab(rep.get("countries").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.country.setValue_locale(rep.get("countries").asLiteral().getString());
+                        this.country.setValue_locale(rep.get("countries").asLiteral().getString().split("&&&&")[0]);
                         this.country.setType("string");
                         this.country.setLang(rep.get("countries").asLiteral().getLanguage());
                     } else {
@@ -199,7 +199,7 @@ public class Place extends Entity {
                 if (rep.get("deathplacesof") != null) {
                     Entity[] t = getEntityTab(rep.get("deathplacesof").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.deathPlaceOf.setValue_locale(rep.get("deathplacesof").asLiteral().getString());
+                        this.deathPlaceOf.setValue_locale(rep.get("deathplacesof").asLiteral().getString().split("&&&&")[0]);
                         this.deathPlaceOf.setType("string");
                         this.deathPlaceOf.setLang(rep.get("deathplacesof").asLiteral().getLanguage());
                     } else {
@@ -211,7 +211,7 @@ public class Place extends Entity {
                 if (rep.get("isaplaceoforgas") != null) {
                     Entity[] t = getEntityTab(rep.get("isaplaceoforgas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.isAPlaceOfOrganisation.setValue_locale(rep.get("isaplaceoforgas").asLiteral().getString());
+                        this.isAPlaceOfOrganisation.setValue_locale(rep.get("isaplaceoforgas").asLiteral().getString().split("&&&&")[0]);
                         this.isAPlaceOfOrganisation.setType("string");
                         this.isAPlaceOfOrganisation.setLang(rep.get("isaplaceoforgas").asLiteral().getLanguage());
                     } else {
@@ -223,7 +223,7 @@ public class Place extends Entity {
                 if (rep.get("isaplaceofevents") != null) {
                     Entity[] t = getEntityTab(rep.get("isaplaceofevents").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.isAPlaceOfEvent.setValue_locale(rep.get("isaplaceofevents").asLiteral().getString());
+                        this.isAPlaceOfEvent.setValue_locale(rep.get("isaplaceofevents").asLiteral().getString().split("&&&&")[0]);
                         this.isAPlaceOfEvent.setType("string");
                         this.isAPlaceOfEvent.setLang(rep.get("isaplaceofevents").asLiteral().getLanguage());
                     } else {
@@ -235,7 +235,7 @@ public class Place extends Entity {
                 if (rep.get("birthplaceof") != null) {
                     Entity[] t = getEntityTab(rep.get("birthplaceof").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.birthPlaceOf.setValue_locale(rep.get("birthplaceof").asLiteral().getString());
+                        this.birthPlaceOf.setValue_locale(rep.get("birthplaceof").asLiteral().getString().split("&&&&")[0]);
                         this.birthPlaceOf.setLang(rep.get("birthplaceof").asLiteral().getLanguage());
                         this.birthPlaceOf.setType("string");
                     } else {
@@ -247,7 +247,7 @@ public class Place extends Entity {
                 if (rep.get("sameas") != null) {
                     Entity[] t = getEntityTab(rep.get("sameas").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString());
+                        this.sameAs.setValue_locale(rep.get("sameas").asLiteral().getString().split("&&&&")[0]);
                         this.sameAs.setType("string");
                         this.sameAs.setLang(rep.get("sameas").asLiteral().getString());
                     } else {
@@ -259,7 +259,7 @@ public class Place extends Entity {
                 if (rep.get("locationof") != null) {
                     Entity[] t = getEntityTab(rep.get("locationof").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.locationOf.setValue_locale(rep.get("locationof").asLiteral().getString());
+                        this.locationOf.setValue_locale(rep.get("locationof").asLiteral().getString().split("&&&&")[0]);
                         this.locationOf.setType("string");
                         this.locationOf.setLang(rep.get("locationof").asLiteral().getString());
                     } else {
@@ -271,7 +271,7 @@ public class Place extends Entity {
                 if (rep.get("regions") != null) {
                     Entity[] t = getEntityTab(rep.get("regions").asLiteral().getString().split("&&&&"));
                     if (t.length == 0) {
-                        this.region.setValue_locale(rep.get("regions").asLiteral().getString());
+                        this.region.setValue_locale(rep.get("regions").asLiteral().getString().split("&&&&")[0]);
                         this.region.setType("string");
                         this.region.setLang(rep.get("regions").asLiteral().getString());
                     } else {

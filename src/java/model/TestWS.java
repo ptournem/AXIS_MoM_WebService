@@ -10,8 +10,6 @@ import Dialog.Comment;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import static model.Connector.deleteAll;
 import ws.AXIS_MoM_WS;
 
@@ -26,7 +24,7 @@ public class TestWS {
     public static void main(String args[]) {
 
         //testComments();
-        testFonctionnel(true);
+//        testFonctionnel(false);
 //        testComments();
         //System.out.println("test");
         //testConstructEntity();
@@ -171,6 +169,10 @@ public class TestWS {
         Entity mlkSpeech = new Entity("Discours de Martin Luther King", "http://www.saphirnews.com/photo/art/default/5798576-8644705.jpg?v=1377633337", "event");
         Entity lincolnMemorial = new Entity("Lincoln Memorial", "https://fr.wikipedia.org/wiki/Lincoln_Memorial#/media/File:Aerial_view_of_Lincoln_Memorial_-_east_side_EDIT.jpeg", "location");
         Entity mlk = new Entity("Martin Luther King", "http://a4.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,h_1200,q_80,w_1200/MTE5NTU2MzE2MjgwNDg5NDgz.jpg", "person");
+        
+        Entity testActivity= new Entity("Test activity", "http://www.saphirnews.com/photo/art/default/5798576-8644705.jpg?v=1377633337", "activity");
+        
+        ws.AddEntity(testActivity);
         
         bourgeois = ws.AddEntity(bourgeois);
         vinci = ws.AddEntity(vinci);
