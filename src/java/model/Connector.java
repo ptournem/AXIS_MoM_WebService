@@ -297,9 +297,9 @@ public class Connector {
                 break;
         }
 
-//        for (int i = 0; i < tProp.size(); i++) {
-//            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
-//        }
+        for (int i = 0; i < tProp.size(); i++) {
+            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
+        }
 //        
 //        long endTime = System.currentTimeMillis();
 //        System.out.println("_____ FIN FONCTION SELECTLODENTITY: "+(endTime-startTime));
@@ -446,13 +446,13 @@ public class Connector {
                 + "(group_concat(?typ; separator=\"&&&&\") as ?typs)"
                 + "where {?uri rdfs:label ?label ."
                 + " ?uri <http://dbpedia.org/ontology/abstract> ?description. "
-                + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "
-                + " ?uri rdf:type ?type ."
+                + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "           
                 + " ?label <bif:contains> '\"" + sFinal + "\"'"
+                + " optional { ?uri rdf:type ?type . }"
                 + " optional { ?uri dbp:type ?typ . }"
                 + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
                 + "GROUP BY ?uri ?label ?image "
-                + "ORDER BY ?type "
+                + "ORDER BY asc (?label) "
                 + "LIMIT 50";
 
         // on crée notre requete 
@@ -678,9 +678,9 @@ public class Connector {
             entities.add(e);
         }
 ////        test d'affichage
-//        for (int i = 0; i < entities.size(); i++) {
-//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-//        }
+        for (int i = 0; i < entities.size(); i++) {
+            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+        }
         return entities;
     }
 
