@@ -1,0 +1,8 @@
+site_name: AXIS-MOM Web Service
+repo_url: https://github.com/ptournem/AXIS_MOM_WebService
+site_dir: docWeb
+
+pages:
+- [index.md, Home]
+- [installation.md, Installation]
+- [Dependances.md, Dépendances]
