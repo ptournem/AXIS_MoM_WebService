@@ -50,12 +50,13 @@ public class Connector {
 
     public static void main(String args[]) {
 
-//        String test = "Exposition Internationale";
-//        selectlodFromKeyWord(test);
-        Entity e = new Entity("http://dbpedia.org/resource/Louvre", "", "", "organisation");
-        entityBrowser(e);
+        String test = "théodore";
+        selectlodFromKeyWord(test);
+//        Entity e = new Entity("http://dbpedia.org/resource/Italy", "", "", "location");
+//        entityBrowser(e);
     }
 
+    // cette fonction permet de charger le model axis-csrm
     public static Model loadModels(String url) { //mélanoche
 
         String serviceURI = "http://localhost:3030/ds";
@@ -67,6 +68,7 @@ public class Connector {
         return model;
     }
 
+    // prend en paramétre un string, fait une requete pour renvoyer un model
     public static Model executeQueryConstruct(String str) {
 
         QueryExecution qe = QueryExecutionFactory.sparqlService(
@@ -94,6 +96,7 @@ public class Connector {
         qe.close();
         return m;
     }
+    
 
     public static ResultSet selectFromEntity(String s, String p, String o) { //robine
         //on construct toutes les propriétés et valeurs de l'URI passé en paramètre
@@ -127,21 +130,17 @@ public class Connector {
         return m;
     }
 
-    // méthode pour supprimer des charactéres
+    // cette méthode parcoure une entité 
+    // prend une entité en param, récupére l'uri et renvoit un tableau de propriétés
     public static ArrayList<Dialog.Property> entityBrowser(Entity e) {
-//        
-//        long startTime = System.currentTimeMillis();
-
         ArrayList<Dialog.Property> tProp = new ArrayList<Dialog.Property>();
         String uri = e.getURI().toString();
         Model m = lodQuery(uri, "http://dbpedia.org/ontology/abstract", "?o");
         tProp = searchPropertyFromModel(m, tProp, null, "description", false);
-//         m = lodQuery(uri, "http://dbpedia.org/ontology/wikiPageRedirects", "?o");
-//        tProp = searchPropertyFromModel(m, tProp, null, null, true);
-        //System.out.println("le type :"+e.getType().toString());
+        // on récupere le type, ensuite on le compare avec les types que nous avons définit
         switch (e.getType()) {
+            // dans le cas d'une personne on recherche les propriétés relatives
             case "person":
-                //  m = lodQuery(uri, "http://dbpedia.org/property/dateOfBirth", "?o");
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfBirth", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "dateofbirth", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/birthDate", "?o");
@@ -150,7 +149,6 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, null, "deathdate", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/dateOfDeath", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "deathdate", false);
-
                 m = lodQuery(uri, "http://dbpedia.org/ontology/birthPlace", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "birthplace", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/mother", "?o");
@@ -228,13 +226,13 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person", "birthplaceof", true);
                 m = lodQuery("?o", "http://dbpedia.org/property/locationCity", uri);
                 tProp = searchPropertyFromModel(m, tProp, "organisation", "isaplaceoforganisation", true);
+                // si le modéle est vide on va chercher le 2 prédicat
                 if (m.isEmpty()) {
                     m = lodQuery("?o", "http://dbpedia.org/ontology/locationCity", uri);
                     tProp = searchPropertyFromModel(m, tProp, "organisation", "isaplaceoforganisation", true);
                 }
                 m = lodQuery("?o", "http://dbpedia.org/property/prevcity", uri);
                 tProp = searchPropertyFromModel(m, tProp, "event", "isaplaceofevent", true);
-
                 break;
             case "event":
                 m = lodQuery(uri, "http://dbpedia.org/property/date", "?o");
@@ -259,7 +257,6 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "person", "hasparticipant", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/website", "?o");
                 tProp = searchPropertyFromModel(m, tProp, null, "website", false);
-
                 break;
             case "organisation":
                 m = lodQuery(uri, "http://dbpedia.org/ontology/location", "?o");
@@ -268,7 +265,6 @@ public class Connector {
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/city", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
-
                 m = lodQuery(uri, "http://dbpedia.org/property/location", "?o");
                 tProp = searchPropertyFromModel(m, tProp, "location", "placeoforganisation", false);
                 m = lodQuery(uri, "http://dbpedia.org/property/place", "?o");
@@ -295,19 +291,22 @@ public class Connector {
                 }
 
                 break;
+                // le type activité n'est pas géré pour l'instant
             case "activity":
 
                 break;
         }
 
-//        for (int i = 0; i < tProp.size(); i++) {
-//            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
-//        }
+        for (int i = 0; i < tProp.size(); i++) {
+            System.out.println("prop n°" + i + "  :  " + tProp.get(i));
+        }
 //        
 //        long endTime = System.currentTimeMillis();
 //        System.out.println("_____ FIN FONCTION SELECTLODENTITY: "+(endTime-startTime));
         return tProp;
     }
+    // cette fonction prend en param un model, et un tableau de propriétés, un type et un name qui nous sert à diférencier les prédicats de retour
+    // le param revert passe à "true" quand nous avons un lien retour afin de gérer le "is ... of" de dbPedia
 
     public static ArrayList<Dialog.Property> searchPropertyFromModel(Model m, ArrayList<Dialog.Property> tProp, String type, String name, boolean revert) {
         StmtIterator iter = m.listStatements();
@@ -325,15 +324,20 @@ public class Connector {
                 object = stmt.getObject();
             }
             switch (p) {
-
+                    // on vérifi le type si il s'agit d'une description on fait le traitement de langue
                 case "http://dbpedia.org/ontology/abstract":
+                    // on récupére la langue
                     String test = stmt.getObject().asLiteral().getLanguage();
+                   // si c'est en fr 
                     if (test.equals("fr")) {
+                        // on remplie l'entité
                         p2.setEnt(null);
                         p2.setName(object.asLiteral().getString());
                         p2.setName("description");
                         p2.setValue(object.asLiteral().getString());
+                        // sinon 
                     } else if (p2.getType() == null) {
+                        // on met un nom par défaut
                         p2.setName("default");
                     }
 
@@ -343,9 +347,11 @@ public class Connector {
                     p2.setName("default");
                     break;
             }
+            // à ce moment on donne le nom de la propriété
             p2.setName(name);
+            // si c'est une ressource
             if (object.isResource()) {
-
+                // on remplie l'entité
                 p2.setType("uri");
                 p2.setLang("fr");
                 String uri2 = object.toString();
@@ -409,6 +415,8 @@ public class Connector {
         return tProp;
     }
 
+    // cette fonction effectue la requete en se basant sur un mot clefs tapé par l'utilisateur
+    // elle renvoie un Resulset car il s'agit d'un select 
     private static ResultSet lodQueryAmbigious(String s) {
         String sFinal = "";
         if (s.contains(" ")) {
@@ -433,18 +441,18 @@ public class Connector {
         // '"Louv*"NEAR"lens"'
         //FILTER (contains(?label , \""+s+"\")
         String DBQueryString = $PREFIXS
-                + "select distinct ?uri ?label ?image "
+                + "select distinct ?uri ?label ?image"
                 + "(group_concat(?type; separator=\"&&&&\") as ?types)"
                 + "(group_concat(?typ; separator=\"&&&&\") as ?typs)"
                 + "where {?uri rdfs:label ?label ."
                 + " ?uri <http://dbpedia.org/ontology/abstract> ?description. "
-                + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "
+                + " ?uri <http://dbpedia.org/ontology/thumbnail> ?image. "           
                 + " ?label <bif:contains> '\"" + sFinal + "\"'"
                 + " optional { ?uri rdf:type ?type . }"
                 + " optional { ?uri dbp:type ?typ . }"
                 + "FILTER (lang(?description) = 'fr')  FILTER (lang(?label) = 'fr')}"
                 + "GROUP BY ?uri ?label ?image "
-                + "ORDER BY asc (?label)"
+                + "ORDER BY asc (?label) "
                 + "LIMIT 50";
 
         // on crée notre requete 
@@ -457,37 +465,33 @@ public class Connector {
         return r;
     }
 
+    // cette fonction effectue la requete vers dbpedia pour récupérer le model complet
+    // les param s p o sont renseigné lors du construct
     private static Model lodQuery(String s, String p, String o) {
         String DBQueryString = "";
+        // si l'objet c'est une ressource elle contient forcément http
         if (o.contains("http")) {
-//            String oEncoded;
-//            try {
-//                oEncoded = URLEncoder.encode(o, "UTF-8");
-            // System.out.println("oEncoded" + oEncoded);
-
+            // la requete prend des chevrons au niveau de l'objet
             DBQueryString = $PREFIXS
                     // on compare les objet si c'est une ressource on lui passe des chevrons
                     + "construct where {" + s + " <" + p + "> <" + o + ">} limit 10";
-//            } catch (UnsupportedEncodingException ex) {
-//                Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            // sinon on met les chevrons autour du sujet
         } else {
             DBQueryString = $PREFIXS
                     // on ajoute  ?s owl:sameAs ?Entity" aprés le construct pour comparer avec les resultats locales
                     + "construct where {<" + s + "> <" + p + "> " + o + "}";
         }
-
+        // on execute notre requete
         Query DBquery = QueryFactory.create(DBQueryString);
         QueryExecution qDBexec = QueryExecutionFactory.sparqlService("http://dbpedia.org/sparql", DBquery);
-
         Model m = qDBexec.execConstruct();
-
         qDBexec.close();
         return m;
     }
 
+    // on récupére l'uri d'une entité et on la remplie avec les différents attributs
     public static Entity selectlodFromEntity(Entity e) {
-
+        // la fonction qui calcule le temps d'execution
         //long startTime = System.currentTimeMillis();
         String uri = e.getURI();
         Model m = lodQuery(uri, "http://dbpedia.org/ontology/thumbnail", "?o");
@@ -499,8 +503,7 @@ public class Connector {
                 m = lodQuery(uri, "http://dbpedia.org/property/type", "?o");
                 e = searchFromModel(m, e);
             }
-        }
-
+        }       
         m = lodQuery(uri, "http://www.w3.org/2000/01/rdf-schema#label", "?o");
         e = searchFromModel(m, e);
         m = lodQuery(uri, "http://dbpedia.org/ontology/alias", "?o");
@@ -509,13 +512,14 @@ public class Connector {
         e = searchFromModel(m, e);
         m = lodQuery(uri, "http://dbpedia.org/ontology/birthname", "?o");
         e = searchFromModel(m, e);
-
 //        long endTime = System.currentTimeMillis();
 //        System.out.println("_____ FIN FONCTION SELECTLODENTITY: " + (endTime - startTime));
 //        System.out.println("l'entité : " + e);
         return e;
     }
 
+    // cette fonction prend un model et une entité
+    // la fonction sert à récupérer les types de dbpedia et les concorder avec les notres
     public static Entity searchFromModel(Model m, Entity e) {
         StmtIterator iter = m.listStatements();
         while (iter.hasNext()) {
@@ -524,8 +528,10 @@ public class Connector {
             org.apache.jena.rdf.model.Property predicate = stmt.getPredicate();
             String p = predicate.toString();
             RDFNode object = stmt.getObject();
+           // on utlise un switch pour comparer les types
             switch (p) {
-                // si le predicat est un type
+                // il existe deux prédicats types sur dbPedia
+                // si le predicat est un type avec un prédicat rdfs
                 case "http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
                     String typ = stmt.getObject().toString();
                     if (typ.contains("Person") || (typ.contains("Artist"))) {
@@ -672,9 +678,9 @@ public class Connector {
             entities.add(e);
         }
 ////        test d'affichage
-//        for (int i = 0; i < entities.size(); i++) {
-//            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
-//        }
+        for (int i = 0; i < entities.size(); i++) {
+            System.out.println("entiity n°" + i + "  :  " + entities.get(i));
+        }
         return entities;
     }
 
