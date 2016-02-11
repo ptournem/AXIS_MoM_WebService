@@ -10,6 +10,8 @@ import Dialog.Comment;
 import Dialog.Entity;
 import Dialog.Property;
 import Dialog.PropertyAdmin;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import static model.Connector.deleteAll;
 import ws.AXIS_MoM_WS;
 
@@ -23,8 +25,26 @@ public class TestWS {
 
     public static void main(String args[]) {
 
+        
+         AXIS_MoM_WS ws = new AXIS_MoM_WS();
+
+        Entity bourgeois = new Entity("Les Bourgeois de Calais", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG/250px-Bourgeois_de_Calais,_mus%C3%A9e_Rodin.JPG", "object");
+       
+        bourgeois = ws.AddEntity(bourgeois);
+        
+        lierEntity(ws, bourgeois, "year", "1000");
+        
+        lierEntity(ws, bourgeois, "author", "test");
+        
+        PropertyAdmin[] props = ws.GetAllPropertiesAdmin(bourgeois);
+        
+        System.out.println("\nPropertyAdmin bourgeois  :");
+        for (int i = 0; i < props.length; i++) {
+            System.out.println(" - PropertyAdmin[" + i + "] : " + props[i]);
+        }
+        
         //testComments();
-//        testFonctionnel(false);
+        //testFonctionnel(true);
 //        testComments();
         //System.out.println("test");
         //testConstructEntity();
@@ -161,7 +181,12 @@ public class TestWS {
         Entity amboise = new Entity("Amboise", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Ch%C3%A2teau_d'Amboise_07.jpg/220px-Ch%C3%A2teau_d'Amboise_07.jpg", "location");
         Entity joconde = new Entity("La Joconde", "https://download.vikidia.org/vikidia/fr/images/thumb/1/13/La_gioconda.jpg/200px-La_gioconda.jpg", "object");
         Entity louvre = new Entity("Musée du Louvre", "https://upload.wikimedia.org/wikipedia/en/4/42/Louvre_Pyramid.jpg", "location");
-
+        Entity mariemont = new Entity("Musée de Mariemont", "http://www.morlanwelz.be/t_loisirs/tourisme/les-musees-et-lieux-a-visiter/le-musee-royal-et-le-parc-de-mariemont/les-photos-du-musee-royal-et-du-parc/musee.jpg", "organisation");
+        Entity morlanwelz = new Entity("Morlanwelz", "https://upload.wikimedia.org/wikipedia/commons/a/ac/Hotel_de_ville_de_Morlanwelz.jpg", "location");
+        
+        Entity guy = new Entity("Guy Marechal", "https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/6/000/1b8/326/22779f0.jpg", "person");
+        guy = ws.AddEntity(guy);
+        
         Entity vinci = new Entity("Vinci", "http://www.lepoint.fr/images/2011/03/22/italie-unita-274376-jpg_165194.JPG", "location");
         Entity italie = new Entity("Italie", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/langfr-225px-Flag_of_Italy.svg.png", "location");
         Entity toscane = new Entity("Toscane", "http://www.franceinfo.fr/sites/default/files/2013/06/22/1036825/images/principale/yes.jpg", "location");
@@ -170,17 +195,15 @@ public class TestWS {
         Entity lincolnMemorial = new Entity("Lincoln Memorial", "https://fr.wikipedia.org/wiki/Lincoln_Memorial#/media/File:Aerial_view_of_Lincoln_Memorial_-_east_side_EDIT.jpeg", "location");
         Entity mlk = new Entity("Martin Luther King", "http://a4.files.biography.com/image/upload/c_fit,cs_srgb,dpr_1.0,h_1200,q_80,w_1200/MTE5NTU2MzE2MjgwNDg5NDgz.jpg", "person");
         
-        Entity testActivity= new Entity("Test activity", "http://www.saphirnews.com/photo/art/default/5798576-8644705.jpg?v=1377633337", "activity");
-        
-        ws.AddEntity(testActivity);
-        
         bourgeois = ws.AddEntity(bourgeois);
+        morlanwelz = ws.AddEntity(morlanwelz);
         vinci = ws.AddEntity(vinci);
         italie = ws.AddEntity(italie);
         toscane = ws.AddEntity(toscane);
         mlk = ws.AddEntity(mlk);
         lincolnMemorial = ws.AddEntity(lincolnMemorial);
         mlkSpeech = ws.AddEntity(mlkSpeech);
+        mariemont = ws.AddEntity(mariemont);
         //création Léonard Da Vinci
         leonard = ws.AddEntity(leonard);
         louvreOrg = ws.AddEntity(louvreOrg);
@@ -211,13 +234,13 @@ public class TestWS {
         //lier Léonard de vinci => father => Antonio
         lierEntity(ws, leonard, "parent", antonio);
         lierEntity(ws, leonard, "parent", caterina);
-        lierEntity(ws, leonard, "parent", amboise);
+        //lierEntity(ws, leonard, "parent", amboise);
         lierEntity(ws, leonard, "socialnetwork", "leoHashtag");
 
         //lier Léonard Da vinci => restinplace => Amboise
         lierEntity(ws, leonard, "restinplace", amboise);
         lierEntity(ws, leonard, "deathplace", amboise);
-        lierEntity(ws, leonard, "istheleaderof", louvreOrg);
+        lierEntity(ws, guy, "istheleaderof", louvreOrg);
         lierEntity(ws, leonard, "birthplace", vinci);
         lierEntity(ws, leonard, "participatesinevent", mlkSpeech);
         lierEntity(ws, leonard, "website", "leodavinci.com");
@@ -234,9 +257,17 @@ public class TestWS {
         lierEntity(ws, louvreOrg, "dateofcreation", "1792");
         lierEntity(ws, louvreOrg, "socialnetwork", "#MuséeDuLouvre");
         lierEntity(ws, louvreOrg, "website", "http://www.louvre.fr/");
-        lierEntity(ws, louvreOrg, "leader", "Jean-Luc Martinez");
+        //lierEntity(ws, louvreOrg, "leader", "Jean-Luc Martinez");
         lierEntity(ws, louvreOrg, "hasobject", joconde);
         lierEntity(ws, louvreOrg, "placeoforganisation", louvre);
+        
+        lierEntity(ws, mariemont, "description", "Le Musée royal de Mariemont, sis dans le domaine de Mariemont à Morlanwelz, dans la province de Hainaut (Région wallonne de Belgique) rassemble les diverses collections de Raoul Warocqué, dernier propriétaire de Mariemont, qu’il légua à sa mort (1917) à l’État belge, avec l’ensemble du domaine.");
+        lierEntity(ws, mariemont, "dateofcreation", "1917");
+        lierEntity(ws, mariemont, "socialnetwork", "#MuséeRoyalDeMariemont");
+        lierEntity(ws, mariemont, "website", "http://www.musee-mariemont.be/");
+        lierEntity(ws, mariemont, "leader", " François Mairesse et Marie-Cécile Bruwier");
+        lierEntity(ws, mariemont, "hasobject", bourgeois);
+        lierEntity(ws, mariemont, "placeoforganisation", morlanwelz);
         
         lierEntity(ws, mlkSpeech, "website", "http://www.americanrhetoric.com/speeches/mlkihaveadream.htm");
         lierEntity(ws, mlkSpeech, "socialnetwork", "#DiscoursDeMartinLutherKing");
@@ -259,8 +290,8 @@ public class TestWS {
         //lier Léonard Da vinci => isauthorof => Joconde
         lierEntity(ws, leonard, "isauthorof", joconde);
         //lierEntity(ws, leonard, "birthplace", vinci);
-        Property p = new Property("parent", null, null, "uri", "fr");
-        ws.RemoveEntityProperty(leonard, p, amboise);
+        //Property p = new Property("parent", null, null, "uri", "fr");
+        //ws.RemoveEntityProperty(leonard, p, amboise);
 
         System.out.println("URI leonard : " + leonard.getURI());
         joconde = ws.GetEntity(joconde);
@@ -291,7 +322,7 @@ public class TestWS {
             jocondeDB.setURI("http://dbpedia.org/resource/Mona_Lisa");
             
             Entity amboiseDB = new Entity();
-            amboiseDB.setURI("http://dbpedia.org/resource/Amboise");
+            amboiseDB.setURI("http://dbpedia.org/resource/Italy");
             
 //            jocondeDB.constructEntity();
             
