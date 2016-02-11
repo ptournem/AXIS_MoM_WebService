@@ -7,14 +7,14 @@
         
         
         
-        <link rel="shortcut icon" href="./img/favicon.ico">
+        <link rel="shortcut icon" href="../img/favicon.ico">
 
-	<title>AXIS-MOM Web Service</title>
+	<title>Dépendances - AXIS-MOM Web Service</title>
 
-        <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="./css/font-awesome-4.5.0.css" rel="stylesheet">
-        <link href="./css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="./css/highlight.css">
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -25,7 +25,7 @@
         
     </head>
 
-    <body class="homepage">
+    <body>
 
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -43,7 +43,7 @@
             
 
             <!-- Main title -->
-            <a class="navbar-brand" href=".">AXIS-MOM Web Service</a>
+            <a class="navbar-brand" href="..">AXIS-MOM Web Service</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -53,26 +53,26 @@
                 <ul class="nav navbar-nav">
                 
                 
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../installation/">Installation</a>
+                    </li>
+                
+                
+                
                     <li class="active">
-                        <a href=".">Home</a>
+                        <a href="./">Dépendances</a>
                     </li>
                 
                 
                 
                     <li >
-                        <a href="installation/">Installation</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="Dependances/">Dépendances</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="javadoc/">JavaDoc</a>
+                        <a href="../javadoc/">JavaDoc</a>
                     </li>
                 
                 
@@ -86,13 +86,13 @@
                     </a>
                 </li>
                 
-                    <li class="disabled">
-                        <a rel="next" >
+                    <li >
+                        <a rel="next" href="../installation/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="installation/">
+                        <a rel="prev" href="../javadoc/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -117,55 +117,33 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#application-axis-mom-web-service">Application AXIS-MOM - Web Service</a></li>
+        <li class="main active"><a href="#dependances">Dépendances</a></li>
         
-            <li><a href="#1-presentation-du-projet">1. Présentation du projet</a></li>
+            <li><a href="#1-java-8">1. Java 8</a></li>
         
-            <li><a href="#2-contexte-enjeux-et-objectifs-du-projet">2. Contexte, enjeux, et objectifs du projet</a></li>
+            <li><a href="#2-apache-jena">2. Apache Jena</a></li>
         
-            <li><a href="#3-composition-du-projet">3. Composition du projet</a></li>
+            <li><a href="#3-apache-jena-fuseki">3. Apache Jena Fuseki</a></li>
+        
+            <li><a href="#4-dbpedia">4. DbPedia</a></li>
         
     
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="application-axis-mom-web-service">Application AXIS-MOM - Web Service</h1>
-<h2 id="1-presentation-du-projet">1. Présentation du projet</h2>
-<p>Application développée par le Groupe LookOut en 5ième année à l'IG2I en collaboration avec l'<a href="http://www.titan.be">ASBL Titan</a> et la société <a href="http://www.titemaisonproduction.com/">TiteMaison Production</a></p>
-<p>Groupe Lookout :</p>
-<ul>
-<li>Loan Nguyen - Chef de Projet - <a href="mailto:loan.nguyen@ig2i.fr">loan.nguyen@ig2i.fr</a></li>
-<li>Haton Corentin - Responsable Qualité - <a href="mailto:haton.corentin@ig2i.fr">haton.corentin@ig2i.fr</a></li>
-<li>Paul Tournemaine - Responsable Technique - <a href="mailto:paul.tournemaie@ig2i.fr">paul.tournemaie@ig2i.fr</a></li>
-<li>Mélanie Bailleul - Responsable Communication - <a href="mailto:melanie.bailleul@ig2i.fr">melanie.bailleul@ig2i.fr</a></li>
-<li>Robin Siematkowski - Responsable Fonctionnel - <a href="mailto:robin.siematkowski@ig2i.fr">robin.siematkowski@ig2i.fr</a></li>
-<li>Riad Belmahi - Consultant Technique - <a href="mailto:riad.belmahi@ig2i.fr">riad.belmahi@ig2i.fr</a></li>
-</ul>
-<h2 id="2-contexte-enjeux-et-objectifs-du-projet">2. Contexte, enjeux, et objectifs du projet</h2>
-<p>Bien que les nouvelles technologies offres de plus en plus de possibilités, celle-ci restent peu utilisées dans de nombreux domaines. </p>
-<p>L'ASBL Titan à crée un modèle sémantique permettant de représenter le monde qui nous entoure. </p>
-<p>Le but de ce projet, qui est un POC, est donc de l'implémenter pour prouver son employabilité dans un projet concret.</p>
-<p>C'est pourquoi, le monde muséal a été choisi comme point de départ et comme sujet pour cette application. </p>
-<h2 id="3-composition-du-projet">3. Composition du projet</h2>
-<p>Le projet est découpé en deux applications : </p>
-<ul>
-<li>Une application web</li>
-<li>Un web service </li>
-</ul>
-<h3 id="31-le-web-service">3.1 Le Web Service</h3>
-<p>Le but du web service est de proposer des fonctions sémantiques pour que les clients du web service puissent créer une interface graphique facilement. 
-Les actions permises via le web service sont donc :</p>
-<ul>
-<li>L'ajout d'entité la base de données </li>
-<li>La récupération des entités</li>
-<li>L'ajout de propriétés aux entités </li>
-<li>La suppression d'entités</li>
-</ul>
-<h3 id="32-lapplication-web">3.2 L'application Web</h3>
-<p>Le but de l'application web est de rentre transparent à l'utilisateur l'accès au données stockées sémantiquement mais aussi de permettre aux administrateur de l'application 
-d'ajouter et de modérer les entités stockées dans le système.</p>
-<p>Vous pouvez retrouver la documentation sur le site web à cette adresse : <a href="http://ptournem.github.io/AXIS_MoM_WebSite">http://ptournem.github.io/AXIS_MoM_WebSite</a></p></div>
+<h1 id="dependances">Dépendances</h1>
+<h2 id="1-java-8">1. Java 8</h2>
+<p>Pour fonctionner, l'application nécessite une version de Java supérieure ou égale à 8.</p>
+<h2 id="2-apache-jena">2. Apache Jena</h2>
+<p>Pour fonctionner, l'application nécessite les librairies fournies par Apache Jena. </p>
+<p>Vous pouvez télécharger Apache Jena à cette adresse : <a href="https://jena.apache.org/download/">https://jena.apache.org/download/</a></p>
+<h2 id="3-apache-jena-fuseki">3. Apache Jena Fuseki</h2>
+<p>Pour fonctionner l'application nécessite d'avoir accès à un serveur Apache Jena Fuseki</p>
+<p>Vous pouvez télécharger Apache Jena Fuseki à cette adresse : <a href="https://jena.apache.org/download/">https://jena.apache.org/download/</a></p>
+<h2 id="4-dbpedia">4. DbPedia</h2>
+<p>Pour fonctionner, l'application nécessaite d'avoir accès à DbPedia. </p>
+<p>Pour cela, vérifier dont que DbPedia est accessible depuis la machine hébergeant le web service. </p></div>
             
         </div>
 
@@ -175,12 +153,12 @@ d'ajouter et de modérer les entités stockées dans le système.</p>
             <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
 
-        <script src="./js/jquery-1.10.2.min.js"></script>
-        <script src="./js/bootstrap-3.0.3.min.js"></script>
-        <script src="./js/highlight.pack.js"></script>
-        <script>var base_url = '.';</script>
-        <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
-        <script src="./js/base.js"></script>
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
             <div class="modal-dialog">
@@ -209,8 +187,3 @@ d'ajouter et de modérer les entités stockées dans le système.</p>
 
     </body>
 </html>
-
-<!--
-MkDocs version : 0.15.1
-Build Date UTC : 2016-02-11 17:16:00.999072
--->
