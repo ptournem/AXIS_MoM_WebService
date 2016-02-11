@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/",
-            "text": "Application AXIS-MOM - Web Service\n\n\n1. Pr\u00e9sentation du projet\n\n\nApplication d\u00e9velopp\u00e9e par le Groupe LookOut en 5i\u00e8me ann\u00e9e \u00e0 l'IG2I en collaboration avec l'\nASBL Titan\n et la soci\u00e9t\u00e9 \nTiteMaison Production\n\n\nGroupe Lookout :\n\n\n\n\nLoan Nguyen - Chef de Projet - \nloan.nguyen@ig2i.fr\n\n\nHaton Corentin - Responsable Qualit\u00e9 - \nhaton.corentin@ig2i.fr\n\n\nPaul Tournemaine - Responsable Technique - \npaul.tournemaie@ig2i.fr\n\n\nM\u00e9lanie Bailleul - Responsable Communication - \nmelanie.bailleul@ig2i.fr\n\n\nRobin Siematkowski - Responsable Fonctionnel - \nrobin.siematkowski@ig2i.fr\n\n\nRiad Belmahi - Consultant Technique - \nriad.belmahi@ig2i.fr\n\n\n\n\n2. Contexte, enjeux, et objectifs du projet\n\n\nBien que les nouvelles technologies offres de plus en plus de possibilit\u00e9s, celle-ci restent peu utilis\u00e9es dans de nombreux domaines. \n\n\nL'ASBL Titan \u00e0 cr\u00e9e un mod\u00e8le s\u00e9mantique permettant de repr\u00e9senter le monde qui nous entoure. \n\n\nLe but de ce projet, qui est un POC, est donc de l'impl\u00e9menter pour prouver son employabilit\u00e9 dans un projet concret.\n\n\nC'est pourquoi, le monde mus\u00e9al a \u00e9t\u00e9 choisi comme point de d\u00e9part et comme sujet pour cette application. \n\n\n3. Composition du projet\n\n\nLe projet est d\u00e9coup\u00e9 en deux applications : \n\n\n\n\nUne application web\n\n\nUn web service \n\n\n\n\n3.1 Le Web Service\n\n\nLe but du web service est de proposer des fonctions s\u00e9mantiques pour que les clients du web service puissent cr\u00e9er une interface graphique facilement. \nLes actions permises via le web service sont donc :\n\n\n\n\nL'ajout d'entit\u00e9 la base de donn\u00e9es \n\n\nLa r\u00e9cup\u00e9ration des entit\u00e9s\n\n\nL'ajout de propri\u00e9t\u00e9s aux entit\u00e9s \n\n\nLa suppression d'entit\u00e9s\n\n\n\n\n3.2 L'application Web\n\n\nLe but de l'application web est de rentre transparent \u00e0 l'utilisateur l'acc\u00e8s au donn\u00e9es stock\u00e9es s\u00e9mantiquement mais aussi de permettre aux administrateur de l'application \nd'ajouter et de mod\u00e9rer les entit\u00e9s stock\u00e9es dans le syst\u00e8me.\n\n\nVous pouvez retrouver la documentation sur le site web \u00e0 cette adresse : \nhttp://ptournem.github.io/AXIS_MoM_WebSite",
+            "text": "Application AXIS-MOM - Web Service\n\n\n1. Pr\u00e9sentation du projet\n\n\nApplication d\u00e9velopp\u00e9e par le Groupe LookOut en 5e ann\u00e9e \u00e0 l\u2019IG2I en collaboration avec l\u2019\nASBL Titan\n et la soci\u00e9t\u00e9 \nTiteMaison Production\n\n\nGroupe Lookout :\n\n\n\n\nLoan Nguyen - Chef de Projet - \nloan.nguyen@ig2i.fr\n\n\nHaton Corentin - Responsable Qualit\u00e9 - \nhaton.corentin@ig2i.fr\n\n\nPaul Tournemaine - Responsable Technique - \npaul.tournemaie@ig2i.fr\n\n\nM\u00e9lanie Bailleul - Responsable Communication - \nmelanie.bailleul@ig2i.fr\n\n\nRobin Siematkowski - Responsable Fonctionnel - \nrobin.siematkowski@ig2i.fr\n\n\nRiad Belmahi - Consultant Technique - \nriad.belmahi@ig2i.fr\n\n\n\n\n2. Contexte, enjeux, et objectifs du projet\n\n\nBien que les nouvelles technologies offrent de plus en plus de possibilit\u00e9s, celles-ci restent peu utilis\u00e9es dans de nombreux domaines. \n\n\nL\u2019ASBL Titan a cr\u00e9\u00e9 un mod\u00e8le s\u00e9mantique permettant de repr\u00e9senter le monde qui nous entoure. \n\n\nLe but de ce projet, qui est un POC, est donc de l\u2019impl\u00e9menter pour prouver son employabilit\u00e9 dans un projet concret.\n\n\nC\u2019est pourquoi le monde mus\u00e9al a \u00e9t\u00e9 choisi comme point de d\u00e9part et comme sujet pour cette application. \n\n\n3. Composition du projet\n\n\nLe projet est d\u00e9coup\u00e9 en deux applications : \n\n\n\n\nUne application web\n\n\nUn web service \n\n\n\n\n3.1 Le Web Service\n\n\nLe but du web service est de proposer des fonctions s\u00e9mantiques pour que les clients du web service puissent cr\u00e9er une interface graphique facilement. \nLes actions permises via le web service sont donc :\n\n\n\n\nL\u2019ajout d\u2019entit\u00e9 la base de donn\u00e9es \n\n\nLa r\u00e9cup\u00e9ration des entit\u00e9s\n\n\nL\u2019ajout de propri\u00e9t\u00e9s aux entit\u00e9s \n\n\nLa suppression d\u2019entit\u00e9s\n\n\n\n\n3.2 L\u2019application Web\n\n\nLe but de l\u2019application web est de rentre transparent \u00e0 l\u2019utilisateur l\u2019acc\u00e8s aux donn\u00e9es stock\u00e9es s\u00e9mantiquement, mais aussi de permettre aux administrateurs de l\u2019application \nd\u2019ajouter et de mod\u00e9rer les entit\u00e9s stock\u00e9es dans le syst\u00e8me.\n\n\nVous pouvez retrouver la documentation sur le site web \u00e0 cette adresse : \nhttp://ptournem.github.io/AXIS_MoM_WebSite",
             "title": "Home"
         },
         {
@@ -12,12 +12,12 @@
         },
         {
             "location": "/#1-presentation-du-projet",
-            "text": "Application d\u00e9velopp\u00e9e par le Groupe LookOut en 5i\u00e8me ann\u00e9e \u00e0 l'IG2I en collaboration avec l' ASBL Titan  et la soci\u00e9t\u00e9  TiteMaison Production  Groupe Lookout :   Loan Nguyen - Chef de Projet -  loan.nguyen@ig2i.fr  Haton Corentin - Responsable Qualit\u00e9 -  haton.corentin@ig2i.fr  Paul Tournemaine - Responsable Technique -  paul.tournemaie@ig2i.fr  M\u00e9lanie Bailleul - Responsable Communication -  melanie.bailleul@ig2i.fr  Robin Siematkowski - Responsable Fonctionnel -  robin.siematkowski@ig2i.fr  Riad Belmahi - Consultant Technique -  riad.belmahi@ig2i.fr",
+            "text": "Application d\u00e9velopp\u00e9e par le Groupe LookOut en 5e ann\u00e9e \u00e0 l\u2019IG2I en collaboration avec l\u2019 ASBL Titan  et la soci\u00e9t\u00e9  TiteMaison Production  Groupe Lookout :   Loan Nguyen - Chef de Projet -  loan.nguyen@ig2i.fr  Haton Corentin - Responsable Qualit\u00e9 -  haton.corentin@ig2i.fr  Paul Tournemaine - Responsable Technique -  paul.tournemaie@ig2i.fr  M\u00e9lanie Bailleul - Responsable Communication -  melanie.bailleul@ig2i.fr  Robin Siematkowski - Responsable Fonctionnel -  robin.siematkowski@ig2i.fr  Riad Belmahi - Consultant Technique -  riad.belmahi@ig2i.fr",
             "title": "1. Pr\u00e9sentation du projet"
         },
         {
             "location": "/#2-contexte-enjeux-et-objectifs-du-projet",
-            "text": "Bien que les nouvelles technologies offres de plus en plus de possibilit\u00e9s, celle-ci restent peu utilis\u00e9es dans de nombreux domaines.   L'ASBL Titan \u00e0 cr\u00e9e un mod\u00e8le s\u00e9mantique permettant de repr\u00e9senter le monde qui nous entoure.   Le but de ce projet, qui est un POC, est donc de l'impl\u00e9menter pour prouver son employabilit\u00e9 dans un projet concret.  C'est pourquoi, le monde mus\u00e9al a \u00e9t\u00e9 choisi comme point de d\u00e9part et comme sujet pour cette application.",
+            "text": "Bien que les nouvelles technologies offrent de plus en plus de possibilit\u00e9s, celles-ci restent peu utilis\u00e9es dans de nombreux domaines.   L\u2019ASBL Titan a cr\u00e9\u00e9 un mod\u00e8le s\u00e9mantique permettant de repr\u00e9senter le monde qui nous entoure.   Le but de ce projet, qui est un POC, est donc de l\u2019impl\u00e9menter pour prouver son employabilit\u00e9 dans un projet concret.  C\u2019est pourquoi le monde mus\u00e9al a \u00e9t\u00e9 choisi comme point de d\u00e9part et comme sujet pour cette application.",
             "title": "2. Contexte, enjeux, et objectifs du projet"
         },
         {
@@ -27,37 +27,37 @@
         },
         {
             "location": "/#31-le-web-service",
-            "text": "Le but du web service est de proposer des fonctions s\u00e9mantiques pour que les clients du web service puissent cr\u00e9er une interface graphique facilement. \nLes actions permises via le web service sont donc :   L'ajout d'entit\u00e9 la base de donn\u00e9es   La r\u00e9cup\u00e9ration des entit\u00e9s  L'ajout de propri\u00e9t\u00e9s aux entit\u00e9s   La suppression d'entit\u00e9s",
+            "text": "Le but du web service est de proposer des fonctions s\u00e9mantiques pour que les clients du web service puissent cr\u00e9er une interface graphique facilement. \nLes actions permises via le web service sont donc :   L\u2019ajout d\u2019entit\u00e9 la base de donn\u00e9es   La r\u00e9cup\u00e9ration des entit\u00e9s  L\u2019ajout de propri\u00e9t\u00e9s aux entit\u00e9s   La suppression d\u2019entit\u00e9s",
             "title": "3.1 Le Web Service"
         },
         {
             "location": "/#32-lapplication-web",
-            "text": "Le but de l'application web est de rentre transparent \u00e0 l'utilisateur l'acc\u00e8s au donn\u00e9es stock\u00e9es s\u00e9mantiquement mais aussi de permettre aux administrateur de l'application \nd'ajouter et de mod\u00e9rer les entit\u00e9s stock\u00e9es dans le syst\u00e8me.  Vous pouvez retrouver la documentation sur le site web \u00e0 cette adresse :  http://ptournem.github.io/AXIS_MoM_WebSite",
-            "title": "3.2 L'application Web"
+            "text": "Le but de l\u2019application web est de rentre transparent \u00e0 l\u2019utilisateur l\u2019acc\u00e8s aux donn\u00e9es stock\u00e9es s\u00e9mantiquement, mais aussi de permettre aux administrateurs de l\u2019application \nd\u2019ajouter et de mod\u00e9rer les entit\u00e9s stock\u00e9es dans le syst\u00e8me.  Vous pouvez retrouver la documentation sur le site web \u00e0 cette adresse :  http://ptournem.github.io/AXIS_MoM_WebSite",
+            "title": "3.2 L\u2019application Web"
         },
         {
             "location": "/installation/",
-            "text": "Installation de l'application\n\n\n1. Pr\u00e9requis\n\n\nLa machine h\u00e9bergeant le web service doit avoir : \n\n\n\n\nJava 8 ou sup\u00e9rieur\n\n\nUn serveur Java applicatif : Glassfish 4.1.1 ou sup\u00e9rieur de pr\u00e9f\u00e9rence, ou TomCat\n\n\nUn acc\u00e8s au serveur Apache Jena Fuseki h\u00e9bergeant la base de donn\u00e9es s\u00e9mantique dans le dataset \n/ds\n\n\n\n\nAucune version compil\u00e9e n'est fourni dans le repository, il vous faudra donc NetBeans pour compiler l'application. \n\n\n2. Installation\n\n\nUne fois que vous aurez compil\u00e9 l'application, connectez-vous \u00e0 l'interface d'administration de votre serveur Glassfish ou Tomcat \net d\u00e9ployez le fichier \n.war\n g\u00e9n\u00e9r\u00e9 lors de la compilation.\n\n\nV\u00e9rifier que vous avez acc\u00e8s \u00e0 l'application et r\u00e9cup\u00e9rer l'adresse du wsdl qui devrait \u00eatre:\n\n\n<adresse_de_votre_serveur>:<port_du_serveur>/AXIS_MoM_WS?wsdl\n\n\nIl vous faudra utiliser cette adresse lors de la configuration de l'application web.",
+            "text": "Installation de l\u2019application\n\n\n1. Pr\u00e9requis\n\n\nLa machine h\u00e9bergeant le web service doit avoir : \n\n\n\n\nJava 8 ou sup\u00e9rieur\n\n\nUn serveur Java applicatif : Glassfish 4.1.1 ou sup\u00e9rieur de pr\u00e9f\u00e9rence, ou TomCat\n\n\nUn acc\u00e8s au serveur Apache Jena Fuseki h\u00e9bergeant la base de donn\u00e9es s\u00e9mantique dans le dataset \n/ds\n\n\n\n\nAucune version compil\u00e9e n\u2019est fournie dans le repository, il vous faudra donc NetBeans pour compiler l\u2019application. \n\n\n2. Installation\n\n\nUne fois que vous aurez compil\u00e9 l\u2019application, connectez-vous \u00e0 l\u2019interface d\u2019administration de votre serveur Glassfish ou Tomcat \net d\u00e9ployez le fichier \n.war\n g\u00e9n\u00e9r\u00e9 lors de la compilation.\n\n\nV\u00e9rifier que vous avez acc\u00e8s \u00e0 l\u2019application et r\u00e9cup\u00e9rer l\u2019adresse du wsdl qui devrait \u00eatre :\n\n\n<adresse_de_votre_serveur>:<port_du_serveur>/AXIS_MoM_WS?wsdl\n\n\nIl vous faudra utiliser cette adresse lors de la configuration de l\u2019application web.",
             "title": "Installation"
         },
         {
             "location": "/installation/#installation-de-lapplication",
             "text": "",
-            "title": "Installation de l'application"
+            "title": "Installation de l\u2019application"
         },
         {
             "location": "/installation/#1-prerequis",
-            "text": "La machine h\u00e9bergeant le web service doit avoir :    Java 8 ou sup\u00e9rieur  Un serveur Java applicatif : Glassfish 4.1.1 ou sup\u00e9rieur de pr\u00e9f\u00e9rence, ou TomCat  Un acc\u00e8s au serveur Apache Jena Fuseki h\u00e9bergeant la base de donn\u00e9es s\u00e9mantique dans le dataset  /ds   Aucune version compil\u00e9e n'est fourni dans le repository, il vous faudra donc NetBeans pour compiler l'application.",
+            "text": "La machine h\u00e9bergeant le web service doit avoir :    Java 8 ou sup\u00e9rieur  Un serveur Java applicatif : Glassfish 4.1.1 ou sup\u00e9rieur de pr\u00e9f\u00e9rence, ou TomCat  Un acc\u00e8s au serveur Apache Jena Fuseki h\u00e9bergeant la base de donn\u00e9es s\u00e9mantique dans le dataset  /ds   Aucune version compil\u00e9e n\u2019est fournie dans le repository, il vous faudra donc NetBeans pour compiler l\u2019application.",
             "title": "1. Pr\u00e9requis"
         },
         {
             "location": "/installation/#2-installation",
-            "text": "Une fois que vous aurez compil\u00e9 l'application, connectez-vous \u00e0 l'interface d'administration de votre serveur Glassfish ou Tomcat \net d\u00e9ployez le fichier  .war  g\u00e9n\u00e9r\u00e9 lors de la compilation.  V\u00e9rifier que vous avez acc\u00e8s \u00e0 l'application et r\u00e9cup\u00e9rer l'adresse du wsdl qui devrait \u00eatre:  <adresse_de_votre_serveur>:<port_du_serveur>/AXIS_MoM_WS?wsdl  Il vous faudra utiliser cette adresse lors de la configuration de l'application web.",
+            "text": "Une fois que vous aurez compil\u00e9 l\u2019application, connectez-vous \u00e0 l\u2019interface d\u2019administration de votre serveur Glassfish ou Tomcat \net d\u00e9ployez le fichier  .war  g\u00e9n\u00e9r\u00e9 lors de la compilation.  V\u00e9rifier que vous avez acc\u00e8s \u00e0 l\u2019application et r\u00e9cup\u00e9rer l\u2019adresse du wsdl qui devrait \u00eatre :  <adresse_de_votre_serveur>:<port_du_serveur>/AXIS_MoM_WS?wsdl  Il vous faudra utiliser cette adresse lors de la configuration de l\u2019application web.",
             "title": "2. Installation"
         },
         {
             "location": "/Dependances/",
-            "text": "D\u00e9pendances\n\n\n1. Java 8\n\n\nPour fonctionner, l'application n\u00e9cessite une version de Java sup\u00e9rieure ou \u00e9gale \u00e0 8.\n\n\n2. Apache Jena\n\n\nPour fonctionner, l'application n\u00e9cessite les librairies fournies par Apache Jena. \n\n\nVous pouvez t\u00e9l\u00e9charger Apache Jena \u00e0 cette adresse : \nhttps://jena.apache.org/download/\n\n\n3. Apache Jena Fuseki\n\n\nPour fonctionner l'application n\u00e9cessite d'avoir acc\u00e8s \u00e0 un serveur Apache Jena Fuseki\n\n\nVous pouvez t\u00e9l\u00e9charger Apache Jena Fuseki \u00e0 cette adresse : \nhttps://jena.apache.org/download/\n\n\n4. DbPedia\n\n\nPour fonctionner, l'application n\u00e9cessaite d'avoir acc\u00e8s \u00e0 DbPedia. \n\n\nPour cela, v\u00e9rifier dont que DbPedia est accessible depuis la machine h\u00e9bergeant le web service.",
+            "text": "D\u00e9pendances\n\n\n1. Java 8\n\n\nPour fonctionner, l\u2019application n\u00e9cessite une version de Java sup\u00e9rieure ou \u00e9gale \u00e0 8.\n\n\n2. Apache Jena\n\n\nPour fonctionner, l\u2019application n\u00e9cessite les librairies fournies par Apache Jena. \n\n\nVous pouvez t\u00e9l\u00e9charger Apache Jena \u00e0 cette adresse : \nhttps://jena.apache.org/download/\n\n\n3. Apache Jena Fuseki\n\n\nPour fonctionner, l\u2019application n\u00e9cessite d\u2019avoir acc\u00e8s \u00e0 un serveur Apache Jena Fuseki\n\n\nVous pouvez t\u00e9l\u00e9charger Apache Jena Fuseki \u00e0 cette adresse : \nhttps://jena.apache.org/download/\n\n\n4. DbPedia\n\n\nPour fonctionner, l\u2019application n\u00e9cessite d\u2019avoir acc\u00e8s \u00e0 DbPedia. \n\n\nPour cela, v\u00e9rifier dont que DbPedia est accessible depuis la machine h\u00e9bergeant le web service.",
             "title": "D\u00e9pendances"
         },
         {
@@ -67,22 +67,22 @@
         },
         {
             "location": "/Dependances/#1-java-8",
-            "text": "Pour fonctionner, l'application n\u00e9cessite une version de Java sup\u00e9rieure ou \u00e9gale \u00e0 8.",
+            "text": "Pour fonctionner, l\u2019application n\u00e9cessite une version de Java sup\u00e9rieure ou \u00e9gale \u00e0 8.",
             "title": "1. Java 8"
         },
         {
             "location": "/Dependances/#2-apache-jena",
-            "text": "Pour fonctionner, l'application n\u00e9cessite les librairies fournies par Apache Jena.   Vous pouvez t\u00e9l\u00e9charger Apache Jena \u00e0 cette adresse :  https://jena.apache.org/download/",
+            "text": "Pour fonctionner, l\u2019application n\u00e9cessite les librairies fournies par Apache Jena.   Vous pouvez t\u00e9l\u00e9charger Apache Jena \u00e0 cette adresse :  https://jena.apache.org/download/",
             "title": "2. Apache Jena"
         },
         {
             "location": "/Dependances/#3-apache-jena-fuseki",
-            "text": "Pour fonctionner l'application n\u00e9cessite d'avoir acc\u00e8s \u00e0 un serveur Apache Jena Fuseki  Vous pouvez t\u00e9l\u00e9charger Apache Jena Fuseki \u00e0 cette adresse :  https://jena.apache.org/download/",
+            "text": "Pour fonctionner, l\u2019application n\u00e9cessite d\u2019avoir acc\u00e8s \u00e0 un serveur Apache Jena Fuseki  Vous pouvez t\u00e9l\u00e9charger Apache Jena Fuseki \u00e0 cette adresse :  https://jena.apache.org/download/",
             "title": "3. Apache Jena Fuseki"
         },
         {
             "location": "/Dependances/#4-dbpedia",
-            "text": "Pour fonctionner, l'application n\u00e9cessaite d'avoir acc\u00e8s \u00e0 DbPedia.   Pour cela, v\u00e9rifier dont que DbPedia est accessible depuis la machine h\u00e9bergeant le web service.",
+            "text": "Pour fonctionner, l\u2019application n\u00e9cessite d\u2019avoir acc\u00e8s \u00e0 DbPedia.   Pour cela, v\u00e9rifier dont que DbPedia est accessible depuis la machine h\u00e9bergeant le web service.",
             "title": "4. DbPedia"
         },
         {
